@@ -4,7 +4,7 @@
 }
 
 
-.ivu-menu-submenu.ivu-menu-opened .ivu-menu-submenu-title,.ivu-menu-submenu .ivu-menu-submenu-title:hover,.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu){
+.ivu-menu-submenu.ivu-menu-opened .ivu-menu-submenu-title,.ivu-menu-submenu .ivu-menu-submenu-title:hover,.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu),.ivu-menu-item:hover{
   background: $menuSelectColror!important;
   color: $menuSelectFontColor!important;
 }

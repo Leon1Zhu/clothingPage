@@ -3,7 +3,9 @@
   <Row type="flex">
     <Col :span="spanLeft" class="layout-menu-left">
     <Menu active-name="1" theme="dark" width="auto" :accordion="accordion">
-      <div class="layout-logo-left"></div>
+      <div class="layout-logo-left">
+        <img src="../../../static/favicon.ico">
+      </div>
       <Submenu name="1">
         <template slot="title">
           <Icon type="ios-navigate"></Icon>
@@ -29,10 +31,6 @@
         <MenuItem name="3-1">Option 1</MenuItem>
         <MenuItem name="3-2">Option 2</MenuItem>
       </Submenu>
-      <MenuItem name="4">
-        <Icon type="ios-navigate" :size="iconSize"></Icon>
-        <span class="layout-text">Option 1</span>
-      </MenuItem>
     </Menu>
     </Col>
     <Col :span="spanRight">
@@ -42,7 +40,9 @@
       </Button>
     </div>
     <div class="layout-content">
-      <div class="layout-content-main">Content</div>
+      <div class="layout-content-main">
+        <router-view></router-view>
+      </div>
     </div>
     <div class="layout-copy">
       2011-2016 &copy; TalkingData
