@@ -1,0 +1,15 @@
+@import "./globalscss";
+.ivu-menu.ivu-menu-dark.ivu-menu-vertical li{
+  text-align: center;
+}
+
+
+.ivu-menu-submenu.ivu-menu-opened .ivu-menu-submenu-title,.ivu-menu-submenu .ivu-menu-submenu-title:hover,.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu){
+  background: $menuSelectColror!important;
+  color: $menuSelectFontColor!important;
+}
+.ivu-menu-dark.ivu-menu-vertical .ivu-menu-opened .ivu-menu-item:hover,.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item-active:hover{
+  background: $menuHoverBackgroundColor!important;
+  color: $menuSelectFontColor!important;
+}
+
