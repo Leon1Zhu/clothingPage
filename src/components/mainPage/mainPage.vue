@@ -4,7 +4,7 @@
     <Col :span="spanLeft" class="layout-menu-left">
     <Menu active-name="1" theme="dark" width="auto" :accordion="accordion">
       <div class="layout-logo-left">
-        <img src="../../../static/favicon.ico">
+       <!-- <img class="fire-cow" src="../../assets/logo.png">-->
       </div>
       <Submenu name="1">
         <template slot="title">
@@ -119,9 +119,10 @@
   .layout-logo-left{
     width: 90%;
     height: 30px;
-    background: #5b6270;
     border-radius: 3px;
     margin: 15px auto;
+    background: url("../../assets/logo.png") no-repeat;
+    background-size: cover;
   }
   .layout-ceiling-main a{
     color: #9ba7b5;
