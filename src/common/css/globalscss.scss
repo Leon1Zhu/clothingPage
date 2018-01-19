@@ -1,13 +1,23 @@
 //此scss用来定义全局变量以及全局的scss方法
 
+//菜单文本颜色
+$menuFontColor:rgba(255,255,255,.8)!default;
+
 //菜单选中文本颜色
 $menuSelectFontColor: #65cea7!default;
 
 //菜单选中文本框的背景色
-$menuSelectColror: #353f4f!default;
+$menuSelectColror:rgba(0,0,0,.3)!default;
 
 //菜单hover背景色
-$menuHoverBackgroundColor: #23323f!default;
+$menuHoverBackgroundColor:rgba(0,0,0,.2)!default;
+
+//菜单背景色
+$menuBackgroundColor:#3a4658!default;
+
+//菜单背景渐变色
+$menuStartColor:#465f5c!default;
+$menuEndColor:rgba(71,130,124,1)!default;
 
 
 

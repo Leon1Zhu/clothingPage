@@ -2,6 +2,7 @@
  * Created by zhuliang on 2017/5/3.
  */
 import Vue from 'vue'
+import './globalFun'
 Vue.filter( 'filterTopNewsData' , function(value,discount) {
   if(value=="" || value==null)
     return "";
@@ -9,6 +10,7 @@ Vue.filter( 'filterTopNewsData' , function(value,discount) {
     return value.substring(5,10)
   }
 });
+
 
 Date.prototype.Format = function (fmt) { //author: meizz
   var o = {

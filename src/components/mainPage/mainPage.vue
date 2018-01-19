@@ -2,11 +2,27 @@
   <div  id="mainpage"  class="layout" :class="{'layout-hide-text': spanLeft < 5}">
   <Row type="flex">
     <Col :span="spanLeft" class="layout-menu-left">
-    <Menu active-name="1" theme="dark" width="auto" :accordion="accordion">
+    <Menu active-name="1" themem="dark" width="auto" :accordion="accordion">
       <div class="layout-logo-left">
-       <!-- <img class="fire-cow" src="../../assets/logo.png">-->
+        <img class="fire-cow" src="../../assets/logo.png">
       </div>
-      <Submenu name="1">
+      <div class="fire-cow-menu" v-for="(menuItem,index) in menu">
+        <Submenu :name="index" v-if="menuItem.hasChild">
+          <template slot="title">
+            <i  v-if="!ISNULL(menuItem.menuIcon)" class="iconfont " :class=" menuItem.menuIcon"></i>
+             {{menuItem.menuName}}
+          </template>
+          <MenuItem   v-for="(childrenItem,indexChildrenT) in menuItem.childMenuList" :name="index+'-'+indexChildrenT">
+            <i  v-if="!ISNULL(menuItem.menuIcon)" class="iconfont " :class=" childrenItem.menuIcon"></i>
+            <span>{{childrenItem.menuName}}</span>
+          </MenuItem>
+        </Submenu>
+        <MenuItem :name="index" v-else>
+          <i  v-if="!ISNULL(menuItem.menuIcon)" class="iconfont " :class=" menuItem.menuIcon"></i>
+          <span>{{menuItem.menuName}}</span>
+        </MenuItem>
+      </div>
+      <!--<Submenu name="1">
         <template slot="title">
           <Icon type="ios-navigate"></Icon>
           Item 1
@@ -30,7 +46,7 @@
         </template>
         <MenuItem name="3-1">Option 1</MenuItem>
         <MenuItem name="3-2">Option 2</MenuItem>
-      </Submenu>
+      </Submenu>-->
     </Menu>
     </Col>
     <Col :span="spanRight">
@@ -44,44 +60,47 @@
         <router-view></router-view>
       </div>
     </div>
-    <div class="layout-copy">
+    <!--<div class="layout-copy">
       2011-2016 &copy; TalkingData
-    </div>
+    </div>-->
     </Col>
   </Row>
   </div>
 </template>
 
 <script>
-
+  import '../../menu'
     export default{
       data () {
         return {
-          spanLeft: 5,
-          spanRight: 19,
-          accordion:true
+          spanLeft: 4,
+          spanRight: 20,
+          accordion:true,
+          menu:MENU
         }
       },
       computed: {
         iconSize () {
-          return this.spanLeft === 5 ? 14 : 24;
+          return this.spanLeft === 4 ? 14 : 24;
         }
       },
       methods: {
         toggleClick () {
-          if (this.spanLeft === 5) {
+          if (this.spanLeft === 4) {
             this.spanLeft = 2;
             this.spanRight = 22;
           } else {
-            this.spanLeft = 5;
-            this.spanRight = 19;
+            this.spanLeft = 4;
+            this.spanRight = 20;
           }
-        }
+        },
+        ISNULL : ISNULL
       }
     }
 </script>
 
-<style scoped>
+<style lang="scss" rel="stylesheet/scss">
+  @import '../../common/css/globalscss.scss';
   .layout{
     border: 1px solid #d7dde4;
     background: #f5f7f9;
@@ -113,16 +132,14 @@
   }
   .layout-header{
     height: 60px;
+   /*background: radial-gradient(at 50% 50%,#509e95,#487772);*/
     background: #fff;
-    box-shadow: 0 1px 1px rgba(0,0,0,.1);
   }
   .layout-logo-left{
     width: 90%;
-    height: 30px;
+    height: 40px;
     border-radius: 3px;
-    margin: 15px auto;
-    background: url("../../assets/logo.png") no-repeat;
-    background-size: cover;
+    margin:5px 5% 15px 5%;
   }
   .layout-ceiling-main a{
     color: #9ba7b5;
@@ -132,5 +149,12 @@
   }
   .ivu-col{
     transition: width .2s ease;
+  }
+ /* .ivu-btn.ivu-btn-text{
+    color:$menuFontColor;
+  }*/
+  .fire-cow{
+    height:40px;
+    width:100%;
   }
 </style>

@@ -7,8 +7,8 @@ import 'iview/dist/styles/iview.css';
 import './common/css/reset.css'
 import './filter'
 import './common/css/style.scss'
-import './globalFun'
 import './common/css/resetIview.scss';
+import './common/css/iconFont.scss'
 Vue.config.productionTip = false
 Vue.use(iView);
 /* eslint-disable no-new */

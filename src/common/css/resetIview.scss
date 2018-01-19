@@ -3,13 +3,31 @@
   text-align: center;
 }
 
+.ivu-menu-submenum,.ivu-menu{
+  color: $menuFontColor;
+}
 
-.ivu-menu-submenu.ivu-menu-opened .ivu-menu-submenu-title,.ivu-menu-submenu .ivu-menu-submenu-title:hover,.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu),.ivu-menu-item:hover{
+.ivu-menu-submenu.ivu-menu-opened .ivu-menu-submenu-title,.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu),.ivu-menu-item.ivu-menu-item-selected{
   background: $menuSelectColror!important;
   color: $menuSelectFontColor!important;
 }
-.ivu-menu-dark.ivu-menu-vertical .ivu-menu-opened .ivu-menu-item:hover,.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item-active:hover{
+.ivu-menu-vertical .ivu-menu-opened .ivu-menu-item:hover,.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item-active:hover,.ivu-menu-submenu .ivu-menu-submenu-title:hover,.ivu-menu-item:hover{
   background: $menuHoverBackgroundColor!important;
   color: $menuSelectFontColor!important;
 }
 
+.layout-menu-left.ivu-col{
+ /* background: $menuBackgroundColor!important;
+  background: linear-gradient(to right,$menuStartColor,$menuEndColor)!important;*/
+  background: $menuBackgroundColor!important;
+}
+.ivu-menu.ivu-menu-vertical{
+  background: transparent!important;
+}
+.ivu-menu-vertical .ivu-menu-submenu-title-icon{
+  top:0px;
+}
+
+.ivu-menu.ivu-menu-vertical:after{
+  display: none;
+}
