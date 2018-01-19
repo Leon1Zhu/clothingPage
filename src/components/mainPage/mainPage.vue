@@ -2,43 +2,35 @@
   <div  id="mainpage"  class="layout" :class="{'layout-hide-text': spanLeft < 5}">
   <Row type="flex">
     <Col :span="spanLeft" class="layout-menu-left">
-    <Menu   themem="dark" width="auto" :accordion="accordion" >
+    <Menu active-name="1" theme="dark" width="auto" :accordion="accordion">
       <div class="layout-logo-left">
-        <img class="fire-cow" src="../../assets/logo.png">
+       <!-- <img src="../../../static/favicon.ico">-->
       </div>
-      <div class="big-menu" v-show="spanLeft === spanleftValue">
-        <div class="fire-cow-menu" v-for="(menuItem,index) in menu">
-          <Submenu :name="index" v-if="menuItem.hasChild" >
-            <template slot="title">
-              <i  v-if="!ISNULL(menuItem.menuIcon)" class="iconfont " :class=" menuItem.menuIcon"></i>
-              {{menuItem.menuName}}
-            </template>
-            <MenuItem   v-for="(childrenItem,indexChildrenT) in menuItem.childMenuList" :name="index+'-'+indexChildrenT">
-              <i  v-if="!ISNULL(menuItem.menuIcon)" class="iconfont " :class=" childrenItem.menuIcon"></i>
-              <span>{{childrenItem.menuName}}</span>
-            </MenuItem>
-          </Submenu>
-          <MenuItem :name="index" v-else>
-            <i  v-if="!ISNULL(menuItem.menuIcon)" class="iconfont " :class=" menuItem.menuIcon"></i>
-            <span>{{menuItem.menuName}}</span>
-          </MenuItem>
-        </div>
-      </div>
-
-      <div class="small-menu" v-show="spanLeft === spanLeftSmallValue">
-        <Dropdown  v-for="(menuItem,index) in menu" placement="right">
-          <div >
-            <i  v-if="!ISNULL(menuItem.menuIcon)" class="iconfont " :class=" menuItem.menuIcon"></i>
-          </div>
-          <DropdownMenu slot="list">
-            <DropdownItem  v-for="(childrenItem,indexChildrenT) in menuItem.childMenuList">
-              <i  v-if="!ISNULL(childrenItem.menuIcon)" class="iconfont " :class=" menuItem.menuIcon"></i>
-              <span>{{childrenItem.menuName}}</span>
-            </DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
-      </div>
-
+      <Submenu name="1">
+        <template slot="title">
+          <Icon type="ios-navigate"></Icon>
+          Item 1
+        </template>
+        <MenuItem name="1-1">Option 1</MenuItem>
+        <MenuItem name="1-2">Option 2</MenuItem>
+        <MenuItem name="1-3">Option 3</MenuItem>
+      </Submenu>
+      <Submenu name="2">
+        <template slot="title">
+          <Icon type="ios-keypad"></Icon>
+          Item 2
+        </template>
+        <MenuItem name="2-1">Option 1</MenuItem>
+        <MenuItem name="2-2">Option 2</MenuItem>
+      </Submenu>
+      <Submenu name="3">
+        <template slot="title">
+          <Icon type="ios-analytics"></Icon>
+          Item 3
+        </template>
+        <MenuItem name="3-1">Option 1</MenuItem>
+        <MenuItem name="3-2">Option 2</MenuItem>
+      </Submenu>
     </Menu>
     </Col>
     <Col :span="spanRight">
@@ -52,51 +44,44 @@
         <router-view></router-view>
       </div>
     </div>
-    <!--<div class="layout-copy">
+    <div class="layout-copy">
       2011-2016 &copy; TalkingData
-    </div>-->
+    </div>
     </Col>
   </Row>
   </div>
 </template>
 
 <script>
-  import '../../menu'
+
     export default{
       data () {
         return {
-          spanLeftSmallValue:2,
-          spanRightBigValue:22,
-          spanleftValue:4,
-          spanRightValue: 20,
-          spanLeft: 4,
-          spanRight: 20,
-          accordion:true,
-          menu:MENU
+          spanLeft: 5,
+          spanRight: 19,
+          accordion:true
         }
       },
       computed: {
         iconSize () {
-          return this.spanLeft === this.spanleftValue ? 14 : 24;
+          return this.spanLeft === 5 ? 14 : 24;
         }
       },
       methods: {
         toggleClick () {
-          if (this.spanLeft === this.spanleftValue) {
-            this.spanLeft = this.spanLeftSmallValue;
-            this.spanRight = this.spanRightBigValue;
+          if (this.spanLeft === 5) {
+            this.spanLeft = 2;
+            this.spanRight = 22;
           } else {
-            this.spanLeft = this.spanleftValue;
-            this.spanRight = this.spanRightValue;
+            this.spanLeft = 5;
+            this.spanRight = 19;
           }
-        },
-        ISNULL : ISNULL
+        }
       }
     }
 </script>
 
-<style lang="scss" rel="stylesheet/scss" scoped>
-  @import '../../common/css/globalscss.scss';
+<style scoped>
   .layout{
     border: 1px solid #d7dde4;
     background: #f5f7f9;
@@ -104,12 +89,6 @@
     border-radius: 4px;
     overflow: hidden;
     height:100%;
-  }
-  .ivu-col-span-2{
-    width:60px;
-  }
-  .ivu-col-span-22{
-    width:calc(100% - 60px);
   }
   .ivu-row-flex{
     height:100%;
@@ -134,14 +113,15 @@
   }
   .layout-header{
     height: 60px;
-   /*background: radial-gradient(at 50% 50%,#509e95,#487772);*/
     background: #fff;
+    box-shadow: 0 1px 1px rgba(0,0,0,.1);
   }
   .layout-logo-left{
     width: 90%;
-    height: 40px;
+    height: 30px;
+    background: #5b6270;
     border-radius: 3px;
-    margin:5px 5% 15px 5%;
+    margin: 15px auto;
   }
   .layout-ceiling-main a{
     color: #9ba7b5;
@@ -151,28 +131,5 @@
   }
   .ivu-col{
     transition: width .2s ease;
-  }
-  .ivu-btn.ivu-btn-text:hover{
-    color:$menuSelectFontColor;
-  }
-  .fire-cow{
-    height:40px;
-    width:100%;
-  }
-  .small-menu{
-    display: block;
-    .ivu-dropdown{
-      display: block;
-      text-align: center;
-      padding:10px 0px;
-      .iconfont{
-        font-size:20px;
-      }
-    }
-    .ivu-dropdown:hover{
-      cursor: pointer;
-      background: $menuHoverBackgroundColor;
-      color: $menuSelectFontColor;
-    }
   }
 </style>
