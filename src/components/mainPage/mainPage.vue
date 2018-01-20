@@ -48,19 +48,19 @@
       </Button>
     </div>
     <div class="menu-list-content">
-      <Tag v-for="(item,index) in menuList" :class="{ activeTag : item.isActive }" @on-close="closePage(index)"  @click.native="changePgae(index,item.link)" type="dot" closable="index = 3 "  checkable>{{item.name}}</Tag>
+      <Tag v-for="(item,index) in menuList" :class="{ activeTag : item.isActive }" @on-close="closePage(index)"  @click.native="changePgae(index,item.link)" type="dot" :closable="index > 0 "  checkable>{{item.name}}</Tag>
     </div>
 
     <div class="layout-content">
       <div class="layout-content-main">
         <keep-alive>
           <router-view v-if="$route.meta.keepAlive" >
-            <!-- 这里是会被缓存的视图组件，比如 Home！ -->
+            <!-- 这里是会被缓存的视图组件！ -->
           </router-view>
         </keep-alive>
 
         <router-view v-if="!$route.meta.keepAlive"  >
-          <!-- 这里是不被缓存的视图组件，比如 Edit！ -->
+          <!-- 这里是不被缓存的视图组件 -->
         </router-view>
       </div>
     </div>
