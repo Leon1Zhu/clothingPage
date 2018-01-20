@@ -4,6 +4,7 @@
 const mainPage = resolve => require(['@/components/mainPage/mainPage.vue'], resolve);
 const colorSizeManage = resolve => require(['@/components/system/colorSizeManage.vue'], resolve);
 const systemSetting = resolve => require(['@/components/system/systemSetting.vue'], resolve);
+const repertoryRecord = resolve => require(['@/components/repertory/repertoryRecord.vue'], resolve);
 
 const mainPageRouter = {
   path: '/',
@@ -16,6 +17,10 @@ const mainPageRouter = {
     {
       path: '/systemSetting',
       component: systemSetting
+    },
+    {
+      path: '/repertoryRecord',
+      component: repertoryRecord
     },
   ]
 };

@@ -11,7 +11,7 @@
           <div class="ids">商品id:454564</div>
           <div class="number">货号:5456</div>
           <div class="operation">
-            <Icon type="gear-b" class="check" color="red"></Icon>
+            <span @click="modal1 = true"><Icon type="gear-b" class="check" color="red"></Icon></span>
             <Icon type="compose" class="add" color="blue"></Icon>
           </div>
         </div>
@@ -24,7 +24,10 @@
           <h4>三叶草卫衣</h4>
           <div class="ids">商品id:454564</div>
           <div class="number">货号:5456</div>
-          <div class="operation">操作:5456</div>
+          <div class="operation">
+            <span @click="modal1 = true"><Icon type="gear-b" class="check" color="red"></Icon></span>
+            <Icon type="compose" class="add" color="blue"></Icon>
+          </div>
         </div>
       </div>
       <div class="item">
@@ -35,7 +38,10 @@
           <h4>三叶草卫衣</h4>
           <div class="ids">商品id:454564</div>
           <div class="number">货号:5456</div>
-          <div class="operation">操作:5456</div>
+          <div class="operation">
+            <span @click="modal1 = true"><Icon type="gear-b" class="check" color="red"></Icon></span>
+            <Icon type="compose" class="add" color="blue"></Icon>
+          </div>
         </div>
       </div>
       <div class="item">
@@ -46,7 +52,10 @@
           <h4>三叶草卫衣</h4>
           <div class="ids">商品id:454564</div>
           <div class="number">货号:5456</div>
-          <div class="operation">操作:5456</div>
+          <div class="operation">
+            <span @click="modal1 = true"><Icon type="gear-b" class="check" color="red"></Icon></span>
+            <Icon type="compose" class="add" color="blue"></Icon>
+          </div>
         </div>
       </div>
       <div class="item">
@@ -57,9 +66,49 @@
           <h4>三叶草卫衣</h4>
           <div class="ids">商品id:454564</div>
           <div class="number">货号:5456</div>
+          <div class="operation">
+            <span @click="modal1 = true"><Icon type="gear-b" class="check" color="red"></Icon></span>
+            <Icon type="compose" class="add" color="blue"></Icon>
+          </div>
         </div>
       </div>
     </div>
+    <Modal
+      v-model="modal1"
+      title="库存核对"
+      @on-ok="ok"
+      @on-cancel="cancel">
+      <div class="goods-infor">
+        <div class="goods-img">
+          <img src="./1.jpg" alt="">
+        </div>
+        <div class="goods-introduction">
+          <h4>三叶草卫衣</h4>
+          <div class="ids">商品id:454564</div>
+          <div class="number">货号:5456</div>
+        </div>
+      </div>
+      <div class="repertory-infor">
+        <div class="detail">
+          <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
+          <Tag checkable class="size" color="blue">标签一</Tag>
+          <span class="total">20</span>
+          <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
+        </div>
+        <div class="detail">
+          <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
+          <Tag checkable class="size" color="blue">标签一</Tag>
+          <span class="total">20</span>
+          <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
+        </div>
+        <div class="detail">
+          <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
+          <Tag checkable class="size" color="blue">标签一</Tag>
+          <span class="total">20</span>
+          <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
+        </div>
+      </div>
+    </Modal>
     <footer>
       <Page :total="100" class="footer-page"></Page>
     </footer>
@@ -70,7 +119,9 @@
     props: {},
     data() {
       return {
-        goodsNumber: ''
+        goodsNumber: '',
+        modal1: false,
+        value1: 1,
       };
     },
     methods: {},
@@ -137,6 +188,51 @@
     footer {
       .footer-page {
         margin-left: 35%;
+      }
+    }
+  }
+
+  .repertory-infor {
+    .detail {
+      display: flex;
+      padding: 8px;
+      border-bottom: 1px solid #f8f6f2;
+      .size, .total, .truth-total {
+        margin-left: 12px;
+      }
+
+      .total {
+        margin-top: 1px;
+      }
+      .size, .total {
+        height: 32px;
+        line-height: 32px;
+        padding: 0 15px;
+      }
+      .truth-total {
+        margin-top: 1px;
+      }
+    }
+  }
+
+  .goods-infor {
+    display: flex;
+    .goods-img {
+      img {
+        width: 85px;
+        height: 85px;
+      }
+    }
+    .goods-introduction {
+      margin-left: 32px;
+      h4 {
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .ids, .number {
+        font-size: 14px;
+        margin-top: 8px;
+        color: rgba(0, 0, 0, 0.4);
       }
     }
   }
