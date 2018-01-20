@@ -5,15 +5,27 @@
           <Row >
             <Col span="12">
             <FormItem label="客户信息"  >
-              <Input  placeholder="Enter something..."></Input>
-              <Button type="ghost" >清除</Button>
+              <AutoComplete
+                v-model="orderInfo.CustomInfo"
+                :data="autoData"
+                :filter-method="filterMethod"
+                placeholder="请选择客户信息"
+                style="width:100%">
+              </AutoComplete>
+              <Button type="ghost" @click="orderInfo.CustomInfo=''">清除</Button>
               <Button type="ghost" >新增</Button>
             </FormItem>
             </Col>
 
             <Col span="12">
             <FormItem label="开单店员" >
-              <Input  placeholder="Enter something..."></Input>
+              <AutoComplete
+                v-model="orderInfo.waiter"
+                :data="waiterData"
+                :filter-method="filterMethod"
+                placeholder="请选择客户信息"
+                style="width:100%">
+              </AutoComplete>
               <Button type="ghost" >核销</Button>
               <Button type="ghost" >抹零</Button>
             </FormItem>
@@ -23,14 +35,14 @@
           <Row >
             <Col span="12">
               <div class="pay-way" style="display: flex;">
-                <FormItem label="应付"  >
+                <FormItem label="应付"  style="flex: 1 1 33%;">
                   <span class="disable-input">{{orderInfo.payable}}</span>
                 </FormItem>
                 <FormItem label="实付" :label-width="50">
-                  <Input  placeholder="Enter something..."></Input>
+                  <Input  placeholder="Enter something"></Input>
                 </FormItem>
-                <FormItem label="余款" :label-width="50">
-                  <Input  placeholder="Enter something..."></Input>
+                <FormItem label="余款" :label-width="50" style="flex: 1 1 33%;">
+                  <span class="disable-input">{{orderInfo.balanceMoney}}</span>
                 </FormItem>
               </div>
             </Col>
@@ -53,7 +65,7 @@
           <Row >
             <Col span="12">
               <FormItem label="日期" >
-                <DatePicker :options="options3" type="date" format="yyyy/MM/dd"  placeholder="请选择开单日期。。。" style="width: 100%;"></DatePicker>
+                <DatePicker :options="options3" type="date" format="yyyy/MM/dd"  placeholder="请选择开单日期" v-model="orderInfo.payDate" style="width: 100%;"></DatePicker>
               </FormItem>
             </Col>
             <Col span="12">
@@ -68,8 +80,8 @@
           <Row >
             <Col span="24">
             <FormItem label="备注" >
-              <Input  placeholder="请输入开单备注..."></Input>
-              <Button type="ghost" >清空从填</Button>
+              <Input  placeholder="请输入开单备注..." v-model="orderInfo.remark"></Input>
+              <Button type="ghost" @click="emptyOrderInfo">清空从填</Button>
               <Button type="ghost" >退换入库</Button>
             </FormItem>
             </Col>
@@ -99,18 +111,17 @@
               paymentWay:PAYMENTWAY,
               options3: {
                 disabledDate (date) {
-                    console.log()
                   return new Date().Format('yyyy/MM/dd') <  new Date(date).Format('yyyy/MM/dd');
                 }
               },
               columns:  [
-                {field: 'id', title:'序号', width: 80, titleAlign: 'center',columnAlign:'center', isResize:true},
-                {field: 'goodName', title: '货品',width: 80,  titleAlign: 'center',columnAlign:'center',isResize:true},
-                {field: 'color', title: '颜色',width: 50,  titleAlign: 'center',columnAlign:'center',isResize:true},
-                {field: 'size', title: '尺码', width: 50, titleAlign: 'center',columnAlign:'center',isResize:true},
-                {field: 'count', title: '数量', width: 50, titleAlign: 'center',columnAlign:'center',isEdit:true,isResize:true},
-                {field: 'prince', title: '单价', width: 50, titleAlign: 'center',columnAlign:'center',isEdit:true,isResize:true},
-                {field: 'sum', title: '合计', width: 50, titleAlign: 'center',columnAlign:'center', formatter: function (rowData,rowIndex,pagingIndex,field) {
+                {field: 'id', title:'序号', width: 180, titleAlign: 'center',columnAlign:'center', isResize:true},
+                {field: 'goodName', title: '货品',width: 180,  titleAlign: 'center',columnAlign:'center',isResize:true},
+                {field: 'color', title: '颜色',width: 150,  titleAlign: 'center',columnAlign:'center',isResize:true},
+                {field: 'size', title: '尺码', width: 150, titleAlign: 'center',columnAlign:'center',isResize:true},
+                {field: 'count', title: '数量', width: 150, titleAlign: 'center',columnAlign:'center',isEdit:true,isResize:true},
+                {field: 'prince', title: '单价', width: 150, titleAlign: 'center',columnAlign:'center',isEdit:true,isResize:true},
+                {field: 'sum', title: '合计', width: 150, titleAlign: 'center',columnAlign:'center', formatter: function (rowData,rowIndex,pagingIndex,field) {
                   return `<span >${rowData['count'] * rowData['prince']}</span>`;
                 },isResize:true}
 
@@ -131,7 +142,14 @@
                 integral:'0',
                 allCount:0,
                 payable:0,
+                CustomInfo:'',
+                balanceMoney:0,
+                payDate:new Date().Format('yyyy/MM/dd'),
+                waiter:'',
+                remark:null,
               },
+              autoData: ['张三，12000', '李四，13000', '王五，140000'],
+              waiterData: ['张三', '李四', '王五']
             }
         },
         components: {
@@ -155,11 +173,29 @@
           },
           //计算总价
           countMoney(){
-            var sum=0
+            let sum = 0;
+            let countSum = 0;
             for(let item in this.tableData){
-              sum+= this.tableData[item].sum
+              sum += this.tableData[item].sum
+              countSum += parseInt(this.tableData[item].count,10)
             }
             this.orderInfo.payable = sum
+            this.orderInfo.allCount = countSum
+          },
+          filterMethod (value, option) {
+            return option.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+          },
+          emptyOrderInfo(){
+            this.orderInfo={
+              payWay:0,
+              integral:'0',
+              payable:0,
+              CustomInfo:'',
+              balanceMoney:0,
+              payDate:new Date().Format('yyyy/MM/dd'),
+              waiter:'',
+              remark:null,
+            }
           }
         },
     }
@@ -173,17 +209,40 @@
         margin-left:5px;
       }
     }
+    .v-table-rightview{
+      width:100%!important;
+      position: relative;
+    }
     .v-table-views{
       border: 1px solid #dddee1;
       color: #495060;
       font-size: 12px;
       background-color: #fff;
       border-radius: 3px;
+      td{
+        width:20%!important;
+      }
     }
     .v-table-header-row{
       background-color: $menuSelectFontColor;
       color: white;
       font-size: 14px;
+
+    }
+    .v-table-body{
+      width:100%!important;
+      position: relative;
+      .v-table-body-cell{
+        width:auto!important;
+      }
+    }
+    .v-table-row{
+    }
+    .v-table-header{
+      width:100%!important;
+    }
+    .v-table-header-inner{
+      width:100%!important;
     }
     .cell-edit-input{
       border:1px solid $menuSelectFontColor;
