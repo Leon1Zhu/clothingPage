@@ -8,7 +8,7 @@
         <div class="color-name">
           <div class="title">
             单色系&nbsp;&nbsp;
-            <Icon type="plus-circled" color="red"></Icon>
+            <Icon type="plus-circled" color="#06c1ae"></Icon>
           </div>
         </div>
         <!--颜色的细节-->
@@ -29,10 +29,10 @@
         </div>
         <!--颜色的细节-->
         <div class="detail">
-          <Tag type="dot" closable @on-close="handleClose" color="blue">红色</Tag>
-          <Tag type="dot" closable @on-close="handleClose" color="green">粉红色</Tag>
-          <Tag type="dot" closable @on-close="handleClose" color="red">玫瑰红</Tag>
-          <Tag type="dot" closable @on-close="handleClose" color="yellow">牡丹红</Tag>
+          <Tag type="dot" closable @on-close="handleClose" color="#FF8C69">红色</Tag>
+          <Tag type="dot" closable @on-close="handleClose" color="#FF8247">粉红色</Tag>
+          <Tag type="dot" closable @on-close="handleClose" color="#FF34B3">玫瑰红</Tag>
+          <Tag type="dot" closable @on-close="handleClose" color="#FF0000">牡丹红</Tag>
         </div>
       </div>
       <div class="color-chunk">
@@ -45,10 +45,10 @@
         </div>
         <!--颜色的细节-->
         <div class="detail">
-          <Tag type="dot" closable @on-close="handleClose" color="blue">淡蓝</Tag>
-          <Tag type="dot" closable @on-close="handleClose" color="green">天蓝</Tag>
-          <Tag type="dot" closable @on-close="handleClose" color="red">蔚蓝</Tag>
-          <Tag type="dot" closable @on-close="handleClose" color="yellow">海蓝</Tag>
+          <Tag type="dot" closable @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
+          <Tag type="dot" closable @on-close="handleClose" color="#00C5CD">天蓝</Tag>
+          <Tag type="dot" closable @on-close="handleClose" color="#00688B">蔚蓝</Tag>
+          <Tag type="dot" closable @on-close="handleClose" color="#0000CD">海蓝</Tag>
         </div>
       </div>
     </div>

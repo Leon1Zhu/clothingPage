@@ -53,7 +53,7 @@
                placeholder="Enter something..."></Input>
       </FormItem>
       <FormItem>
-        <Button type="primary">Submit</Button>
+        <Button type="primary">保存</Button>
         <Button type="ghost" style="margin-left: 8px">Cancel</Button>
       </FormItem>
     </Form>
