@@ -19,14 +19,24 @@ const app = new Vue({
   template: '<App/>',
   components: { App }
 })
+console.log(store)
 iView.LoadingBar.config({
-  color: '#65cea7',
+  color: SYSTEMCOLOR,
 });
 //路由的全局拦截
 router.beforeEach((to, from, next) => {
   iView.LoadingBar.start();
   //对当前页面进行处理,查看是否需要缓存
-  console.log(store)
+  if(to.meta.needAlive){
+    //若需要，则添加到缓存中，并且在页面上显示
+    let obj = {
+      name: to.name,
+      link: to.path,
+      isActive: true,
+    }
+    store.dispatch('addMenuListAction',obj)
+  }
+  console.log(app)
   console.log(to)
   console.log(from)
   next();

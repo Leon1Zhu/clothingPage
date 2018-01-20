@@ -1,5 +1,5 @@
 <template>
-  <div  id="mainpage"  class="layout" :class="{'layout-hide-text': spanLeft < 5}">
+  <div  id="mainpage"  class="mainLayout" :class="{'layout-hide-text': spanLeft < 5}">
   <Row type="flex">
     <Col :span="spanLeft" class="layout-menu-left">
     <Menu   themem="dark" width="auto" :accordion="accordion" >
@@ -32,7 +32,7 @@
           </div>
           <DropdownMenu slot="list">
             <DropdownItem  v-for="(childrenItem,indexChildrenT) in menuItem.childMenuList" @click.native="goPage(childrenItem.linkHref)" >
-              <i  v-if="!ISNULL(childrenItem.menuIcon)" class="iconfont " :class=" menuItem.menuIcon"></i>
+              <i  v-if="!ISNULL(childrenItem.menuIcon)" class="iconfont " :class=" childrenItem.menuIcon"></i>
               <span>{{childrenItem.menuName}}</span>
             </DropdownItem>
           </DropdownMenu>
@@ -47,6 +47,10 @@
         <Icon type="navicon" size="32"></Icon>
       </Button>
     </div>
+    <div class="menu-list-content">
+      <Tag v-for="(item,index) in menuList" :class="{ activeTag : item.isActive }" @on-close="closePage(index)"  @click.native="changePgae(index,item.link)" type="dot" closable="index = 3 "  checkable>{{item.name}}</Tag>
+    </div>
+
     <div class="layout-content">
       <div class="layout-content-main">
         <keep-alive>
@@ -80,13 +84,21 @@
           spanLeft: 4,
           spanRight: 20,
           accordion:true,
-          menu:MENU
+          menu:MENU,
         }
       },
       computed: {
         iconSize () {
           return this.spanLeft === this.spanleftValue ? 14 : 24;
+        },
+        menuList(){
+            return this.$store.getters.getMenuList;
         }
+      },
+      mounted(){
+        let length = this.$store.getters.getMenuList.length
+        let activelink = this.$store.getters.getMenuList[length-1].link
+        this.$router.push({ path:activelink })
       },
       methods: {
         toggleClick () {
@@ -101,89 +113,103 @@
         ISNULL : ISNULL,
         goPage(path){
             this.$router.push({ path:path })
+        },
+        changePgae(index,path){
+            this.$store.dispatch('changeActivePageAction',index)
+            this.$router.push({ path:path })
+        },
+        closePage(index){
+            this.$store.dispatch('deletePageAction',index)
+            let length = this.$store.getters.getMenuList.length
+            let activelink = this.$store.getters.getMenuList[length-1].link
+            this.$router.push({ path:activelink })
         }
       }
     }
 </script>
 
-<style lang="scss" rel="stylesheet/scss" scoped>
+<style lang="scss" rel="stylesheet/scss" >
   @import '../../common/css/globalscss.scss';
-  .layout{
-    border: 1px solid #d7dde4;
-    background: #f5f7f9;
-    position: relative;
-    border-radius: 4px;
-    overflow: hidden;
-    height:100%;
-  }
-  .ivu-col-span-2{
-    width:60px;
-  }
-  .ivu-col-span-22{
-    width:calc(100% - 60px);
-  }
-  .ivu-row-flex{
-    height:100%;
-  }
-  .layout-content{
-    min-height: 200px;
-    margin: 15px;
-    overflow: hidden;
-    background: #fff;
-    border-radius: 4px;
-  }
-  .layout-content-main{
-    padding: 10px;
-  }
-  .layout-copy{
-    text-align: center;
-    padding: 10px 0 20px;
-    color: #9ea7b4;
-  }
-  .layout-menu-left{
-    background: #464c5b;
-  }
-  .layout-header{
-    height: 60px;
-   /*background: radial-gradient(at 50% 50%,#509e95,#487772);*/
-    background: #fff;
-  }
-  .layout-logo-left{
-    width: 90%;
-    height: 40px;
-    border-radius: 3px;
-    margin:5px 5% 15px 5%;
-  }
-  .layout-ceiling-main a{
-    color: #9ba7b5;
-  }
-  .layout-hide-text .layout-text{
-    display: none;
-  }
-  .ivu-col{
-    transition: width .2s ease;
-  }
-  .ivu-btn.ivu-btn-text:hover{
-    color:$menuSelectFontColor;
-  }
-  .fire-cow{
-    height:40px;
-    width:100%;
-  }
-  .small-menu{
-    display: block;
-    .ivu-dropdown{
-      display: block;
-      text-align: center;
-      padding:10px 0px;
-      .iconfont{
-        font-size:20px;
+    .mainLayout{
+      border: 1px solid #d7dde4;
+      background: #f5f7f9;
+      position: relative;
+      border-radius: 4px;
+      overflow: hidden;
+      height:100%;
+      .ivu-col-span-2{
+        width:60px;
+      }
+      .ivu-col-span-22{
+        width:calc(100% - 60px);
+      }
+      .ivu-row-flex{
+        height:100%;
+      }
+      .layout-content{
+        min-height: 200px;
+        margin: 15px;
+        overflow: hidden;
+        background: #fff;
+        border-radius: 4px;
+      }
+      .layout-content-main{
+        padding: 10px;
+      }
+      .layout-copy{
+        text-align: center;
+        padding: 10px 0 20px;
+        color: #9ea7b4;
+      }
+      .layout-menu-left{
+        background: #464c5b;
+      }
+      .layout-header{
+        height: 60px;
+       /*background: radial-gradient(at 50% 50%,#509e95,#487772);*/
+        background: #fff;
+      }
+      .layout-logo-left{
+        width: 90%;
+        height: 40px;
+        border-radius: 3px;
+        margin:5px 5% 15px 5%;
+      }
+      .layout-ceiling-main a{
+        color: #9ba7b5;
+      }
+      .layout-hide-text .layout-text{
+        display: none;
+      }
+      .ivu-col{
+        transition: width .2s ease;
+      }
+      .ivu-btn.ivu-btn-text:hover{
+        color:$menuSelectFontColor;
+      }
+      .fire-cow{
+        height:40px;
+        width:100%;
+      }
+      .small-menu{
+        display: block;
+        .ivu-dropdown{
+          display: block;
+          text-align: center;
+          padding:10px 0px;
+          .iconfont{
+            font-size:20px;
+          }
+        }
+        .ivu-dropdown:hover{
+          cursor: pointer;
+          background: $menuHoverBackgroundColor;
+          color: $menuSelectFontColor;
+        }
+      }
+      .activeTag .ivu-tag-dot-inner{
+        background: $menuSelectFontColor;
       }
     }
-    .ivu-dropdown:hover{
-      cursor: pointer;
-      background: $menuHoverBackgroundColor;
-      color: $menuSelectFontColor;
-    }
-  }
+
 </style>

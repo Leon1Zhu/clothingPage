@@ -20,6 +20,8 @@ if(process.env.NODE_ENV=="production"){
 }
 */
 
+global.SYSTEMCOLOR = '#65cea7';
+
 
 
 
