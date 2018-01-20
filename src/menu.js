@@ -42,8 +42,8 @@ global.MENU=[
         linkHref: '',
       },{
         menuName: '销售开单',
-        menuIcon: '',
-        linkHref: '',
+        menuIcon: 'icon-zonghekaidan',
+        linkHref: '/salesOrder',
       },{
         menuName: '退换入库',
         menuIcon: '',
@@ -87,7 +87,7 @@ global.MENU=[
       },{
         menuName: '系统设置',
         menuIcon: '',
-        linkHref: '',
+        linkHref: '/systemSetting',
       }
     ]
   }

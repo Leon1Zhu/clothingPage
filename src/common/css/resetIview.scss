@@ -31,3 +31,20 @@
 .ivu-menu.ivu-menu-vertical:after{
   display: none;
 }
+
+.ivu-btn-ghost,.ivu-select-selection,.ivu-icon-arrow-down-b.ivu-select-arrow{
+  border-color: $menuSelectFontColor!important;
+  color: $menuSelectFontColor!important;
+  box-shadow: none!important;
+}
+.ivu-input:focus,.ivu-input:hover{
+  border-color: $menuSelectFontColor;
+  box-shadow: 0 0 0 1px rgba(101,206,167,.2);
+}
+.ivu-select-item-selected,.ivu-select-item-selected:hover{
+  background: $menuSelectFontColor;
+}
+.ivu-btn-ghost:hover,.ivu-select-selection:hover{
+  border-color: #19be6b;
+  color: #19be6b;
+}

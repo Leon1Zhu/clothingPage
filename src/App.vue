@@ -8,9 +8,6 @@
 export default {
   name: 'app',
   mounted(){
-      //提交修改
-    this.$store.commit('LOGIN_STATUS', true)
-      console.log(this.$store)
   }
 }
 </script>
