@@ -12,18 +12,28 @@ import './common/css/iconFont.scss'
 Vue.config.productionTip = false
 Vue.use(iView);
 /* eslint-disable no-new */
-new Vue({
+const app = new Vue({
   el: '#app',
   router,
   store,
   template: '<App/>',
   components: { App }
 })
+iView.LoadingBar.config({
+  color: '#65cea7',
+});
+//路由的全局拦截
+router.beforeEach((to, from, next) => {
+  iView.LoadingBar.start();
+  //对当前页面进行处理,查看是否需要缓存
+  console.log(store)
+  console.log(to)
+  console.log(from)
+  next();
+});
 
-/*
-new Vue({
-  router,
-  /!* store,*!/
-  render: h => h(App),
-}).$mount('#app')
-*/
+router.afterEach(route => {
+  iView.LoadingBar.finish();
+});
+
+
