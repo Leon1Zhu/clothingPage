@@ -137,6 +137,9 @@
       border-radius: 4px;
       overflow: hidden;
       height:100%;
+      .menu-list-content{
+        margin-top:2px;
+      }
       .ivu-col-span-2{
         width:60px;
       }
@@ -148,7 +151,8 @@
       }
       .layout-content{
         min-height: 200px;
-        margin: 15px;
+        height: calc(100% - 92px );
+        margin: 2px;
         overflow: hidden;
         background: #fff;
         border-radius: 4px;

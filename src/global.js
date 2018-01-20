@@ -21,6 +21,7 @@ if(process.env.NODE_ENV=="production"){
 */
 
 global.SYSTEMCOLOR = '#65cea7';
+global.PAYMENTWAY = [{value:0,label:'现金'},{value:1,label:'支付宝'},{value:2,label:'微信'},{value:3,label:'银行卡'},{value:4,label:'信用卡'}];
 
 
 

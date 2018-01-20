@@ -22,6 +22,23 @@ const app = new Vue({
   components: { App }
 })
 
+Vue.prototype.$info = function(title,desc){
+  iView.Notice.info(setNoticConfig(title,desc));
+}
+
+Vue.prototype.$success = function(title,desc){
+  iView.Notice.success(setNoticConfig(title,desc));
+}
+
+Vue.prototype.$warning = function(title,desc){
+  iView.Notice.warning(setNoticConfig(title,desc));
+}
+
+
+Vue.prototype.$error = function(title,desc){
+  iView.Notice.error(setNoticConfig(title,desc));
+}
+
 iView.LoadingBar.config({
   color: SYSTEMCOLOR,
 });
@@ -36,7 +53,15 @@ router.beforeEach((to, from, next) => {
       link: to.path,
       isActive: true,
     }
-    store.dispatch('addMenuListAction',obj)
+
+    if(store.getters.getMenuList.length>8){
+      iView.Notice.warning({
+        title: '操作错误',
+        desc:  '标签页最多存在8个，请关闭之前的标签页再重复此操作！ '
+      });
+    }else{
+      store.dispatch('addMenuListAction',obj)
+    }
   }
   next();
 });
@@ -44,5 +69,9 @@ router.beforeEach((to, from, next) => {
 router.afterEach(route => {
   iView.LoadingBar.finish();
 });
+
+
+
+
 
 

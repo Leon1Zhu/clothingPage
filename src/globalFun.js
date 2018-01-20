@@ -4,16 +4,13 @@
 import  './global'
 import Vue from 'vue'
 import axios from 'axios'
-/*global.setNoticConfig= function(title,desc,duration,key,onClose){
+global.setNoticConfig= function(title,desc){
   let cof = {};
   if(title!=null)cof.title=title;
   if(desc!=null)cof.desc=desc;
-  if(duration!=null)cof.duration=duration;
-  if(key!=null)cof.key=key;
-  if(onClose!=null)cof.onClose=onClose;
   return cof;
 }
-axios.interceptors.request.use(
+/*axios.interceptors.request.use(
   config => {
     if(config.url.indexOf("/api")>-1){
       if (TOKEN) {  // 判断是否存在token，如果存在的话，则每个http header都加上token
