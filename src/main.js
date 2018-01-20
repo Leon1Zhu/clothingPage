@@ -9,8 +9,10 @@ import './filter'
 import './common/css/style.scss'
 import './common/css/resetIview.scss';
 import './common/css/iconFont.scss'
+import './mainFun'
 Vue.config.productionTip = false
 Vue.use(iView);
+
 /* eslint-disable no-new */
 const app = new Vue({
   el: '#app',
@@ -19,7 +21,7 @@ const app = new Vue({
   template: '<App/>',
   components: { App }
 })
-console.log(store)
+
 iView.LoadingBar.config({
   color: SYSTEMCOLOR,
 });
@@ -36,9 +38,6 @@ router.beforeEach((to, from, next) => {
     }
     store.dispatch('addMenuListAction',obj)
   }
-  console.log(app)
-  console.log(to)
-  console.log(from)
   next();
 });
 

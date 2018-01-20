@@ -15,7 +15,7 @@
         },
         mounted(){
         },
-        methods: {}
+        methods: {},
     }
 </script>
 <style lang="scss" rel="stylesheet/scss">
