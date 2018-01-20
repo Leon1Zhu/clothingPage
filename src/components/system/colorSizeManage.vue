@@ -13,10 +13,10 @@
         </div>
         <!--颜色的细节-->
         <div class="detail">
-          <Tag type="dot" v-if="show" closable @on-close="handleClose" color="blue">红色</Tag>
-          <Tag type="dot" v-if="show" closable @on-close="handleClose" color="green">蓝色</Tag>
-          <Tag type="dot" v-if="show" closable @on-close="handleClose" color="red">黑色</Tag>
-          <Tag type="dot" v-if="show" closable @on-close="handleClose" color="yellow">白色</Tag>
+          <Tag type="dot" v-if="show" closable @on-close="handleClose" color="blue">蓝色</Tag>
+          <Tag type="dot" v-if="show" closable @on-close="handleClose" color="green">绿色</Tag>
+          <Tag type="dot" v-if="show" closable @on-close="handleClose" color="red">红色</Tag>
+          <Tag type="dot" v-if="show" closable @on-close="handleClose" color="yellow">黄色</Tag>
         </div>
       </div>
       <div class="color-chunk">
