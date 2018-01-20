@@ -2,18 +2,18 @@
   <div class="system-setting-html">
     <Form :model="formItem" :label-width="100">
       <FormItem label="库存预警数量">
-        <Input v-model="formItem.input" placeholder="Enter something..."></Input>
+        <Input v-model="formItem.input" placeholder="库存预警数量"></Input>
       </FormItem>
       <FormItem label="系统价格赔率">
-        <Input v-model="formItem.input" placeholder="Enter something..."></Input>
+        <Input v-model="formItem.input" placeholder="系统价格赔率"></Input>
       </FormItem>
-      <FormItem label="价格尾数">
+      <FormItem label="价格尾数开启">
         <i-switch v-model="formItem.switch" size="large">
           <span slot="open">是</span>
           <span slot="close">否</span>
         </i-switch>
       </FormItem>
-      <FormItem label="Select">
+      <FormItem label="价格尾数">
         <Select v-model="formItem.select">
           <Option value="0">0</Option>
           <Option value="1">1</Option>
@@ -27,34 +27,14 @@
           <Option value="9">9</Option>
         </Select>
       </FormItem>
-      <FormItem label="DatePicker">
-        <Row>
-          <Col span="11">
-          <DatePicker type="date" placeholder="Select date" v-model="formItem.date"></DatePicker>
-          </Col>
-          <Col span="2" style="text-align: center">
-          -</Col>
-          <Col span="11">
-          <TimePicker type="time" placeholder="Select time" v-model="formItem.time"></TimePicker>
-          </Col>
-        </Row>
-      </FormItem>
       <FormItem label="是否抹零">
         <i-switch v-model="formItem.switch" size="large">
           <span slot="open">是</span>
           <span slot="close">否</span>
         </i-switch>
       </FormItem>
-      <FormItem label="Slider">
-        <Slider v-model="formItem.slider" range></Slider>
-      </FormItem>
-      <FormItem label="Text">
-        <Input v-model="formItem.textarea" type="textarea" :autosize="{minRows: 2,maxRows: 5}"
-               placeholder="Enter something..."></Input>
-      </FormItem>
       <FormItem>
         <Button type="primary">保存</Button>
-        <Button type="ghost" style="margin-left: 8px">Cancel</Button>
       </FormItem>
     </Form>
   </div>
