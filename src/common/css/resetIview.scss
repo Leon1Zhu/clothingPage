@@ -53,3 +53,25 @@
   border-color: #19be6b!important;
   background-color: #19be6b!important;
 }
+.ivu-btn-primary{
+  background: $menuSelectFontColor;
+  border-color: $menuSelectFontColor;
+}
+.ivu-btn-circle.ivu-btn-icon-only{
+  width:30px;
+  height:30px;
+}
+.ivu-btn-primary:hover{
+  border-color: rgba(90,199,157,0.7);
+  background: rgba(90,199,157,0.7);
+  box-shadow: none;
+}
+.vertical-center-modal{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .ivu-modal{
+    top: 0;
+  }
+}

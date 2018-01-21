@@ -39,7 +39,7 @@
                   <span class="disable-input">{{orderInfo.payable}}</span>
                 </FormItem>
                 <FormItem label="实付" :label-width="50">
-                  <Input  placeholder="Enter something"></Input>
+                  <InputNumber   v-model="orderInfo.payMoney"></InputNumber>
                 </FormItem>
                 <FormItem label="余款" :label-width="50" style="flex: 1 1 33%;">
                   <span class="disable-input">{{orderInfo.balanceMoney}}</span>
@@ -89,16 +89,21 @@
         </Form>
       </div>
       <div class="order-table">
-        <v-table
-          is-horizontal-resize
-          style="width:100%;"
-          :columns="columns"
-          :table-data="tableData"
-          row-hover-color="#eee"
-          row-click-color="#edf7ff"
-          :cell-edit-done="cellEditDone"
-        ></v-table>
+        <Card>
+          <p slot="title">The standard card</p>
+          <v-table
+            is-horizontal-resize
+            style="width:100%;"
+            :columns="columns"
+            :table-data="tableData"
+            row-hover-color="#eee"
+            row-click-color="#edf7ff"
+            :cell-edit-done="cellEditDone"
+            @on-custom-comp="customCompFunc"
+          ></v-table>
+        </Card>
       </div>
+
     </div>
 </template>
 
@@ -108,6 +113,7 @@
     export default{
         data(){
             return {
+              modal10: false,
               paymentWay:PAYMENTWAY,
               options3: {
                 disabledDate (date) {
@@ -123,7 +129,8 @@
                 {field: 'prince', title: '单价', width: 150, titleAlign: 'center',columnAlign:'center',isEdit:true,isResize:true},
                 {field: 'sum', title: '合计', width: 150, titleAlign: 'center',columnAlign:'center', formatter: function (rowData,rowIndex,pagingIndex,field) {
                   return `<span >${rowData['count'] * rowData['prince']}</span>`;
-                },isResize:true}
+                },isResize:true},
+                {field: 'sum', title: '操作', width: 150, titleAlign: 'center',columnAlign:'center',componentName:'table-operation'}
 
 
 
@@ -147,6 +154,7 @@
                 payDate:new Date().Format('yyyy/MM/dd'),
                 waiter:'',
                 remark:null,
+                payMoney:0,
               },
               autoData: ['张三，12000', '李四，13000', '王五，140000'],
               waiterData: ['张三', '李四', '王五']
@@ -195,6 +203,20 @@
               payDate:new Date().Format('yyyy/MM/dd'),
               waiter:'',
               remark:null,
+              payMoney:0,
+            }
+          },
+          //表格点击事件
+          customCompFunc(params){
+            console.log(params);
+
+            if (params.type === 'delete'){ // do delete operation
+
+              this.$delete(this.tableData,params.index);
+              this.countMoney()
+
+            }else if (params.type === 'edit'){ // do edit operation
+
             }
           }
         },
@@ -220,7 +242,7 @@
       background-color: #fff;
       border-radius: 3px;
       td{
-        width:20%!important;
+        width:12.5%!important;
       }
     }
     .v-table-header-row{
@@ -230,18 +252,14 @@
 
     }
     .v-table-body{
-      width:100%!important;
       position: relative;
-      .v-table-body-cell{
-        width:auto!important;
-      }
+    }
+    .v-table-title-cell,.v-table-body-cell{
+      width:initial!important;
     }
     .v-table-row{
     }
-    .v-table-header{
-      width:100%!important;
-    }
-    .v-table-header-inner{
+    .v-table-header,.v-table-header-inner,.v-table-body,.v-table-htable,.v-table-btable{
       width:100%!important;
     }
     .cell-edit-input{

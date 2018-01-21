@@ -70,6 +70,33 @@ router.afterEach(route => {
   iView.LoadingBar.finish();
 });
 
+Vue.component('table-operation',{
+  template: `<span>
+        <div><button type="button" @click="deleteRow" class="ivu-btn ivu-btn-primary ivu-btn-circle ivu-btn-icon-only"><i class="ivu-icon ivu-icon-minus-round"></i> </button></div>
+        </span>`,
+    props:{
+    rowData:{
+      type:Object
+    },
+    field:{
+      type:String
+    },
+    index:{
+      type:Number
+    }
+  },
+  methods:{
+
+    deleteRow(){
+      // 参数根据业务场景随意构造
+      let params = {type:'delete',index:this.index};
+      this.$emit('on-custom-comp',params);
+
+    }
+  }
+
+})
+
 
 
 

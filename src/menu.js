@@ -23,6 +23,10 @@ global.MENU=[
       },{
         menuName: '尺码管理',
         menuIcon: '',
+        linkHref: '/colorSizeManage',
+      },{
+        menuName: '客户管理',
+        menuIcon: '',
         linkHref: '',
       }
     ]
@@ -59,7 +63,7 @@ global.MENU=[
       {
         menuName: '库存管理',
         menuIcon: '',
-        linkHref: '',
+        linkHref: '/repertoryRecord',
       },{
         menuName: '库存盘点',
         menuIcon: '',
