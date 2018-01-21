@@ -11,6 +11,9 @@ const repertoryRecord = resolve => require(['@/components/repertory/repertoryRec
 //销售开单
 const salesOrder = resolve => require(['@/components/goods/salesOrder.vue'], resolve);
 
+//退换入库
+const salesReturn = resolve => require(['@/components/goods/salesReturn.vue'], resolve);
+
 const mainPageRouter = {
   path: '/',
   component: mainPage,
@@ -39,6 +42,12 @@ const mainPageRouter = {
       path: '/salesOrder',
       component: salesOrder,
       name:"销售开单",
+      meta:{ needAlive:true,keepAlive:true },
+    },
+    {
+      path: '/salesReturn',
+      component: salesReturn,
+      name:"退换入库",
       meta:{ needAlive:true,keepAlive:true },
     },
   ]

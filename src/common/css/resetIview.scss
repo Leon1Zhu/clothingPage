@@ -37,7 +37,7 @@
   color: $menuSelectFontColor!important;
   box-shadow: none!important;
 }
-.ivu-input:focus,.ivu-input:hover{
+.ivu-input:focus,.ivu-input:hover,.ivu-input-number:hover,.ivu-input-number:focus,.ivu-input-number-focused{
   border-color: $menuSelectFontColor;
   box-shadow: 0 0 0 1px rgba(101,206,167,.2);
 }
@@ -45,8 +45,7 @@
   background: $menuSelectFontColor;
 }
 .ivu-btn-ghost:hover,.ivu-select-selection:hover{
-  border-color: #19be6b!important;
-  color: #19be6b!important;
+  opacity: .7;
 }
 
 .ivu-switch-checked {
@@ -74,4 +73,11 @@
   .ivu-modal{
     top: 0;
   }
+}
+.ivu-date-picker-cells-cell-selected em,.ivu-table-header table thead tr th{
+  background:$menuSelectFontColor;
+}
+
+.ivu-table-header table thead tr th{
+  color: white;
 }

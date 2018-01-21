@@ -4,6 +4,8 @@ import store from './store/index'
 import router from './router'
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';
+import 'muse-components/styles/base.less' // 加载基础的样式
+import drawer from 'muse-components/drawer'
 import './common/css/reset.css'
 import './filter'
 import './common/css/style.scss'
@@ -11,6 +13,7 @@ import './common/css/resetIview.scss';
 import './common/css/iconFont.scss'
 import './mainFun'
 Vue.config.productionTip = false
+Vue.component(drawer.name, drawer)
 Vue.use(iView);
 
 /* eslint-disable no-new */

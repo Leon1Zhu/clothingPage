@@ -24,10 +24,6 @@ global.MENU=[
         menuName: '尺码管理',
         menuIcon: '',
         linkHref: '/colorSizeManage',
-      },{
-        menuName: '客户管理',
-        menuIcon: '',
-        linkHref: '',
       }
     ]
   },{
@@ -50,6 +46,22 @@ global.MENU=[
         linkHref: '/salesOrder',
       },{
         menuName: '退换入库',
+        menuIcon: 'icon-tuihuochuli',
+        linkHref: '/salesReturn',
+      }
+    ]
+  },{
+    hasChild : true,
+    menuName: '往来管理',
+    menuIcon: 'icon-jiaoyijilu',
+    linkHref: '',
+    childMenuList:[
+      {
+        menuName: '客户管理',
+        menuIcon: '',
+        linkHref: '',
+      },{
+        menuName: '客户详细',
         menuIcon: '',
         linkHref: '',
       }

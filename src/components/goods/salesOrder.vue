@@ -8,6 +8,7 @@
               <AutoComplete
                 v-model="orderInfo.CustomInfo"
                 :data="autoData"
+                icon="ios-search"
                 :filter-method="filterMethod"
                 placeholder="请选择客户信息"
                 style="width:100%">
@@ -22,6 +23,7 @@
               <AutoComplete
                 v-model="orderInfo.waiter"
                 :data="waiterData"
+                icon="ios-search"
                 :filter-method="filterMethod"
                 placeholder="请选择客户信息"
                 style="width:100%">
@@ -76,21 +78,34 @@
               </FormItem>
             </Col>
           </Row>
-
-          <Row >
-            <Col span="24">
-            <FormItem label="备注" >
-              <Input  placeholder="请输入开单备注..." v-model="orderInfo.remark"></Input>
-              <Button type="ghost" @click="emptyOrderInfo">清空从填</Button>
-              <Button type="ghost" >退换入库</Button>
-            </FormItem>
+            <Row>
+            <Col span="12">
+              <FormItem label="备注" >
+                <Input  placeholder="请输入开单备注" v-model="orderInfo.remark"></Input>
+                <Button type="ghost" @click="emptyOrderInfo">清空从填</Button>
+                <Button type="ghost" >退换入库</Button>
+              </FormItem>
             </Col>
+
+            <Col span="12">
+              <FormItem label="添加商品" >
+                <AutoComplete
+                  v-model="CustomInfo"
+                  :data="goodData"
+                  icon="ios-search"
+                  :filter-method="filterMethod"
+                  placeholder="请输入搜索商品序号"
+                  style="width:100%">
+                </AutoComplete>
+              </FormItem>
+            </Col>
+
           </Row>
         </Form>
       </div>
       <div class="order-table">
         <Card>
-          <p slot="title">The standard card</p>
+          <p slot="title">购买商品列表</p>
           <v-table
             is-horizontal-resize
             style="width:100%;"
@@ -156,6 +171,7 @@
                 remark:null,
                 payMoney:0,
               },
+              goodData: ['123/01016下口袋/浅蓝/L', '123456/01016下口袋/浅//L', '123456789/01016下口袋/浅蓝/L'],
               autoData: ['张三，12000', '李四，13000', '王五，140000'],
               waiterData: ['张三', '李四', '王五']
             }
@@ -194,17 +210,19 @@
             return option.toLowerCase().indexOf(value.toLowerCase()) !== -1;
           },
           emptyOrderInfo(){
-            this.orderInfo={
-              payWay:0,
-              integral:'0',
-              payable:0,
-              CustomInfo:'',
-              balanceMoney:0,
-              payDate:new Date().Format('yyyy/MM/dd'),
-              waiter:'',
-              remark:null,
-              payMoney:0,
-            }
+              let OrderInfoTemp={
+                payWay:0,
+                integral:'0',
+                payable:this.orderInfo.payable,
+                allCount:this.orderInfo.allCount,
+                CustomInfo:'',
+                balanceMoney:this.orderInfo.balanceMoney,
+                payDate:new Date().Format('yyyy/MM/dd'),
+                waiter:'',
+                remark:null,
+                payMoney:0,
+              }
+            this.orderInfo=OrderInfoTemp;
           },
           //表格点击事件
           customCompFunc(params){
@@ -241,6 +259,7 @@
       font-size: 12px;
       background-color: #fff;
       border-radius: 3px;
+      height:auto!important;
       td{
         width:12.5%!important;
       }
@@ -252,6 +271,7 @@
 
     }
     .v-table-body{
+      height:auto!important;
       position: relative;
     }
     .v-table-title-cell,.v-table-body-cell{
@@ -266,6 +286,12 @@
       border:1px solid $menuSelectFontColor;
       outline:none;
       border-radius:2px;
+    }
+    .v-table-body{
+      overflow-x: hidden!important;
+      .v-table-row:nth-child(2n){
+        background: #f8f8f9!important;
+      }
     }
   }
 </style>

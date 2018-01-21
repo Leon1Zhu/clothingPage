@@ -96,9 +96,13 @@
         }
       },
       mounted(){
-        let length = this.$store.getters.getMenuList.length
-        let activelink = this.$store.getters.getMenuList[length-1].link
-        this.$router.push({ path:activelink })
+          for(let item in this.$store.getters.getMenuList){
+              if(this.$store.getters.getMenuList[item].isActive){
+                this.$router.push({ path:this.$store.getters.getMenuList[length-1].link })
+                break;
+              }
+          }
+
       },
       methods: {
         toggleClick () {
@@ -158,6 +162,8 @@
         border-radius: 4px;
       }
       .layout-content-main{
+        width:96%;
+        margin-left:2%;
         padding: 10px;
       }
       .layout-copy{
