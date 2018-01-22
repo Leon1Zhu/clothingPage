@@ -62,6 +62,7 @@
   };
 </script>
 <style lang="scss" rel="stylesheet/scss" type="text/scss">
+  @import '../../common/css/globalscss.scss';
   .system-setting-html {
     width: 100%;
   }

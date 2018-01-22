@@ -61,8 +61,8 @@
   height:30px;
 }
 .ivu-btn-primary:hover{
-  border-color: $btnInputHoverBgColor;
-  background: $btnInputHoverBgColor;
+  border-color: rgba(90,199,157,0.7);
+  background: rgba(90,199,157,0.7);
   box-shadow: none;
 }
 .vertical-center-modal{
@@ -80,4 +80,17 @@
 
 .ivu-table-header table thead tr th{
   color: white;
+}
+
+.ivu-date-picker-cells-cell-selected em, .ivu-table-header table thead tr th {
+  background: $menuSelectFontColor;
+}
+
+.ivu-page-item:hover {
+  border-color: $menuSelectFontColor !important;
+}
+
+.ivu-page-item-active {
+  background-color: $menuSelectFontColor !important;
+  border-color: $menuSelectFontColor !important;
 }

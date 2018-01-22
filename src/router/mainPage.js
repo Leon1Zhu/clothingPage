@@ -8,6 +8,8 @@ const colorSizeManage = resolve => require(['@/components/system/colorSizeManage
 const systemSetting = resolve => require(['@/components/system/systemSetting.vue'], resolve);
 
 const repertoryRecord = resolve => require(['@/components/repertory/repertoryRecord.vue'], resolve);
+
+const repertoryShift = resolve => require(['@/components/repertory/repertoryShift.vue'], resolve);
 //销售开单
 const salesOrder = resolve => require(['@/components/goods/salesOrder.vue'], resolve);
 
@@ -21,28 +23,36 @@ const mainPageRouter = {
     {
       path: '/colorSizeManage',
       component: colorSizeManage,
-      name:"尺码颜色管理",
+      name: "尺码颜色管理",
       //needAlive表示该页面是否是标签页,keepAlive表示是否需要缓存改页面
-      meta:{ needAlive:true, keepAlive:true },
+      meta: {needAlive: true, keepAlive: true},
     },
     {
       path: '/systemSetting',
       component: systemSetting,
-      name:"系统设置",
-      meta:{ needAlive:true,keepAlive:true },
+      name: "系统设置",
+      meta: {needAlive: true, keepAlive: true},
     },
     {
       path: '/repertoryRecord',
       component: repertoryRecord,
-      name:"库存管理",
+      // 可以进行库存的添加和核对
+      name: "库存管理",
       //needAlive表示该页面是否是标签页,keepAlive表示是否需要缓存改页面
-      meta:{ needAlive:true,keepAlive:true },
+      meta: {needAlive: true, keepAlive: true},
+    },
+    {
+      path: '/repertoryShift',
+      component: repertoryShift,
+      name: "库存记录",
+      //needAlive表示该页面是否是标签页,keepAlive表示是否需要缓存改页面
+      meta: {needAlive: true, keepAlive: true},
     },
     {
       path: '/salesOrder',
       component: salesOrder,
-      name:"销售开单",
-      meta:{ needAlive:true,keepAlive:true },
+      name: "销售开单",
+      meta: {needAlive: true, keepAlive: true},
     },
     {
       path: '/salesReturn',

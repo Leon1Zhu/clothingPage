@@ -2,70 +2,14 @@
   <div class="repertory-record-html">
     <Input class="search" v-model="goodsNumber" placeholder="请输入货号或简称"></Input>
     <div class="goods-show">
-      <div class="item">
+      <div class="item" v-for="goods in goodsData">
         <div class="goods-img">
           <img src="./1.jpg" alt="">
         </div>
         <div class="goods-introduction">
-          <h4>三叶草卫衣</h4>
-          <div class="ids">商品id:454564</div>
-          <div class="number">货号:5456</div>
-          <div class="operation">
-            <span @click="modal1 = true"><Icon type="gear-b" class="check" color="red"></Icon></span>
-            <Icon type="compose" class="add" color="blue"></Icon>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="goods-img">
-          <img src="./1.jpg" alt="">
-        </div>
-        <div class="goods-introduction">
-          <h4>三叶草卫衣</h4>
-          <div class="ids">商品id:454564</div>
-          <div class="number">货号:5456</div>
-          <div class="operation">
-            <span @click="modal1 = true"><Icon type="gear-b" class="check" color="red"></Icon></span>
-            <Icon type="compose" class="add" color="blue"></Icon>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="goods-img">
-          <img src="./1.jpg" alt="">
-        </div>
-        <div class="goods-introduction">
-          <h4>三叶草卫衣</h4>
-          <div class="ids">商品id:454564</div>
-          <div class="number">货号:5456</div>
-          <div class="operation">
-            <span @click="modal1 = true"><Icon type="gear-b" class="check" color="red"></Icon></span>
-            <Icon type="compose" class="add" color="blue"></Icon>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="goods-img">
-          <img src="./1.jpg" alt="">
-        </div>
-        <div class="goods-introduction">
-          <h4>三叶草卫衣</h4>
-          <div class="ids">商品id:454564</div>
-          <div class="number">货号:5456</div>
-          <div class="operation">
-            <span @click="modal1 = true"><Icon type="gear-b" class="check" color="red"></Icon></span>
-            <Icon type="compose" class="add" color="blue"></Icon>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="goods-img">
-          <img src="./1.jpg" alt="">
-        </div>
-        <div class="goods-introduction">
-          <h4>三叶草卫衣</h4>
-          <div class="ids">商品id:454564</div>
-          <div class="number">货号:5456</div>
+          <h4>{{goods.name}}</h4>
+          <div class="ids">商品id:{{goods.ids}}</div>
+          <div class="number">货号:{{goods.number}}</div>
           <div class="operation">
             <span @click="modal1 = true"><Icon type="gear-b" class="check" color="red"></Icon></span>
             <Icon type="compose" class="add" color="blue"></Icon>
@@ -122,6 +66,51 @@
         goodsNumber: '',
         modal1: false,
         value1: 1,
+        goodsData: [
+          {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456'
+
+          },
+          {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456'
+
+          },
+          {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456'
+
+          },
+          {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456'
+
+          },
+          {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456'
+
+          },
+          {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456'
+
+          },
+        ],
+        goodsInformation: {}
       };
     },
     methods: {},
@@ -129,6 +118,7 @@
   };
 </script>
 <style lang="scss" rel="stylesheet/scss" type="text/scss">
+  @import '../../common/css/globalscss.scss';
   .repertory-record-html {
     padding: 8px;
     width: 100%;

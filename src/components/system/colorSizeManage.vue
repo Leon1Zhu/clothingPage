@@ -108,6 +108,7 @@
   };
 </script>
 <style lang="scss" rel="stylesheet/scss" type="text/scss">
+  @import '../../common/css/globalscss.scss';
   .color-size-manage-html {
     display: flex;
     width: 100%;
