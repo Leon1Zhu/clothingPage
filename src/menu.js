@@ -73,15 +73,15 @@ global.MENU=[
     linkHref: '',
     childMenuList:[
       {
+        menuName: '库存列表',
+        menuIcon: '',
+        linkHref: '',
+      },{
         menuName: '库存管理',
         menuIcon: '',
         linkHref: '/repertoryRecord',
       },{
-        menuName: '库存盘点',
-        menuIcon: '',
-        linkHref: '',
-      },{
-        menuName: '调货',
+        menuName: '货仓调货',
         menuIcon: '',
         linkHref: '',
       }

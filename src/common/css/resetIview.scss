@@ -94,3 +94,12 @@
   background-color: $menuSelectFontColor !important;
   border-color: $menuSelectFontColor !important;
 }
+
+.ivu-page-item:hover,.ivu-page-item-jump-next,.ivu-page-item-jump-prev,.ivu-page-prev:hover,.ivu-page-next:hover{
+  a{
+    color: $menuSelectFontColor;
+  }
+}
+.ivu-page-prev:hover,.ivu-page-next:hover{
+  border-color: $menuSelectFontColor;
+}
