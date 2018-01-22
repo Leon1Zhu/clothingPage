@@ -1,17 +1,20 @@
+@import "globalscss";
 html,body,#app{
+  font-size:14px;
   position: relative;
   width:100%;
   height:100%;
   font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif!important;
+}
+table,.ivu-input{
+  font-size:14px;
 }
 
 .disable-input{
   display: inline-block;
   width: 100%;
   height: 32px;
-  line-height: 1.5;
   padding: 4px 7px;
-  font-size: 12px;
   border: 1px solid #dddee1;
   border-radius: 4px;
   position: relative;
@@ -21,4 +24,33 @@ html,body,#app{
   /*color: #ccc;*/
   line-height: 190%;
 }
+.mu-paper.mu-drawer{
+  background: #f6f5f8;
+  .drawer-content{
+    width:100%;
+    height:100%;
+    overflow: auto;
+    .drawer-title{
+      background: $menuSelectFontColor;
+      width:100%;
+      height:60px;
+      color: #fff;
+      font-size:20px;
+      text-align: center;
+      line-height: 60px;
+      .ivu-icon-close{
+        position: absolute;
+        right: 2px;
+        top: 2px;
+        transition:transform .3s ;
+      }
+      .ivu-icon-close:hover{
+        cursor: pointer;
+        transform: rotate(180deg);
+      }
+    }
+  }
+}
+
+
 

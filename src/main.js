@@ -8,9 +8,9 @@ import 'muse-components/styles/base.less' // 加载基础的样式
 import drawer from 'muse-components/drawer'
 import './common/css/reset.css'
 import './filter'
-import './common/css/style.scss'
 import './common/css/resetIview.scss';
 import './common/css/iconFont.scss'
+import './common/css/style.scss'
 import './mainFun'
 Vue.config.productionTip = false
 Vue.component(drawer.name, drawer)

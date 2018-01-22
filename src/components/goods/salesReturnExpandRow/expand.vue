@@ -1,15 +1,15 @@
 <template>
   <div class="good-table-expand">
    <!-- <Table class="my-table" :show-header="!showHeader"  :columns="columns1" :data="data1"></Table>-->
-    <Card  v-for="item in data1" >
+    <Card  v-for="item in data1" @click.native="returnItem(item)">
       <div class="good-card">
         <div class="left-content">
             <img class="good-img" :src="item.img">
         </div>
         <div class="center-content">
             <div class="top-content">
-              <div>{{item.id}}</div>
-              <div>{{item.name}}</div>
+              <div>商品货号:{{item.id}}</div>
+              <div>商品名称:{{item.name}}</div>
             </div>
             <div class="bottom-content">
               <div class="color-content">
@@ -124,7 +124,7 @@
                   colorName:'#65cefa',
                   size:'L',
                   prince:152.00,
-                  count:10,
+                  count:10000,
                   returnCount:1,
                   name:'01016下口袋'
                 },
@@ -158,7 +158,11 @@
         },
         mounted(){
         },
-        methods: {}
+        methods: {
+          returnItem(item){
+              this.$emit('returnItem',item)
+          }
+        }
     }
 </script>
 <style lang="scss" rel="stylesheet/scss">
