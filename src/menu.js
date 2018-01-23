@@ -10,8 +10,8 @@ global.MENU=[
     childMenuList:[
       {
         menuName: '门店管理',
-        menuIcon: '',
-        linkHref: '',
+        menuIcon: 'icon-mendianguanli',
+        linkHref: '/storeManage',
       },{
         menuName: '店员管理',
         menuIcon: '',

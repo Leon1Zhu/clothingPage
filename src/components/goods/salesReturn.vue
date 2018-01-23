@@ -50,17 +50,6 @@
         </div>
       </my-drawer>
 
-      <!--<mu-drawer :docked="docked" right :open="open">
-        <div class="drawer-content">
-          <div class="drawer-title">退换入库<Icon @click.native="open=false" type="close"></Icon></div>
-          <div class="content">
-
-
-          </div>
-          <Button type="primary" long style="margin-top: 2%;">完成</Button>
-
-        </div>
-      </mu-drawer>-->
 
     </div>
 </template>
@@ -212,6 +201,7 @@
     }
 </script>
 <style lang="scss" rel="stylesheet/scss">
+  @import "../../common/css/globalscss";
   #salesReturn{
       .ivu-table-wrapper{
         margin-top:1.5%;
@@ -225,16 +215,15 @@
       width:100%;
       background: #fff;
       padding:15px 3%;
-      /*border-bottom: 1px solid #f5f4f5;*/
       .left-font,.right-font{
         width:49%;
         display: inline-block;
-        font-size:14px;
+        font-size:$fontSize;
 
       }
       .left-font{
         margin-left:2;
-        color: grey;
+        color: $formInputLableFontColor;
 
       }
       .right-font{
@@ -249,7 +238,7 @@
       width:96%;
       margin-left:2%;
       height:1px;
-      background: #f5f4f5;
+      background: $formLabelBorderBottomColor;
       position: absolute;
       bottom: 0px;
       right:0px;

@@ -16,6 +16,12 @@ const salesOrder = resolve => require(['@/components/goods/salesOrder.vue'], res
 //退换入库
 const salesReturn = resolve => require(['@/components/goods/salesReturn.vue'], resolve);
 
+//门店管理
+const storeManage = resolve => require(['@/components/merchant/storeManage.vue'], resolve);
+
+//店员管理
+const staffManage = resolve => require(['@/components/merchant/staffManage.vue'], resolve);
+
 const mainPageRouter = {
   path: '/',
   component: mainPage,
@@ -58,6 +64,18 @@ const mainPageRouter = {
       path: '/salesReturn',
       component: salesReturn,
       name:"退换入库",
+      meta:{ needAlive:true,keepAlive:true },
+    },
+    {
+      path: '/storeManage',
+      component: storeManage,
+      name:"门店管理",
+      meta:{ needAlive:true,keepAlive:true },
+    },
+    {
+      path: '/staffManage',
+      component: staffManage,
+      name:"店员管理",
       meta:{ needAlive:true,keepAlive:true },
     },
   ]

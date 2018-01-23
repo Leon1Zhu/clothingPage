@@ -16,7 +16,16 @@ $menuHoverBackgroundColor:rgba(0,0,0,.2)!default;
 $menuBackgroundColor:#3a4658!default;
 
 //按钮输入框hover改变色
-$btnInputHoverBgColor:rgba(11,176,155,0.7)!default;
+$btnInputHoverBgColor:rgba(11,176,155,0.8)!default;
+
+//编辑表单的提示文字颜色
+$formInputLableFontColor:grey!default;
+
+//编辑表单的分隔线颜色
+$formLabelBorderBottomColor:#f5f4f5!default;
+
+//字体大小
+$fontSize:14px!default;
 
 //菜单背景渐变色
 $menuStartColor:#465f5c!default;

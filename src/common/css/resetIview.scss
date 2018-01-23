@@ -31,8 +31,7 @@
 .ivu-menu.ivu-menu-vertical:after{
   display: none;
 }
-
-.ivu-btn-ghost,.ivu-select-selection,.ivu-icon-arrow-down-b.ivu-select-arrow{
+.ivu-btn-ghost,.ivu-select-selection:hover,.ivu-select-visible .ivu-select-selection,.ivu-icon-arrow-down-b.ivu-select-arrow{
   border-color: $menuSelectFontColor!important;
   color: $menuSelectFontColor!important;
   box-shadow: none!important;
@@ -49,8 +48,8 @@
 }
 
 .ivu-switch-checked {
-  border-color: #19be6b!important;
-  background-color: #19be6b!important;
+  border-color: $menuSelectFontColor;
+  background-color: $menuSelectFontColor;
 }
 .ivu-btn-primary{
   background: $menuSelectFontColor;
@@ -61,8 +60,8 @@
   height:30px;
 }
 .ivu-btn-primary:hover{
-  border-color: rgba(90,199,157,0.7);
-  background: rgba(90,199,157,0.7);
+  border-color: $btnInputHoverBgColor;
+  background: $btnInputHoverBgColor;
   box-shadow: none;
 }
 .vertical-center-modal{
@@ -102,4 +101,11 @@
 }
 .ivu-page-prev:hover,.ivu-page-next:hover{
   border-color: $menuSelectFontColor;
+}
+.ivu-cascader-menu-item.ivu-cascader-menu-item-active,.ivu-cascader-menu-item.ivu-cascader-menu-item-active:hover{
+  background: $menuSelectFontColor;
+  color: #fff;
+}
+.ivu-select-single{
+  font-size:$fontSize;
 }

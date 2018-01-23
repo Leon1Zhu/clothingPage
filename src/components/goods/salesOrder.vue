@@ -267,7 +267,7 @@
     .v-table-header-row{
       background-color: $menuSelectFontColor;
       color: white;
-      font-size: 14px;
+      font-size: $fontSize;
 
     }
     .v-table-body{
