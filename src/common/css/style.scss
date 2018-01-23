@@ -28,9 +28,12 @@ table,.ivu-input{
   background: #f6f5f8;
   width:320px;
   .drawer-content{
+    display: flex;
+    flex-flow: column;
     width:100%;
     height:100%;
     overflow: auto;
+    background: #fff;
     .drawer-title{
       background: $menuSelectFontColor;
       width:100%;
@@ -50,6 +53,16 @@ table,.ivu-input{
         transform: rotate(90deg);
       }
     }
+    .content{
+      flex:1;
+      margin-bottom: 3px;
+    }
+    .ivu-btn.ivu-btn-primary.ivu-btn-long{
+      width:66%;
+      margin:0 auto;
+      margin-bottom:3px;
+    }
+
   }
 }
 .red-star{

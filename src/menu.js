@@ -58,10 +58,10 @@ global.MENU=[
     childMenuList:[
       {
         menuName: '客户管理',
-        menuIcon: '',
-        linkHref: '',
+        menuIcon: 'icon-kehuguanli',
+        linkHref: '/customManage',
       },{
-        menuName: '客户详细',
+        menuName: '往来详细',
         menuIcon: '',
         linkHref: '',
       }

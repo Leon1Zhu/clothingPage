@@ -97,6 +97,7 @@
                   placeholder="请输入搜索商品序号"
                   style="width:100%">
                 </AutoComplete>
+                <Button type="ghost" @click="saveOrder">保存订单</Button>
               </FormItem>
             </Col>
 
@@ -236,6 +237,9 @@
             }else if (params.type === 'edit'){ // do edit operation
 
             }
+          },
+          saveOrder(){
+              this.$warning('操作错误','请将信息填写完整！')
           }
         },
     }
