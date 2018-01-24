@@ -1,6 +1,9 @@
 <template>
   <div class="repertory-record-html">
-    <Input class="search" v-model="goodsNumber" placeholder="请输入货号或简称"></Input>
+    <div class="search">
+      <Input v-model="goodsNumber" placeholder="请输入货号或简称"></Input>
+      <Button class="search-button" type="primary">搜索</Button>
+    </div>
     <div class="goods-show">
       <div class="item" v-for="goods in goodsData">
         <div class="goods-img">
@@ -11,14 +14,14 @@
           <div class="ids">商品id:{{goods.ids}}</div>
           <div class="number">货号:{{goods.number}}</div>
           <div class="operation">
-            <span @click="modal1 = true"><Icon type="gear-b" class="check" color="red"></Icon></span>
-            <Icon type="compose" class="add" color="blue"></Icon>
+            <span @click="check = true"><Icon type="gear-b" class="check" color="red"></Icon></span>
+            <span @click="add = true"><Icon type="compose" class="add" color="blue"></Icon></span>
           </div>
         </div>
       </div>
     </div>
     <Modal
-      v-model="modal1"
+      v-model="check"
       title="库存核对"
       @on-ok="ok"
       @on-cancel="cancel">
@@ -55,7 +58,7 @@
     </Modal>
 
     <Modal
-      v-model="modal2"
+      v-model="add"
       title="库存添加"
       @on-ok="ok"
       @on-cancel="cancel">
@@ -91,10 +94,34 @@
 
     <my-drawer :open="repertoryAddOpen" title="库存添加" @close-drawer="repertoryAddOpen=false"
                @complate-drawer="handleClose">
-      <div>
-        <Form :label-width="80">
-
-        </Form>
+      <div class="add-repertory">
+        <Card>
+          <p slot="title">
+            <Icon type="crop"></Icon>
+            请选择颜色
+          </p>
+          <ul>
+            <Tag type="dot" closable color="blue">蓝色</Tag>
+            <Tag type="dot" closable color="green">绿色</Tag>
+          </ul>
+        </Card>
+        <Card class="hn-ui-margin">
+          <p slot="title">
+            <Icon type="contrast"></Icon>
+            请选择颜色
+          </p>
+          <ul>
+            <Tag type="dot" closable color="blue">XXL</Tag>
+            <Tag type="dot" closable color="green">XL</Tag>
+          </ul>
+        </Card>
+        <Card class="hn-ui-margin">
+          <p slot="title">
+            <Icon type="code-working"></Icon>
+            请输入数量
+          </p>
+          <Input v-model="value1" type="number" placeholder="请输入数量"></Input>
+        </Card>
       </div>
     </my-drawer>
   </div>
@@ -107,10 +134,10 @@
     data() {
       return {
         goodsNumber: '',
-        modal1: false,
-        modal2: true,
+        check: false,
+        add: false,
         value1: 1,
-        repertoryAddOpen: true,
+        repertoryAddOpen: false,
         // 库存展示的信息数组
         goodsData: [
           {
@@ -154,7 +181,50 @@
             ids: '454564',
             number: '5456'
 
-          },
+          },{
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456'
+
+          },{
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456'
+
+          },{
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456'
+
+          },{
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456'
+
+          },{
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456'
+
+          },{
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456'
+
+          }
+        ],
+        detailArray: [
+          {
+            size: '',
+            color: '',
+            count: ''
+          }
         ],
         // 添加库存的信息数组
         addRepertoryArray: [
@@ -191,8 +261,12 @@
     display: flex;
     flex-direction: column;
     .search {
-      width: 94%;
-      margin-left: 3%;
+      width: 95%;
+      margin-left: 2.5%;
+      display: flex;
+      .search-button {
+        margin-left: 8px;
+      }
     }
     .goods-show {
       flex: 1;
@@ -201,7 +275,7 @@
       padding: 8px;
       .item {
         display: flex;
-        width: 230px;
+        width: 240px;
         padding: 17.5px;
         height: 120px;
         font-size: 14px;
@@ -302,4 +376,16 @@
     bottom: 90px !important;
     right: 30px !important;
   }
+
+  .add-repertory {
+    padding: 8px;
+    width: 100%;
+    .hn-ui-margin {
+      margin: {
+        top: 8px;
+      }
+    ;
+    }
+  }
+
 </style>
