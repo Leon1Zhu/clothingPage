@@ -26,7 +26,7 @@ table,.ivu-input{
 }
 .mu-paper.mu-drawer{
   background: #f6f5f8;
-  width:320px;
+  width:30%;
   .drawer-content{
     display: flex;
     flex-flow: column;
@@ -71,5 +71,77 @@ table,.ivu-input{
   line-height: 26px;
 }
 
+
+.store-item .iconfont{
+  font-size:18px;
+}
+.store-item:first-child .iconfont{
+  padding:0px;
+  font-size:16px;
+}
+
+.store-item{
+  padding:5px 0px;
+  border-bottom:1px solid $formLabelBorderBottomColor;
+  display: flex;
+  .iconfont:before{
+    border-radius:100%;
+    color: #fff;
+  }
+  .left-content{
+    display: flex;
+    line-height:200%;
+    flex-wrap:wrap;
+    .store-item-label{
+      margin-left:2px;
+      color: $formInputLableFontColor;
+    }
+    .service-item{
+      color: $menuSelectFontColor;
+      border: 1px dotted $menuSelectFontColor;
+      border-radius:30px;
+      padding:0px 6px;
+      font-size:12px;
+      margin-left:5px;
+      margin-top:5px;
+      height: 25px;
+      line-height: 190%;
+      transition: all .1s;
+    }
+    .service-item:hover{
+      background: $menuSelectFontColor;
+      color: #fff;
+      border: 1px solid $menuSelectFontColor!important;
+      cursor: pointer;
+    }
+  }
+  .right-content{
+    flex:1 1 30%;
+    text-align: right;
+    line-height:200%;
+  }
+}
+.no-border-bottom-item{
+  position: relative;
+  border-bottom:0px;
+}
+.no-border-bottom-item:after{
+  content: ' ';
+  position: absolute;
+  bottom:0px;
+  right:0px;
+  width:92%;
+  width:calc(100% - 27px);
+  height:1px;
+  background: $formLabelBorderBottomColor;
+}
+
+
+.store-item-icon-color .iconfont:before{
+  padding:4px;
+}
+.store-item-icon-color:nth-child(2) .left-content .iconfont:before{
+  background: #808dc4!important;
+}
 
 

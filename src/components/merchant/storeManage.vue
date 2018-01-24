@@ -17,7 +17,7 @@
             </div>
           </div>
 
-          <div class="store-item">
+          <div class="store-item  store-item-icon-color">
             <div class="left-content">
               <i class="iconfont  icon-iconfontcaidan" ></i>
               <div class="store-item-label">行业分类<span class="red-star">*</span></div>
@@ -29,7 +29,7 @@
             </div>
           </div>
 
-          <div class="store-item">
+          <div class="store-item store-item-icon-color">
             <div class="left-content">
               <i class="iconfont  icon-gouwudai" ></i>
               <div class="store-item-label">行业分类<span class="red-star">*</span></div>
@@ -41,7 +41,7 @@
             </div>
           </div>
 
-          <div class="store-item">
+          <div class="store-item store-item-icon-color">
             <div class="left-content">
               <i class="iconfont  icon-shangjia" ></i>
               <div class="store-item-label">门店名称<span class="red-star">*</span></div>
@@ -51,17 +51,17 @@
             </div>
           </div>
 
-          <div class="store-item no-border-bottom-item">
+          <div class="store-item no-border-bottom-item store-item-icon-color">
             <div class="left-content">
               <i class="iconfont  icon-10xiangxidizhi" ></i>
               <div class="store-item-label">门店地区<span class="red-star">*</span></div>
             </div>
             <div class="right-content">
-              <Cascader :data="data" v-model="value1"></Cascader>
+              <Cascader :data="data" v-model="addSotreItem.storeAdress"></Cascader>
             </div>
           </div>
 
-          <div class="store-item ">
+          <div class="store-item  store-item-icon-color">
             <div class="left-content">
               <div  style="margin-left: 27px;" class="store-item-label">详细地址<span class="red-star">*</span></div>
             </div>
@@ -70,7 +70,7 @@
             </div>
           </div>
 
-          <div class="store-item ">
+          <div class="store-item  store-item-icon-color">
             <div class="left-content">
               <i class="iconfont  icon-dianhua" ></i>
               <div   class="store-item-label">门店电话<span class="red-star">*</span></div>
@@ -81,7 +81,7 @@
           </div>
 
 
-          <div class="store-item ">
+          <div class="store-item  store-item-icon-color">
             <div class="left-content">
               <i class="iconfont  icon-weixin" ></i>
               <div   class="store-item-label">门店微信<span class="red-star">*</span></div>
@@ -91,7 +91,7 @@
             </div>
           </div>
 
-          <div class="store-item ">
+          <div class="store-item  store-item-icon-color">
             <div class="left-content">
               <i class="iconfont  icon-qq" ></i>
               <div   class="store-item-label">门店QQ&nbsp;&nbsp;<span class="red-star">*</span></div>
@@ -102,7 +102,7 @@
           </div>
 
 
-          <div class="store-item  no-border-bottom-item">
+          <div class="store-item  no-border-bottom-item store-item-icon-color">
             <div class="left-content">
               <i class="iconfont  icon-zhifufangshi" ></i>
               <div   class="store-item-label">支付方式<span class="red-star">*</span></div>
@@ -112,7 +112,7 @@
             </div>
           </div>
 
-          <div class="store-item no-border-bottom-item">
+          <div class="store-item no-border-bottom-item store-item-icon-color">
             <div class="left-content">
               <div  style="margin-left: 27px;" class="store-item-label">微信支付&nbsp;&nbsp;</div>
             </div>
@@ -120,7 +120,7 @@
               <Input v-model="addSotreItem.storeDetailAdress" placeholder="微信支付账号" ></Input>
             </div>
           </div>
-          <div class="store-item ">
+          <div class="store-item  store-item-icon-color">
             <div class="left-content">
               <div  style="margin-left: 27px;" class="store-item-label">支付宝&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
             </div>
@@ -129,7 +129,7 @@
             </div>
           </div>
 
-          <div class="store-item ">
+          <div class="store-item  store-item-icon-color">
             <div class="left-content">
               <i class="iconfont  icon-shoukuan" ></i>
               <div   class="store-item-label">收款名<span class="red-star">*</span>&nbsp;&nbsp;&nbsp;&nbsp;</div>
@@ -139,7 +139,7 @@
             </div>
           </div>
 
-          <div class="store-item ">
+          <div class="store-item  store-item-icon-color">
             <div class="left-content">
               <i class="iconfont  icon-fuwu" ></i>
               <div   class="store-item-label">店铺服务<span class="red-star">*</span></div>
@@ -171,6 +171,7 @@
                 storeClassify:null,
                 saleType:null,
                 storeName:null,
+                storeAdress:null,
                 storeDetailAdress:null,
                 storePhone:null,
                 zfbAcount:null,
@@ -395,76 +396,12 @@
       background: #fff;
         .store-change-content{
           padding:0px 5px;
-          .store-item{
-            padding:5px 0px;
-            border-bottom:1px solid $formLabelBorderBottomColor;
-            display: flex;
-            .left-content{
-              display: flex;
-              line-height:200%;
-              flex-wrap:wrap;
-              .store-item-label{
-                margin-left:2px;
-                color: $formInputLableFontColor;
-              }
-              .service-item{
-                color: $menuSelectFontColor;
-                border: 1px dotted $menuSelectFontColor;
-                border-radius:30px;
-                padding:0px 6px;
-                font-size:12px;
-                margin-left:5px;
-                margin-top:5px;
-                height: 25px;
-                line-height: 190%;
-                transition: all .1s;
-              }
-              .service-item:hover{
-                background: $menuSelectFontColor;
-                color: #fff;
-                border: 1px solid $menuSelectFontColor!important;
-                cursor: pointer;
-              }
-            }
-            .right-content{
-              flex:1 1 30%;
-              text-align: right;
-              line-height:200%;
-            }
-        }
-          .no-border-bottom-item{
-            position: relative;
-            border-bottom:0px;
-          }
-          .no-border-bottom-item:after{
-            content: ' ';
-            position: absolute;
-            bottom:0px;
-            right:0px;
-            width:92%;
-            width:calc(100% - 27px);
-            height:1px;
-            background: $formLabelBorderBottomColor;
-          }
       }
     }
 
-
-    .iconfont:before{
-      border-radius:100%;
-      color: #fff;
-    }
-
-    .iconfont::before{
-
-    }
     .icon-gantanhao:before{
       background: $menuSelectFontColor;
       border:1px solid $menuSelectFontColor;
-    }
-    .icon-iconfontcaidan:before{
-      padding: 4px;
-      background: #808dc4;
     }
     .icon-gouwudai:before{
       padding:4px;
