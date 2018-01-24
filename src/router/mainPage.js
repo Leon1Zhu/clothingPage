@@ -33,6 +33,9 @@ const staffManage = resolve => require(['@/components/merchant/staffManage.vue']
 //客户管理
 const customManage = resolve => require(['@/components/visitor/customManage.vue'], resolve);
 
+//往来管理
+const visitorList = resolve => require(['@/components/visitor/visitorList.vue'], resolve);
+
 const mainPageRouter = {
   path: '/',
   component: mainPage,
@@ -102,6 +105,14 @@ const mainPageRouter = {
       name: "客户管理",
       meta: {needAlive: true, keepAlive: true},
     },
+    {
+      path: '/visitorList',
+      component: visitorList,
+      name: "往来管理",
+      meta: {needAlive: true, keepAlive: true},
+    },
+
+
 
   ]
 };

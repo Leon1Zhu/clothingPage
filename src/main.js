@@ -10,8 +10,8 @@ import './common/css/reset.css'
 import './filter'
 import './common/css/resetIview.scss';
 import './common/css/iconFont.scss'
-import './common/css/style.scss'
 import './mainFun'
+import './common/css/style.scss'
 Vue.config.productionTip = false
 Vue.component(drawer.name, drawer)
 Vue.use(iView);

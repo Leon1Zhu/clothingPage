@@ -28,13 +28,14 @@ table,.ivu-input{
   background: #f6f5f8;
   width:30%;
   .drawer-content{
+    min-height:100%;
     display: flex;
     flex-flow: column;
     width:100%;
-    height:100%;
     overflow: auto;
     background: #fff;
     .drawer-title{
+      position: relative;
       background: $menuSelectFontColor;
       width:100%;
       height:60px;
@@ -136,12 +137,69 @@ table,.ivu-input{
   background: $formLabelBorderBottomColor;
 }
 
+.store-item:first-child .iconfont{
+  padding:0px;
+  font-size:16px;
+}
 
 .store-item-icon-color .iconfont:before{
   padding:4px;
 }
-.store-item-icon-color:nth-child(2) .left-content .iconfont:before{
-  background: #808dc4!important;
+
+.ivu-date-picker-cells-cell-today em:after{
+  background: $menuSelectFontColor;
 }
+
+.store-item-icon-color:nth-child(2) .left-content .iconfont:before{
+  background: #808dc4;
+}
+
+.store-item-icon-color:nth-child(3) .left-content .iconfont:before{
+  background: #a2ce8d;
+}
+
+.store-item-icon-color:nth-child(4) .left-content .iconfont:before{
+  background: #71c8f2;
+}
+
+
+.store-item-icon-color:nth-child(5) .left-content .iconfont:before{
+  background: #17aca8;
+}
+.store-item-icon-color:nth-child(6) .left-content .iconfont:before{
+  background: cornflowerblue;
+}
+
+
+.store-item-icon-color:nth-child(7) .left-content .iconfont:before{
+  background: #f08e03;
+}
+
+
+
+.store-item-icon-color:nth-child(8) .left-content .iconfont:before{
+  background: #22c06b;
+}
+
+.store-item-icon-color:nth-child(9) .left-content .iconfont:before{
+  background: #13bdff;
+}
+
+
+.store-item-icon-color:nth-child(10) .left-content .iconfont:before{
+  background: #fd818c;
+}
+
+.store-item-icon-color:nth-child(13) .left-content .iconfont:before{
+  background: #19bdff;
+}
+
+.store-item-icon-color:nth-child(14) .left-content .iconfont:before{
+  background: #fe808c;
+}
+
+
+
+
 
 

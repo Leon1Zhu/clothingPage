@@ -98,7 +98,7 @@
       mounted(){
           for(let item in this.$store.getters.getMenuList){
               if(this.$store.getters.getMenuList[item].isActive){
-                this.$router.push({ path:this.$store.getters.getMenuList[length-1].link })
+                this.$router.push({ path:this.$store.getters.getMenuList[this.$store.getters.getMenuList.length-1].link })
                 break;
               }
           }
@@ -119,14 +119,22 @@
             this.$router.push({ path:path })
         },
         changePgae(index,path){
-            this.$store.dispatch('changeActivePageAction',index)
+            this.$store.commit('changeActivePage',index)
             this.$router.push({ path:path })
         },
         closePage(index){
+            let flag = false;
+            if(this.$store.getters.getMenuList[index].isActive){
+                flag = true
+            }
             this.$store.dispatch('deletePageAction',index)
-            let length = this.$store.getters.getMenuList.length
-            let activelink = this.$store.getters.getMenuList[length-1].link
-            this.$router.push({ path:activelink })
+            if(flag){
+              let length = this.$store.getters.getMenuList.length
+              let activelink = this.$store.getters.getMenuList[length-1].link
+              this.$router.push({ path:activelink })
+            }
+
+
         }
       }
     }

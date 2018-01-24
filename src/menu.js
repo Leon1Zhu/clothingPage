@@ -14,8 +14,8 @@ global.MENU=[
         linkHref: '/storeManage',
       },{
         menuName: '店员管理',
-        menuIcon: '',
-        linkHref: '',
+        menuIcon: 'icon-kehu',
+        linkHref: '/staffManage',
       },{
         menuName: '颜色管理',
         menuIcon: '',
@@ -34,7 +34,7 @@ global.MENU=[
     childMenuList:[
       {
         menuName: '商品管理',
-        menuIcon: '',
+        menuIcon: 'icon-gouwudai',
         linkHref: '',
       },{
         menuName: '商品状态设置',
@@ -61,9 +61,9 @@ global.MENU=[
         menuIcon: 'icon-kehuguanli',
         linkHref: '/customManage',
       },{
-        menuName: '往来详细',
-        menuIcon: '',
-        linkHref: '',
+        menuName: '往来列表',
+        menuIcon: 'icon-liebiao',
+        linkHref: '/visitorList',
       }
     ]
   },{
@@ -94,10 +94,6 @@ global.MENU=[
     childMenuList:[
       {
         menuName: '订单记录',
-        menuIcon: '',
-        linkHref: '',
-      },{
-        menuName: '省市县数据管理',
         menuIcon: '',
         linkHref: '',
       },{

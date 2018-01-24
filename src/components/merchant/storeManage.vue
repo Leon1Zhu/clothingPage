@@ -1,8 +1,8 @@
 <template>
     <div id="storeManage">
-      <div class="add-store-btn"> <Button type="primary" icon="plus-round" @click.native="addNewStore">添加新门店</Button></div>
+      <div class="add-store-btn"> <Button type="primary" icon="plus-round" @click.native="addNewStore('');">添加新门店</Button></div>
       <Table stripe border :columns="columns10" :data="data9"></Table>
-      <my-drawer :open="open" title="门店管理" @close-drawer="open=false" @complate-drawer="complateDrawer">
+      <my-drawer :open="open" title="门店管理" :btnFont="btnFont" @close-drawer="open=false" @complate-drawer="complateDrawer">
         <div class="store-change-content">
           <div class="store-item">
             <div class="left-content">
@@ -32,7 +32,7 @@
           <div class="store-item store-item-icon-color">
             <div class="left-content">
               <i class="iconfont  icon-gouwudai" ></i>
-              <div class="store-item-label">行业分类<span class="red-star">*</span></div>
+              <div class="store-item-label">销售类型<span class="red-star">*</span></div>
             </div>
             <div class="right-content">
               <Select v-model="addSotreItem.saleType" >
@@ -61,7 +61,7 @@
             </div>
           </div>
 
-          <div class="store-item  store-item-icon-color">
+          <div class="store-item  ">
             <div class="left-content">
               <div  style="margin-left: 27px;" class="store-item-label">详细地址<span class="red-star">*</span></div>
             </div>
@@ -112,7 +112,7 @@
             </div>
           </div>
 
-          <div class="store-item no-border-bottom-item store-item-icon-color">
+          <div class="store-item no-border-bottom-item ">
             <div class="left-content">
               <div  style="margin-left: 27px;" class="store-item-label">微信支付&nbsp;&nbsp;</div>
             </div>
@@ -120,7 +120,7 @@
               <Input v-model="addSotreItem.storeDetailAdress" placeholder="微信支付账号" ></Input>
             </div>
           </div>
-          <div class="store-item  store-item-icon-color">
+          <div class="store-item  ">
             <div class="left-content">
               <div  style="margin-left: 27px;" class="store-item-label">支付宝&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
             </div>
@@ -154,6 +154,21 @@
 
         </div>
       </my-drawer>
+
+
+      <Modal v-model="modal2" width="360">
+        <p slot="header" style="color:#f60;text-align:center">
+          <Icon type="information-circled"></Icon>
+          <span>门店删除确认</span>
+        </p>
+        <div style="text-align:center">
+          <p>你确认删除1号仓库么。</p>
+        </div>
+        <div slot="footer">
+          <Button type="error" size="large" long :loading="modal_loading" @click="del">删除</Button>
+        </div>
+      </Modal>
+
     </div>
 </template>
 
@@ -163,6 +178,9 @@
         data(){
             return {
               open:false,
+              btnFont:'新增',
+              modal2:false,
+              modal_loading:false,
               storeClassify:STORECLASSIFY,
               saleType:SALETYPE,
               storeService:STORESERVICE,
@@ -231,6 +249,7 @@
                         on: {
                           click: () => {
                               this.open=true
+                              this.btnFont = '修改'
                           }
                         }
                       }, ),
@@ -245,7 +264,7 @@
                         },
                         on:{
                             click: () => {
-
+                              this.modal2 = true
                             }
                         }
                       },)
@@ -365,9 +384,17 @@
           },
           addNewStore(){
               this.open=true;
+              this.btnFont = '新增'
           },
           addService(service){
 
+          },
+          del () {
+            this.modal_loading = true;
+            setTimeout(() => {
+              this.modal_loading = false;
+              this.modal2 = false;
+            }, 2000);
           }
         }
     }
@@ -388,10 +415,7 @@
     .store-item .iconfont{
       font-size:18px;
     }
-    .store-item:first-child .iconfont{
-      padding:0px;
-      font-size:16px;
-    }
+
     .content{
       background: #fff;
         .store-change-content{
@@ -402,42 +426,6 @@
     .icon-gantanhao:before{
       background: $menuSelectFontColor;
       border:1px solid $menuSelectFontColor;
-    }
-    .icon-gouwudai:before{
-      padding:4px;
-      background: #a2ce8d;
-    }
-    .icon-shangjia:before{
-      padding:4px;
-      background: #71c8f2;
-    }
-    .icon-10xiangxidizhi:before{
-      padding:4px;
-      background: #17aca8;
-    }
-    .icon-dianhua:before{
-      padding:4px;
-      background: #f08e03;
-    }
-    .icon-weixin:before{
-      padding:4px;
-      background: #22c06b;
-    }
-    .icon-qq:before{
-      padding:4px;
-      background: #13bdff;
-    }
-    .icon-zhifufangshi:before{
-      padding:4px;
-      background: #fd818c;
-    }
-    .icon-shoukuan:before{
-      padding:4px;
-      background: #19bdff;
-    }
-    .icon-fuwu:before{
-      padding:4px;
-      background: #fe808c;
     }
   }
 

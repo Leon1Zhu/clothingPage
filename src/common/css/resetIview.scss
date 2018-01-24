@@ -71,8 +71,8 @@
 }
 
 .ivu-btn-primary:hover {
-  border-color: rgba(90, 199, 157, 0.7);
-  background: rgba(90, 199, 157, 0.7);
+  border-color: $btnInputHoverBgColor;
+  background: $btnInputHoverBgColor;
   box-shadow: none;
 }
 

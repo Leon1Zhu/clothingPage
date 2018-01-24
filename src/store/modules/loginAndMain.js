@@ -54,6 +54,12 @@ const mutations = {
     if(state.menuList[index].isActive === true){
       isActiveFlag = true;
     }
+    let menuTemp = [];
+   /* for(let item in state.menuList){
+      if(!(parseInt(item,10) === parseInt(index,10))){
+        menuTemp.push(state.menuList[item])
+      }
+    }*/
     state.menuList.splice(index,1)
     if(isActiveFlag){
       state.menuList[state.menuList.length-1].isActive = true;
