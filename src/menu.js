@@ -34,7 +34,7 @@ global.MENU=[
         linkHref: '',
       },{
         menuName: '商品状态设置',
-        menuIcon: '',
+        menuIcon: 'icon-lihuoshangjia',
         linkHref: '',
       },{
         menuName: '销售开单',
@@ -69,13 +69,17 @@ global.MENU=[
     linkHref: '',
     childMenuList:[
       {
-        menuName: '库存列表',
+        menuName: '库存记录',
         menuIcon: 'icon-weibiaoti2010101',
-        linkHref: '',
+        linkHref: '/repertoryShift',
       },{
         menuName: '库存管理',
         menuIcon: 'icon-kucun',
         linkHref: '/repertoryRecord',
+      },{
+        menuName: '库存盘点',
+        menuIcon: 'icon-pandian',
+        linkHref: '/storeChange',
       },{
         menuName: '货仓调货',
         menuIcon: 'icon-yunshupeisong',
