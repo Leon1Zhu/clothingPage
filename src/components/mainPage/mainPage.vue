@@ -116,7 +116,11 @@
         },
         ISNULL : ISNULL,
         goPage(path){
-            this.$router.push({ path:path })
+          if(this.$store.getters.getMenuList.length>8){
+            this.$warning('操作错误', '标签页最多存在8个，请关闭之前的标签页再重复此操作！');
+            return;
+          }
+          this.$router.push({ path:path })
         },
         changePgae(index,path){
             this.$store.commit('changeActivePage',index)

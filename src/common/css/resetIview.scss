@@ -59,8 +59,8 @@
 }
 
 .ivu-switch-checked {
-  border-color: #19be6b !important;
-  background-color: #19be6b !important;
+   border-color: $menuSelectFontColor;
+   background-color: $menuSelectFontColor;
 }
 
 .ivu-btn-primary {
@@ -101,10 +101,13 @@
   background: $menuSelectFontColor;
 }
 
-.ivu-page-item:hover {
+.ivu-page-item:hover{
   border-color: $menuSelectFontColor !important;
 }
 
+.ivu-page-item:hover a,.ivu-page-item-jump-prev a,.ivu-page-item-jump-next a{
+  color: $menuSelectFontColor;
+}
 .ivu-page-item-active {
   background-color: $menuSelectFontColor !important;
   border-color: $menuSelectFontColor !important;

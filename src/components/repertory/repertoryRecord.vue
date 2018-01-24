@@ -317,7 +317,7 @@
     }
     footer {
       .footer-page {
-        margin-left: 35%;
+        text-align: right;
       }
     }
   }

@@ -56,15 +56,7 @@ router.beforeEach((to, from, next) => {
       link: to.path,
       isActive: true,
     }
-
-    if(store.getters.getMenuList.length>8){
-      iView.Notice.warning({
-        title: '操作错误',
-        desc:  '标签页最多存在8个，请关闭之前的标签页再重复此操作！ '
-      });
-    }else{
       store.dispatch('addMenuListAction',obj)
-    }
   }
   next();
 });

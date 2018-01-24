@@ -43,7 +43,7 @@ const mainPageRouter = {
     {
       path: '/colorSizeManage',
       component: colorSizeManage,
-      name: "尺码颜色管理",
+      name: "尺码&颜色管理",
       //needAlive表示该页面是否是标签页,keepAlive表示是否需要缓存改页面
       meta: {needAlive: true, keepAlive: true},
     },

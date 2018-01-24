@@ -171,7 +171,7 @@
     footer {
       margin-top: 8px;
       .footer-page {
-        margin-left: 35%;
+       text-align: right;
       }
     }
   }

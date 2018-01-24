@@ -28,6 +28,7 @@ table,.ivu-input{
   background: #f6f5f8;
   width:30%;
   .drawer-content{
+    overflow-x: hidden;
     min-height:100%;
     display: flex;
     flex-flow: column;
