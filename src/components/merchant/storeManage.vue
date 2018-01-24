@@ -32,7 +32,7 @@
           <div class="store-item store-item-icon-color">
             <div class="left-content">
               <i class="iconfont  icon-gouwudai" ></i>
-              <div class="store-item-label">行业分类<span class="red-star">*</span></div>
+              <div class="store-item-label">销售类型<span class="red-star">*</span></div>
             </div>
             <div class="right-content">
               <Select v-model="addSotreItem.saleType" >
@@ -61,7 +61,7 @@
             </div>
           </div>
 
-          <div class="store-item  store-item-icon-color">
+          <div class="store-item  ">
             <div class="left-content">
               <div  style="margin-left: 27px;" class="store-item-label">详细地址<span class="red-star">*</span></div>
             </div>
@@ -112,7 +112,7 @@
             </div>
           </div>
 
-          <div class="store-item no-border-bottom-item store-item-icon-color">
+          <div class="store-item no-border-bottom-item ">
             <div class="left-content">
               <div  style="margin-left: 27px;" class="store-item-label">微信支付&nbsp;&nbsp;</div>
             </div>
@@ -120,7 +120,7 @@
               <Input v-model="addSotreItem.storeDetailAdress" placeholder="微信支付账号" ></Input>
             </div>
           </div>
-          <div class="store-item  store-item-icon-color">
+          <div class="store-item  ">
             <div class="left-content">
               <div  style="margin-left: 27px;" class="store-item-label">支付宝&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
             </div>
@@ -388,10 +388,7 @@
     .store-item .iconfont{
       font-size:18px;
     }
-    .store-item:first-child .iconfont{
-      padding:0px;
-      font-size:16px;
-    }
+
     .content{
       background: #fff;
         .store-change-content{
@@ -402,42 +399,6 @@
     .icon-gantanhao:before{
       background: $menuSelectFontColor;
       border:1px solid $menuSelectFontColor;
-    }
-    .icon-gouwudai:before{
-      padding:4px;
-      background: #a2ce8d;
-    }
-    .icon-shangjia:before{
-      padding:4px;
-      background: #71c8f2;
-    }
-    .icon-10xiangxidizhi:before{
-      padding:4px;
-      background: #17aca8;
-    }
-    .icon-dianhua:before{
-      padding:4px;
-      background: #f08e03;
-    }
-    .icon-weixin:before{
-      padding:4px;
-      background: #22c06b;
-    }
-    .icon-qq:before{
-      padding:4px;
-      background: #13bdff;
-    }
-    .icon-zhifufangshi:before{
-      padding:4px;
-      background: #fd818c;
-    }
-    .icon-shoukuan:before{
-      padding:4px;
-      background: #19bdff;
-    }
-    .icon-fuwu:before{
-      padding:4px;
-      background: #fe808c;
     }
   }
 
