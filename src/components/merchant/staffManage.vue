@@ -1,27 +1,40 @@
 <template>
-  <div id="storeManage">
-    <div class="add-store-btn"> <Button type="primary" icon="plus-round" @click.native="addNewStore">添加新店员</Button></div>
+  <div id="staffManage">
+    <div class="add-store-btn"> <Button type="primary" icon="plus-round" @click.native="addNewStaff">添加新店员</Button></div>
     <Table stripe border :columns="columns10" :data="data9"></Table>
-    <my-drawer :open="open" title="店员管理" @close-drawer="open=false" @complate-drawer="complateDrawer">
+    <Page :total="100" style="margin-top: 5px;"></Page>
+    <my-drawer :open="open" title="店员管理"  :btnFont="btnFont"  @close-drawer="open=false" @complate-drawer="complateDrawer">
       <div class="store-change-content">
-        <
 
-        <div class="store-item">
+        <div class="store-item store-item-icon-color">
           <div class="left-content">
-            <i class="iconfont  icon-iconfontcaidan" ></i>
-            <div class="store-item-label">行业分类<span class="red-star">*</span></div>
+            <i class="iconfont  icon-kehu" ></i>
+            <div class="store-item-label">店员名称<span class="red-star">*</span></div>
           </div>
           <div class="right-content">
-            <Select v-model="addSotreItem.storeClassify" >
-              <Option v-for="item in storeClassify" :value="item.value" :key="item.value">{{ item.label }}</Option>
-            </Select>
+            <Input v-model="staffItem.account_name" placeholder="店员名称" ></Input>
           </div>
         </div>
 
+        <div class="store-item store-item-icon-color">
+          <div class="left-content">
+            <i class="iconfont  icon-iconfontcaidan" ></i>
+            <div class="store-item-label">店员类别<span class="red-star">*</span></div>
+          </div>
+          <div class="right-content">
+            <Input v-model="staffItem.account_type" placeholder="店员类别" ></Input>
+          </div>
+        </div>
 
-
-
-
+        <div class="store-item store-item-icon-color">
+          <div class="left-content">
+            <i class="iconfont  icon-ERP_gongzuodangqianzhuangtai" ></i>
+            <div class="store-item-label">店员状态<span class="red-star">*</span></div>
+          </div>
+          <div class="right-content">
+            <Input v-model="staffItem.account_status" placeholder="店员状态" ></Input>
+          </div>
+        </div>
 
       </div>
     </my-drawer>
@@ -34,26 +47,37 @@
     data(){
       return {
         open:false,
+        btnFont:'新增',
         staffItem:{
-
+          account_name:'',
+          account_type:'',
+          account_status:'',
         },
 
         columns10: [
           {
-            title: '用户名',
-            key: 'storeName'
+            title: '店员名称',
+            key: 'account_name'
+          },
+          {
+            title: '店员类别',
+            key: 'account_type',
+            render: (h, params) => {
+              return h('p', {
+              },parseInt(params.row.account_type,10) === 1 ? '管理员' : '店员');
+            }
+          },
+          {
+            title: '店员状态',
+            key: 'account_status',
+            render: (h, params) => {
+              return h('p', {
+              },parseInt(params.row.account_status,10) === 1 ? '启用' : '停用');
+            }
           },
           {
             title: '注册时间',
-            key: 'storeIndustry'
-          },
-          {
-            title: '数据库分配',
-            key: 'storeType',
-          },
-          {
-            title: '数据库状态',
-            key: 'storeAdress',
+            key: 'account_time',
           },
           {
             title: '操作',
@@ -70,6 +94,7 @@
                   },
                   on: {
                     click: () => {
+                      this.btnFont = '修改'
                       this.open=true
                     }
                   }
@@ -95,49 +120,37 @@
         ],
         data9: [
           {
-            storeName:'1号仓库',
-            storeIndustry:'批发',
-            storeType:'盛诺服饰工厂',
-            storeAdress:'常熟-外贸村-朱家坝',
-            storeDetailAdress:'朱家坝南村40号',
-            storeWeiXin:'18752002039',
-            storeQQ:'937154020',
-            storePhone:'18752002039',
-            storeService:'一件代发/换款换货',
+            account_name:'张三',
+            account_type:'1',
+            account_status:'1',
+            account_time:'2018/01/22',
           },
           {
-            storeName:'1号仓库',
-            storeIndustry:'批发',
-            storeType:'盛诺服饰工厂',
-            storeAdress:'常熟-外贸村-朱家坝',
-            storeDetailAdress:'朱家坝南村40号',
-            storeWeiXin:'18752002039',
-            storeQQ:'937154020',
-            storePhone:'18752002039',
-            storeService:'一件代发/换款换货',
+            account_name:'张三',
+            account_type:'0',
+            account_status:'1',
+            account_time:'2018/01/22',
+          }, {
+            account_name:'张三',
+            account_type:'0',
+            account_status:'1',
+            account_time:'2018/01/22',
+          }, {
+            account_name:'张三',
+            account_type:'0',
+            account_status:'1',
+            account_time:'2018/01/22',
+          }, {
+            account_name:'张三',
+            account_type:'0',
+            account_status:'0',
+            account_time:'2018/01/22',
+          }, {
+            account_name:'张三',
+            account_type:'0',
+            account_status:'1',
+            account_time:'2018/01/22',
           },
-          {
-            storeName:'1号仓库',
-            storeIndustry:'批发',
-            storeType:'盛诺服饰工厂',
-            storeAdress:'常熟-外贸村-朱家坝',
-            storeDetailAdress:'朱家坝南村40号',
-            storeWeiXin:'18752002039',
-            storeQQ:'937154020',
-            storePhone:'18752002039',
-            storeService:'一件代发/换款换货',
-          },
-          {
-            storeName:'1号仓库',
-            storeIndustry:'批发',
-            storeType:'盛诺服饰工厂',
-            storeAdress:'常熟-外贸村-朱家坝',
-            storeDetailAdress:'朱家坝南村40号',
-            storeWeiXin:'18752002039',
-            storeQQ:'937154020',
-            storePhone:'18752002039',
-            storeService:'一件代发/换款换货',
-          }
 
         ],
 
@@ -153,13 +166,30 @@
     methods: {
       complateDrawer(){
           this.open = false;
+      },
+      addNewStaff(){
+        this.btnFont = '新增'
+        this.open = true;
       }
     }
   }
 </script>
 <style lang="scss" rel="stylesheet/scss">
   @import '../../common/css/globalscss';
-  #storeManage{
+  #staffManage{
+    .add-store-btn{
+      text-align: right;
+      margin-bottom:3px;
+    }
+    .ivu-select,.ivu-input-type{
+      width: 70%;
+    }
+    .store-change-content{
+      padding:0px 5px;
+    }
+    .ivu-page{
+      text-align: right;
+    }
 
   }
 

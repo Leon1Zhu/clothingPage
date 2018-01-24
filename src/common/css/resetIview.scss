@@ -35,8 +35,11 @@
 .ivu-menu.ivu-menu-vertical:after {
   display: none;
 }
-
-.ivu-btn-ghost, .ivu-select-selection, .ivu-icon-arrow-down-b.ivu-select-arrow {
+.ivu-select-selection{
+  border-color: rgb(211,222,224)!important;
+  box-shadow: none!important;
+}
+.ivu-btn-ghost, .ivu-select-selection:hover,.ivu-select-selection:hover .ivu-icon-arrow-down-b.ivu-select-arrow {
   border-color: $menuSelectFontColor !important;
   color: $menuSelectFontColor !important;
   box-shadow: none !important;

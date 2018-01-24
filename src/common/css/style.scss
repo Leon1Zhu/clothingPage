@@ -150,6 +150,10 @@ table,.ivu-input{
   background: $menuSelectFontColor;
 }
 
+.store-item-icon-color:first-child  .left-content .iconfont:before{
+  background: $menuSelectFontColor;
+}
+
 .store-item-icon-color:nth-child(2) .left-content .iconfont:before{
   background: #808dc4;
 }

@@ -412,12 +412,8 @@
     .ivu-select-single .ivu-select-selection,.ivu-select-dropdown-list,.ivu-cascader-menu{
       text-align: left;
     }
-    .store-item .iconfont{
-      font-size:18px;
-    }
 
     .content{
-      background: #fff;
         .store-change-content{
           padding:0px 5px;
       }

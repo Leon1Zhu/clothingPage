@@ -111,8 +111,6 @@
           </div>
         </div>
 
-
-
       </div>
 
     </my-drawer>
@@ -309,9 +307,6 @@
         width:70%;
       }
 
-    }
-    .store-item-icon-color:first-child .iconfont:before{
-      background: $menuSelectFontColor;
     }
     .ivu-page{
       text-align: right;
