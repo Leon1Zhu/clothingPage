@@ -34,7 +34,7 @@ global.MENU=[
     childMenuList:[
       {
         menuName: '商品管理',
-        menuIcon: '',
+        menuIcon: 'icon-gouwudai',
         linkHref: '',
       },{
         menuName: '商品状态设置',
@@ -94,10 +94,6 @@ global.MENU=[
     childMenuList:[
       {
         menuName: '订单记录',
-        menuIcon: '',
-        linkHref: '',
-      },{
-        menuName: '省市县数据管理',
         menuIcon: '',
         linkHref: '',
       },{

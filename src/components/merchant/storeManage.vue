@@ -154,6 +154,21 @@
 
         </div>
       </my-drawer>
+
+
+      <Modal v-model="modal2" width="360">
+        <p slot="header" style="color:#f60;text-align:center">
+          <Icon type="information-circled"></Icon>
+          <span>门店删除确认</span>
+        </p>
+        <div style="text-align:center">
+          <p>你确认删除1号仓库么。</p>
+        </div>
+        <div slot="footer">
+          <Button type="error" size="large" long :loading="modal_loading" @click="del">删除</Button>
+        </div>
+      </Modal>
+
     </div>
 </template>
 
@@ -163,6 +178,8 @@
         data(){
             return {
               open:false,
+              modal2:false,
+              modal_loading:false,
               storeClassify:STORECLASSIFY,
               saleType:SALETYPE,
               storeService:STORESERVICE,
@@ -245,7 +262,7 @@
                         },
                         on:{
                             click: () => {
-
+                              this.modal2 = true
                             }
                         }
                       },)
@@ -368,6 +385,13 @@
           },
           addService(service){
 
+          },
+          del () {
+            this.modal_loading = true;
+            setTimeout(() => {
+              this.modal_loading = false;
+              this.modal2 = false;
+            }, 2000);
           }
         }
     }
