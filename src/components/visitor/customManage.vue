@@ -18,9 +18,9 @@
     <my-drawer :open="open" title="客户管理" @close-drawer="open=false" @complate-drawer="complateDrawer">
       <div class="custom-info-content">
 
-        <div class="store-item">
+        <div class="store-item store-item-icon-color">
           <div class="left-content">
-            <i class="iconfont  icon-iconfontcaidan" ></i>
+            <i class="iconfont  icon-kehu" ></i>
             <div class="store-item-label">客户名称<span class="red-star">*</span></div>
           </div>
           <div class="right-content">
@@ -28,7 +28,7 @@
           </div>
         </div>
 
-        <div class="store-item">
+        <div class="store-item store-item-icon-color">
           <div class="left-content">
             <i class="iconfont  icon-gouwudai" ></i>
             <div class="store-item-label">联系方式<span class="red-star">*</span></div>
@@ -38,7 +38,7 @@
           </div>
         </div>
 
-        <div class="store-item">
+        <div class="store-item store-item-icon-color">
           <div class="left-content">
             <i class="iconfont  icon-shangjia" ></i>
             <div class="store-item-label">客户生日<span class="red-star">*</span></div>
@@ -48,7 +48,7 @@
           </div>
         </div>
 
-        <div class="store-item no-border-bottom-item">
+        <div class="store-item  store-item-icon-color">
           <div class="left-content">
             <i class="iconfont  icon-10xiangxidizhi" ></i>
             <div class="store-item-label">客户卡号<span class="red-star">*</span></div>
@@ -235,6 +235,10 @@
       .ivu-input-wrapper{
         width:70%;
       }
+
+    }
+    .store-item-icon-color:first-child .iconfont:before{
+      background: $menuSelectFontColor;
     }
 
   }
