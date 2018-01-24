@@ -10,7 +10,7 @@
         <Option v-for=" repertoryShift in repertoryShiftS" :value="repertoryShift.value">{{repertoryShift.name}}
         </Option>
       </Select>
-      <Button class="left-eight" type="success" @click="searchRepertoryData">搜索</Button>
+      <Button class="left-eight" type="primary" @click="searchRepertoryData">搜索</Button>
     </div>
     <div class="table-show">
       <Table :columns="columns1" :data="data1"></Table>
@@ -138,9 +138,9 @@
             value: '6'
           }],
         searchData: {
-          number: '12312456456',
-          time: '2018-02-06 - 2018-02-13',
-          type: '2'
+          number: '',
+          time: '',
+          type: ''
         }
       }
     },

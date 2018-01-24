@@ -35,37 +35,83 @@
       <div class="repertory-infor">
         <div class="detail">
           <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-          <Tag checkable class="size" color="blue">标签一</Tag>
+          <Tag checkable class="size" color="blue">M</Tag>
           <span class="total">20</span>
           <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
         </div>
         <div class="detail">
           <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-          <Tag checkable class="size" color="blue">标签一</Tag>
+          <Tag checkable class="size" color="blue">XL</Tag>
           <span class="total">20</span>
           <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
         </div>
         <div class="detail">
           <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-          <Tag checkable class="size" color="blue">标签一</Tag>
+          <Tag checkable class="size" color="blue">XXL</Tag>
           <span class="total">20</span>
           <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
         </div>
       </div>
     </Modal>
+
+    <Modal
+      v-model="modal2"
+      title="库存添加"
+      @on-ok="ok"
+      @on-cancel="cancel">
+      <div class="goods-infor">
+        <div class="goods-img">
+          <img src="./1.jpg" alt="">
+        </div>
+        <div class="goods-introduction">
+          <h4>三叶草卫衣</h4>
+          <div class="ids">商品id:454564</div>
+          <div class="number">货号:5456</div>
+        </div>
+      </div>
+      <div class="repertory-infor">
+        <div class="detail">
+          <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
+          <Tag checkable class="size" color="blue">M</Tag>
+          <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
+        </div>
+        <div class="detail">
+          <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
+          <Tag checkable class="size" color="blue">XL</Tag>
+          <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
+        </div>
+      </div>
+      <Button id="add-repertory" class="" @click="addRepertoryInformation()" type="primary" shape="circle"
+              icon="plus-round"></Button>
+    </Modal>
+
     <footer>
       <Page :total="100" class="footer-page"></Page>
     </footer>
+
+    <my-drawer :open="repertoryAddOpen" title="库存添加" @close-drawer="repertoryAddOpen=false"
+               @complate-drawer="handleClose">
+      <div>
+        <Form :label-width="80">
+
+        </Form>
+      </div>
+    </my-drawer>
   </div>
 </template>
 <script>
+  import myDrawer from '../../common/vue/myDrawer.vue';
+
   export default {
     props: {},
     data() {
       return {
         goodsNumber: '',
         modal1: false,
+        modal2: true,
         value1: 1,
+        repertoryAddOpen: true,
+        // 库存展示的信息数组
         goodsData: [
           {
             imageUrl: './1.jpg',
@@ -110,15 +156,35 @@
 
           },
         ],
+        // 添加库存的信息数组
+        addRepertoryArray: [
+          {
+            name: '',
+            size: '',
+            color: '',
+            total: ''
+          }
+        ],
         goodsInformation: {}
       };
     },
-    methods: {},
-    components: {}
+    methods: {
+      addRepertoryInformation() {
+        this.repertoryAddOpen = true;
+      },
+      handleClose() {
+        this.modal1 = false;
+        this.modal2 = false;
+      }
+    },
+    components: {
+      myDrawer
+    }
   };
 </script>
 <style lang="scss" rel="stylesheet/scss" type="text/scss">
   @import '../../common/css/globalscss.scss';
+
   .repertory-record-html {
     padding: 8px;
     width: 100%;
@@ -188,7 +254,11 @@
       padding: 8px;
       border-bottom: 1px solid #f8f6f2;
       .size, .total, .truth-total {
-        margin-left: 12px;
+        margin-left: 20px;
+      }
+      .size {
+        width: 70px;
+        text-align: center;
       }
 
       .total {
@@ -225,5 +295,11 @@
         color: rgba(0, 0, 0, 0.4);
       }
     }
+  }
+
+  #add-repertory {
+    position: absolute;
+    bottom: 90px !important;
+    right: 30px !important;
   }
 </style>

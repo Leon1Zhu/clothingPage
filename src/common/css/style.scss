@@ -1,13 +1,13 @@
 @import "globalscss";
 html,body,#app{
-  font-size:$fontSize;
+  font-size:14px;
   position: relative;
   width:100%;
   height:100%;
   font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif!important;
 }
 table,.ivu-input{
-  font-size:$fontSize;
+  font-size:14px;
 }
 
 .disable-input{
@@ -26,14 +26,10 @@ table,.ivu-input{
 }
 .mu-paper.mu-drawer{
   background: #f6f5f8;
-  width:320px;
   .drawer-content{
-    display: flex;
-    flex-flow: column;
     width:100%;
     height:100%;
     overflow: auto;
-    background: #fff;
     .drawer-title{
       background: $menuSelectFontColor;
       width:100%;
@@ -50,25 +46,10 @@ table,.ivu-input{
       }
       .ivu-icon-close:hover{
         cursor: pointer;
-        transform: rotate(90deg);
+        transform: rotate(180deg);
       }
     }
-    .content{
-      flex:1;
-      margin-bottom: 3px;
-    }
-    .ivu-btn.ivu-btn-primary.ivu-btn-long{
-      width:66%;
-      margin:0 auto;
-      margin-bottom:3px;
-    }
-
   }
-}
-.red-star{
-  color: #fb2f2f;
-  font-size: 19px;
-  line-height: 26px;
 }
 
 
