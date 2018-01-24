@@ -3,13 +3,21 @@
  */
 const mainPage = resolve => require(['@/components/mainPage/mainPage.vue'], resolve);
 
+// 颜色和尺码管理
 const colorSizeManage = resolve => require(['@/components/system/colorSizeManage.vue'], resolve);
 
+// 系统设置
 const systemSetting = resolve => require(['@/components/system/systemSetting.vue'], resolve);
 
+// 库存核对和修改
 const repertoryRecord = resolve => require(['@/components/repertory/repertoryRecord.vue'], resolve);
 
+// 库存记录
+const storeChange = resolve => require(['@/components/check/storeChange.vue'], resolve);
+
+// 库存记录
 const repertoryShift = resolve => require(['@/components/repertory/repertoryShift.vue'], resolve);
+
 //销售开单
 const salesOrder = resolve => require(['@/components/goods/salesOrder.vue'], resolve);
 
@@ -58,6 +66,13 @@ const mainPageRouter = {
       meta: {needAlive: true, keepAlive: true},
     },
     {
+      path: '/storeChange',
+      component: storeChange,
+      name: "库存盘点",
+      //needAlive表示该页面是否是标签页,keepAlive表示是否需要缓存改页面
+      meta: {needAlive: true, keepAlive: true},
+    },
+    {
       path: '/salesOrder',
       component: salesOrder,
       name: "销售开单",
@@ -66,26 +81,26 @@ const mainPageRouter = {
     {
       path: '/salesReturn',
       component: salesReturn,
-      name:"退换入库",
-      meta:{ needAlive:true,keepAlive:true },
+      name: "退换入库",
+      meta: {needAlive: true, keepAlive: true},
     },
     {
       path: '/storeManage',
       component: storeManage,
-      name:"门店管理",
-      meta:{ needAlive:true,keepAlive:true },
+      name: "门店管理",
+      meta: {needAlive: true, keepAlive: true},
     },
     {
       path: '/staffManage',
       component: staffManage,
-      name:"店员管理",
-      meta:{ needAlive:true,keepAlive:true },
+      name: "店员管理",
+      meta: {needAlive: true, keepAlive: true},
     },
     {
       path: '/customManage',
       component: customManage,
-      name:"客户管理",
-      meta:{ needAlive:true,keepAlive:true },
+      name: "客户管理",
+      meta: {needAlive: true, keepAlive: true},
     },
 
   ]

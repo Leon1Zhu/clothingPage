@@ -94,3 +94,7 @@
   background-color: $menuSelectFontColor !important;
   border-color: $menuSelectFontColor !important;
 }
+
+.ivu-radio-checked .ivu-radio-inner {
+  border-color: $menuSelectFontColor !important;
+}
