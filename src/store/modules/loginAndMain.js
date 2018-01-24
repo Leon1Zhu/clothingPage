@@ -51,6 +51,7 @@ const mutations = {
   },
   deletePage(state,index){
     let isActiveFlag = false;
+    console.log(index)
     if(state.menuList[index].isActive === true){
       isActiveFlag = true;
     }

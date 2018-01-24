@@ -63,7 +63,7 @@ global.MENU=[
       },{
         menuName: '往来列表',
         menuIcon: 'icon-liebiao',
-        linkHref: '',
+        linkHref: '/visitorList',
       }
     ]
   },{
