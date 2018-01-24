@@ -15,7 +15,7 @@
     <Table stripe border :columns="columns10" :data="data9"></Table>
     <Page :total="100" style="margin-top: 5px;"></Page>
 
-    <my-drawer :open="open" title="客户管理" @close-drawer="open=false" @complate-drawer="complateDrawer">
+    <my-drawer :open="open" title="客户管理" :btnFont="btnFont" @close-drawer="open=false" @complate-drawer="complateDrawer">
       <div class="custom-info-content">
 
         <div class="store-item store-item-icon-color">
@@ -127,6 +127,7 @@
     data(){
       return {
         open:false,
+        btnFont:'新增',
         customInfo:{
           custom_name:null,
           custom_phone:null,
@@ -278,8 +279,10 @@
       },
       customManage(value){
           if(ISNULL(value)){
+              this.btnFont = '新增'
             this.type='ADD'
           }else{
+              this.btnFont = '修改'
             this.type='CHANGE'
           }
 
@@ -309,6 +312,9 @@
     }
     .store-item-icon-color:first-child .iconfont:before{
       background: $menuSelectFontColor;
+    }
+    .ivu-page{
+      text-align: right;
     }
 
   }

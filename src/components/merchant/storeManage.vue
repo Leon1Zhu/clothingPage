@@ -1,8 +1,8 @@
 <template>
     <div id="storeManage">
-      <div class="add-store-btn"> <Button type="primary" icon="plus-round" @click.native="addNewStore">添加新门店</Button></div>
+      <div class="add-store-btn"> <Button type="primary" icon="plus-round" @click.native="addNewStore('');">添加新门店</Button></div>
       <Table stripe border :columns="columns10" :data="data9"></Table>
-      <my-drawer :open="open" title="门店管理" @close-drawer="open=false" @complate-drawer="complateDrawer">
+      <my-drawer :open="open" title="门店管理" :btnFont="btnFont" @close-drawer="open=false" @complate-drawer="complateDrawer">
         <div class="store-change-content">
           <div class="store-item">
             <div class="left-content">
@@ -178,6 +178,7 @@
         data(){
             return {
               open:false,
+              btnFont:'新增',
               modal2:false,
               modal_loading:false,
               storeClassify:STORECLASSIFY,
@@ -248,6 +249,7 @@
                         on: {
                           click: () => {
                               this.open=true
+                              this.btnFont = '修改'
                           }
                         }
                       }, ),
@@ -382,6 +384,7 @@
           },
           addNewStore(){
               this.open=true;
+              this.btnFont = '新增'
           },
           addService(service){
 

@@ -61,8 +61,8 @@ global.MENU=[
         menuIcon: 'icon-kehuguanli',
         linkHref: '/customManage',
       },{
-        menuName: '往来详细',
-        menuIcon: '',
+        menuName: '往来列表',
+        menuIcon: 'icon-liebiao',
         linkHref: '',
       }
     ]
