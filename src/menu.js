@@ -17,12 +17,8 @@ global.MENU=[
         menuIcon: 'icon-kehu',
         linkHref: '/staffManage',
       },{
-        menuName: '颜色管理',
-        menuIcon: '',
-        linkHref: '',
-      },{
-        menuName: '尺码管理',
-        menuIcon: '',
+        menuName: '颜色&尺码管理',
+        menuIcon: 'icon-gouwuche',
         linkHref: '/colorSizeManage',
       }
     ]
@@ -74,15 +70,15 @@ global.MENU=[
     childMenuList:[
       {
         menuName: '库存列表',
-        menuIcon: '',
+        menuIcon: 'icon-weibiaoti2010101',
         linkHref: '',
       },{
         menuName: '库存管理',
-        menuIcon: '',
+        menuIcon: 'icon-kucun',
         linkHref: '/repertoryRecord',
       },{
         menuName: '货仓调货',
-        menuIcon: '',
+        menuIcon: 'icon-yunshupeisong',
         linkHref: '',
       }
     ]
@@ -98,7 +94,7 @@ global.MENU=[
         linkHref: '',
       },{
         menuName: '系统设置',
-        menuIcon: '',
+        menuIcon: 'icon-25guanli',
         linkHref: '/systemSetting',
       }
     ]

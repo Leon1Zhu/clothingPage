@@ -22,7 +22,7 @@
                :class="{'color-active': goodsDetail.status == '1'}">
             <div class="top">
               <div class="goods-img">
-                <img src="./1.jpg" alt="">
+                <img src="../repertory/1.jpg" alt="">
               </div>
               <div class="goods-introduction">
                 <h4>{{goodsDetail.name}}</h4>
