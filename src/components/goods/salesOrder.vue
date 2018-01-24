@@ -90,7 +90,7 @@
             <Col span="12">
               <FormItem label="添加商品" >
                 <AutoComplete
-                  v-model="CustomInfo"
+                  v-model="addGoodsInfo"
                   :data="goodData"
                   icon="ios-search"
                   :filter-method="filterMethod"
@@ -131,6 +131,7 @@
             return {
               modal10: false,
               paymentWay:PAYMENTWAY,
+              addGoodsInfo:'',
               options3: {
                 disabledDate (date) {
                   return new Date().Format('yyyy/MM/dd') <  new Date(date).Format('yyyy/MM/dd');

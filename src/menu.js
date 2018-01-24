@@ -14,7 +14,7 @@ global.MENU=[
         linkHref: '/storeManage',
       },{
         menuName: '店员管理',
-        menuIcon: '',
+        menuIcon: 'icon-kehu',
         linkHref: '',
       },{
         menuName: '颜色管理',

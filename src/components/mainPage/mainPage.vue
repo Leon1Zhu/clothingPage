@@ -98,7 +98,7 @@
       mounted(){
           for(let item in this.$store.getters.getMenuList){
               if(this.$store.getters.getMenuList[item].isActive){
-                this.$router.push({ path:this.$store.getters.getMenuList[length-1].link })
+                this.$router.push({ path:this.$store.getters.getMenuList[this.$store.getters.getMenuList.length-1].link })
                 break;
               }
           }
