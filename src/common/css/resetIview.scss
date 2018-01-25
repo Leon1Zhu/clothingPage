@@ -128,3 +128,6 @@
 .ivu-table-border td, .ivu-table-border th{
   text-align: center;
 }
+.ivu-date-picker-cells-cell:hover em{
+  background: $menuSelectFontColor;
+}
