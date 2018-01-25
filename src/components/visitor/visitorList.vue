@@ -1,7 +1,7 @@
 <template>
     <div id="visitList">
       <div class="view-visitor-bar">
-        <Input v-model="searchStaffName" placeholder="请输入客户姓名" style="margin-right: .5%;" ></Input>
+        <Input v-model="searchCustomName" placeholder="请输入客户姓名" style="margin-right: .5%;" ></Input>
         <Button type="primary" icon="ios-search" @click.native="searchVisitor"  >搜索</Button>
         <!--<Button type="primary" icon="plus-round" @click.native="addNewStaff">添加新店员</Button>-->
       </div>
@@ -15,6 +15,7 @@
     export default{
         data(){
             return {
+              searchCustomName:null,
               columns10: [
                 {
                   title: '客户姓名',
@@ -47,8 +48,7 @@
                         },
                         on: {
                           click: () => {
-                            this.btnFont = '修改'
-                            this.open=true
+                             this.$router.push({ path: '/visitorDetail'})
                           }
                         }
                       }, ),
@@ -106,7 +106,7 @@
         methods: {
           searchVisitor(){
 
-          }
+          },
         }
     }
 </script>

@@ -111,6 +111,12 @@ const mainPageRouter = {
       name: "往来管理",
       meta: {needAlive: true, keepAlive: true},
     },
+    {
+      path: '/visitorDetail',
+      component: salesReturn,
+      name: "往来明细",
+      meta: {needAlive: true, keepAlive: true},
+    },
 
 
 
