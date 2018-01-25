@@ -48,6 +48,7 @@
                         },
                         on: {
                           click: () => {
+                              this.$store.commit('setDetailCustomName',params.row.custom_name)
                              this.$router.push({ path: '/visitorDetail'})
                           }
                         }
@@ -92,7 +93,7 @@
                   custom_name:'张三',
                   custom_card:'13001414944',
                   custom_total_money:'1245784',
-                  custom_remain_money:'-23456',
+                  custom_remain_money:'-23450',
                 },
 
               ],
