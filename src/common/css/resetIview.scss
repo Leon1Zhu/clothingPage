@@ -105,7 +105,7 @@
   border-color: $menuSelectFontColor !important;
 }
 
-.ivu-page-item:hover a,.ivu-page-item-jump-prev a,.ivu-page-item-jump-next a{
+.ivu-page-item:hover a,.ivu-page-item-jump-prev a,.ivu-page-item-jump-next a,.ivu-cascader-menu .ivu-cascader-menu-item-active{
   color: $menuSelectFontColor;
 }
 .ivu-page-item-active {

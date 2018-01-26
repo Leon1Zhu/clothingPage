@@ -197,7 +197,7 @@
         min-height: 200px;
         height: calc(100% - 92px );
         margin: 2px;
-        overflow: hidden;
+        overflow: auto;
         background: #fff;
         border-radius: 4px;
       }
@@ -229,6 +229,9 @@
             display: flex;
             align-items: center;
             padding:0 10px;
+            .ivu-dropdown{
+              padding-right:10px;
+            }
             a{
               color: #495060;
             }

@@ -39,6 +39,9 @@ const visitorList = resolve => require(['@/components/visitor/visitorList.vue'],
 //往来明细
 const visitorDetail = resolve => require(['@/components/visitor/visitorDetail.vue'], resolve);
 
+//商品管理
+const goodsManage = resolve => require(['@/components/goods/goodsManage.vue'], resolve);
+
 const mainPageRouter = {
   path: '/',
   component: mainPage,
@@ -120,6 +123,14 @@ const mainPageRouter = {
       name: "往来明细",
       meta: {needAlive: true, keepAlive: true},
     },
+    {
+      path: '/goodsManage',
+      component: goodsManage,
+      name: "商品管理",
+      meta: {needAlive: true, keepAlive: true},
+    },
+
+
 
 
 

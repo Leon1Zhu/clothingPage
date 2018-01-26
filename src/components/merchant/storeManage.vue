@@ -238,6 +238,28 @@
                   key: 'operate',
                   render: (h, params) => {
                     return h('div', [
+                     /* h('Tooltip', {
+                        props: {
+                          content: '修改信息',
+                          placement: 'top',
+                        },
+                      }, [
+                        h('Button', {
+                          props: {
+                            type: 'ghost',
+                            shape: 'circle',
+                            icon:"ios-compose-outline"
+                          },
+                          style: {
+                          },
+                          on: {
+                            click: () => {
+                              this.open=true
+                              this.btnFont = '修改'
+                            }
+                          }
+                        }, ),
+                      ]),*/
                       h('Button', {
                         props: {
                           type: 'ghost',
