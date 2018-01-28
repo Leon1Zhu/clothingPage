@@ -12,12 +12,12 @@
               <div>商品名称:{{item.name}}</div>
             </div>
             <div class="bottom-content">
-              <div class="color-content">
-                <div class="colordiamonds"  :style="{background:item.colorName}"></div>
-                <div class="colorName">{{item.color}}</div>
-              </div>
+              <div class="center-color-size">
+              <color-content :colorName="item.color" :color="item.colorName"></color-content>
+
               <div class="size-content">
                 {{item.size}}
+              </div>
               </div>
             </div>
         </div>
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-
+import colorContent from '../../../common/vue/colorContent.vue'
     export default{
         props: {
           row: Object
@@ -46,7 +46,7 @@
         data(){
             return {
               showHeader:false,
-              columns1: [
+              /*columns1: [
                 {
                   align:'center',
                   title: '图片',
@@ -115,7 +115,7 @@
                     ]);
                   }
                 },
-              ],
+              ],*/
               data1:[
                 {
                   img:'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
@@ -153,7 +153,9 @@
               ]
             }
         },
-        components: {},
+        components: {
+            'color-content':colorContent
+        },
         created(){
         },
         mounted(){
@@ -204,7 +206,11 @@
         font-size:14px;
         .bottom-content{
           display: flex;
-          .size-content,.color-content{
+          .center-color-size{
+            display: flex;
+            margin:0 auto;
+          }
+          .size-content{
             width: 65px;
             height:25px;
             padding: 3px;
@@ -212,19 +218,6 @@
             font-size:12px;
             margin-top:3px;
             border-radius:3px;
-          }
-          .color-content{
-            display: flex;
-            color: $menuSelectFontColor;
-            .colordiamonds{
-              margin-top:2.5px;
-              width: 12px;
-              height:12px;
-              margin-right:3px;
-              margin-left:2px;
-            }
-          }
-          .size-content{
             margin-left:2px;
             background: $menuSelectFontColor;
             color: #fff;

@@ -46,6 +46,33 @@
       <Button type="text" @click="toggleClick">
         <Icon type="navicon" size="32"></Icon>
       </Button>
+      <div class="user-tool-bar">
+
+
+        <div class="user-info">
+          <Dropdown>
+            <a  href="javascript:void(0)">
+              张三
+              <Icon type="arrow-down-b"></Icon>
+            </a>
+            <DropdownMenu slot="list">
+              <DropdownItem>修改密码</DropdownItem>
+              <DropdownItem divided>退出系统</DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+          <div class="user-header">
+            <img  src="../../assets/header.png" />
+          </div>
+        </div>
+
+        <div class="email-count">
+          <Badge count="17" overflow-count="999">
+            <Icon type="ios-bell-outline" size="26"></Icon>
+          </Badge>
+        </div>
+
+
+      </div>
     </div>
     <div class="menu-list-content">
       <Tag v-for="(item,index) in menuList" :class="{ activeTag : item.isActive }" @on-close="closePage(index)"  @click.native="changePgae(index,item.link)" type="dot" :closable="index > 0 "  checkable>{{item.name}}</Tag>
@@ -98,10 +125,11 @@
       mounted(){
           for(let item in this.$store.getters.getMenuList){
               if(this.$store.getters.getMenuList[item].isActive){
-                this.$router.push({ path:this.$store.getters.getMenuList[this.$store.getters.getMenuList.length-1].link })
-                break;
+                this.$router.push({ path:this.$store.getters.getMenuList[item].link })
+                return ''
               }
           }
+        this.$router.push({ path:this.$store.getters.getMenuList[this.$store.getters.getMenuList.length-1].link })
 
       },
       methods: {
@@ -169,7 +197,7 @@
         min-height: 200px;
         height: calc(100% - 92px );
         margin: 2px;
-        overflow: hidden;
+        overflow: auto;
         background: #fff;
         border-radius: 4px;
       }
@@ -188,8 +216,42 @@
       }
       .layout-header{
         height: 60px;
-       /*background: radial-gradient(at 50% 50%,#509e95,#487772);*/
         background: #fff;
+        display: flex;
+        .user-tool-bar{
+          display: flex;
+          flex:1;
+          flex-direction: row-reverse;
+          width: 100%;
+          text-align: right;
+          line-height: 3.5;
+          .user-info{
+            display: flex;
+            align-items: center;
+            padding:0 10px;
+            .ivu-dropdown{
+              padding-right:10px;
+            }
+            a{
+              color: #495060;
+            }
+            a:hover{
+              color: $menuSelectFontColor;
+            }
+          }
+          .user-header{
+            display: flex;
+            img{
+              width:40px;
+              height:40px;
+            }
+          }
+          .email-count{
+            padding: 6px 15px;
+          }
+
+        }
+
       }
       .layout-logo-left{
         width: 90%;
@@ -232,6 +294,8 @@
       .activeTag .ivu-tag-dot-inner{
         background: $menuSelectFontColor;
       }
+
+
     }
 
 </style>

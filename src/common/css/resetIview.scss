@@ -105,7 +105,7 @@
   border-color: $menuSelectFontColor !important;
 }
 
-.ivu-page-item:hover a,.ivu-page-item-jump-prev a,.ivu-page-item-jump-next a{
+.ivu-page-item:hover a,.ivu-page-item-jump-prev a,.ivu-page-item-jump-next a,.ivu-cascader-menu .ivu-cascader-menu-item-active{
   color: $menuSelectFontColor;
 }
 .ivu-page-item-active {
@@ -119,4 +119,15 @@
 
 .ivu-radio-checked .ivu-radio-inner {
   border-color: $menuSelectFontColor !important;
+}
+
+.ivu-page-prev:hover,.ivu-page-next:hover,.ivu-page-prev:hover a,.ivu-page-next:hover a{
+  border-color: $menuSelectFontColor;
+  color: $menuSelectFontColor;
+}
+.ivu-table-border td, .ivu-table-border th{
+  text-align: center;
+}
+.ivu-date-picker-cells-cell:hover em{
+  background: $menuSelectFontColor;
 }

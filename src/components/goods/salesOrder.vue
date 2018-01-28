@@ -83,7 +83,7 @@
               <FormItem label="备注" >
                 <Input  placeholder="请输入开单备注" v-model="orderInfo.remark"></Input>
                 <Button type="ghost" @click="emptyOrderInfo">清空从填</Button>
-                <Button type="ghost" >退换入库</Button>
+                <Button type="ghost" @click="goodReturn">退换入库</Button>
               </FormItem>
             </Col>
 
@@ -238,6 +238,9 @@
             }else if (params.type === 'edit'){ // do edit operation
 
             }
+          },
+          goodReturn(){
+              this.$router.push({ path: '/salesReturn'})
           },
           saveOrder(){
               this.$warning('操作错误','请将信息填写完整！')

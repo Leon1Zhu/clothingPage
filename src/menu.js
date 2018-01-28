@@ -31,11 +31,7 @@ global.MENU=[
       {
         menuName: '商品管理',
         menuIcon: 'icon-gouwudai',
-        linkHref: '',
-      },{
-        menuName: '商品状态设置',
-        menuIcon: 'icon-lihuoshangjia',
-        linkHref: '',
+        linkHref: '/goodsManage',
       },{
         menuName: '销售开单',
         menuIcon: 'icon-zonghekaidan',

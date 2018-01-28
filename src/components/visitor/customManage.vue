@@ -1,15 +1,10 @@
 <template>
   <div id="customManage">
     <div class="operate-bar">
-      <AutoComplete
-        v-model="customSearchInfo"
-        :data="autoData"
-        icon="ios-search"
-        :filter-method="filterMethod"
-        placeholder="请输入搜索客户信息"
-        >
-      </AutoComplete>
-      <div class="add-store-btn"> <Button type="primary" icon="plus-round" @click.native="customManage('')">添加客户</Button></div>
+      <Input v-model="searchStaffName" placeholder="请输入客户姓名" style="margin-right: .5%;" ></Input>
+      <Button type="primary" icon="ios-search" @click.native="searchCustom"  style="margin-right: .5%;">搜索</Button>
+
+      <div class="add-store-btn"><Button type="primary" icon="plus-round" @click.native="customManage('')">添加客户</Button></div>
     </div>
 
     <Table stripe border :columns="columns10" :data="data9"></Table>
@@ -138,8 +133,6 @@
           custom_remain_money:'12000',
         },
         type:null,
-        autoData: ['张三，12000', '李四，13000', '王五，140000'],
-        customSearchInfo:'',
         options3: {
           disabledDate (date) {
             return new Date().Format('yyyy/MM/dd') <  new Date(date).Format('yyyy/MM/dd');
@@ -269,9 +262,6 @@
     mounted(){
     },
     methods: {
-      filterMethod (value, option) {
-        return option.toLowerCase().indexOf(value.toLowerCase()) !== -1;
-      },
       complateDrawer(){
         this.open=false;
       },
@@ -285,6 +275,9 @@
           }
 
         this.open=true;
+      },
+      searchCustom(){
+
       }
     }
   }

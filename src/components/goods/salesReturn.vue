@@ -6,9 +6,20 @@
         icon="ios-search"
         :filter-method="filterMethod"
         placeholder="请输入搜索客户信息"
-        style="width:100%">
+        style="width:100%" v-if="!isDetail">
       </AutoComplete>
-      <Table stripe border :columns="columns10" :data="data9"></Table>
+      <div class="detail-tool-bar" v-else>
+        <DatePicker :value="searchDataArr" format="yyyy/MM/dd" type="daterange" placement="bottom-end" placeholder="请选择搜索的日期区间" ></DatePicker>
+        <Button type="primary" icon="ios-search" @click.native="searchVisitorDetail"  style="margin-right: .5%;">搜索</Button>
+      </div>
+
+      <Table  border :columns="columns10" :data="data9"  :row-class-name="rowClassName"></Table>
+      <div class="explain-content" style="display: flex;">
+        <color-content color="palevioletred" colorName="核销"></color-content>
+        <color-content color="#495060" colorName="已付款"></color-content>
+        <color-content color="#11b5ff" colorName="未付款"></color-content>
+        <Page :total="100" style="margin-top: 5px;flex: 1;" ></Page>
+      </div>
 
 
       <my-drawer :open="open" title="退换入库" @close-drawer="open=false" @complate-drawer="complateDrawer">
@@ -37,7 +48,6 @@
           </div>
         </div>
 
-
         <div class="describe-content">
           <div class="left-font">单价</div>
           <div class="right-font">{{returnitem.prince}}</div>
@@ -57,6 +67,7 @@
 <script>
   import expandRow from './salesReturnExpandRow/expand.vue';
   import myDrawer from'../../common/vue/myDrawer.vue'
+  import colorContent from '../../common/vue/colorContent.vue';
     export default{
         data(){
             return {
@@ -66,7 +77,8 @@
               returnMoney:0,
               precision:0,
               maxCount:0,
-              autoData: ['张三，12000', '李四，13000', '王五，140000'],
+              searchDataArr:[],
+              autoData:['张三，12000', '李四，13000', '王五，140000'],
               customInfo:'',
               columns10: [
                 {
@@ -102,11 +114,6 @@
                   sortable: true
                 },
                 {
-                  title: '核销',
-                  key: 'recharge',
-                  sortable: true
-                },
-                {
                   title: '交易时间',
                   key: 'dealtime',
                   sortable: true
@@ -116,60 +123,66 @@
                   key: 'remark',
                 }
               ],
-              data9: [
+              data9:[
                 {
                   index:1,
                   payway:'支付宝',
+                  custom_name:'张三',
                   rental:10121,
                   paymoney:10120,
-                  recharge:0,
                   dealtime:'2018/1/20',
-                  remark:'无'
+                  remark:'无',
+                  type:2
                 },
                 {
                   index:2,
+                  custom_name:'张三',
                   payway:'支付宝',
                   rental:10121,
                   paymoney:10120,
-                  recharge:0,
                   dealtime:'2018/1/20',
-                  remark:'无'
+                  remark:'无',
+                  type:1
                 },
                 {
                   index:3,
+                  custom_name:'张三',
                   payway:'支付宝',
                   rental:10121,
                   paymoney:10120,
-                  recharge:0,
                   dealtime:'2018/1/20',
-                  remark:'无'
+                  remark:'无',
+                  type:0
                 },
                 {
                   index:4,
+                  custom_name:'张三',
                   payway:'支付宝',
                   rental:10121,
                   paymoney:10120,
-                  recharge:0,
                   dealtime:'2018/1/20',
-                  remark:'无'
+                  remark:'无',
+                  type:1
                 },
                 {
                   index:5,
+                  custom_name:'张三',
                   payway:'支付宝',
                   rental:10121,
                   paymoney:10120,
-                  recharge:0,
                   dealtime:'2018/1/20',
-                  remark:'无'
+                  remark:'无',
+                  type:1
                 },
                 {
                   index:6,
+                  custom_name:'张三',
                   payway:'支付宝',
                   rental:10121,
                   paymoney:10120,
-                  recharge:0,
                   dealtime:'2018/1/20',
-                  remark:'无'
+                  remark:'无',
+                  type:1
                 },
 
               ]
@@ -178,8 +191,21 @@
         components: {
           expandRow,
           'my-drawer':myDrawer,
+          'color-content':colorContent,
         },
         created(){
+        },
+        computed: {
+          detailCustomName(){
+            console.log(this.$store.getters.getDetailCustomName == null)
+            this.$store.getters.getDetailCustomName
+          },
+          isDetail(){
+            if (this.$route.path === '/visitorDetail') {
+              return true
+            }
+            return false;
+          },
         },
         mounted(){
         },
@@ -189,12 +215,26 @@
           },
           returnGoods(item){
               console.log(item)
+            if(this.isDetail)return;
             this.returnitem = item;
             this.returnMoney = item.count * item.prince
             this.maxCount = item.count;
             this.open=true;
           },
           complateDrawer(){
+
+          },
+          rowClassName (row, index) {
+              if(row.type === 2){
+                  return 'recharge-order'
+              }else if(row.type ===1){
+                  return 'pay-order'
+              }else if(row.type === 0){
+                  return 'nopay-order'
+              }
+              return ''
+          },
+          searchVisitorDetail(){
 
           }
         }
@@ -203,9 +243,20 @@
 <style lang="scss" rel="stylesheet/scss">
   @import "../../common/css/globalscss";
   #salesReturn{
-      .ivu-table-wrapper{
-        margin-top:1.5%;
+    .detail-tool-bar{
+      display: flex;
+      margin-bottom:3px;
+      .ivu-date-picker{
+        width:100%;
+        margin-right: 1%;
       }
+    }
+    .ivu-page{
+      text-align: right;
+    }
+    .ivu-table-wrapper{
+      margin-top:1.5%;
+    }
     .drawer-img{
       width:100%;
     }
@@ -244,6 +295,14 @@
       right:0px;
       left:0px;
     }
-
+    .recharge-order{
+      color: palevioletred;
+    }
+    .nopay-order{
+      color: #11b5ff;
+    }
+   .color-content:not(:first-child){
+     margin-left:5px;
+   }
   }
 </style>
