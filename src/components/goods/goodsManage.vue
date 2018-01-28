@@ -9,7 +9,7 @@
 
       <div class="goods-content">
 
-        <Card v-for="item in goodsData">
+        <Card v-for="item in goodsData" class="goods-info-card">
 
           <div class="goods-img">
             <img :src="item.product_pic">
@@ -50,7 +50,51 @@
           <div class="goods-code">
             系统货号&nbsp;&nbsp;{{goodsItem.product_code}}
           </div>
+          <div class="status-content">
+            <Card  v-for="item in data1" class="status-card">
+              <div class="good-card">
+                <div class="left-content">
+                  <img class="good-img" :src="item.img">
+                </div>
+                <div class="center-content">
+                  <div class="top-content">
+                    <div>商品名称:{{item.product_name}}</div>
+                  </div>
+                  <div class="bottom-content">
+                    <div class="center-color-size">
+                      <color-content :colorName="item.product_colors" :color="item.colorName"></color-content>
+                      <div class="size-content">
+                        {{item.product_sizes}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="right-content">
 
+                  <Button type="ghost" >上架</Button>
+
+                  <Button type="ghost" >下架</Button>
+
+                  <Button type="ghost" >缺货</Button>
+                </div>
+              </div>
+            </Card>
+
+            <div class="batch_setting">
+              <div class="left-content">
+                <Button type="primary" shape="circle" icon="checkmark"></Button>
+                <span>批量设置</span>
+              </div>
+              <div class="right-content">
+                <Button type="ghost" >上架</Button>
+
+                <Button type="ghost" >下架</Button>
+
+                <Button type="ghost" >缺货</Button>
+              </div>
+            </div>
+
+          </div>
         </div>
       </my-drawer>
 
@@ -60,6 +104,8 @@
 
 <script>
   import myDrawer from'../../common/vue/myDrawer.vue'
+  import colorContent from '../../common/vue/colorContent.vue'
+
     export default{
         data(){
             return {
@@ -68,6 +114,49 @@
                 goodsItem:{
                     product_code:19172525,
                 },
+              data1:[
+                {
+                  img:'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+                  id:'892726252525/0905',
+                  product_colors:'浅蓝色',
+                  colorName:'#65cefa',
+                  product_sizes:'均码',
+                  product_name:'01016下口袋'
+                },
+                {
+                  img:'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+                  id:'892726252525/0905',
+                  product_colors:'浅蓝色',
+                  colorName:'#65cefa',
+                  product_sizes:'L',
+                  product_name:'01016下口袋'
+                },
+                {
+                  img:'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+                  id:'892726252525/0905',
+                  product_colors:'浅蓝色',
+                  colorName:'#65cefa',
+                  product_sizes:'L',
+                  product_name:'01016下口袋'
+                },
+                {
+                  img:'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+                  id:'892726252525/0905',
+                  product_colors:'浅蓝色',
+                  colorName:'#65cefa',
+                  product_sizes:'L',
+                  product_name:'01016下口袋'
+                },
+                {
+                  img:'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+                  id:'892726252525/0905',
+                  product_colors:'浅蓝色',
+                  colorName:'#65cefa',
+                  product_sizes:'L',
+                  product_name:'01016下口袋'
+                },
+
+              ],
                 goodsData:[
                   {
                     product_id:'1142522',
@@ -122,7 +211,8 @@
             }
         },
         components: {
-            'my-drawer':myDrawer
+            'my-drawer':myDrawer,
+            'color-content':colorContent
         },
         created(){
         },
@@ -143,6 +233,7 @@
     }
 </script>
 <style lang="scss" rel="stylesheet/scss">
+  @import "../../common/css/globalscss";
   #goodsManage{
     width:100%;
     position: relative;
@@ -150,7 +241,7 @@
       display: flex;
       margin-bottom:5px;
     }
-    .ivu-card{
+    .goods-info-card{
       width:24%;
       .ivu-card-body{
         padding-bottom:6px;
@@ -211,6 +302,107 @@
       }
       .ivu-card:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)):not(:nth-child(4)){
         margin-top:1%;
+      }
+    }
+    .goods-code{
+      text-align: center;
+      color: #aeaeae;
+      padding:16px;
+      margin:0 -5px;
+      background: #f6f5f8;
+      border-bottom: 1px solid #f5f4f5;
+      font-size:18px;
+    }
+
+    .status-card{
+      border:none;
+      border-bottom:1px solid #f5f4f5;
+    }
+    .good-card{
+      position: relative;
+      display: flex;
+      .left-content,.center-content{
+        flex:1 1 40%;
+      }
+      .right-content{
+        flex:1 1 20%;
+      }
+      .good-img{
+        width:85px;
+        height:85px;
+      }
+      .center-content{
+        font-size:14px;
+        .bottom-content{
+          display: flex;
+          margin-top:10%;
+          .center-color-size{
+            display: flex;
+            margin:0 auto;
+          }
+          .size-content{
+            width: 65px;
+            height:25px;
+            padding: 3px;
+            border: 1px solid $menuSelectFontColor;
+            font-size:12px;
+            margin-top:3px;
+            border-radius:3px;
+            margin-left:2px;
+            background: $menuSelectFontColor;
+            color: #fff;
+            text-align: center;
+          }
+        }
+      }
+      .center-content,.right-content{
+        line-height:140%;
+      }
+      .right-content{
+        display:flex;
+        align-items: center;
+        margin-left: 5px;
+        flex-wrap: wrap;
+        flex:1 1 60%;
+        justify-content: flex-end;
+        .ivu-btn{
+          padding: 3px 8px;
+          font-size:15px;
+          margin-left:3px;
+        }
+        .ivu-btn:hover{
+          background: $menuSelectFontColor;
+          color: #fff!important;
+          opacity: 1;
+
+        }
+      }
+    }
+    .right-content {
+      .ivu-btn {
+        padding: 3px 8px;
+        font-size: 15px;
+      }
+      .ivu-btn:hover {
+        background: $menuSelectFontColor;
+        color: #fff !important;
+        opacity: 1;
+      }
+    }
+    .batch_setting{
+      display: flex;
+      padding:16px 16px 5px 16px;
+      .left-content{
+        span{
+          font-size: 18px;
+          color: #b3b3b3;
+          position: relative;
+          top: 3px;
+        }
+      }
+      .right-content{
+        flex:1;
+        text-align: right;
       }
     }
   }

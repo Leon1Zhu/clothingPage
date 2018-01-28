@@ -237,7 +237,11 @@
                   title: '操作',
                   key: 'operate',
                   render: (h, params) => {
-                    return h('div', [
+                    return h('div',{
+                        style:{
+                            display:'flex'
+                        }
+                    }, [
                      /* h('Tooltip', {
                         props: {
                           content: '修改信息',
