@@ -97,7 +97,6 @@
                   placeholder="请输入搜索商品序号"
                   style="width:100%">
                 </AutoComplete>
-                <Button type="ghost" @click="saveOrder">保存订单</Button>
               </FormItem>
             </Col>
 
@@ -106,8 +105,14 @@
       </div>
       <div class="order-table">
         <Card>
-          <p slot="title">购买商品列表</p>
+          <div slot="title" style="display: flex;">
+            <div style="line-height: 2;">购买商品列表</div>
+            <div style="flex: 1;text-align: right">
+              <Button type="ghost" @click="saveOrder">保存订单</Button>
+            </div>
+          </div>
           <v-table
+            :height="tableHeight"
             is-horizontal-resize
             style="width:100%;"
             :columns="columns"
@@ -132,6 +137,7 @@
               modal10: false,
               paymentWay:PAYMENTWAY,
               addGoodsInfo:'',
+              tableHeight:100,
               options3: {
                 disabledDate (date) {
                   return new Date().Format('yyyy/MM/dd') <  new Date(date).Format('yyyy/MM/dd');
