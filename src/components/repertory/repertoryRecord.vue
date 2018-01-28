@@ -28,7 +28,7 @@
       @on-cancel="cancel">
       <div class="goods-infor">
         <div class="goods-img">
-          <img :src="imgUrl" alt="">
+          <img :src="imgUrl"  alt="">
         </div>
         <div class="goods-introduction">
           <h4>三叶草卫衣</h4>
