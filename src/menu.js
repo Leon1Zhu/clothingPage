@@ -79,7 +79,7 @@ global.MENU=[
       },{
         menuName: '货仓调货',
         menuIcon: 'icon-yunshupeisong',
-        linkHref: '',
+        linkHref: '/seasoningCondiments',
       }
     ]
   },{
