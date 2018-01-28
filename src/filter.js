@@ -3,11 +3,12 @@
  */
 import Vue from 'vue'
 import './globalFun'
-Vue.filter( 'filterTopNewsData' , function(value,discount) {
-  if(value=="" || value==null)
+
+Vue.filter('filterTopNewsData', function (value, discount) {
+  if (value == "" || value == null)
     return "";
-  else{
-    return value.substring(5,10)
+  else {
+    return value.substring(5, 10)
   }
 });
 

@@ -93,7 +93,7 @@
                       this.checkStoreDialog = true;
                     }
                   }
-                }, '重新盘点')
+                }, '库存核对')
               ]);
             }
           }

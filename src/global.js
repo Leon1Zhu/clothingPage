@@ -21,14 +21,8 @@ if(process.env.NODE_ENV=="production"){
 */
 
 global.SYSTEMCOLOR = '#06b9a5';
-//付款方式
 global.PAYMENTWAY = [{value:0,label:'现金'},{value:1,label:'支付宝'},{value:2,label:'微信'},{value:3,label:'银行卡'},{value:4,label:'信用卡'}];
-//行业分类
-global.STORECLASSIFY = [{value:0,label:'女装'},{value:1,label:'男装'},{value:2,label:'童装'}];
-//销售类型
-global.SALETYPE = [{value:0,label:'批发'},{value:1,label:'零售'}];
-//店铺服务
-global.STORESERVICE = [{value:0,label:'一件代发'},{value:1,label:'退货退款'},{value:2,label:'换款换货'},{value:3,label:'调色调码'},{value:4,label:'五件起批'},{value:5,label:'少量退换'}];
+
 
 
 

@@ -13,6 +13,7 @@
           <h4>{{goods.name}}</h4>
           <div class="ids">商品id:{{goods.ids}}</div>
           <div class="number">货号:{{goods.number}}</div>
+          <div class="count">数量:{{goods.count}}</div>
           <div class="operation">
             <span @click="check = true"><Icon type="gear-b" class="check" color="red"></Icon></span>
             <span @click="add = true"><Icon type="compose" class="add" color="blue"></Icon></span>
@@ -145,78 +146,89 @@
             imageUrl: './1.jpg',
             name: '三叶草卫衣',
             ids: '454564',
-            number: '5456'
+            number: '5456',
+            count: 454
+          },
+          {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456',
+            count: 454
 
           },
           {
             imageUrl: './1.jpg',
             name: '三叶草卫衣',
             ids: '454564',
-            number: '5456'
+            number: '5456',
+            count: 454
 
           },
           {
             imageUrl: './1.jpg',
             name: '三叶草卫衣',
             ids: '454564',
-            number: '5456'
+            number: '5456',
+            count: 454
 
           },
           {
             imageUrl: './1.jpg',
             name: '三叶草卫衣',
             ids: '454564',
-            number: '5456'
+            number: '5456',
+            count: 454
 
           },
           {
             imageUrl: './1.jpg',
             name: '三叶草卫衣',
             ids: '454564',
-            number: '5456'
+            number: '5456',
+            count: 454
 
-          },
-          {
+          }, {
             imageUrl: './1.jpg',
             name: '三叶草卫衣',
             ids: '454564',
-            number: '5456'
+            number: '5456',
+            count: 454
 
-          },{
+          }, {
             imageUrl: './1.jpg',
             name: '三叶草卫衣',
             ids: '454564',
-            number: '5456'
+            number: '5456',
+            count: 454
 
-          },{
+          }, {
             imageUrl: './1.jpg',
             name: '三叶草卫衣',
             ids: '454564',
-            number: '5456'
+            number: '5456',
+            count: 454
 
-          },{
+          }, {
             imageUrl: './1.jpg',
             name: '三叶草卫衣',
             ids: '454564',
-            number: '5456'
+            number: '5456',
+            count: 454
 
-          },{
+          }, {
             imageUrl: './1.jpg',
             name: '三叶草卫衣',
             ids: '454564',
-            number: '5456'
+            number: '5456',
+            count: 454
 
-          },{
+          }, {
             imageUrl: './1.jpg',
             name: '三叶草卫衣',
             ids: '454564',
-            number: '5456'
-
-          },{
-            imageUrl: './1.jpg',
-            name: '三叶草卫衣',
-            ids: '454564',
-            number: '5456'
+            number: '5456',
+            count: 454
 
           }
         ],
@@ -294,21 +306,23 @@
         .goods-introduction {
           margin-left: 14px;
           h4 {
-            font-size: 16px;
+            font-size: 14px;
             margin-top: 3px;
             font-weight: 600;
           }
           .ids {
             color: rgba(0, 0, 0, 0.4);
-            margin-top: 12px;
+            font-size: 12px;
+            margin-top: 7px;
           }
-          .number {
+          .number, .count {
             color: rgba(0, 0, 0, 0.4);
+            font-size: 12px;
             margin-top: 5px;
           }
           .operation {
             color: rgba(0, 0, 0, 0.4);
-            margin-top: 8px;
+            margin-top: 5px;
             .add {
               margin-left: 14px;
             }
