@@ -57,7 +57,7 @@
     props: {},
     data() {
       return {
-        modal: true,
+        modal: false,
         seasoningOpen: false,
         seasoningIn: '1',
         seasoningOut: '2',
@@ -95,7 +95,7 @@
                   },
                   on: {
                     click: () => {
-                      this.seasoningOpen = true;
+                      this.modal = true;
                     }
                   }
                 }, '库存调拨')
