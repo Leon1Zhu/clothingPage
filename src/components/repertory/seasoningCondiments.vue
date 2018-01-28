@@ -40,7 +40,7 @@
     </my-drawer>
     <Modal
       v-model="modal"
-      title="Common Modal dialog box title"
+      title="门店调货"
       @on-ok="ok"
       @on-cancel="cancel">
       <div>
@@ -196,10 +196,8 @@
     },
     methods: {
       ok() {
-        this.$Message.info('Clicked ok');
       },
       cancel() {
-        this.$Message.info('Clicked cancel');
       }
     },
     components: {
