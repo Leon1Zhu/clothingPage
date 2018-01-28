@@ -18,6 +18,9 @@ const storeChange = resolve => require(['@/components/check/storeChange.vue'], r
 // 库存记录
 const repertoryShift = resolve => require(['@/components/repertory/repertoryShift.vue'], resolve);
 
+// 门店调货
+const seasoningCondiments  = resolve => require(['@/components/repertory/seasoningCondiments.vue'], resolve);
+
 //销售开单
 const salesOrder = resolve => require(['@/components/goods/salesOrder.vue'], resolve);
 
@@ -78,6 +81,13 @@ const mainPageRouter = {
       path: '/storeChange',
       component: storeChange,
       name: "库存盘点",
+      //needAlive表示该页面是否是标签页,keepAlive表示是否需要缓存改页面
+      meta: {needAlive: true, keepAlive: true},
+    },
+    {
+      path: '/seasoningCondiments',
+      component: seasoningCondiments,
+      name: "门店调货",
       //needAlive表示该页面是否是标签页,keepAlive表示是否需要缓存改页面
       meta: {needAlive: true, keepAlive: true},
     },

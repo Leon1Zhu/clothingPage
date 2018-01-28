@@ -7,7 +7,7 @@
     <div class="goods-show">
       <div class="item" v-for="goods in goodsData">
         <div class="goods-img">
-          <img src="./1.jpg" alt="">
+          <img :src="imgUrl" alt="">
         </div>
         <div class="goods-introduction">
           <h4>{{goods.name}}</h4>
@@ -27,7 +27,7 @@
       @on-cancel="cancel">
       <div class="goods-infor">
         <div class="goods-img">
-          <img src="./1.jpg" alt="">
+          <img :src="imgUrl" alt="">
         </div>
         <div class="goods-introduction">
           <h4>三叶草卫衣</h4>
@@ -64,7 +64,7 @@
       @on-cancel="cancel">
       <div class="goods-infor">
         <div class="goods-img">
-          <img src="./1.jpg" alt="">
+          <img :src="imgUrl" alt="">
         </div>
         <div class="goods-introduction">
           <h4>三叶草卫衣</h4>
@@ -137,6 +137,7 @@
         check: false,
         add: false,
         value1: 1,
+        imgUrl: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
         repertoryAddOpen: false,
         // 库存展示的信息数组
         goodsData: [
