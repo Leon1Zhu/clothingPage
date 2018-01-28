@@ -15,8 +15,10 @@
           <div class="number">货号:{{goods.number}}</div>
           <div class="count">数量:{{goods.count}}</div>
           <div class="operation">
-            <span @click="check = true"><Icon type="gear-b" class="check" color="red"></Icon></span>
-            <span @click="add = true"><Icon type="compose" class="add" color="blue"></Icon></span>
+            <Button type="primary" size="small" @click="check = true">核对</Button>
+            <Button type="info" size="small" @click="add = true">添加</Button>
+            <!--<span @click="check = true"><Icon type="gear-b" class="check" color="red"></Icon></span>
+            <span @click="add = true"><Icon type="compose" class="add" color="blue"></Icon></span>-->
           </div>
         </div>
       </div>
@@ -268,6 +270,9 @@
 <style lang="scss" rel="stylesheet/scss" type="text/scss">
   @import '../../common/css/globalscss.scss';
 
+  .ivu-tag-blue {
+    color: #06b9a5;
+  }
   .repertory-record-html {
     padding: 8px;
     width: 100%;
@@ -289,8 +294,8 @@
       .item {
         display: flex;
         width: 240px;
-        padding: 17.5px;
-        height: 120px;
+        padding: 15px;
+        height: 130px;
         font-size: 14px;
         margin: {
           top: 8px;
@@ -299,8 +304,8 @@
         background-color: #f8f6f2;
         .goods-img {
           img {
-            width: 85px;
-            height: 85px;
+            width: 100px;
+            height: 100px;
           }
         }
         .goods-introduction {
@@ -399,7 +404,6 @@
       margin: {
         top: 8px;
       }
-    ;
     }
   }
 
