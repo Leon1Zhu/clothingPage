@@ -10,6 +10,42 @@
     <div class="data-show">
       <Table class="" :columns="columns" :data="data"></Table>
     </div>
+    <Modal
+      v-model="check"
+      title="库存核对"
+      @on-ok="ok"
+      @on-cancel="cancel">
+      <div class="goods-infor">
+        <div class="goods-img">
+          <img :src="imgUrl" alt="">
+        </div>
+        <div class="goods-introduction">
+          <h4>三叶草卫衣</h4>
+          <div class="ids">商品id:454564</div>
+          <div class="number">货号:5456</div>
+        </div>
+      </div>
+      <div class="repertory-infor">
+        <div class="detail">
+          <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
+          <Tag checkable class="size" color="blue">M</Tag>
+          <span class="total">20</span>
+          <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
+        </div>
+        <div class="detail">
+          <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
+          <Tag checkable class="size" color="blue">XL</Tag>
+          <span class="total">20</span>
+          <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
+        </div>
+        <div class="detail">
+          <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
+          <Tag checkable class="size" color="blue">XXL</Tag>
+          <span class="total">20</span>
+          <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
+        </div>
+      </div>
+    </Modal>
     <my-drawer :open="checkStoreDialog" title="库存添加" @close-drawer="checkStoreDialog = false"
                @complate-drawer="">
       <div class="check-store">
@@ -50,6 +86,8 @@
     data() {
       return {
         checkStoreDialog: false,
+        check: false,
+        imgUrl: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
         goodsNumber: '',
         wordType: 1,
         columns: [
@@ -90,7 +128,7 @@
                   },
                   on: {
                     click: () => {
-                      this.checkStoreDialog = true;
+                      this.check = true;
                     }
                   }
                 }, '库存核对')
