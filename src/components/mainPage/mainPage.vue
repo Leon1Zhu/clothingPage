@@ -145,9 +145,22 @@
         ISNULL : ISNULL,
         goPage(path){
           if(this.$store.getters.getMenuList.length>8){
-            this.$warning('操作错误', '标签页最多存在8个，请关闭之前的标签页再重复此操作！');
-            return;
+            let flag = false;
+            let menuList = this.$store.getters.getMenuList;
+            for(let item in menuList){
+                if(menuList[item].link === path){
+                    flag = true;
+                    break;
+                }
+            }
+            if(!flag){
+              this.$warning('操作错误', '标签页最多存在8个，请关闭之前的标签页再重复此操作！');
+              return;
+            }
+
           }
+
+
           this.$router.push({ path:path })
         },
         changePgae(index,path){
@@ -225,6 +238,8 @@
         position: absolute;
         transition: left .3s;
         height:100%;
+        right: 0px;
+        bottom: 0px;
       }
       .ivu-col.ivu-col-span-20{
         left:200px;

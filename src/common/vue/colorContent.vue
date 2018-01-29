@@ -33,6 +33,7 @@
     margin-top:3px;
     border-radius:3px;
     .colordiamonds{
+      border-radius:100%;
       margin-top:2.5px;
       width: 12px;
       height:12px;
