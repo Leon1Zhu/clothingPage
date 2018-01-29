@@ -88,11 +88,7 @@ global.MENU=[
     menuIcon: 'icon-msnui-sys-set',
     linkHref: '',
     childMenuList:[
-      {
-        menuName: '订单记录',
-        menuIcon: '',
-        linkHref: '',
-      },{
+     {
         menuName: '系统设置',
         menuIcon: 'icon-25guanli',
         linkHref: '/systemSetting',

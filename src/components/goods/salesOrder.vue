@@ -79,7 +79,7 @@
             </Col>
           </Row>
             <Row>
-            <Col span="12">
+            <Col span="24">
               <FormItem label="备注" >
                 <Input  placeholder="请输入开单备注" v-model="orderInfo.remark"></Input>
                 <Button type="ghost" @click="emptyOrderInfo">清空从填</Button>
@@ -87,18 +87,6 @@
               </FormItem>
             </Col>
 
-            <Col span="12">
-              <FormItem label="添加商品" >
-                <AutoComplete
-                  v-model="addGoodsInfo"
-                  :data="goodData"
-                  icon="ios-search"
-                  :filter-method="filterMethod"
-                  placeholder="请输入搜索商品序号"
-                  style="width:100%">
-                </AutoComplete>
-              </FormItem>
-            </Col>
 
           </Row>
         </Form>
@@ -107,7 +95,15 @@
         <Card>
           <div slot="title" style="display: flex;">
             <div style="line-height: 2;">购买商品列表</div>
-            <div style="flex: 1;text-align: right">
+            <div style="flex: 1;text-align: right;display: flex;justify-content: flex-end">
+              <AutoComplete
+                v-model="addGoodsInfo"
+                :data="goodData"
+                icon="ios-search"
+                :filter-method="filterMethod"
+                placeholder="请输入搜索商品序号"
+                style="width:90%;margin-right: 1%;">
+              </AutoComplete>
               <Button type="ghost" @click="saveOrder">保存订单</Button>
             </div>
           </div>
@@ -154,9 +150,6 @@
                   return `<span >${rowData['count'] * rowData['prince']}</span>`;
                 },isResize:true},
                 {field: 'sum', title: '操作', width: 150, titleAlign: 'center',columnAlign:'center',componentName:'table-operation'}
-
-
-
               ],
               tableData: [
                 {"id":"1","goodName":"01016下口袋","color":"浅蓝","size":"L",count:10,prince:14,sum:140},
@@ -257,6 +250,9 @@
 <style lang="scss" rel="stylesheet/scss">
   @import '../../common/css/globalscss.scss';
   #salesOrder{
+    .ivu-select-dropdown.ivu-auto-complete{
+      text-align: left;
+    }
     .ivu-form-item-content{
       display: flex;
       .ivu-btn.ivu-btn-ghost{

@@ -43,16 +43,16 @@
     </Col>
     <Col :span="spanRight" class="main-content-span">
     <div class="layout-header">
-      <Button type="text" @click="toggleClick">
+      <!--<Button type="text" @click="toggleClick">
         <Icon type="navicon" size="32"></Icon>
-      </Button>
+      </Button>-->
       <div class="user-tool-bar">
 
 
         <div class="user-info">
           <Dropdown>
             <a  href="javascript:void(0)">
-              张三
+              欢迎您！XX
               <Icon type="arrow-down-b"></Icon>
             </a>
             <DropdownMenu slot="list">
@@ -60,9 +60,9 @@
               <DropdownItem divided>退出系统</DropdownItem>
             </DropdownMenu>
           </Dropdown>
-          <div class="user-header">
+          <!--<div class="user-header">
             <img  src="../../assets/header.png" />
-          </div>
+          </div>-->
         </div>
 
         <div class="email-count">
@@ -108,8 +108,8 @@
           spanRightBigValue:22,
           spanleftValue:4,
           spanRightValue: 20,
-          spanLeft: 4,
-          spanRight: 20,
+          spanLeft: 2,
+          spanRight: 22,
           accordion:true,
           menu:MENU,
         }
@@ -313,6 +313,11 @@
           text-align: center;
           padding:10px 0px;
           .iconfont{
+            font-size:15px;
+          }
+        }
+        .ivu-dropdown-rel{
+          .iconfont{
             font-size:20px;
           }
         }
@@ -325,7 +330,9 @@
       .activeTag .ivu-tag-dot-inner{
         background: $menuSelectFontColor;
       }
-
+      .ivu-dropdown-item{
+        font-size:14px!important;
+      }
 
     }
 
