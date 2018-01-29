@@ -1,10 +1,10 @@
 <template>
   <div id="staffManage">
-    <div class="add-store-btn">
+    <tool-bar>
       <Input v-model="searchStaffName" placeholder="请输入店员姓名" style="margin-right: .5%;" ></Input>
       <Button type="primary" icon="ios-search" @click.native="searchStaff"  style="margin-right: .5%;">搜索</Button>
       <Button type="primary" icon="plus-round" @click.native="addNewStaff">添加新店员</Button>
-    </div>
+    </tool-bar>
     <Table stripe border :columns="columns10" :data="data9"></Table>
     <Page :total="100" style="margin-top: 5px;"></Page>
     <my-drawer :open="open" title="店员管理"  :btnFont="btnFont"  @close-drawer="open=false" @complate-drawer="complateDrawer">
@@ -47,6 +47,7 @@
 
 <script>
   import myDrawer from'../../common/vue/myDrawer.vue'
+  import toolBar from '../../common/vue/toolBar.vue'
   export default{
     data(){
       return {
@@ -162,7 +163,8 @@
       }
     },
     components: {
-      'my-drawer':myDrawer
+      'my-drawer':myDrawer,
+      'tool-bar':toolBar
     },
     created(){
     },
@@ -185,12 +187,6 @@
 <style lang="scss" rel="stylesheet/scss">
   @import '../../common/css/globalscss';
   #staffManage{
-    .add-store-btn{
-      display: flex;
-      text-align: right;
-      margin-bottom:3px;
-    }
-
     .store-change-content{
       .ivu-select,.ivu-input-type{
         width: 70%;

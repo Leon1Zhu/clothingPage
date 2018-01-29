@@ -263,7 +263,7 @@
             align-items: center;
             padding:0 10px;
             .ivu-dropdown{
-              padding-right:10px;
+              padding-right:16px;
             }
             a{
               color: #495060;
