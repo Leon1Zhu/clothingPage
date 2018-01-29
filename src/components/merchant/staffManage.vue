@@ -9,7 +9,6 @@
     <Page :total="100" style="margin-top: 5px;"></Page>
     <my-drawer :open="open" title="店员管理"  :btnFont="btnFont"  @close-drawer="open=false" @complate-drawer="complateDrawer">
       <div class="store-change-content">
-
         <div class="store-item store-item-icon-color">
           <div class="left-content">
             <i class="iconfont  icon-kehu" ></i>
