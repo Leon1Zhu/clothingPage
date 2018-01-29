@@ -111,21 +111,21 @@
       </div>
     </div>
     <my-drawer :open="colorOpen" title="颜色添加" @close-drawer="colorOpen=false" @complate-drawer="complateDrawer">
-    <div>
-      <Form :model="formItem" :label-width="80">
-        <FormItem label="颜色的名称">
-          <Input v-model="formItem.name" placeholder="颜色的名称"></Input>
-        </FormItem>
-        <FormItem label="16进制颜色">
-          <Input v-model="formItem.sixteenColor" placeholder="#665424"></Input>
-        </FormItem>
-        <FormItem label="RGB颜色">
-          <Input v-model="formItem.rgbColor" placeholder="rgb(255,231,200)"></Input>
-        </FormItem>
-        <Alert>两个值都填时，默认取16进制</Alert>
-      </Form>
-    </div>
-  </my-drawer>
+      <div>
+        <Form :model="formItem" :label-width="80">
+          <FormItem label="颜色的名称">
+            <Input v-model="formItem.name" placeholder="颜色的名称"></Input>
+          </FormItem>
+          <FormItem label="16进制颜色">
+            <Input v-model="formItem.sixteenColor" placeholder="#665424"></Input>
+          </FormItem>
+          <FormItem label="RGB颜色">
+            <Input v-model="formItem.rgbColor" placeholder="rgb(255,231,200)"></Input>
+          </FormItem>
+          <Alert>两个值都填时，默认取16进制</Alert>
+        </Form>
+      </div>
+    </my-drawer>
     <my-drawer :open="sizeOpen" title="尺码添加" @close-drawer="sizeOpen=false" @complate-drawer="complateDrawer">
       <div>
         <Form :model="formItem" :label-width="80">
