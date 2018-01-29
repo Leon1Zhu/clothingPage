@@ -25,7 +25,7 @@
   .color-content{
     display: flex;
     color: $menuSelectFontColor;
-    width: 65px;
+    width: 61px;
     height:25px;
     padding: 3px;
     border: 1px solid $menuSelectFontColor;
@@ -33,6 +33,7 @@
     margin-top:3px;
     border-radius:3px;
     .colordiamonds{
+      border-radius:100%;
       margin-top:2.5px;
       width: 12px;
       height:12px;

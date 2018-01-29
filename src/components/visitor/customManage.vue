@@ -1,11 +1,11 @@
 <template>
   <div id="customManage">
-    <div class="operate-bar">
+    <tool-bar>
       <Input v-model="searchStaffName" placeholder="请输入客户姓名" style="margin-right: .5%;" ></Input>
       <Button type="primary" icon="ios-search" @click.native="searchCustom"  style="margin-right: .5%;">搜索</Button>
 
       <div class="add-store-btn"><Button type="primary" icon="plus-round" @click.native="customManage('')">添加客户</Button></div>
-    </div>
+    </tool-bar>
 
     <Table stripe border :columns="columns10" :data="data9"></Table>
     <Page :total="100" style="margin-top: 5px;"></Page>
@@ -116,6 +116,7 @@
 
 <script>
   import myDrawer from'../../common/vue/myDrawer.vue'
+  import toolBar from'../../common/vue/toolBar.vue'
   export default{
     data(){
       return {
@@ -256,6 +257,7 @@
     },
     components: {
       'my-drawer':myDrawer,
+      'tool-bar':toolBar
     },
     created(){
     },
@@ -285,15 +287,6 @@
 <style lang="scss" rel="stylesheet/scss">
   @import "../../common/css/globalscss";
   #customManage{
-    .operate-bar{
-      display: flex;
-      margin-bottom:5px;
-      width:100%;
-      position: relative;
-      .ivu-auto-complete.ivu-select.ivu-select-single{
-        margin-right:1%;
-      }
-    }
     .custom-info-content{
       padding:0 5px;
       .ivu-input-wrapper{

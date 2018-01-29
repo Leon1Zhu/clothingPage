@@ -1,17 +1,19 @@
 <template>
     <div id="salesReturn">
-      <AutoComplete
-       v-model="customInfo"
-        :data="autoData"
-        icon="ios-search"
-        :filter-method="filterMethod"
-        placeholder="请输入搜索客户信息"
-        style="width:100%" v-if="!isDetail">
-      </AutoComplete>
-      <div class="detail-tool-bar" v-else>
-        <DatePicker :value="searchDataArr" format="yyyy/MM/dd" type="daterange" placement="bottom-end" placeholder="请选择搜索的日期区间" ></DatePicker>
-        <Button type="primary" icon="ios-search" @click.native="searchVisitorDetail"  style="margin-right: .5%;">搜索</Button>
-      </div>
+      <tool-bar>
+        <AutoComplete
+         v-model="customInfo"
+          :data="autoData"
+          icon="ios-search"
+          :filter-method="filterMethod"
+          placeholder="请输入搜索客户信息"
+          style="width:100%" v-if="!isDetail">
+        </AutoComplete>
+        <div class="detail-tool-bar" v-else>
+          <DatePicker :value="searchDataArr" format="yyyy/MM/dd" type="daterange" placement="bottom-end" placeholder="请选择搜索的日期区间" ></DatePicker>
+          <Button type="primary" icon="ios-search" @click.native="searchVisitorDetail"  style="margin-right: .5%;">搜索</Button>
+        </div>
+      </tool-bar>
 
       <Table  border :columns="columns10" :data="data9"  :row-class-name="rowClassName"></Table>
       <div class="explain-content" style="display: flex;">
@@ -68,6 +70,7 @@
   import expandRow from './salesReturnExpandRow/expand.vue';
   import myDrawer from'../../common/vue/myDrawer.vue'
   import colorContent from '../../common/vue/colorContent.vue';
+  import toolBar from'../../common/vue/toolBar.vue'
     export default{
         data(){
             return {
@@ -192,6 +195,7 @@
           expandRow,
           'my-drawer':myDrawer,
           'color-content':colorContent,
+          'tool-bar':toolBar
         },
         created(){
         },
@@ -245,9 +249,7 @@
   #salesReturn{
     .detail-tool-bar{
       display: flex;
-      margin-bottom:3px;
       .ivu-date-picker{
-        width:100%;
         margin-right: 1%;
       }
     }

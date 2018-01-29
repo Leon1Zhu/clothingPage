@@ -149,6 +149,50 @@ import colorContent from '../../../common/vue/colorContent.vue'
                   count:10,
                   returnCount:1,
                   name:'01016下口袋'
+                },
+                {
+                  img:'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+                  id:'892726252525/0905',
+                  color:'黑色',
+                  colorName:'black',
+                  size:'均码',
+                  prince:152.00,
+                  count:10,
+                  returnCount:1,
+                  name:'01016下口袋'
+                },
+                {
+                  img:'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+                  id:'892726252525/0905',
+                  color:'黑色',
+                  colorName:'black',
+                  size:'均码',
+                  prince:152.00,
+                  count:10,
+                  returnCount:1,
+                  name:'01016下口袋'
+                },
+                {
+                  img:'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+                  id:'892726252525/0905',
+                  color:'黑色',
+                  colorName:'black',
+                  size:'均码',
+                  prince:152.00,
+                  count:10,
+                  returnCount:1,
+                  name:'01016下口袋'
+                },
+                {
+                  img:'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+                  id:'892726252525/0905',
+                  color:'黑色',
+                  colorName:'black',
+                  size:'均码',
+                  prince:152.00,
+                  count:10,
+                  returnCount:1,
+                  name:'01016下口袋'
                 }
               ]
             }
@@ -170,6 +214,7 @@ import colorContent from '../../../common/vue/colorContent.vue'
 <style lang="scss" rel="stylesheet/scss">
   @import "../../../common/css/globalscss";
   .good-table-expand{
+    margin-left:-1%;
     display: flex;
     width:100%;
     position: relative;
@@ -181,19 +226,15 @@ import colorContent from '../../../common/vue/colorContent.vue'
     .ivu-card{
       overflow: hidden;
       margin-top:1%;
-      width:49%;
-      max-width:49%;
-      flex:1 1 49%;
+      max-width:100%;
+      flex:1 1 100%;
       position: relative;
-    }
-    .ivu-card:nth-child(2n){
-      margin-left:1%;
     }
     .good-card{
       position: relative;
       display: flex;
       .left-content,.center-content{
-        flex:1 1 40%;
+        flex:1 1 48%;
       }
       .right-content{
         flex:1 1 20%;
@@ -243,21 +284,63 @@ import colorContent from '../../../common/vue/colorContent.vue'
 
 
 
-  }
-  @media (max-width: 920px) {
-    .good-table-expand {
-      display: block;
-      .ivu-card {
-        margin-left: 0%!important;
-        min-width: 100%;
-        position: relative;
-        .good-card{
-          .left-content{
-            text-align: center;
-          }
+
+
+
+
+    @media (min-width: 820px) {
+        .ivu-card {
+          flex:1 1 49%;
+          max-width:49%;
+          margin-left:1%;
+          position: relative;
         }
+    }
+
+    @media (min-width: 1360px) {
+      .ivu-card {
+        position: relative;
+        flex:1 1 32%;
+        max-width:32%;
+        margin-left:1%;
       }
     }
+
+
+    @media (min-width: 1920px) {
+      .ivu-card {
+        position: relative;
+        flex:1 1 24%;
+        max-width:24%;
+        margin-left:1%;
+      }
+    }
+
+    @media (min-width: 2560px) {
+      .ivu-card {
+        position: relative;
+        flex:1 1 19%;
+        max-width:19%;
+        margin-left:1%;
+      }
+    }
+    @media (min-width: 3440px) {
+      .ivu-card {
+        position: relative;
+        flex:1 1 15.5%;
+        max-width:15.5%;
+        margin-left:1%;
+      }
+    }
+
+
+
+
+
+
   }
+
+
+
 
 </style>

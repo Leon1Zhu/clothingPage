@@ -1,10 +1,10 @@
 <template>
     <div id="goodsManage">
-      <div class="add-store-btn">
+      <tool-bar>
         <Input v-model="searchGoodsInfo" placeholder="请输入货号或简称" style="margin-right: .5%;" ></Input>
         <Button type="primary" icon="ios-search" @click.native="searchGoods"  style="margin-right: .5%;">搜索</Button>
         <Button type="primary" icon="plus-round" @click.native="addNewGoods">添加新商品</Button>
-      </div>
+      </tool-bar>
 
 
       <div class="goods-content">
@@ -82,7 +82,7 @@
 
             <div class="batch_setting">
               <div class="left-content">
-                <Button type="primary" shape="circle" icon="checkmark"></Button>
+                <Button type="primary" shape="circle" icon="checkmark" size="small"></Button>
                 <span>批量设置</span>
               </div>
               <div class="right-content">
@@ -105,7 +105,7 @@
 <script>
   import myDrawer from'../../common/vue/myDrawer.vue'
   import colorContent from '../../common/vue/colorContent.vue'
-
+  import toolBar from '../../common/vue/toolBar.vue'
     export default{
         data(){
             return {
@@ -212,7 +212,8 @@
         },
         components: {
             'my-drawer':myDrawer,
-            'color-content':colorContent
+            'color-content':colorContent,
+            'tool-bar':toolBar
         },
         created(){
         },
@@ -237,10 +238,6 @@
   #goodsManage{
     width:100%;
     position: relative;
-    .add-store-btn{
-      display: flex;
-      margin-bottom:5px;
-    }
     .goods-info-card{
       width:24%;
       .ivu-card-body{
@@ -295,10 +292,7 @@
 
       }
       .ivu-card:not(:nth-child(5n)):not(:first-child){
-        margin-left:1%;
-      }
-      .ivu-card:nth-child(5n),.ivu-card:first-child{
-        margin-left:.5%;
+        margin-left:1.33%;
       }
       .ivu-card:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)):not(:nth-child(4)){
         margin-top:1%;
@@ -321,6 +315,9 @@
     .good-card{
       position: relative;
       display: flex;
+      .left-content{
+        text-align: center;
+      }
       .left-content,.center-content{
         flex:1 1 40%;
       }
@@ -332,6 +329,7 @@
         height:85px;
       }
       .center-content{
+        margin-left:3px;
         font-size:14px;
         .bottom-content{
           display: flex;
@@ -341,7 +339,7 @@
             margin:0 auto;
           }
           .size-content{
-            width: 65px;
+            width: 61px;
             height:25px;
             padding: 3px;
             border: 1px solid $menuSelectFontColor;
@@ -358,30 +356,16 @@
       .center-content,.right-content{
         line-height:140%;
       }
-      .right-content{
-        display:flex;
-        align-items: center;
-        margin-left: 5px;
-        flex-wrap: wrap;
-        flex:1 1 60%;
-        justify-content: flex-end;
-        .ivu-btn{
-          padding: 3px 8px;
-          font-size:15px;
-          margin-left:3px;
-        }
-        .ivu-btn:hover{
-          background: $menuSelectFontColor;
-          color: #fff!important;
-          opacity: 1;
-
-        }
-      }
     }
     .right-content {
+      display:flex;
+      align-items: center;
+      margin-left: 3px;
+      flex-wrap: nowrap;
+      flex:1 1 60%;
+      justify-content: flex-end;
       .ivu-btn {
-        padding: 3px 8px;
-        font-size: 15px;
+        font-size: 12px;
       }
       .ivu-btn:hover {
         background: $menuSelectFontColor;
@@ -394,7 +378,7 @@
       padding:16px 16px 5px 16px;
       .left-content{
         span{
-          font-size: 18px;
+          font-size: 16px;
           color: #b3b3b3;
           position: relative;
           top: 3px;

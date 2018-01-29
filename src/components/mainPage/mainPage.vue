@@ -1,12 +1,12 @@
 <template>
   <div  id="mainpage"  class="mainLayout" :class="{'layout-hide-text': spanLeft < 5}">
   <Row type="flex">
-    <Col :span="spanLeft" class="layout-menu-left">
+    <Col :span="spanLeft" class="layout-menu-left" >
     <Menu   themem="dark" width="auto" :accordion="accordion" >
       <div class="layout-logo-left">
         <img class="fire-cow" src="../../assets/logo.png">
       </div>
-      <div class="big-menu" v-show="spanLeft === spanleftValue">
+      <div class="big-menu" v-show="spanLeft === 4">
         <div class="fire-cow-menu" v-for="(menuItem,index) in menu">
           <Submenu :name="index" v-if="menuItem.hasChild" >
             <template slot="title">
@@ -25,7 +25,7 @@
         </div>
       </div>
 
-      <div class="small-menu" v-show="spanLeft === spanLeftSmallValue">
+      <div class="small-menu" v-show="spanLeft === 2">
         <Dropdown  v-for="(menuItem,index) in menu" placement="right">
           <div >
             <i  v-if="!ISNULL(menuItem.menuIcon)" class="iconfont " :class=" menuItem.menuIcon"></i>
@@ -41,28 +41,28 @@
 
     </Menu>
     </Col>
-    <Col :span="spanRight">
+    <Col :span="spanRight" class="main-content-span">
     <div class="layout-header">
-      <Button type="text" @click="toggleClick">
+      <!--<Button type="text" @click="toggleClick">
         <Icon type="navicon" size="32"></Icon>
-      </Button>
+      </Button>-->
       <div class="user-tool-bar">
 
 
         <div class="user-info">
           <Dropdown>
             <a  href="javascript:void(0)">
-              张三
+              欢迎您！XX
               <Icon type="arrow-down-b"></Icon>
             </a>
-            <DropdownMenu slot="list">
-              <DropdownItem>修改密码</DropdownItem>
-              <DropdownItem divided>退出系统</DropdownItem>
+            <DropdownMenu slot="list" class="user-operator">
+              <DropdownItem><i  class="iconfont icon-xiugaimima" ></i>修改密码</DropdownItem>
+              <DropdownItem divided> <i  class="iconfont icon-caozuo_zhuxiao_tuichudenglu" ></i>退出系统</DropdownItem>
             </DropdownMenu>
           </Dropdown>
-          <div class="user-header">
+          <!--<div class="user-header">
             <img  src="../../assets/header.png" />
-          </div>
+          </div>-->
         </div>
 
         <div class="email-count">
@@ -108,8 +108,8 @@
           spanRightBigValue:22,
           spanleftValue:4,
           spanRightValue: 20,
-          spanLeft: 4,
-          spanRight: 20,
+          spanLeft: 2,
+          spanRight: 22,
           accordion:true,
           menu:MENU,
         }
@@ -145,9 +145,22 @@
         ISNULL : ISNULL,
         goPage(path){
           if(this.$store.getters.getMenuList.length>8){
-            this.$warning('操作错误', '标签页最多存在8个，请关闭之前的标签页再重复此操作！');
-            return;
+            let flag = false;
+            let menuList = this.$store.getters.getMenuList;
+            for(let item in menuList){
+                if(menuList[item].link === path){
+                    flag = true;
+                    break;
+                }
+            }
+            if(!flag){
+              this.$warning('操作错误', '标签页最多存在8个，请关闭之前的标签页再重复此操作！');
+              return;
+            }
+
           }
+
+
           this.$router.push({ path:path })
         },
         changePgae(index,path){
@@ -181,14 +194,21 @@
       border-radius: 4px;
       overflow: hidden;
       height:100%;
+      .user-operator{
+        li:hover{
+          background: $menuSelectFontColor;
+          color: white;
+        }
+        .iconfont{
+          position: relative;
+          top: 1px;
+        }
+      }
       .menu-list-content{
         margin-top:2px;
       }
       .ivu-col-span-2{
         width:60px;
-      }
-      .ivu-col-span-22{
-        width:calc(100% - 60px);
       }
       .ivu-row-flex{
         height:100%;
@@ -214,6 +234,29 @@
       .layout-menu-left{
         background: #464c5b;
       }
+      .layout-menu-left.ivu-col-span-4{
+        width:200px;
+      }
+      .layout-menu-left.ivu-col-span-2{
+        width:60px;
+      }
+      .ivu-col{
+        transition: width .3s;
+      }
+      .main-content-span{
+        width:auto;
+        position: absolute;
+        transition: left .3s;
+        height:100%;
+        right: 0px;
+        bottom: 0px;
+      }
+      .ivu-col.ivu-col-span-20{
+        left:200px;
+      }
+      .ivu-col.ivu-col-span-22{
+        left:60px;
+      }
       .layout-header{
         height: 60px;
         background: #fff;
@@ -230,7 +273,7 @@
             align-items: center;
             padding:0 10px;
             .ivu-dropdown{
-              padding-right:10px;
+              padding-right:16px;
             }
             a{
               color: #495060;
@@ -265,9 +308,7 @@
       .layout-hide-text .layout-text{
         display: none;
       }
-      .ivu-col{
-        transition: width .2s ease;
-      }
+
       .ivu-btn.ivu-btn-text:hover{
         color:$menuSelectFontColor;
       }
@@ -282,6 +323,11 @@
           text-align: center;
           padding:10px 0px;
           .iconfont{
+            font-size:15px;
+          }
+        }
+        .ivu-dropdown-rel{
+          .iconfont{
             font-size:20px;
           }
         }
@@ -294,7 +340,9 @@
       .activeTag .ivu-tag-dot-inner{
         background: $menuSelectFontColor;
       }
-
+      .ivu-dropdown-item{
+        font-size:14px!important;
+      }
 
     }
 
