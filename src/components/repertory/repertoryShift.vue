@@ -129,7 +129,7 @@
             type: '入库',
           }
         ],
-        repertoryShiftS: [
+        repertoryShiftS:  [
           {
             name: '入库',
             value: '1'

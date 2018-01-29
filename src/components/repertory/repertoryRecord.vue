@@ -17,8 +17,6 @@
           <div class="operation">
             <Button type="primary" shape="circle" icon="gear-b" @click="check = true"></Button>
             <Button type="warning" shape="circle"  icon="compose" @click="add = true"></Button>
-            <!--<span @click="check = true"><Icon type="gear-b" class="check" color="red"></Icon></span>
-            <span @click="add = true"><Icon type="compose" class="add" color="blue"></Icon></span>-->
           </div>
         </div>
       </div>
@@ -30,7 +28,7 @@
       @on-cancel="cancel">
       <div class="goods-infor">
         <div class="goods-img">
-          <img :src="imgUrl" alt="">
+          <img :src="imgUrl"  alt="">
         </div>
         <div class="goods-introduction">
           <h4>三叶草卫衣</h4>
