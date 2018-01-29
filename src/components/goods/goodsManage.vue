@@ -295,10 +295,7 @@
 
       }
       .ivu-card:not(:nth-child(5n)):not(:first-child){
-        margin-left:1%;
-      }
-      .ivu-card:nth-child(5n),.ivu-card:first-child{
-        margin-left:.5%;
+        margin-left:1.33%;
       }
       .ivu-card:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)):not(:nth-child(4)){
         margin-top:1%;
