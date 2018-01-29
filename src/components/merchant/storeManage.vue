@@ -203,14 +203,6 @@
                   key: 'storeName'
                 },
                 {
-                  title: '行业分类',
-                  key: 'storeIndustry'
-                },
-                {
-                  title: '销售类型',
-                  key: 'storeType',
-                },
-                {
                   title: '门店地区',
                   key: 'storeAdress',
                 },
