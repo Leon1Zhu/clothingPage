@@ -25,7 +25,7 @@
   .color-content{
     display: flex;
     color: $menuSelectFontColor;
-    width: 65px;
+    width: 61px;
     height:25px;
     padding: 3px;
     border: 1px solid $menuSelectFontColor;

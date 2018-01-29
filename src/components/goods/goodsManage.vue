@@ -82,7 +82,7 @@
 
             <div class="batch_setting">
               <div class="left-content">
-                <Button type="primary" shape="circle" icon="checkmark"></Button>
+                <Button type="primary" shape="circle" icon="checkmark" size="small"></Button>
                 <span>批量设置</span>
               </div>
               <div class="right-content">
@@ -321,6 +321,9 @@
     .good-card{
       position: relative;
       display: flex;
+      .left-content{
+        text-align: center;
+      }
       .left-content,.center-content{
         flex:1 1 40%;
       }
@@ -332,6 +335,7 @@
         height:85px;
       }
       .center-content{
+        margin-left:3px;
         font-size:14px;
         .bottom-content{
           display: flex;
@@ -341,7 +345,7 @@
             margin:0 auto;
           }
           .size-content{
-            width: 65px;
+            width: 61px;
             height:25px;
             padding: 3px;
             border: 1px solid $menuSelectFontColor;
@@ -358,30 +362,17 @@
       .center-content,.right-content{
         line-height:140%;
       }
-      .right-content{
-        display:flex;
-        align-items: center;
-        margin-left: 5px;
-        flex-wrap: wrap;
-        flex:1 1 60%;
-        justify-content: flex-end;
-        .ivu-btn{
-          padding: 3px 8px;
-          font-size:15px;
-          margin-left:3px;
-        }
-        .ivu-btn:hover{
-          background: $menuSelectFontColor;
-          color: #fff!important;
-          opacity: 1;
-
-        }
-      }
     }
     .right-content {
+      display:flex;
+      align-items: center;
+      margin-left: 3px;
+      flex-wrap: nowrap;
+      flex:1 1 60%;
+      justify-content: flex-end;
       .ivu-btn {
         padding: 3px 8px;
-        font-size: 15px;
+        font-size: 12px;
       }
       .ivu-btn:hover {
         background: $menuSelectFontColor;
@@ -394,7 +385,7 @@
       padding:16px 16px 5px 16px;
       .left-content{
         span{
-          font-size: 18px;
+          font-size: 16px;
           color: #b3b3b3;
           position: relative;
           top: 3px;

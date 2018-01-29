@@ -1,12 +1,12 @@
 <template>
   <div  id="mainpage"  class="mainLayout" :class="{'layout-hide-text': spanLeft < 5}">
   <Row type="flex">
-    <Col :span="spanLeft" class="layout-menu-left">
+    <Col :span="spanLeft" class="layout-menu-left" >
     <Menu   themem="dark" width="auto" :accordion="accordion" >
       <div class="layout-logo-left">
         <img class="fire-cow" src="../../assets/logo.png">
       </div>
-      <div class="big-menu" v-show="spanLeft === spanleftValue">
+      <div class="big-menu" v-show="spanLeft === 4">
         <div class="fire-cow-menu" v-for="(menuItem,index) in menu">
           <Submenu :name="index" v-if="menuItem.hasChild" >
             <template slot="title">
@@ -25,7 +25,7 @@
         </div>
       </div>
 
-      <div class="small-menu" v-show="spanLeft === spanLeftSmallValue">
+      <div class="small-menu" v-show="spanLeft === 2">
         <Dropdown  v-for="(menuItem,index) in menu" placement="right">
           <div >
             <i  v-if="!ISNULL(menuItem.menuIcon)" class="iconfont " :class=" menuItem.menuIcon"></i>
@@ -41,7 +41,7 @@
 
     </Menu>
     </Col>
-    <Col :span="spanRight">
+    <Col :span="spanRight" class="main-content-span">
     <div class="layout-header">
       <Button type="text" @click="toggleClick">
         <Icon type="navicon" size="32"></Icon>
@@ -187,9 +187,6 @@
       .ivu-col-span-2{
         width:60px;
       }
-      .ivu-col-span-22{
-        width:calc(100% - 60px);
-      }
       .ivu-row-flex{
         height:100%;
       }
@@ -213,6 +210,27 @@
       }
       .layout-menu-left{
         background: #464c5b;
+      }
+      .layout-menu-left.ivu-col-span-4{
+        width:200px;
+      }
+      .layout-menu-left.ivu-col-span-2{
+        width:60px;
+      }
+      .ivu-col{
+        transition: width .3s;
+      }
+      .main-content-span{
+        width:auto;
+        position: absolute;
+        transition: left .3s;
+        height:100%;
+      }
+      .ivu-col.ivu-col-span-20{
+        left:200px;
+      }
+      .ivu-col.ivu-col-span-22{
+        left:60px;
       }
       .layout-header{
         height: 60px;
@@ -265,9 +283,7 @@
       .layout-hide-text .layout-text{
         display: none;
       }
-      .ivu-col{
-        transition: width .2s ease;
-      }
+
       .ivu-btn.ivu-btn-text:hover{
         color:$menuSelectFontColor;
       }
