@@ -46,6 +46,12 @@
       .ivu-input:hover,.ivu-input:focus{
         width:300px;
       }
+      .ivu-select-dropdown.ivu-auto-complete{
+        text-align: left;
+        width:300px!important;
+        right:36px!important;
+        left:auto!important;
+      }
     }
     @media (max-width: 720px) {
       .page-tag-lable{

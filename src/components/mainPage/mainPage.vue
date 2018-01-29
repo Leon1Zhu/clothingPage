@@ -55,9 +55,9 @@
               欢迎您！XX
               <Icon type="arrow-down-b"></Icon>
             </a>
-            <DropdownMenu slot="list">
-              <DropdownItem>修改密码</DropdownItem>
-              <DropdownItem divided>退出系统</DropdownItem>
+            <DropdownMenu slot="list" class="user-operator">
+              <DropdownItem><i  class="iconfont icon-xiugaimima" ></i>修改密码</DropdownItem>
+              <DropdownItem divided> <i  class="iconfont icon-caozuo_zhuxiao_tuichudenglu" ></i>退出系统</DropdownItem>
             </DropdownMenu>
           </Dropdown>
           <!--<div class="user-header">
@@ -194,6 +194,16 @@
       border-radius: 4px;
       overflow: hidden;
       height:100%;
+      .user-operator{
+        li:hover{
+          background: $menuSelectFontColor;
+          color: white;
+        }
+        .iconfont{
+          position: relative;
+          top: 1px;
+        }
+      }
       .menu-list-content{
         margin-top:2px;
       }

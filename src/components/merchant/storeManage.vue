@@ -1,6 +1,8 @@
 <template>
     <div id="storeManage">
-      <div class="add-store-btn"> <Button type="primary" icon="plus-round" @click.native="addNewStore('');">添加新门店</Button></div>
+      <tool-bar>
+        <Button type="primary" icon="plus-round" @click.native="addNewStore('');">添加新门店</Button>
+      </tool-bar>
       <Table stripe border :columns="columns10" :data="data9"></Table>
       <my-drawer :open="open" title="门店管理" :btnFont="btnFont" @close-drawer="open=false" @complate-drawer="complateDrawer">
         <div class="store-change-content">
@@ -174,6 +176,7 @@
 
 <script>
   import myDrawer from'../../common/vue/myDrawer.vue'
+  import toolBar from'../../common/vue/toolBar.vue'
     export default{
         data(){
             return {
@@ -395,7 +398,8 @@
             }
         },
         components: {
-            'my-drawer':myDrawer
+            'my-drawer':myDrawer,
+            'tool-bar':toolBar
         },
         created(){
         },
@@ -428,10 +432,6 @@
 <style lang="scss" rel="stylesheet/scss">
   @import '../../common/css/globalscss';
   #storeManage{
-    .add-store-btn{
-      text-align: right;
-      margin-bottom:3px;
-    }
     .ivu-select,.ivu-input-type{
       width: 70%;
     }

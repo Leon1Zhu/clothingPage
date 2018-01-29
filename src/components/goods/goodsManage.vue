@@ -1,10 +1,10 @@
 <template>
     <div id="goodsManage">
-      <div class="add-store-btn">
+      <tool-bar>
         <Input v-model="searchGoodsInfo" placeholder="请输入货号或简称" style="margin-right: .5%;" ></Input>
         <Button type="primary" icon="ios-search" @click.native="searchGoods"  style="margin-right: .5%;">搜索</Button>
         <Button type="primary" icon="plus-round" @click.native="addNewGoods">添加新商品</Button>
-      </div>
+      </tool-bar>
 
 
       <div class="goods-content">
@@ -105,7 +105,7 @@
 <script>
   import myDrawer from'../../common/vue/myDrawer.vue'
   import colorContent from '../../common/vue/colorContent.vue'
-
+  import toolBar from '../../common/vue/toolBar.vue'
     export default{
         data(){
             return {
@@ -212,7 +212,8 @@
         },
         components: {
             'my-drawer':myDrawer,
-            'color-content':colorContent
+            'color-content':colorContent,
+            'tool-bar':toolBar
         },
         created(){
         },
@@ -237,10 +238,6 @@
   #goodsManage{
     width:100%;
     position: relative;
-    .add-store-btn{
-      display: flex;
-      margin-bottom:5px;
-    }
     .goods-info-card{
       width:24%;
       .ivu-card-body{
@@ -368,7 +365,6 @@
       flex:1 1 60%;
       justify-content: flex-end;
       .ivu-btn {
-        padding: 3px 8px;
         font-size: 12px;
       }
       .ivu-btn:hover {

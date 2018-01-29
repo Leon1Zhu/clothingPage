@@ -102,7 +102,7 @@
                 icon="ios-search"
                 :filter-method="filterMethod"
                 placeholder="请输入搜索商品序号"
-                style="width:90%;margin-right: 1%;">
+                style="margin-right: 1%;">
               </AutoComplete>
               <Button type="ghost" @click="saveOrder">保存订单</Button>
             </div>
@@ -301,6 +301,25 @@
       overflow-x: hidden!important;
       .v-table-row:nth-child(2n){
         background: #f8f8f9!important;
+      }
+    }
+    .order-table{
+      .ivu-auto-complete input{
+        width:200px;
+        transition: width .5s;
+      }
+      .ivu-auto-complete input:hover,.ivu-auto-complete input:focus{
+        width:300px;
+        .ivu-select-dropdown.ivu-auto-complete{
+          width:300px!important;
+        }
+      }
+      .ivu-auto-complete{
+        .ivu-select-dropdown.ivu-auto-complete{
+          right:110px!important;
+          left:auto!important;
+          width:300px!important;
+        }
       }
     }
   }
