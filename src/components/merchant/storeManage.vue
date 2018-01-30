@@ -8,7 +8,7 @@
         <div class="store-change-content">
           <div class="store-item">
             <div class="left-content">
-              <i class="iconfont  icon-gantanhao" ></i>
+              <Icon type="information-circled" size="20" ></Icon>
               <div class="store-item-label">请选择是否是默认主店铺</div>
             </div>
             <div class="right-content">
@@ -437,9 +437,10 @@
       }
     }
 
-    .icon-gantanhao:before{
-      background: $menuSelectFontColor;
-      border:1px solid $menuSelectFontColor;
+    .ivu-icon-information-circled:before{
+      color: $menuSelectFontColor;
+      position: relative;
+      top:4px;
     }
   }
 
