@@ -42,7 +42,7 @@
 
       </div>
 
-      <Page :total="100" style="margin-top: 5px;"></Page>
+      <Page :total="100" style="margin-top: 5px;text-align: right"></Page>
 
 
       <my-drawer :open="open" title="商品状态管理"    @close-drawer="open=false" @complate-drawer="complateDrawer">
@@ -238,17 +238,19 @@
   #goodsManage{
     width:100%;
     position: relative;
-    .goods-info-card{
-      width:24%;
-      .ivu-card-body{
-        padding-bottom:6px;
-      }
-    }
     .goods-content{
       display: flex;
       flex-wrap: wrap;
+      margin-left:-1%;
+      margin-top:-1%;
       .ivu-card{
-        width:24%;
+        width:32%;
+        max-width:32%;
+        margin-left: 1%;
+        margin-top:1%;
+        .ivu-card-body{
+          padding-bottom:6px;
+        }
         .goods-img{
           width:100%;
           position: relative;
@@ -291,13 +293,43 @@
         }
 
       }
-      .ivu-card:not(:nth-child(5n)):not(:first-child){
-        margin-left:1.33%;
+
+
+      @media (min-width: 620px) {
+        .ivu-card {
+          width:32%;
+          max-width:32%;
+        }
       }
-      .ivu-card:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)):not(:nth-child(4)){
-        margin-top:1%;
+      @media (min-width: 1280px) {
+        .ivu-card {
+          width:24%;
+          max-width:24%;
+        }
+      }
+      @media (min-width: 1620px) {
+        .ivu-card {
+          width:19%;
+          max-width:19%;
+        }
+      }
+      @media (min-width: 1920px) {
+        .ivu-card {
+          width:15.65%;
+          max-width:15.65%;
+        }
+      }
+
+      @media (min-width: 2220px) {
+        .ivu-card {
+          width:13.28%;
+          max-width:13.28%;
+        }
       }
     }
+
+
+
     .goods-code{
       text-align: center;
       color: #aeaeae;

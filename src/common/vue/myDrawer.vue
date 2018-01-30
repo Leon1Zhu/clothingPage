@@ -1,7 +1,7 @@
 <template>
   <mu-drawer :docked="docked" right :open="open">
     <div class="drawer-content">
-      <div class="drawer-title">{{title}}<Icon @click.native="closeDrawer" type="close"></Icon></div>
+      <h1 class="drawer-title">{{title}}<Icon @click.native="closeDrawer" type="close"></Icon></h1>
       <div class="content">
         <slot></slot>
       </div>

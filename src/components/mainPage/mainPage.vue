@@ -192,7 +192,8 @@
       background: #f5f7f9;
       position: relative;
       border-radius: 4px;
-      overflow: hidden;
+      overflow-x: auto;
+      overflow-y: auto;
       height:100%;
       .user-operator{
         li:hover{
@@ -223,7 +224,8 @@
       }
       .layout-content-main{
         width:96%;
-        margin-left:2%;
+        margin:0 auto;
+        max-width:2880px;
         padding: 10px;
       }
       .layout-copy{
@@ -250,6 +252,7 @@
         height:100%;
         right: 0px;
         bottom: 0px;
+        min-width:700px;
       }
       .ivu-col.ivu-col-span-20{
         left:200px;
