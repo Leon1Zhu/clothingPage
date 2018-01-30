@@ -3,8 +3,11 @@
  */
 const mainPage = resolve => require(['@/components/mainPage/mainPage.vue'], resolve);
 
-// 颜色和尺码管理
-const colorSizeManage = resolve => require(['@/components/system/colorSizeManage.vue'], resolve);
+// 颜色管理
+const colorManage = resolve => require(['@/components/system/colorManage.vue'], resolve);
+
+// 尺码管理
+const sizeManage = resolve => require(['@/components/system/sizeManage.vue'], resolve);
 
 // 系统设置
 const systemSetting = resolve => require(['@/components/system/systemSetting.vue'], resolve);
@@ -19,7 +22,7 @@ const storeChange = resolve => require(['@/components/check/storeChange.vue'], r
 const repertoryShift = resolve => require(['@/components/repertory/repertoryShift.vue'], resolve);
 
 // 门店调货
-const seasoningCondiments  = resolve => require(['@/components/repertory/seasoningCondiments.vue'], resolve);
+const seasoningCondiments = resolve => require(['@/components/repertory/seasoningCondiments.vue'], resolve);
 
 //销售开单
 const salesOrder = resolve => require(['@/components/goods/salesOrder.vue'], resolve);
@@ -50,9 +53,16 @@ const mainPageRouter = {
   component: mainPage,
   children: [
     {
-      path: '/colorSizeManage',
-      component: colorSizeManage,
-      name: "尺码&颜色管理",
+      path: '/colorManage',
+      component: colorManage,
+      name: "颜色管理",
+      //needAlive表示该页面是否是标签页,keepAlive表示是否需要缓存改页面
+      meta: {needAlive: true, keepAlive: true},
+    },
+    {
+      path: '/sizeManage',
+      component: sizeManage,
+      name: "尺码管理",
       //needAlive表示该页面是否是标签页,keepAlive表示是否需要缓存改页面
       meta: {needAlive: true, keepAlive: true},
     },
@@ -139,9 +149,6 @@ const mainPageRouter = {
       name: "商品管理",
       meta: {needAlive: true, keepAlive: true},
     },
-
-
-
 
 
   ]
