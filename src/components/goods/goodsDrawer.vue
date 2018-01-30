@@ -3,7 +3,6 @@
     <my-drawer :open="goodsAddOpen" title="商品添加" @close-drawer="goodsAddOpen=false"
                @complate-drawer="addGoodsCallback">
       <div class="add-goods">
-        <Cascader :data="data2" v-model="value2"></Cascader>
         <div class="ui segment">
           <div class="ui vertical segment">
             <div class="add-img">
