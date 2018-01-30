@@ -1,5 +1,6 @@
 <template>
   <div class="store-change-html">
+    <tool-bar></tool-bar>
     <div class="type-choose">
       <Button type="primary" class="check-button" @click="checkStoreDialog = true">开始盘点</Button>
       <ul>

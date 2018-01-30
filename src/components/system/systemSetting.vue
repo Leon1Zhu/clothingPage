@@ -1,5 +1,6 @@
 <template>
   <div class="system-setting-html">
+    <tool-bar></tool-bar>
     <Form :model="formItem" :label-width="100">
       <FormItem label="库存预警数量">
         <Input v-model="formItem.input" placeholder="库存预警数量"></Input>
