@@ -192,7 +192,7 @@
                 storeClassify:null,
                 saleType:null,
                 storeName:null,
-                storeAdress:null,
+                storeAdress:[],
                 storeDetailAdress:null,
                 storePhone:null,
                 zfbAcount:null,

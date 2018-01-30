@@ -1,6 +1,6 @@
 <template>
   <div class="color-content">
-      <div class="colordiamonds"  :style="{background:color}"></div>
+      <div class="colordiamonds"  :style="{'background':color}"></div>
       <div class="colorName">{{colorName}}</div>
   </div>
 </template>
@@ -8,7 +8,14 @@
 <script>
 
     export default{
-      props:['colorName','color'],
+      props:{
+          colorName:{
+            type:String,
+          },
+          color:{
+            type:Object,
+          }
+        },
         data(){
             return {}
         },

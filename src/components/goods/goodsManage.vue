@@ -62,7 +62,7 @@
                   </div>
                   <div class="bottom-content">
                     <div class="center-color-size">
-                      <color-content :colorName="item.product_colors" :color="item.colorName"></color-content>
+                      <!--<color-content :colorName="item.product_colors" :color="item.colorName"></color-content>-->
                       <div class="size-content">
                         {{item.product_sizes}}
                       </div>
@@ -224,7 +224,7 @@
         },
         methods: {
           addNewGoods(){
-              this.open = true;
+              this.goodsAddOpen = true;
 
           },
           searchGoods(){

@@ -1,9 +1,8 @@
 <template>
-  <div class="">
+  <div class="goodsAddDrawer">
     <my-drawer :open="goodsAddOpen" title="商品添加" @close-drawer="closeGoodsDrawer"
                @complate-drawer="addGoodsCallback">
       <div class="add-goods">
-        <Cascader  v-model="formItem.value2"></Cascader>
         <div class="ui segment">
           <div class="ui vertical segment">
             <div class="add-img">
@@ -12,16 +11,20 @@
           </div>
           <div class="ui vertical segment">
             <Form :model="formItem" :label-width="80" label-position="left">
-              <FormItem label="货号">
+              <FormItem >
+                <span slot="label">货号<span class="red-star">*</span></span>
                 <Input v-model="formItem.input" placeholder="货号"></Input>
               </FormItem>
-              <FormItem label="简称">
+              <FormItem >
+                <span slot="label">货号<span class="red-star">*</span></span>
                 <Input v-model="formItem.input" placeholder="简称"></Input>
               </FormItem>
-              <FormItem label="售价">
+              <FormItem >
+                <span slot="label">货号<span class="red-star">*</span></span>
                 <Input v-model="formItem.input" placeholder="售价"></Input>
               </FormItem>
-              <FormItem label="自定义售价">
+              <FormItem >
+                <div style="width: 120px;" slot="label">自定义售价<span class="red-star">*</span><i class="iconfont  icon-wenhao" style="padding-left: 2px;position: relative;top: 4px;" ></i></div>
                 <Input v-model="formItem.input" placeholder="自定义售价"></Input>
               </FormItem>
             </Form>
@@ -34,10 +37,11 @@
           </div>
           <div class="ui vertical segment">
             <Form :model="formItem" :label-width="80" label-position="left">
-              <FormItem label="网店可用">
-                <i-switch v-model="formItem.switch" size="large">
-                  <span slot="open">是</span>
-                  <span slot="close">否</span>
+              <FormItem >
+                <div style="width: 120px;" slot="label"><i class="iconfont  icon-gantanhao" style="padding-right: 2px;" ></i>图片网店可用</div>
+                <i-switch v-model="formItem.switch" >
+                  <span slot="open"></span>
+                  <span slot="close"></span>
                 </i-switch>
               </FormItem>
               <FormItem label="初始库存">
@@ -71,10 +75,10 @@
                       </div>
                       <!--颜色的细节-->
                       <div class="detail">
-                        <Tag type="dot" color="#FF8C69">红色</Tag>
-                        <Tag type="dot" color="#FF8247">粉色</Tag>
-                        <Tag type="dot" color="#FF34B3">玫瑰</Tag>
-                        <Tag type="dot" color="#FF0000">牡红</Tag>
+                        <Tag type="dot" color="'#FF8C69'">红色</Tag>
+                        <Tag type="dot" color="'#FF8247'">粉色</Tag>
+                        <Tag type="dot" color="'#FF34B3'">玫瑰</Tag>
+                        <Tag type="dot" color="'#FF0000'">牡红</Tag>
                       </div>
                     </div>
                   </div>
@@ -91,10 +95,10 @@
                       </div>
                       <!--尺码的细节-->
                       <div class="detail">
-                        <Tag type="dot" color="#06c1ae">M</Tag>
-                        <Tag type="dot" color="#06c1ae">L</Tag>
-                        <Tag type="dot" color="#06c1ae">XL</Tag>
-                        <Tag type="dot" color="#06c1ae">XXL</Tag>
+                        <Tag type="dot" color="'#06c1ae'">M</Tag>
+                        <Tag type="dot" color="'#06c1ae'">L</Tag>
+                        <Tag type="dot" color="'#06c1ae'">XL</Tag>
+                        <Tag type="dot" color="'#06c1ae'">XXL</Tag>
                       </div>
                     </div>
                     <div class="size-chunk">
@@ -107,8 +111,8 @@
                       <!--尺码的细节-->
                       <div class="detail">
                         <Tag type="dot" color="#06c1ae">L</Tag>
-                        <Tag type="dot" color="#06c1ae">M</Tag>
-                        <Tag type="dot" color="#06c1ae">X</Tag>
+                        <Tag type="dot" color="'#06c1ae'">M</Tag>
+                        <Tag type="dot" color="'#06c1ae'">X</Tag>
                       </div>
                     </div>
                   </div>
@@ -254,47 +258,77 @@
   };
 </script>
 <style lang="scss" rel="stylesheet/scss" type="text/scss">
-  .ui.segment {
-    background: #fff;
-    box-shadow: 0 1px 2px 0 rgba(34, 36, 38, .15);
-    margin: 1rem 0;
-    padding: 1em 1em;
-    border-radius: .28571429rem;
-    border: 1px solid rgba(34, 36, 38, .15);
-    &.vertical {
-      margin: 0;
-      padding-left: 0;
-      padding-right: 0;
-      background: none transparent;
-      border-radius: 0;
-      box-shadow: none;
-      border: none;
-      border-bottom: 1px solid rgba(34, 36, 38, .15);
-    }
-  }
-
-  .add-goods {
-    .add-img {
-      width: 76px;
-      height: 76px;
-      border: 1px dotted gray;
-      .upload-icon {
-        font-size: 50px;
-        margin: {
-          top: 13px;
-          left: 17px;
-        }
-        color: gray;
+  @import '../../common/css/globalscss';
+  .goodsAddDrawer{
+    .ui.segment {
+      background: #fff;
+      padding: .5em 1em;
+      border-radius: .28571429rem;
+      &.vertical {
+        margin: 0;
+        padding-left: 0;
+        padding-right: 0;
+        background: none transparent;
+        border-radius: 0;
+        box-shadow: none;
+        border: none;
+        border-bottom: 1px solid #f2f1f2;
       }
     }
-    .detail, .tag {
-      margin-top: 8px;
+    .icon-gantanhao:before,.icon-wenhao:before{
+      padding: 0px;
+      border-radius: 100%;
     }
-  }
+    .icon-wenhao:before{
+      font-size: 20px;
+      color: $menuSelectFontColor;
+      background: #fff;
+    }
+    .icon-gantanhao:before{
+      font-size: 16px;
+      color: #fff;
+      background: $menuSelectFontColor;
+      border:1px solid $menuSelectFontColor;
+    }
+    .ivu-form-item{
+      margin:0;
+      padding:5px 0;
+      border-bottom: 1px solid #f2f1f2;
+    }
+    .ivu-form .ivu-form-item-label{
+      padding:4px 0px 10px 0px;
+    }
+    .ivu-form-item-content {
+      text-align: right;
+      .ivu-input-wrapper{
+        width:70%;
+      }
+    }
+    .add-goods {
+      .add-img {
+        width: 76px;
+        height: 76px;
+        border-radius:3px;
+        border: 1px dotted gray;
+        .upload-icon {
+          font-size: 50px;
+          margin: {
+            top: 13px;
+            left: 17px;
+          }
+          color: gray;
+        }
+      }
+      .detail, .tag {
+        margin-top: 8px;
+      }
+    }
 
-  .explain {
-    margin-top: 10px;
-    color: rgba(0, 0, 0, 0.4);
-    font-size: 8px;
+    .explain {
+      margin-top: 10px;
+      color: rgba(0, 0, 0, 0.4);
+      font-size: 8px;
+    }
+
   }
 </style>
