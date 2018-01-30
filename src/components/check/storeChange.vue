@@ -1,86 +1,90 @@
 <template>
-  <div class="store-change-html">
-    <tool-bar></tool-bar>
-    <div class="type-choose">
+  <div class="">
+    <tool-bar>
       <Button type="primary" class="check-button" @click="checkStoreDialog = true">开始盘点</Button>
-      <ul>
-        <li class="choose-li icon-cursor" :class="{'active': wordType == 1}" @click="wordType = 1">异常记录</li>
-        <li class="choose-li icon-cursor" :class="{'active': wordType == 2}" @click="wordType = 2">正常记录</li>
-      </ul>
-    </div>
-    <div class="data-show">
-      <Table class="" :columns="columns" :data="data"></Table>
-    </div>
-    <Modal
-      v-model="check"
-      title="库存核对"
-      @on-ok="ok"
-      @on-cancel="cancel">
-      <div class="goods-infor">
-        <div class="goods-img">
-          <img :src="imgUrl" alt="">
-        </div>
-        <div class="goods-introduction">
-          <h4>三叶草卫衣</h4>
-          <div class="ids">商品id:454564</div>
-          <div class="number">货号:5456</div>
-        </div>
+    </tool-bar>
+    <div class="store-change-html">
+      <div class="type-choose">
+        <ul>
+          <li class="choose-li icon-cursor" :class="{'active': wordType == 1}" @click="wordType = 1">异常记录</li>
+          <li class="choose-li icon-cursor" :class="{'active': wordType == 2}" @click="wordType = 2">正常记录</li>
+        </ul>
       </div>
-      <div class="repertory-infor">
-        <div class="detail">
-          <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-          <Tag checkable class="size" color="blue">M</Tag>
-          <span class="total">20</span>
-          <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
-        </div>
-        <div class="detail">
-          <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-          <Tag checkable class="size" color="blue">XL</Tag>
-          <span class="total">20</span>
-          <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
-        </div>
-        <div class="detail">
-          <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-          <Tag checkable class="size" color="blue">XXL</Tag>
-          <span class="total">20</span>
-          <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
-        </div>
+      <div class="data-show">
+        <Table class="" :columns="columns" :data="data"></Table>
       </div>
-    </Modal>
-    <my-drawer :open="checkStoreDialog" title="库存添加" @close-drawer="checkStoreDialog = false"
-               @complate-drawer="">
-      <div class="check-store">
-        <div class="search-store">
-          <Input v-model="goodsNumber" placeholder="请输入货号或简称"></Input>
-          <Button class="search-button" type="primary">搜索</Button>
+      <Modal
+        v-model="check"
+        title="库存核对"
+        @on-ok="ok"
+        @on-cancel="cancel">
+        <div class="goods-infor">
+          <div class="goods-img">
+            <img :src="imgUrl" alt="">
+          </div>
+          <div class="goods-introduction">
+            <h4>三叶草卫衣</h4>
+            <div class="ids">商品id:454564</div>
+            <div class="number">货号:5456</div>
+          </div>
         </div>
-        <div class="goods-show">
-          <div class="goods-detail" v-for="goodsDetail in goodsDetailS"
-               :class="{'color-active': goodsDetail.status == '1'}">
-            <div class="top">
-              <div class="goods-img">
-                <img src="../repertory/1.jpg" alt="">
+        <div class="repertory-infor">
+          <div class="detail">
+            <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
+            <Tag checkable class="size" color="blue">M</Tag>
+            <span class="total">20</span>
+            <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
+          </div>
+          <div class="detail">
+            <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
+            <Tag checkable class="size" color="blue">XL</Tag>
+            <span class="total">20</span>
+            <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
+          </div>
+          <div class="detail">
+            <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
+            <Tag checkable class="size" color="blue">XXL</Tag>
+            <span class="total">20</span>
+            <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
+          </div>
+        </div>
+      </Modal>
+      <my-drawer :open="checkStoreDialog" title="库存添加" @close-drawer="checkStoreDialog = false"
+                 @complate-drawer="">
+        <div class="check-store">
+          <div class="search-store">
+            <Input v-model="goodsNumber" placeholder="请输入货号或简称"></Input>
+            <Button class="search-button" type="primary">搜索</Button>
+          </div>
+          <div class="goods-show">
+            <div class="goods-detail" v-for="goodsDetail in goodsDetailS"
+                 :class="{'color-active': goodsDetail.status == '1'}">
+              <div class="top">
+                <div class="goods-img">
+                  <img src="../repertory/1.jpg" alt="">
+                </div>
+                <div class="goods-introduction">
+                  <h4>{{goodsDetail.name}}</h4>
+                  <div class="ids">商品id:{{goodsDetail.ids}}</div>
+                  <div class="number">货号:{{goodsDetail.number}}</div>
+                  <div class="count">库存:{{goodsDetail.count}}</div>
+                  <div class="time">盘点时间:{{goodsDetail.time}}</div>
+                </div>
+                <RadioGroup class="status" v-model="goodsDetail.status">
+                  <Radio label="0">库存无误</Radio>
+                  <Radio label="1" class="yes-status">库存有误</Radio>
+                </RadioGroup>
               </div>
-              <div class="goods-introduction">
-                <h4>{{goodsDetail.name}}</h4>
-                <div class="ids">商品id:{{goodsDetail.ids}}</div>
-                <div class="number">货号:{{goodsDetail.number}}</div>
-                <div class="count">库存:{{goodsDetail.count}}</div>
-                <div class="time">盘点时间:{{goodsDetail.time}}</div>
-              </div>
-              <RadioGroup class="status" v-model="goodsDetail.status">
-                <Radio label="0">库存无误</Radio>
-                <Radio label="1" class="yes-status">库存有误</Radio>
-              </RadioGroup>
             </div>
           </div>
         </div>
-      </div>
-    </my-drawer>
+      </my-drawer>
+    </div>
   </div>
 </template>
 <script>
   import myDrawer from '../../common/vue/myDrawer.vue';
+  import toolBar from '../../common/vue/toolBar.vue';
 
   export default {
     props: {},
@@ -227,7 +231,7 @@
       };
     },
     methods: {},
-    components: {myDrawer}
+    components: {myDrawer, toolBar}
   };
 </script>
 <style lang="scss" rel="stylesheet/scss" type="text/scss">

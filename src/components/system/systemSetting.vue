@@ -41,6 +41,7 @@
   </div>
 </template>
 <script>
+  import toolBar from '../../common/vue/toolBar.vue';
   export default {
     props: {},
     data() {
@@ -59,7 +60,7 @@
       };
     },
     methods: {},
-    components: {}
+    components: {toolBar}
   };
 </script>
 <style lang="scss" rel="stylesheet/scss" type="text/scss">

@@ -1,7 +1,7 @@
 <template>
   <div class="color-size-manage-html">
     <!--颜色管理-->
-    <tool-bar></tool-bar>
+
     <div class="color-manage">
       <!--颜色块-->
       <div class="color-chunk">
