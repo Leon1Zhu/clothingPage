@@ -23,9 +23,15 @@
                 <span slot="label">货号<span class="red-star">*</span></span>
                 <Input v-model="formItem.input" placeholder="售价"></Input>
               </FormItem>
-              <FormItem >
-                <div style="width: 120px;" slot="label">自定义售价<span class="red-star">*</span><i class="iconfont  icon-wenhao" style="padding-left: 2px;position: relative;top: 4px;" ></i></div>
-                <Input v-model="formItem.input" placeholder="自定义售价"></Input>
+              <FormItem :label-width="120">
+                <div style="width: 120px;" slot="label" >
+                  自定义售价
+                  <span class="red-star">*</span>
+                  <Tooltip content="填写自定义售价，系统赔率将失效" placement="top">
+                    <i class="iconfont  icon-wenhao" style="padding-left: 2px;position: relative;top: 3px;" ></i>
+                  </Tooltip>
+                </div>
+                <Input v-model="formItem.input" placeholder="自定义售价" style="width: 80%;"></Input>
               </FormItem>
             </Form>
           </div>
@@ -38,18 +44,15 @@
           <div class="ui vertical segment">
             <Form :model="formItem" :label-width="80" label-position="left">
               <FormItem >
-                <div style="width: 120px;" slot="label"><i class="iconfont  icon-gantanhao" style="padding-right: 2px;" ></i>图片网店可用</div>
+                <div style="width: 120px;" slot="label"><Icon type="information-circled" size="20" ></Icon>图片网店可用</div>
                 <i-switch v-model="formItem.switch" >
                   <span slot="open"></span>
                   <span slot="close"></span>
                 </i-switch>
               </FormItem>
-              <FormItem label="初始库存">
-                <Input v-model="formItem.input" placeholder="初始库存"></Input>
-              </FormItem>
-              <Collapse v-model="formItem.value1">
+              <Collapse >
                 <Panel name="1">
-                  颜色
+                  颜色<span class="red-star">*</span>
                   <div slot="content">
                     <div class="color-chunk">
                       <!--颜色的名称-->
@@ -84,7 +87,7 @@
                   </div>
                 </Panel>
                 <Panel name="2">
-                  尺码
+                  尺码<span class="red-star">*</span>
                   <div slot="content">
                     <div class="size-chunk">
                       <!--尺码的名称-->
@@ -118,7 +121,7 @@
                   </div>
                 </Panel>
                 <Panel name="3">
-                  分类
+                  分类<span class="red-star">*</span>
                   <div slot="content">
                     <Tag checkable color="blue">上衣</Tag>
                     <Tag checkable color="blue">裤子</Tag>
@@ -127,6 +130,9 @@
                   </div>
                 </Panel>
               </Collapse>
+              <FormItem label="初始库存">
+                <Input v-model="formItem.input" placeholder="初始库存"></Input>
+              </FormItem>
             </Form>
           </div>
           <div class="ui vertical segment">
@@ -201,7 +207,7 @@
                 </Row>
               </FormItem>
               <p class="explain">
-                <Icon type="help-circled" color="green"></Icon>
+                <Icon type="information-circled" size="20" ></Icon>
                 填写尺码详细可分享给客户
               </p>
             </Form>
@@ -239,7 +245,7 @@
           time: '',
           slider: [20, 50],
           textarea: '',
-          value1: '1',
+          value1: '',
           value2: [],
         },
       };
@@ -259,7 +265,11 @@
 </script>
 <style lang="scss" rel="stylesheet/scss" type="text/scss">
   @import '../../common/css/globalscss';
+  $borderColorGoodsDrawer:#f2f1f2;
   .goodsAddDrawer{
+    .ui.vertical.segment:first-child,.ui.vertical.segment:nth-child(3){
+      border-bottom:1px solid $borderColorGoodsDrawer;
+    }
     .ui.segment {
       background: #fff;
       padding: .5em 1em;
@@ -272,10 +282,13 @@
         border-radius: 0;
         box-shadow: none;
         border: none;
-        border-bottom: 1px solid #f2f1f2;
       }
     }
-    .icon-gantanhao:before,.icon-wenhao:before{
+    .ivu-tooltip-inner{
+      background-color: #fff;
+      color: rgba(70,76,91,.9);
+    }
+    .icon-wenhao:before{
       padding: 0px;
       border-radius: 100%;
     }
@@ -284,19 +297,31 @@
       color: $menuSelectFontColor;
       background: #fff;
     }
-    .icon-gantanhao:before{
-      font-size: 16px;
-      color: #fff;
-      background: $menuSelectFontColor;
-      border:1px solid $menuSelectFontColor;
+    .ivu-icon-information-circled:before{
+      padding-right:2px;
+      color: $menuSelectFontColor;
+      position: relative;
+      top:3px;
+    }
+    .ivu-collapse{
+      border-radius:0;
+      border:none;
+      background: #fff;
+    }
+    .ivu-collapse>.ivu-collapse-item{
+      border-top:0px;
+      border-bottom:1px solid $borderColorGoodsDrawer;
+      .ivu-collapse-header{
+        padding-left:0px;
+      }
     }
     .ivu-form-item{
       margin:0;
       padding:5px 0;
-      border-bottom: 1px solid #f2f1f2;
+      border-bottom: 1px solid $borderColorGoodsDrawer;
     }
     .ivu-form .ivu-form-item-label{
-      padding:4px 0px 10px 0px;
+      padding:10px 0px 10px 0px;
     }
     .ivu-form-item-content {
       text-align: right;
@@ -304,6 +329,29 @@
         width:70%;
       }
     }
+    .size-chunk,.color-chunk{
+      padding-bottom:5px;
+    }
+    .ivu-collapse-content>.ivu-collapse-content-box{
+      padding-top:8px;
+      padding-bottom:8px;
+    }
+
+    .ivu-tag.ivu-tag-blue{
+      background-color: #fff;
+      border:1px solid $menuSelectFontColor;
+      color: $menuSelectFontColor;
+      &.ivu-tag-checked{
+        background: $menuSelectFontColor;
+        color: white;
+      }
+    }
+    .ivu-tag:not(.ivu-tag-border):not(.ivu-tag-dot):not(.ivu-tag-checked){
+      background-color: #fff;
+      border:1px solid $menuSelectFontColor;
+      color: $menuSelectFontColor;
+    }
+
     .add-goods {
       .add-img {
         width: 76px;
