@@ -92,15 +92,18 @@
       flex: 1;
       .size-chunk {
         padding: 8px;
+        padding-left: 0px;
         margin: {
           top: 15px;
         }
         .size-name {
           padding: 8px;
+          padding-left: 0px;
           border-bottom: 1px solid #f8f6f2;
         }
         .detail {
           padding: 8px;
+          padding-left: 0px;
         }
       }
     }

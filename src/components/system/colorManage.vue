@@ -138,15 +138,18 @@
       border-right: 2px solid #f8f6f2;
       .color-chunk {
         padding: 8px;
+        padding-left: 0px;
         margin: {
           top: 15px;
         }
         .color-name {
           padding: 8px;
+          padding-left: 0px;
           border-bottom: 1px solid #f8f6f2;
         }
         .detail {
           padding: 8px;
+          padding-left: 0px;
         }
       }
     }

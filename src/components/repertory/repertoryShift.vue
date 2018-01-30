@@ -2,7 +2,7 @@
   <div class="repertory-shift-html">
     <tool-bar>
 
-      <Input v-model="searchData.number"  placeholder="请输入货号或者简称"></Input>
+      <Input v-model="searchData.number" placeholder="请输入货号或者简称"></Input>
       <Col class="left-eight">
       <DatePicker v-model="searchData.time" type="daterange" placement="bottom-end" placeholder="选择日期"
                   style="width: 200px"></DatePicker>
@@ -11,7 +11,7 @@
         <Option v-for=" repertoryShift in repertoryShiftS" :value="repertoryShift.value">{{repertoryShift.name}}
         </Option>
       </Select>
-      <Button type="primary" icon="plus-round" @click.native="addNewStore('');">搜索</Button>
+      <Button type="primary" icon="plus-round" @click.native="addNewStore('');" class="post-btn">搜索</Button>
     </tool-bar>
     <div class="table-show">
       <Table :columns="columns1" :data="data1"></Table>
@@ -200,5 +200,10 @@
       }
     }
   }
+
+  .post-btn {
+    margin-left: 8px;
+  }
+
 
 </style>
