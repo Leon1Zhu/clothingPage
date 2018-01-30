@@ -34,7 +34,7 @@
 
           <div class="goods-operator">
             <Button class="change_status" type="primary" shape="circle" icon="edit" @click.native="open=true"></Button>
-            <Button class="change_goodsinfo" type="primary" shape="circle" icon="ios-gear"></Button>
+            <Button class="change_goodsinfo" type="primary" shape="circle" icon="ios-gear" @click.native="goodsAddOpen = true"></Button>
             <Button class="delete_goods" type="primary" shape="circle" icon="trash-a"></Button>
           </div>
 
@@ -97,7 +97,7 @@
           </div>
         </div>
       </my-drawer>
-
+      <goods-drawer :goodsAddOpen="goodsAddOpen"  @closeGoodsDrawer="closeGoodsDrawer"></goods-drawer>
 
     </div>
 </template>
@@ -106,9 +106,11 @@
   import myDrawer from'../../common/vue/myDrawer.vue'
   import colorContent from '../../common/vue/colorContent.vue'
   import toolBar from '../../common/vue/toolBar.vue'
+  import goodsDrawer from './goodsDrawer.vue'
     export default{
         data(){
             return {
+                goodsAddOpen:false,
                 open:false,
                 searchGoodsInfo:null,
                 goodsItem:{
@@ -213,7 +215,8 @@
         components: {
             'my-drawer':myDrawer,
             'color-content':colorContent,
-            'tool-bar':toolBar
+            'tool-bar':toolBar,
+            'goods-drawer':goodsDrawer
         },
         created(){
         },
@@ -229,6 +232,9 @@
           },
           complateDrawer(){
               this.open = false;
+          },
+          closeGoodsDrawer(){
+              this.goodsAddOpen = false;
           }
         }
     }

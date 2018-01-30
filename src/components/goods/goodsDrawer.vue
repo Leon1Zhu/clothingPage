@@ -1,9 +1,9 @@
 <template>
   <div class="">
-    <my-drawer :open="goodsAddOpen" title="商品添加" @close-drawer="goodsAddOpen=false"
+    <my-drawer :open="goodsAddOpen" title="商品添加" @close-drawer="closeGoodsDrawer"
                @complate-drawer="addGoodsCallback">
       <div class="add-goods">
-        <Cascader :data="data2" v-model="value2"></Cascader>
+        <Cascader  v-model="formItem.value2"></Cascader>
         <div class="ui segment">
           <div class="ui vertical segment">
             <div class="add-img">
@@ -43,7 +43,7 @@
               <FormItem label="初始库存">
                 <Input v-model="formItem.input" placeholder="初始库存"></Input>
               </FormItem>
-              <Collapse v-model="value1">
+              <Collapse v-model="formItem.value1">
                 <Panel name="1">
                   颜色
                   <div slot="content">
@@ -243,6 +243,9 @@
     methods: {
       addGoodsCallback() {
 
+      },
+      closeGoodsDrawer(){
+          this.$emit('closeGoodsDrawer')
       }
     },
     components: {
