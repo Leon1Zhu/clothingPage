@@ -191,6 +191,7 @@
                   },{
                     product_id:'1142522',
                     product_code:'x125',
+                    product_name:'这是商品名称',
                     product_pic:'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
                     product_price:'78',
                     product_desc:'这是一段商品描述',
@@ -269,7 +270,7 @@
             font-size:16px;
           }
           .goods-other-info{
-            line-height: 1.2;
+            line-height: 1.3;
             margin: 5px 0px;
             color: rgba(0,0,0,.4);
           }

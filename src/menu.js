@@ -18,7 +18,7 @@ global.MENU = [
         linkHref: '/staffManage',
       }, {
         menuName: '颜色管理',
-        menuIcon: 'icon-gouwuche',
+        menuIcon: 'icon-yanse',
         linkHref: '/colorManage',
       }
       , {

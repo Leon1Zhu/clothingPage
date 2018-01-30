@@ -1,17 +1,18 @@
 <template>
     <div id="visitList">
-      <div class="view-visitor-bar">
+      <tool-bar>
         <Input v-model="searchCustomName" placeholder="请输入客户姓名" style="margin-right: .5%;" ></Input>
         <Button type="primary" icon="ios-search" @click.native="searchVisitor"  >搜索</Button>
         <!--<Button type="primary" icon="plus-round" @click.native="addNewStaff">添加新店员</Button>-->
-      </div>
+      </tool-bar>
+
       <Table stripe border :columns="columns10" :data="data9"></Table>
       <Page :total="100" style="margin-top: 5px;"></Page>
     </div>
 </template>
 
 <script>
-
+  import toolBar from '../../common/vue/toolBar.vue'
     export default{
         data(){
             return {
@@ -99,7 +100,9 @@
               ],
             }
         },
-        components: {},
+        components: {
+            'tool-bar':toolBar
+        },
         created(){
         },
         mounted(){
