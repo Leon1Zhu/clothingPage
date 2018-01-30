@@ -1,17 +1,17 @@
 <template>
   <div class="repertory-shift-html">
-    <div class="search">
+    <tool-bar>
       <Input v-model="searchData.number" placeholder="请输入货号或者简称"></Input>
       <Col class="left-eight">
       <DatePicker v-model="searchData.time" type="daterange" placement="bottom-end" placeholder="选择日期"
                   style="width: 200px"></DatePicker>
       </Col>
-      <Select class="left-eight" v-module="searchData.type">
+      <Select class="left-eight" v-module="searchData.type" style="width: 100px">
         <Option v-for=" repertoryShift in repertoryShiftS" :value="repertoryShift.value">{{repertoryShift.name}}
         </Option>
       </Select>
-      <Button class="left-eight" type="primary" @click="searchRepertoryData">搜索</Button>
-    </div>
+      <Button type="primary" icon="plus-round" @click.native="addNewStore('');">搜索</Button>
+    </tool-bar>
     <div class="table-show">
       <Table :columns="columns1" :data="data1"></Table>
     </div>
@@ -21,6 +21,7 @@
   </div>
 </template>
 <script>
+  import toolBar from '../../common/vue/toolBar.vue';
 
   export default {
     props: {},
@@ -35,7 +36,6 @@
           switch: true,
           time: '',
           slider: [20, 50],
-          textarea: '',
           value1: '1',
           value2: [],
         },
@@ -176,6 +176,7 @@
       }
     },
     components: {
+      toolBar
     }
   };
 </script>
@@ -183,13 +184,9 @@
   @import '../../common/css/globalscss.scss';
 
   .repertory-shift-html {
-    .search {
-      display: flex;
-      .left-eight {
-        margin: {
-          left: 8px;
-        }
-      ;
+    .left-eight {
+      margin: {
+        left: 8px;
       }
     }
     .table-show {

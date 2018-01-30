@@ -1,9 +1,9 @@
 <template>
   <div class="repertory-record-html">
-    <div class="search">
+    <tool-bar>
       <Input v-model="goodsNumber" placeholder="请输入货号或简称"></Input>
       <Button class="search-button" type="primary">搜索</Button>
-    </div>
+    </tool-bar>
     <div class="goods-show">
       <div class="item" v-for="goods in goodsData">
         <div class="goods-img">
@@ -16,7 +16,7 @@
           <div class="count">数量:{{goods.count}}</div>
           <div class="operation">
             <Button type="primary" shape="circle" icon="gear-b" @click="check = true"></Button>
-            <Button type="warning" shape="circle"  icon="compose" @click="add = true"></Button>
+            <Button type="warning" shape="circle" icon="compose" @click="add = true"></Button>
           </div>
         </div>
       </div>
@@ -28,7 +28,7 @@
       @on-cancel="cancel">
       <div class="goods-infor">
         <div class="goods-img">
-          <img :src="imgUrl"  alt="">
+          <img :src="imgUrl" alt="">
         </div>
         <div class="goods-introduction">
           <h4>三叶草卫衣</h4>
@@ -129,6 +129,7 @@
 </template>
 <script>
   import myDrawer from '../../common/vue/myDrawer.vue';
+  import toolBar from '../../common/vue/toolBar.vue';
 
   export default {
     props: {},
@@ -261,7 +262,8 @@
       }
     },
     components: {
-      myDrawer
+      myDrawer,
+      toolBar
     }
   };
 </script>
@@ -273,14 +275,6 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    .search {
-      width: 95%;
-      margin-left: 2.5%;
-      display: flex;
-      .search-button {
-        margin-left: 8px;
-      }
-    }
     .goods-show {
       flex: 1;
       display: flex;
@@ -288,13 +282,13 @@
       padding: 8px;
       .item {
         display: flex;
-        width: 240px;
+        width: 23%;
         padding: 15px;
         height: 130px;
         font-size: 14px;
         margin: {
           top: 8px;
-          left: 15px;
+          left: 2%;
         }
         background-color: #f8f6f2;
         .goods-img {
@@ -401,6 +395,10 @@
       }
     ;
     }
+  }
+
+  .search-button {
+    margin-left: 8px;
   }
 
 </style>

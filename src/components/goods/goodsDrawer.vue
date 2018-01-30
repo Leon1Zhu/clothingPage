@@ -3,7 +3,7 @@
     <my-drawer :open="goodsAddOpen" title="商品添加" @close-drawer="closeGoodsDrawer"
                @complate-drawer="addGoodsCallback">
       <div class="add-goods">
-        <Cascader  v-model="formItem.value2"></Cascader>
+        <Cascader v-model="formItem.value2"></Cascader>
         <div class="ui segment">
           <div class="ui vertical segment">
             <div class="add-img">
@@ -244,8 +244,8 @@
       addGoodsCallback() {
 
       },
-      closeGoodsDrawer(){
-          this.$emit('closeGoodsDrawer')
+      closeGoodsDrawer() {
+        this.$emit('closeGoodsDrawer')
       }
     },
     components: {

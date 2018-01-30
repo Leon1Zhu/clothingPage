@@ -1,5 +1,9 @@
 <template>
   <div class="seasoning-condiments-html">
+    <tool-bar>
+      <Input v-model="goodsNumber" placeholder="请输入货号或简称"></Input>
+      <Button class="search-button" type="primary">搜索</Button>
+    </tool-bar>
     <Table :columns="columns10" :data="data9"></Table>
     <my-drawer :open="seasoningOpen" title="库存添加" @close-drawer="seasoningOpen=false"
                @complate-drawer="">
@@ -52,6 +56,7 @@
 <script>
   import myDrawer from '../../common/vue/myDrawer.vue';
   import expandRow from '../repertory/seasoningExpand.vue';
+  import toolBar from '../../common/vue/toolBar.vue';
 
   export default {
     props: {},
@@ -202,7 +207,8 @@
     },
     components: {
       myDrawer,
-      expandRow
+      expandRow,
+      toolBar
     }
   };
 </script>
