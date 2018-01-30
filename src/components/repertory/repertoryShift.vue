@@ -1,7 +1,7 @@
 <template>
   <div class="repertory-shift-html">
     <tool-bar>
-      <Input v-model="searchData.number" placeholder="请输入货号或者简称"></Input>
+      <Input v-model="searchData.number"  placeholder="请输入货号或者简称"></Input>
       <Col class="left-eight">
       <DatePicker v-model="searchData.time" type="daterange" placement="bottom-end" placeholder="选择日期"
                   style="width: 200px"></DatePicker>

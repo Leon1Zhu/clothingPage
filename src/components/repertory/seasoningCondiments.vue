@@ -2,7 +2,7 @@
   <div class="seasoning-condiments-html">
     <tool-bar>
       <Input v-model="goodsNumber" placeholder="请输入货号或简称"></Input>
-      <Button class="search-button" type="primary">搜索</Button>
+      <Button class="search-button"  type="primary">搜索</Button>
     </tool-bar>
     <Table :columns="columns10" :data="data9"></Table>
     <my-drawer :open="seasoningOpen" title="库存添加" @close-drawer="seasoningOpen=false"

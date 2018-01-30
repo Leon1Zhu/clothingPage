@@ -1,7 +1,7 @@
 <template>
   <div class="good-table-expand">
     <!-- <Table class="my-table" :show-header="!showHeader"  :columns="columns1" :data="data1"></Table>-->
-    <Card v-for="item in data1" @click.native="returnItem(item)">
+    <Card v-for="item in data1"  @click.native="returnItem(item)">
       <div class="good-card">
         <div class="left-content">
           <img class="good-img" :src="item.img">

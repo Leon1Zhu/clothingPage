@@ -2,7 +2,7 @@
   <div class="repertory-record-html">
     <tool-bar>
       <Input v-model="goodsNumber" placeholder="请输入货号或简称"></Input>
-      <Button class="search-button" type="primary">搜索</Button>
+      <Button class="search-button"  type="primary">搜索</Button>
     </tool-bar>
     <div class="goods-show">
       <div class="item" v-for="goods in goodsData">
