@@ -18,11 +18,9 @@
     <footer>
       <Page :total="100" class="footer-page"></Page>
     </footer>
-    <goods-drawer :goodsAddOpen="goodsAddOpen"></goods-drawer>
   </div>
 </template>
 <script>
-  import goodsDrawer from '../goods/goodsDrawer.vue';
 
   export default {
     props: {},
@@ -178,7 +176,6 @@
       }
     },
     components: {
-      goodsDrawer
     }
   };
 </script>

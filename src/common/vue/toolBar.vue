@@ -1,10 +1,10 @@
 <template>
-      <div class="tool-bar">
+      <section class="tool-bar">
         <div class="page-tag-lable">{{$route.name}}</div>
         <div class="right-content">
           <slot></slot>
         </div>
-      </div>
+      </section>
 </template>
 
 <script>
