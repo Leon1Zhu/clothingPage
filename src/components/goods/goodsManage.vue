@@ -35,7 +35,8 @@
           <div class="goods-operator">
             <Button class="change_status" type="primary" shape="circle" icon="edit" @click.native="open=true"></Button>
             <Button class="change_goodsinfo" type="primary" shape="circle" icon="ios-gear" @click.native="goodsAddOpen = true"></Button>
-            <Button class="delete_goods" type="primary" shape="circle" icon="trash-a"></Button>
+            <Button class="delete_goods " type="primary" shape="circle"icon="trash-a" ></Button>
+            <Button class="goods-qr-code ivu-btn-icon-only" type="primary" shape="circle" ><i class="iconfont  icon-erweima" ></i></Button>
           </div>
 
         </Card>
@@ -283,18 +284,23 @@
         }
         .goods-operator{
           .change_status{
+            background-color: $menuSelectFontColor;
+            border-color: $menuSelectFontColor;
+          }
+          .change_goodsinfo{
             background: #f8ab48;
             border-color: #f6a524;
           }
-          .change_goodsinfo{
+          .delete_goods{
             background: #72c6f2;
             border-color: #c3e5f8;
+           
           }
-          .delete_goods{
+          .goods-qr-code{
             background: #4d66ac;
             border-color: #8d99c3;
           }
-          .change_goodsinfo,.delete_goods{
+          .change_goodsinfo,.delete_goods,.goods-qr-code{
             margin-left:5px;
           }
         }
