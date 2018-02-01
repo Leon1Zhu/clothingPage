@@ -15,14 +15,23 @@ const systemSetting = resolve => require(['@/components/system/systemSetting.vue
 // 库存核对和修改
 const repertoryRecord = resolve => require(['@/components/repertory/repertoryRecord.vue'], resolve);
 
-// 库存记录
+// 清单盘点
 const storeChange = resolve => require(['@/components/check/storeChange.vue'], resolve);
+
+// 手动盘点
+const handStore = resolve => require(['@/components/check/handStore.vue'], resolve);
+
+// 盘点记录
+const storeRecord = resolve => require(['@/components/check/storeRecord.vue'], resolve);
 
 // 库存记录
 const repertoryShift = resolve => require(['@/components/repertory/repertoryShift.vue'], resolve);
 
 // 门店调货
 const seasoningCondiments = resolve => require(['@/components/repertory/seasoningCondiments.vue'], resolve);
+
+// 调货记录
+const seasoningRecord = resolve => require(['@/components/repertory/seasoningRecord.vue'], resolve);
 
 //销售开单
 const salesOrder = resolve => require(['@/components/goods/salesOrder.vue'], resolve);
@@ -88,9 +97,30 @@ const mainPageRouter = {
       meta: {needAlive: true, keepAlive: true},
     },
     {
+      path: '/seasoningRecord',
+      component: seasoningRecord,
+      name: "调货记录",
+      //needAlive表示该页面是否是标签页,keepAlive表示是否需要缓存改页面
+      meta: {needAlive: true, keepAlive: true},
+    },
+    {
+      path: '/storeRecord',
+      component: storeRecord,
+      name: "盘点记录",
+      //needAlive表示该页面是否是标签页,keepAlive表示是否需要缓存改页面
+      meta: {needAlive: true, keepAlive: true},
+    },
+    {
       path: '/storeChange',
       component: storeChange,
-      name: "库存盘点",
+      name: "清单盘点",
+      //needAlive表示该页面是否是标签页,keepAlive表示是否需要缓存改页面
+      meta: {needAlive: true, keepAlive: true},
+    },
+    {
+      path: '/handStore',
+      component: handStore,
+      name: "手动盘点",
       //needAlive表示该页面是否是标签页,keepAlive表示是否需要缓存改页面
       meta: {needAlive: true, keepAlive: true},
     },

@@ -4,6 +4,8 @@
 
       <Input v-model="goodsNumber" placeholder="请输入货号或简称"></Input>
       <Button class="search-button" type="primary">搜索</Button>
+      <Button class="search-button" type="warning">开始盘点</Button>
+      <Button class="search-button" type="error">结束盘点</Button>
     </tool-bar>
     <div class="goods-show">
       <div class="item" v-for="goods in goodsData">
@@ -17,51 +19,14 @@
           <div class="count">库存数量:{{goods.count}}</div>
           <div class="operation">
             <!--<Button type="primary" shape="circle" icon="gear-b" @click="check = true"></Button>-->
-            <Button type="warning" shape="circle" icon="compose" @click="add = true"></Button>
+            <Button type="warning" shape="circle" icon="compose" @click="check = true"></Button>
           </div>
         </div>
       </div>
     </div>
-    <!--    <Modal
-          v-model="check"
-          title="库存核对"
-          @on-ok="ok"
-          @on-cancel="cancel">
-          <div class="goods-infor">
-            <div class="goods-img">
-              <img :src="imgUrl" alt="">
-            </div>
-            <div class="goods-introduction">
-              <h4>三叶草卫衣</h4>
-              <div class="ids">商品id:454564</div>
-              <div class="number">货号:5456</div>
-            </div>
-          </div>
-          <div class="repertory-infor">
-            <div class="detail">
-              <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-              <Tag checkable class="size" color="blue">M</Tag>
-              <span class="total">20</span>
-              <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
-            </div>
-            <div class="detail">
-              <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-              <Tag checkable class="size" color="blue">XL</Tag>
-              <span class="total">20</span>
-              <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
-            </div>
-            <div class="detail">
-              <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-              <Tag checkable class="size" color="blue">XXL</Tag>
-              <span class="total">20</span>
-              <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
-            </div>
-          </div>
-        </Modal>-->
-
     <Modal
-      v-model="add"
-      title="库存添加"
+      v-model="check"
+      title="库存核对"
       @on-ok="ok"
       @on-cancel="cancel">
       <div class="goods-infor">
@@ -78,59 +43,26 @@
         <div class="detail">
           <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
           <Tag checkable class="size" color="blue">M</Tag>
-          <InputNumber :min="1" v-model="value1" class="truth-total"></InputNumber>
+          <span class="total">20</span>
+          <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
         </div>
         <div class="detail">
           <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
           <Tag checkable class="size" color="blue">XL</Tag>
-          <InputNumber :min="1" v-model="value1" class="truth-total"></InputNumber>
+          <span class="total">20</span>
+          <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
         </div>
         <div class="detail">
           <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-          <Tag checkable class="size" color="blue">XL</Tag>
-          <InputNumber :min="1" v-model="value1" class="truth-total"></InputNumber>
+          <Tag checkable class="size" color="blue">XXL</Tag>
+          <span class="total">20</span>
+          <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
         </div>
       </div>
-      <Button id="add-repertory" class="" @click="addRepertoryInformation()" type="primary" shape="circle"
-              icon="plus-round"></Button>
     </Modal>
-
     <footer>
       <Page :total="100" class="footer-page"></Page>
     </footer>
-
-    <my-drawer :open="repertoryAddOpen" title="库存添加" @close-drawer="repertoryAddOpen=false"
-               @complate-drawer="handleClose">
-      <div class="add-repertory">
-        <Card>
-          <p slot="title">
-            <Icon type="crop"></Icon>
-            请选择颜色
-          </p>
-          <ul>
-            <Tag type="dot" closable color="blue">蓝色</Tag>
-            <Tag type="dot" closable color="green">绿色</Tag>
-          </ul>
-        </Card>
-        <Card class="hn-ui-margin">
-          <p slot="title">
-            <Icon type="contrast"></Icon>
-            请选择颜色
-          </p>
-          <ul>
-            <Tag type="dot" closable color="blue">XXL</Tag>
-            <Tag type="dot" closable color="green">XL</Tag>
-          </ul>
-        </Card>
-        <Card class="hn-ui-margin">
-          <p slot="title">
-            <Icon type="code-working"></Icon>
-            请输入数量
-          </p>
-          <Input v-model="value1" type="number" placeholder="请输入数量"></Input>
-        </Card>
-      </div>
-    </my-drawer>
   </div>
 </template>
 <script>
@@ -280,6 +212,9 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    .footer-page {
+      margin-top: 8px;
+    }
     .goods-show {
       flex: 1;
       display: flex;
