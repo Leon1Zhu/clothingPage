@@ -31,26 +31,10 @@
                 <Option value="3">南京3号仓库</Option>
               </Select>
             </FormItem>
-            <FormItem label="调入">
-              <Select>
-                <Option value="1">南京1号仓库</Option>
-                <Option value="2">南京2号仓库</Option>
-                <Option value="3">南京3号仓库</Option>
-              </Select>
-            </FormItem>
           </Form>
         </div>
       </div>
     </my-drawer>
-    <Modal
-      v-model="modal"
-      title="门店调货"
-      @on-ok="ok"
-      @on-cancel="cancel">
-      <div>
-        <Table :columns="columns11" :data="data9"></Table>
-      </div>
-    </Modal>
   </div>
 </template>
 <script>
@@ -62,7 +46,6 @@
     props: {},
     data() {
       return {
-        modal: false,
         seasoningOpen: false,
         seasoningIn: '1',
         seasoningOut: '2',
@@ -100,7 +83,7 @@
                   },
                   on: {
                     click: () => {
-                      this.modal = true;
+                      this.seasoningOpen = true;
                     }
                   }
                 }, '库存调拨')

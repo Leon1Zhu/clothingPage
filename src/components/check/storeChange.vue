@@ -1,23 +1,35 @@
 <template>
-  <div class="">
+  <div class="repertory-record-html">
     <tool-bar>
-      <Button type="primary" class="check-button" @click="checkStoreDialog = true">开始盘点</Button>
+
+      <Input v-model="goodsNumber" placeholder="请输入货号或简称"></Input>
+      <Button class="search-button" type="primary">搜索</Button>
     </tool-bar>
-    <div class="store-change-html">
-      <div class="type-choose">
-        <ul>
-          <li class="choose-li icon-cursor" :class="{'active': wordType == 1}" @click="wordType = 1">异常记录</li>
-          <li class="choose-li icon-cursor" :class="{'active': wordType == 2}" @click="wordType = 2">正常记录</li>
-        </ul>
+    <div class="goods-show">
+      <div class="item" v-for="goods in goodsData">
+        <div class="goods-img">
+          <img :src="imgUrl" alt="">
+        </div>
+        <div class="goods-introduction">
+          <h4>{{goods.name}}</h4>
+          <div class="ids">商品id:{{goods.ids}}</div>
+          <div class="number">货号:{{goods.number}}</div>
+          <div class="count">库存数量:{{goods.count}}</div>
+          <div class="operation">
+            <!--<Button type="primary" shape="circle" icon="gear-b" @click="check = true"></Button>-->
+            <Button type="primary" shape="circle" icon="clipboard" @click="repertoryAddOpen = true"></Button>
+          </div>
+        </div>
       </div>
-      <div class="data-show">
-        <Table class="" :columns="columns" :data="data"></Table>
-      </div>
-      <Modal
-        v-model="check"
-        title="库存核对"
-        @on-ok="ok"
-        @on-cancel="cancel">
+    </div>
+
+    <footer>
+      <Page :total="100" class="footer-page"></Page>
+    </footer>
+
+    <my-drawer :open="repertoryAddOpen" title="库存添加" @close-drawer="repertoryAddOpen=false"
+               @complate-drawer="handleClose">
+      <div class="add-repertory">
         <div class="goods-infor">
           <div class="goods-img">
             <img :src="imgUrl" alt="">
@@ -26,60 +38,37 @@
             <h4>三叶草卫衣</h4>
             <div class="ids">商品id:454564</div>
             <div class="number">货号:5456</div>
+            <RadioGroup v-model="phone" class="sure-store">
+              <Radio label="1">
+                <Icon type="close-circled"></Icon>
+                <span>有误</span>
+              </Radio>
+              <Radio label="0">
+                <Icon type="checkmark-circled"></Icon>
+                <span>无误</span>
+              </Radio>
+            </RadioGroup>
           </div>
         </div>
         <div class="repertory-infor">
           <div class="detail">
             <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
             <Tag checkable class="size" color="blue">M</Tag>
-            <span class="total">20</span>
-            <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
+            <InputNumber :min="1" v-model="value1" class="truth-total"></InputNumber>
           </div>
           <div class="detail">
             <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
             <Tag checkable class="size" color="blue">XL</Tag>
-            <span class="total">20</span>
-            <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
+            <InputNumber :min="1" v-model="value1" class="truth-total"></InputNumber>
           </div>
           <div class="detail">
             <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-            <Tag checkable class="size" color="blue">XXL</Tag>
-            <span class="total">20</span>
-            <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
+            <Tag checkable class="size" color="blue">XL</Tag>
+            <InputNumber :min="1" v-model="value1" class="truth-total"></InputNumber>
           </div>
         </div>
-      </Modal>
-      <my-drawer :open="checkStoreDialog" title="库存添加" @close-drawer="checkStoreDialog = false"
-                 @complate-drawer="">
-        <div class="check-store">
-          <div class="search-store">
-            <Input v-model="goodsNumber" placeholder="请输入货号或简称"></Input>
-            <Button class="search-button" type="primary">搜索</Button>
-          </div>
-          <div class="goods-show">
-            <div class="goods-detail" v-for="goodsDetail in goodsDetailS"
-                 :class="{'color-active': goodsDetail.status == '1'}">
-              <div class="top">
-                <div class="goods-img">
-                  <img src="../repertory/1.jpg" alt="">
-                </div>
-                <div class="goods-introduction">
-                  <h4>{{goodsDetail.name}}</h4>
-                  <div class="ids">商品id:{{goodsDetail.ids}}</div>
-                  <div class="number">货号:{{goodsDetail.number}}</div>
-                  <div class="count">库存:{{goodsDetail.count}}</div>
-                  <div class="time">盘点时间:{{goodsDetail.time}}</div>
-                </div>
-                <RadioGroup class="status" v-model="goodsDetail.status">
-                  <Radio label="0">库存无误</Radio>
-                  <Radio label="1" class="yes-status">库存有误</Radio>
-                </RadioGroup>
-              </div>
-            </div>
-          </div>
-        </div>
-      </my-drawer>
-    </div>
+      </div>
+    </my-drawer>
   </div>
 </template>
 <script>
@@ -90,236 +79,272 @@
     props: {},
     data() {
       return {
-        checkStoreDialog: false,
-        check: false,
-        imgUrl: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
         goodsNumber: '',
-        wordType: 1,
-        columns: [
+        check: false,
+        add: false,
+        phone: '1',
+        value1: 1,
+        imgUrl: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+        repertoryAddOpen: false,
+        // 库存展示的信息数组
+        goodsData: [
           {
-            title: '名称',
-            key: 'name'
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456',
+            count: 454
           },
           {
-            title: '商品ID',
-            key: 'id'
-          },
-          {
-            title: '货号',
-            key: 'number'
-          },
-          {
-            title: '数量',
-            key: 'count'
-          },
-          {
-            title: '盘点时间',
-            key: 'date'
-          },
-          {
-            title: '操作',
-            key: 'action',
-            width: 150,
-            align: 'center',
-            render: (h, params) => {
-              return h('div', [
-                h('Button', {
-                  props: {
-                    type: 'primary',
-                    size: 'small'
-                  },
-                  style: {
-                    marginRight: '5px'
-                  },
-                  on: {
-                    click: () => {
-                      this.check = true;
-                    }
-                  }
-                }, '库存核对')
-              ]);
-            }
-          }
-        ],
-        data: [
-          {
-            name: '纯棉纱衬衫',
-            id: '1231564',
-            number: 'X123456',
-            count: '50',
-            date: '2016-10-03'
-          }, {
-            name: '纯棉纱衬衫',
-            id: '1231564',
-            number: 'X123456',
-            count: '50',
-            date: '2016-10-03'
-          }, {
-            name: '纯棉纱衬衫',
-            id: '1231564',
-            number: 'X123456',
-            count: '50',
-            date: '2016-10-03'
-          }, {
-            name: '纯棉纱衬衫',
-            id: '1231564',
-            number: 'X123456',
-            count: '50',
-            date: '2016-10-03'
-          }, {
-            name: '纯棉纱衬衫',
-            id: '1231564',
-            number: 'X123456',
-            count: '50',
-            date: '2016-10-03'
-          }, {
-            name: '纯棉纱衬衫',
-            id: '1231564',
-            number: 'X123456',
-            count: '50',
-            date: '2016-10-03'
-          }, {
-            name: '纯棉纱衬衫',
-            id: '1231564',
-            number: 'X123456',
-            count: '50',
-            date: '2016-10-03'
-          }, {
-            name: '纯棉纱衬衫',
-            id: '1231564',
-            number: 'X123456',
-            count: '50',
-            date: '2016-10-03'
-          }, {
-            name: '纯棉纱衬衫',
-            id: '1231564',
-            number: 'X123456',
-            count: '50',
-            date: '2016-10-03'
-          },
-        ],
-        goodsDetailS: [
-          {
-            imageUrl: '',
-            name: '纯棉纱衬衫',
-            ids: '785412',
-            number: '123657',
-            count: '25',
-            time: '2018/06/09',
-            status: '0'
-          },
-          {
-            imageUrl: '',
-            name: '纯棉纱衬衫',
-            ids: '785412',
-            number: '123657',
-            count: '25',
-            time: '2018/06/09',
-            status: '1'
-          },
-          {
-            imageUrl: '',
-            name: '纯棉纱衬衫',
-            ids: '785412',
-            number: '123657',
-            count: '25',
-            time: '2018/06/09',
-            status: '1'
-          }
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456',
+            count: 454
 
-        ]
+          },
+          {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456',
+            count: 454
+
+          },
+          {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456',
+            count: 454
+
+          },
+          {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456',
+            count: 454
+
+          },
+          {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456',
+            count: 454
+
+          }, {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456',
+            count: 454
+
+          }, {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456',
+            count: 454
+
+          }, {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456',
+            count: 454
+
+          }, {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456',
+            count: 454
+
+          }, {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456',
+            count: 454
+
+          }, {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456',
+            count: 454
+
+          }
+        ],
+        detailArray: [
+          {
+            size: '',
+            color: '',
+            count: ''
+          }
+        ],
+        // 添加库存的信息数组
+        addRepertoryArray: [
+          {
+            name: '',
+            size: '',
+            color: '',
+            total: ''
+          }
+        ],
+        goodsInformation: {}
       };
     },
-    methods: {},
-    components: {myDrawer, toolBar}
+    methods: {
+      addRepertoryInformation() {
+        this.repertoryAddOpen = true;
+      },
+      handleClose() {
+        this.modal1 = false;
+        this.modal2 = false;
+      }
+    },
+    components: {
+      myDrawer,
+      toolBar
+    }
   };
 </script>
 <style lang="scss" rel="stylesheet/scss" type="text/scss">
-  .store-change-html {
-    display: flex;
+  @import '../../common/css/globalscss.scss';
+
+  .repertory-record-html {
     width: 100%;
-    .type-choose {
-      width: 130px;
-      .check-button {
-        width: 100%;
-      }
-      ul {
-        margin-top: 8px;
-        li {
-          cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    .goods-show {
+      flex: 1;
+      display: flex;
+      flex-wrap: wrap;
+      margin-left: -2%;
+      .item {
+        display: flex;
+        width: 23%;
+        padding: 15px;
+        height: 130px;
+        font-size: 14px;
+        margin: {
+          top: 8px;
+          left: 2%;
+        }
+        background-color: #f8f6f2;
+        .goods-img {
+          img {
+            width: 100px;
+            height: 100px;
+          }
+        }
+        .goods-introduction {
+          margin-left: 14px;
+          h4 {
+            font-size: 14px;
+            margin-top: 3px;
+            font-weight: 600;
+          }
+          .ids {
+            color: rgba(0, 0, 0, 0.4);
+            font-size: 12px;
+            margin-top: 7px;
+          }
+          .number, .count {
+            color: rgba(0, 0, 0, 0.4);
+            font-size: 12px;
+            margin-top: 5px;
+          }
+          .operation {
+            color: rgba(0, 0, 0, 0.4);
+            margin-top: 5px;
+            .add {
+              margin-left: 14px;
+            }
+          }
         }
       }
     }
-    .choose-li {
-      padding: 15px 12px;
-      background-color: #f8f6f2;
-      text-align: center;
-      &.active {
-        color: #06b9a5;
+    footer {
+      .footer-page {
+        text-align: right;
       }
-    }
-    .data-show {
-      flex: 1;
-      margin-left: 8px;
-    }
-    .hn-ui-margin {
-      margin-top: 8px;
     }
   }
 
-  .check-store {
-    padding: 8px;
-    .search-store {
+  .repertory-infor {
+    .detail {
       display: flex;
-      .search-button {
-        margin-left: 8px;
+      padding: 8px;
+      border-bottom: 1px solid #f8f6f2;
+      .size, .total, .truth-total {
+        margin-left: 20px;
       }
-    }
-    .goods-show {
-      .goods-detail {
-        width: 100%;
-        padding: 8px;
-        margin-top: 8px;
-        background-color: #f8f6f2;
-        .top {
-          display: flex;
-          .goods-img {
-            img {
-              width: 105px;
-              height: 105px;
-            }
-          }
-          .goods-introduction {
-            margin-left: 35px;
-            flex: 1 1 280px;
-            h4 {
-              font-size: 16px;
-              margin-top: 3px;
-              font-weight: 600;
-            }
-            .ids {
-              color: rgba(0, 0, 0, 0.4);
-              margin-top: 12px;
-            }
-            .number, .count, .time {
-              color: rgba(0, 0, 0, 0.4);
-              margin-top: 5px;
-            }
-          }
-          .status {
-            margin-top: 7.5%;
-            font-size: 20px !important;
-            .yes-status {
-              margin: {
-                top: 8px;
-              }
-            }
-          }
-        }
-        &.color-active {
-          background-color: #FFE4E1;
-        }
+      .size {
+        width: 70px;
+        text-align: center;
+      }
+
+      .total {
+        margin-top: 1px;
+      }
+      .size, .total {
+        height: 32px;
+        line-height: 32px;
+        padding: 0 15px;
+      }
+      .truth-total {
+        margin-top: 1px;
       }
     }
   }
+
+  .goods-infor {
+    display: flex;
+    .goods-img {
+      img {
+        width: 85px;
+        height: 85px;
+      }
+    }
+    .goods-introduction {
+      margin-left: 32px;
+      h4 {
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .ids, .number {
+        font-size: 14px;
+        margin-top: 8px;
+        color: rgba(0, 0, 0, 0.4);
+      }
+      .sure-store {
+        margin-top: 8px;
+      }
+    }
+  }
+
+  #add-repertory {
+    position: absolute;
+    bottom: 90px !important;
+    right: 30px !important;
+  }
+
+  .add-repertory {
+    padding: 8px;
+    width: 100%;
+    .hn-ui-margin {
+      margin: {
+        top: 8px;
+      }
+    }
+  }
+
+  .search-button {
+    margin-left: 8px;
+  }
+
 </style>

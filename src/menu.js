@@ -78,13 +78,25 @@ global.MENU = [
         menuIcon: 'icon-kucun',
         linkHref: '/repertoryRecord',
       }, {
-        menuName: '库存盘点',
+        menuName: '盘点记录',
+        menuIcon: 'icon-pandian',
+        linkHref: '/storeRecord',
+      }, {
+        menuName: '清单盘点',
         menuIcon: 'icon-pandian',
         linkHref: '/storeChange',
+      }, {
+        menuName: '手动盘点',
+        menuIcon: 'icon-pandian',
+        linkHref: '/handStore',
       }, {
         menuName: '货仓调货',
         menuIcon: 'icon-yunshupeisong',
         linkHref: '/seasoningCondiments',
+      }, {
+        menuName: '调货记录',
+        menuIcon: 'icon-yunshupeisong',
+        linkHref: '/seasoningRecord',
       }
     ]
   }, {
