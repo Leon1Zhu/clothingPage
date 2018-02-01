@@ -35,7 +35,8 @@
           <div class="goods-operator">
             <Button class="change_status" type="primary" shape="circle" icon="edit" @click.native="open=true"></Button>
             <Button class="change_goodsinfo" type="primary" shape="circle" icon="ios-gear" @click.native="goodsAddOpen = true"></Button>
-            <Button class="delete_goods" type="primary" shape="circle" icon="trash-a"></Button>
+            <Button class="delete_goods " type="primary" shape="circle"icon="trash-a" ></Button>
+            <Button class="goods-qr-code ivu-btn-icon-only" type="primary" shape="circle" ><i class="iconfont  icon-erweima" ></i></Button>
           </div>
 
         </Card>
@@ -191,6 +192,7 @@
                   },{
                     product_id:'1142522',
                     product_code:'x125',
+                    product_name:'这是商品名称',
                     product_pic:'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
                     product_price:'78',
                     product_desc:'这是一段商品描述',
@@ -269,7 +271,7 @@
             font-size:16px;
           }
           .goods-other-info{
-            line-height: 1.2;
+            line-height: 1.3;
             margin: 5px 0px;
             color: rgba(0,0,0,.4);
           }
@@ -282,18 +284,23 @@
         }
         .goods-operator{
           .change_status{
+            background-color: $menuSelectFontColor;
+            border-color: $menuSelectFontColor;
+          }
+          .change_goodsinfo{
             background: #f8ab48;
             border-color: #f6a524;
           }
-          .change_goodsinfo{
+          .delete_goods{
             background: #72c6f2;
             border-color: #c3e5f8;
+           
           }
-          .delete_goods{
+          .goods-qr-code{
             background: #4d66ac;
             border-color: #8d99c3;
           }
-          .change_goodsinfo,.delete_goods{
+          .change_goodsinfo,.delete_goods,.goods-qr-code{
             margin-left:5px;
           }
         }

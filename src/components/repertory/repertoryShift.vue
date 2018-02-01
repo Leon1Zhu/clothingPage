@@ -11,7 +11,7 @@
         <Option v-for=" repertoryShift in repertoryShiftS" :value="repertoryShift.value">{{repertoryShift.name}}
         </Option>
       </Select>
-      <Button type="primary" icon="plus-round" @click.native="addNewStore('');" class="post-btn">搜索</Button>
+      <Button type="primary" icon="ios-search" @click.native="addNewStore('');" class="post-btn">搜索</Button>
     </tool-bar>
     <div class="table-show">
       <Table :columns="columns1" :data="data1"></Table>
@@ -197,6 +197,11 @@
       margin-top: 8px;
       .footer-page {
         text-align: right;
+      }
+    }
+    .left-eight{
+      .ivu-input:hover,.ivu-input:focus{
+        width:200px!important;
       }
     }
   }

@@ -31,5 +31,16 @@ module.exports = merge(baseWebpackConfig, {
       inject: true
     }),
     new FriendlyErrorsPlugin()
-  ]
+  ],
+  devServer: {
+    port: '8088', //设置端口号
+    //其实很简单的，只要配置这个参数就可以了
+    proxy: {
+      '/uploadImage2UsingPOST': {
+        target: 'http://image02.17wa.com/17wa/swagger-ui.html#!/image-controller/uploadImage2UsingPOST',
+        secure: false
+      }
+    }
+
+  }
 })

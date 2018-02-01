@@ -28,7 +28,7 @@
                   自定义售价
                   <span class="red-star">*</span>
                   <Tooltip content="填写自定义售价，系统赔率将失效" placement="top">
-                    <i class="iconfont  icon-wenhao" style="padding-left: 2px;position: relative;top: 3px;" ></i>
+                    <i class="iconfont  icon-wenhao" style="left: -3px;position: relative;top: 3px;" ></i>
                   </Tooltip>
                 </div>
                 <Input v-model="formItem.input" placeholder="自定义售价" style="width: 80%;"></Input>

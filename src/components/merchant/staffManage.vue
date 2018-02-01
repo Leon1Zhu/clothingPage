@@ -18,14 +18,16 @@
             <Input v-model="staffItem.account_name" placeholder="店员名称" ></Input>
           </div>
         </div>
-
         <div class="store-item store-item-icon-color">
           <div class="left-content">
             <i class="iconfont  icon-iconfontcaidan" ></i>
             <div class="store-item-label">店员类别<span class="red-star">*</span></div>
           </div>
           <div class="right-content">
-            <Input v-model="staffItem.account_type" placeholder="店员类别" ></Input>
+            <Select v-model="staffItem.account_type" >
+              <Option  value="1" >管理员</Option>
+              <Option  value="2" >店员</Option>
+            </Select>
           </div>
         </div>
 
@@ -35,7 +37,10 @@
             <div class="store-item-label">店员状态<span class="red-star">*</span></div>
           </div>
           <div class="right-content">
-            <Input v-model="staffItem.account_status" placeholder="店员状态" ></Input>
+            <Select v-model="staffItem.account_status" >
+              <Option  value="1" >启用</Option>
+              <Option  value="2" >停用</Option>
+            </Select>
           </div>
         </div>
 
@@ -178,7 +183,6 @@
         this.open = true;
       },
       searchStaff(){
-
       }
     }
   }
@@ -195,6 +199,10 @@
     .ivu-page{
       text-align: right;
     }
+    .ivu-select.ivu-select-single{
+      text-align: left;
+    }
+
 
   }
 

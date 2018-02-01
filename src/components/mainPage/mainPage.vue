@@ -193,7 +193,7 @@
       position: relative;
       border-radius: 4px;
       overflow-x: auto;
-      overflow-y: auto;
+      overflow-y: hidden;
       height:100%;
       .user-operator{
         li:hover{
