@@ -46,8 +46,13 @@
 
       </div>
     </my-drawer>
+
   </div>
 </template>
+
+
+
+
 
 <script>
   import myDrawer from'../../common/vue/myDrawer.vue'
@@ -163,7 +168,7 @@
           },
 
         ],
-
+         xhr:'',
       }
     },
     components: {
@@ -173,18 +178,24 @@
     created(){
     },
     mounted(){
+
+
+
+
     },
     methods: {
       complateDrawer(){
-          this.open = false;
+        this.open = false;
       },
       addNewStaff(){
         this.btnFont = '新增'
         this.open = true;
       },
       searchStaff(){
-      }
+      },
     }
+
+
   }
 </script>
 <style lang="scss" rel="stylesheet/scss">

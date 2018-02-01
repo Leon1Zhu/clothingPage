@@ -25,7 +25,7 @@
 
 
       <my-drawer :open="open" title="退换入库" @close-drawer="open=false" @complate-drawer="complateDrawer">
-        <div><img class="drawer-img" :src="returnitem.img"></div>
+        <div class="drawer-img-content"><img class="drawer-img" :src="returnitem.img"></div>
         <div class="describe-content">
           <div class="left-font">货号</div>
           <div class="right-font">{{returnitem.id}}</div>
@@ -247,6 +247,10 @@
 <style lang="scss" rel="stylesheet/scss">
   @import "../../common/css/globalscss";
   #salesReturn{
+    .drawer-img-content{
+      margin-left:  -$drawerPadding;
+      margin-right:-$drawerPadding;
+    }
     .detail-tool-bar{
       display: flex;
       .ivu-date-picker{
@@ -275,7 +279,7 @@
 
       }
       .left-font{
-        margin-left:2;
+        margin-left:2%;
         color: $formInputLableFontColor;
 
       }

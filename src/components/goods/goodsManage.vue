@@ -68,15 +68,19 @@
                         {{item.product_sizes}}
                       </div>
                     </div>
+                  <div class="btn-content">
+                    <Button type="ghost" >上架</Button>
+
+                    <Button type="ghost" >下架</Button>
+
+                    <Button type="ghost" >缺货</Button>
                   </div>
+                </div>
                 </div>
                 <div class="right-content">
 
-                  <Button type="ghost" >上架</Button>
 
-                  <Button type="ghost" >下架</Button>
 
-                  <Button type="ghost" >缺货</Button>
                 </div>
               </div>
             </Card>
@@ -294,7 +298,7 @@
           .delete_goods{
             background: #72c6f2;
             border-color: #c3e5f8;
-           
+
           }
           .goods-qr-code{
             background: #4d66ac;
@@ -362,26 +366,22 @@
       display: flex;
       .left-content{
         text-align: center;
-      }
-      .left-content,.center-content{
-        flex:1 1 40%;
-      }
-      .right-content{
-        flex:1 1 20%;
+        width:30%;
       }
       .good-img{
         width:85px;
         height:85px;
       }
       .center-content{
+        flex:1;
         margin-left:3px;
         font-size:14px;
         .bottom-content{
           display: flex;
+          flex-wrap: wrap;
           margin-top:10%;
           .center-color-size{
             display: flex;
-            margin:0 auto;
           }
           .size-content{
             width: 61px;
@@ -396,19 +396,21 @@
             color: #fff;
             text-align: center;
           }
+          .ivu-btn{
+            margin-left:4px;
+          }
         }
       }
       .center-content,.right-content{
         line-height:140%;
       }
     }
-    .right-content {
-      display:flex;
-      align-items: center;
-      margin-left: 3px;
-      flex-wrap: nowrap;
-      flex:1 1 60%;
+    .btn-content{
+      flex:1;
+      display: flex;
       justify-content: flex-end;
+    }
+    .right-content,.bottom-content {
       .ivu-btn {
         font-size: 12px;
       }

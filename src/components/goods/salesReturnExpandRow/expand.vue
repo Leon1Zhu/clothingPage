@@ -245,6 +245,12 @@ import colorContent from '../../../common/vue/colorContent.vue'
       }
       .center-content{
         font-size:14px;
+        .top-content {
+          line-height:1.6;
+          div{
+            word-break: keep-all;
+          }
+        }
         .bottom-content{
           display: flex;
           .center-color-size{
