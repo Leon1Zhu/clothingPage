@@ -15,6 +15,9 @@
               </AutoComplete>
               <Button type="ghost" @click="orderInfo.CustomInfo=''">清除</Button>
               <Button type="ghost" >新增</Button>
+              <FormItem label="余款" :label-width="50" style="flex: 1 1 50%;">
+                <span class="disable-input">{{orderInfo.balanceMoney}}</span>
+              </FormItem>
             </FormItem>
             </Col>
 
@@ -31,20 +34,22 @@
               <Button type="ghost" >核销</Button>
               <Button type="ghost" >抹零</Button>
             </FormItem>
+
             </Col>
           </Row>
 
           <Row >
             <Col span="12">
               <div class="pay-way" style="display: flex;">
+                <FormItem label="总件数"   style="flex: 1 1 33%;">
+                  <span class="disable-input">{{orderInfo.allCount}}</span>
+                  <!--  <Input  v-model="orderInfo.allCount" disabled></Input>-->
+                </FormItem>
                 <FormItem label="应付"  style="flex: 1 1 33%;">
                   <span class="disable-input">{{orderInfo.payable}}</span>
                 </FormItem>
-                <FormItem label="实付" :label-width="50">
-                  <InputNumber   v-model="orderInfo.payMoney"></InputNumber>
-                </FormItem>
-                <FormItem label="余款" :label-width="50" style="flex: 1 1 33%;">
-                  <span class="disable-input">{{orderInfo.balanceMoney}}</span>
+                <FormItem label="实付" :label-width="50"  style="flex: 1 1 33%;">
+                  <InputNumber   v-model="orderInfo.payMoney" style="width: 100%"></InputNumber>
                 </FormItem>
               </div>
             </Col>
@@ -57,7 +62,9 @@
 
                 <Select  v-model="orderInfo.integral" style="margin-left: 5px;">
                   <Option  value="0" >不使用积分</Option>
-                  <Option  value="1" >使用积分抵扣</Option>
+                  <Option  value="1" >使用500积分抵扣5元</Option>
+                  <Option  value="1" >使用5000积分抵扣50元</Option>
+                  <Option  value="1" >使用50000积分抵扣500元</Option>
                 </Select>
               </FormItem>
             </Col>
@@ -66,28 +73,17 @@
 
           <Row >
             <Col span="12">
-              <FormItem label="日期" >
+              <FormItem label="开单日期" >
                 <DatePicker :options="options3" type="date" format="yyyy/MM/dd"  placeholder="请选择开单日期" v-model="orderInfo.payDate" style="width: 100%;"></DatePicker>
               </FormItem>
             </Col>
             <Col span="12">
-              <FormItem label="总件数" >
-                <span class="disable-input">{{orderInfo.allCount}}</span>
-              <!--  <Input  v-model="orderInfo.allCount" disabled></Input>-->
-              </FormItem>
-              </FormItem>
+            <FormItem label="备注" >
+              <Input  placeholder="请输入开单备注" v-model="orderInfo.remark"></Input>
+              <Button type="ghost" @click="emptyOrderInfo">清空从填</Button>
+              <Button type="ghost" @click="goodReturn">退换入库</Button>
+            </FormItem>
             </Col>
-          </Row>
-            <Row>
-            <Col span="24">
-              <FormItem label="备注" >
-                <Input  placeholder="请输入开单备注" v-model="orderInfo.remark"></Input>
-                <Button type="ghost" @click="emptyOrderInfo">清空从填</Button>
-                <Button type="ghost" @click="goodReturn">退换入库</Button>
-              </FormItem>
-            </Col>
-
-
           </Row>
         </Form>
       </div>
@@ -140,6 +136,7 @@
                 }
               },
               columns:  [
+                {field: 'sum', title: '', width: 150, titleAlign: 'center',columnAlign:'center',componentName:'table-addOperate'},
                 {field: 'id', title:'序号', width: 180, titleAlign: 'center',columnAlign:'center', isResize:true},
                 {field: 'goodName', title: '货品',width: 180,  titleAlign: 'center',columnAlign:'center',isResize:true},
                 {field: 'color', title: '颜色',width: 150,  titleAlign: 'center',columnAlign:'center',isResize:true},
@@ -149,7 +146,7 @@
                 {field: 'sum', title: '合计', width: 150, titleAlign: 'center',columnAlign:'center', formatter: function (rowData,rowIndex,pagingIndex,field) {
                   return `<span >${rowData['count'] * rowData['prince']}</span>`;
                 },isResize:true},
-                {field: 'sum', title: '操作', width: 150, titleAlign: 'center',columnAlign:'center',componentName:'table-operation'}
+                {field: 'sum', title: '', width: 150, titleAlign: 'center',columnAlign:'center',componentName:'table-operation'}
               ],
               tableData: [
                 {"id":"1","goodName":"01016下口袋","color":"浅蓝","size":"L",count:10,prince:14,sum:140},
@@ -166,7 +163,7 @@
                 allCount:0,
                 payable:0,
                 CustomInfo:'',
-                balanceMoney:0,
+                balanceMoney:10000,
                 payDate:new Date().Format('yyyy/MM/dd'),
                 waiter:'',
                 remark:null,
@@ -234,7 +231,7 @@
               this.$delete(this.tableData,params.index);
               this.countMoney()
 
-            }else if (params.type === 'edit'){ // do edit operation
+            }else if (params.type === 'add'){ // do edit operation
 
             }
           },
@@ -271,7 +268,20 @@
       border-radius: 3px;
       height:auto!important;
       td{
-        width:12.5%!important;
+        width:11.12%!important;
+      }
+
+      .v-table-header-row{
+        td:first-child,td:last-child{
+          width: 8%!important;
+        }
+      }
+      .v-table-btable{
+        .v-table-row{
+          td:first-child,td:last-child{
+            width:8%!important;
+          }
+        }
       }
     }
     .v-table-header-row{

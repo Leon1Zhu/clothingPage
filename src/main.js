@@ -94,6 +94,35 @@ Vue.component('table-operation',{
 
 
 
+Vue.component('table-addOperate',{
+  template: `<span>
+        <div><button type="button" @click="addRow" class="ivu-btn ivu-btn-primary ivu-btn-circle ivu-btn-icon-only"><i class="ivu-icon ivu-icon-plus-round"></i> </button></div>
+        </span>`,
+  props:{
+    rowData:{
+      type:Object
+    },
+    field:{
+      type:String
+    },
+    index:{
+      type:Number
+    }
+  },
+  methods:{
+
+    addRow(){
+      // 参数根据业务场景随意构造
+      let params = {type:'add',index:this.index};
+      this.$emit('on-custom-comp',params);
+
+    }
+  }
+
+})
+
+
+
 
 
 
