@@ -90,6 +90,10 @@ global.MENU = [
         menuIcon: 'icon-pandian',
         linkHref: '/handStore',
       }, {
+        menuName: '扫码盘点',
+        menuIcon: 'icon-pandian',
+        linkHref: '/scanStore',
+      }, {
         menuName: '货仓调货',
         menuIcon: 'icon-yunshupeisong',
         linkHref: '/seasoningCondiments',

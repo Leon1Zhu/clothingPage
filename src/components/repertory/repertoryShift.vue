@@ -210,5 +210,9 @@
     margin-left: 8px;
   }
 
+  .ivu-select-item {
+    text-align: center !important;
+  }
+
 
 </style>

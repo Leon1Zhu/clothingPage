@@ -18,6 +18,9 @@ const repertoryRecord = resolve => require(['@/components/repertory/repertoryRec
 // 清单盘点
 const storeChange = resolve => require(['@/components/check/storeChange.vue'], resolve);
 
+// 扫码盘点
+const scanStore = resolve => require(['@/components/check/scanStore.vue'], resolve);
+
 // 手动盘点
 const handStore = resolve => require(['@/components/check/handStore.vue'], resolve);
 
@@ -120,6 +123,13 @@ const mainPageRouter = {
     {
       path: '/handStore',
       component: handStore,
+      name: "手动盘点",
+      //needAlive表示该页面是否是标签页,keepAlive表示是否需要缓存改页面
+      meta: {needAlive: true, keepAlive: true},
+    },
+    {
+      path: '/scanStore',
+      component: scanStore,
       name: "手动盘点",
       //needAlive表示该页面是否是标签页,keepAlive表示是否需要缓存改页面
       meta: {needAlive: true, keepAlive: true},
