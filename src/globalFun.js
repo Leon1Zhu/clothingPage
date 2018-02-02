@@ -10,15 +10,18 @@ global.setNoticConfig= function(title,desc){
   if(desc!=null)cof.desc=desc;
   return cof;
 }
-/*axios.interceptors.request.use(
+axios.interceptors.request.use(
   config => {
     if(config.url.indexOf("/api")>-1){
-      if (TOKEN) {  // 判断是否存在token，如果存在的话，则每个http header都加上token
+      /*if (TOKEN) {  // 判断是否存在token，如果存在的话，则每个http header都加上token
         config.url = SERVICEURL+config.url;
         config.headers.Authorization = TOKEN;
         console.log("发送请求!")
         console.log(config)
-      }
+      }*/
+      config.url = SERVICEURL+config.url;
+      console.log("发送请求!")
+      console.log(config)
     }
     return config;
   },
@@ -34,16 +37,16 @@ axios.interceptors.response.use(
     return response;
   },
   error => {
-    if (error.response) {
+  /*  if (error.response) {
       switch (error.response.status) {
         case 401:
           refushToken();break;
         case 403:
           refushToken();break;
       }
-    }
+    }*/
     return Promise.reject(error.response.data)   // 返回接口返回的错误信息
-  });*/
+  });
 /*global.refushToken=function(){
     if(new Date().getTime()-TOKENTIME.getTime()>30*60*1000){
       console.log("超过半小时，重新获取")

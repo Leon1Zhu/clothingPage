@@ -31,7 +31,7 @@
             <i  v-if="!ISNULL(menuItem.menuIcon)" class="iconfont " :class=" menuItem.menuIcon"></i>
           </div>
           <DropdownMenu slot="list">
-            <DropdownItem  v-for="(childrenItem,indexChildrenT) in menuItem.childMenuList" @click.native="goPage(childrenItem.linkHref)" >
+            <DropdownItem  v-for="(childrenItem,indexChildrenT) in menuItem.childMenuList" @click.native="goPage(childrenItem.linkHref)"  v-if="!childrenItem.needPower || $store.getters.getAccountType === '管理员'">
               <i  v-if="!ISNULL(childrenItem.menuIcon)" class="iconfont " :class=" childrenItem.menuIcon"></i>
               <span>{{childrenItem.menuName}}</span>
             </DropdownItem>
@@ -130,7 +130,6 @@
               }
           }
         this.$router.push({ path:this.$store.getters.getMenuList[this.$store.getters.getMenuList.length-1].link })
-
       },
       methods: {
         toggleClick () {

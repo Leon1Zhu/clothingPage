@@ -11,14 +11,10 @@ global.TOKENTIME=new Date();
 global.TOKEN="";
 global.ISLOGIN=false;
 global.USERINFO=[];
+ */
 
 
-if(process.env.NODE_ENV=="production"){
-  global.tokenUrl="http://119.23.40.120:9091/getToken"
-  global.SERVICEURL="http://119.23.40.120:9091"
-  global.PICURL="http://119.23.40.120:8080/alienlabnews//static/newsImg/";
-}
-*/
+
 
 global.SYSTEMCOLOR = '#06b9a5';
 //付款方式
@@ -31,9 +27,16 @@ global.SALETYPE = [{value:0,label:'批发'},{value:1,label:'零售'}];
 global.STORESERVICE = [{value:0,label:'一件代发'},{value:1,label:'退货退款'},{value:2,label:'换款换货'},{value:3,label:'调色调码'},{value:4,label:'五件起批'},{value:5,label:'少量退换'}];
 
 
+global.SERVICEURL="http://appserver01.17wa.com/17wa"
+global.PICSERVICEURL="http://image02.17wa.com/17wa"
 
+if(process.env.NODE_ENV=="development"){
+  /*global.accountId=1;
+  global.accountName='admin';
+  global.accountPwd='123456';
+  global.accountType ='管理员';*/
 
-
+}
 
 
 

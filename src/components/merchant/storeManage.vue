@@ -19,29 +19,6 @@
             </div>
           </div>
 
-          <div class="store-item  store-item-icon-color">
-            <div class="left-content">
-              <i class="iconfont  icon-iconfontcaidan" ></i>
-              <div class="store-item-label">行业分类<span class="red-star">*</span></div>
-            </div>
-            <div class="right-content">
-              <Select v-model="addSotreItem.storeClassify" >
-                <Option v-for="item in storeClassify" :value="item.value" :key="item.value">{{ item.label }}</Option>
-              </Select>
-            </div>
-          </div>
-
-          <div class="store-item store-item-icon-color">
-            <div class="left-content">
-              <i class="iconfont  icon-gouwudai" ></i>
-              <div class="store-item-label">销售类型<span class="red-star">*</span></div>
-            </div>
-            <div class="right-content">
-              <Select v-model="addSotreItem.saleType" >
-                <Option v-for="item in saleType" :value="item.value" :key="item.value">{{ item.label }}</Option>
-              </Select>
-            </div>
-          </div>
 
           <div class="store-item store-item-icon-color">
             <div class="left-content">
