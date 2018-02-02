@@ -154,6 +154,7 @@
 <script>
   import myDrawer from'../../common/vue/myDrawer.vue'
   import toolBar from'../../common/vue/toolBar.vue'
+  import storeManageApi from '../../api/storeManageApi'
     export default{
         data(){
             return {
@@ -177,33 +178,33 @@
               columns10: [
                 {
                   title: '门店名称',
-                  key: 'storeName'
+                  key: 'shopName'
                 },
                 {
                   title: '门店地区',
-                  key: 'storeAdress',
+                  key: 'marketName',
                 },
                 {
                   title: '门店地址',
-                  key: 'storeDetailAdress',
+                  key: 'shopAddr',
                 },
 
                 {
                   title: '门店微信',
-                  key: 'storeWeiXin',
+                  key: 'shopWechat',
                 },
                 {
                   title: '门店QQ',
-                  key: 'storeQQ',
+                  key: 'shopQq',
                 },
                 {
                   title: '门店电话',
-                  key: 'storePhone',
+                  key: 'shopPhone1',
                 },
 
                 {
                   title: '门店服务',
-                  key: 'storeService',
+                  key: 'shopTags',
                 },
                 {
                   title: '操作',
@@ -270,53 +271,7 @@
                   }
                 }
               ],
-              data9: [
-                {
-                  storeName:'1号仓库',
-                  storeIndustry:'批发',
-                  storeType:'盛诺服饰工厂',
-                  storeAdress:'常熟-外贸村-朱家坝',
-                  storeDetailAdress:'朱家坝南村40号',
-                  storeWeiXin:'18752002039',
-                  storeQQ:'937154020',
-                  storePhone:'18752002039',
-                  storeService:'一件代发/换款换货',
-                },
-                {
-                  storeName:'1号仓库',
-                  storeIndustry:'批发',
-                  storeType:'盛诺服饰工厂',
-                  storeAdress:'常熟-外贸村-朱家坝',
-                  storeDetailAdress:'朱家坝南村40号',
-                  storeWeiXin:'18752002039',
-                  storeQQ:'937154020',
-                  storePhone:'18752002039',
-                  storeService:'一件代发/换款换货',
-                },
-                {
-                  storeName:'1号仓库',
-                  storeIndustry:'批发',
-                  storeType:'盛诺服饰工厂',
-                  storeAdress:'常熟-外贸村-朱家坝',
-                  storeDetailAdress:'朱家坝南村40号',
-                  storeWeiXin:'18752002039',
-                  storeQQ:'937154020',
-                  storePhone:'18752002039',
-                  storeService:'一件代发/换款换货',
-                },
-                {
-                  storeName:'1号仓库',
-                  storeIndustry:'批发',
-                  storeType:'盛诺服饰工厂',
-                  storeAdress:'常熟-外贸村-朱家坝',
-                  storeDetailAdress:'朱家坝南村40号',
-                  storeWeiXin:'18752002039',
-                  storeQQ:'937154020',
-                  storePhone:'18752002039',
-                  storeService:'一件代发/换款换货',
-                }
-
-              ],
+              data9: [],
               data: [{
                 value: 'beijing',
                 label: '北京',
@@ -371,10 +326,18 @@
             'tool-bar':toolBar
         },
         created(){
+            this.getAllStore()
         },
         mounted(){
         },
         methods: {
+          getAllStore(){
+            storeManageApi.getAllStoreByAccountId(this.$store.getters.getAccountId).then((response)=>{
+                this.data9 = response.data
+            }).catch((response)=>{
+
+            })
+          },
           complateDrawer(){
 
           },
