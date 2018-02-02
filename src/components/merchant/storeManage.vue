@@ -86,9 +86,10 @@
               <i class="iconfont  icon-zhifufangshi" ></i>
               <div   class="store-item-label">支付方式<span class="red-star">*</span></div>
             </div>
-            <div class="right-content">
-              <Input v-model="addSotreItem.weixin" placeholder="选择支付方式" ></Input>
-              <div v-for="item in storeService"   class="service-item"  @click="addService(item.value)">{{item.label}}</div>
+            <div class="right-content" style="display: flex;justify-content: flex-end;">
+              <div class="btn-content">
+                <div v-for="item in storePayType" style="margin-left: 3px;"  class="service-item"  @click="addService(item.value)">{{item.label}}</div>
+              </div>
             </div>
           </div>
 
@@ -125,8 +126,11 @@
               <div   class="store-item-label">店铺服务<span class="red-star">*</span></div>
 
             </div>
-            <div class="right-content">
-              <div v-for="item in storeService"   class="service-item"  @click="addService(item.value)">{{item.label}}</div>
+            <div class="right-content" style="display: flex; justify-content: flex-end">
+              <div class="btn-content">
+                <div v-for="item in storeService"   class="service-item"  @click="addService(item.value)">{{item.label}}</div>
+              </div>
+
             </div>
           </div>
 

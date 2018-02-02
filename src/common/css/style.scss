@@ -26,7 +26,7 @@ table,.ivu-input{
 }
 .mu-paper.mu-drawer{
   background: #f6f5f8;
-  width:446px;
+  width:400px;
   .drawer-content{
     overflow-x: hidden;
     min-height:100%;
@@ -97,29 +97,36 @@ table,.ivu-input{
       margin-left:2px;
       color: $formInputLableFontColor;
     }
-    .service-item{
-      color: $menuSelectFontColor;
-      border: 1px dotted $menuSelectFontColor;
-      border-radius:30px;
-      padding:0px 6px;
-      font-size:12px;
-      margin-left:5px;
-      margin-top:5px;
-      height: 25px;
-      line-height: 190%;
-      transition: all .1s;
-    }
-    .service-item:hover{
-      background: $menuSelectFontColor;
-      color: #fff;
-      border: 1px solid $menuSelectFontColor!important;
-      cursor: pointer;
-    }
+
   }
   .right-content{
     flex:1 1 30%;
     text-align: right;
     line-height:200%;
+    .btn-content{
+      width:70%;
+      display: flex;
+      flex-wrap: wrap;
+      .service-item{
+        color: $menuSelectFontColor;
+        border: 1px dotted $menuSelectFontColor;
+        border-radius:2px;
+        padding:0px 6px;
+        font-size:12px;
+        margin-left:5px;
+        margin-top:5px;
+        height: 25px;
+        line-height: 190%;
+        transition: all .1s;
+      }
+      .service-item:hover{
+        background: $menuSelectFontColor;
+        color: #fff;
+        border: 1px solid $menuSelectFontColor!important;
+        cursor: pointer;
+      }
+    }
+
   }
 }
 .no-border-bottom-item{
