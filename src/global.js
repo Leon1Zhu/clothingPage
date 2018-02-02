@@ -26,6 +26,9 @@ global.SALETYPE = [{value:0,label:'批发'},{value:1,label:'零售'}];
 //店铺服务
 global.STORESERVICE = [{value:0,label:'一件代发'},{value:1,label:'退货退款'},{value:2,label:'换款换货'},{value:3,label:'调色调码'},{value:4,label:'五件起批'},{value:5,label:'少量退换'}];
 
+//支付方式
+global.PAYTYPE = [{value:0,label:'支付宝'},{value:1,label:'微信'},{value:2,label:'银行卡'},{value:3,label:'信用卡'}];
+
 
 global.SERVICEURL="http://appserver01.17wa.com/17wa"
 global.PICSERVICEURL="http://image02.17wa.com/17wa"

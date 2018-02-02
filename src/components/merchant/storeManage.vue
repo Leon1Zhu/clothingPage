@@ -26,7 +26,7 @@
               <div class="store-item-label">门店名称<span class="red-star">*</span></div>
             </div>
             <div class="right-content">
-              <Input v-model="addSotreItem.storeName" placeholder="门店名称" ></Input>
+              <Input v-model="addSotreItem.shopName" placeholder="门店名称" ></Input>
             </div>
           </div>
 
@@ -36,7 +36,7 @@
               <div class="store-item-label">门店地区<span class="red-star">*</span></div>
             </div>
             <div class="right-content">
-              <Cascader :data="data" v-model="addSotreItem.storeAdress"></Cascader>
+              <Cascader :data="data" v-model="addSotreItem.marketName"></Cascader>
             </div>
           </div>
 
@@ -45,7 +45,7 @@
               <div  style="margin-left: 27px;" class="store-item-label">详细地址<span class="red-star">*</span></div>
             </div>
             <div class="right-content">
-              <Input v-model="addSotreItem.storeDetailAdress" placeholder="详细地址" ></Input>
+              <Input v-model="addSotreItem.shopAddr" placeholder="详细地址" ></Input>
             </div>
           </div>
 
@@ -88,6 +88,7 @@
             </div>
             <div class="right-content">
               <Input v-model="addSotreItem.weixin" placeholder="选择支付方式" ></Input>
+              <div v-for="item in storeService"   class="service-item"  @click="addService(item.value)">{{item.label}}</div>
             </div>
           </div>
 
@@ -96,7 +97,7 @@
               <div  style="margin-left: 27px;" class="store-item-label">微信支付&nbsp;&nbsp;</div>
             </div>
             <div class="right-content">
-              <Input v-model="addSotreItem.storeDetailAdress" placeholder="微信支付账号" ></Input>
+              <Input v-model="addSotreItem.shopWechatpay" placeholder="微信支付账号" ></Input>
             </div>
           </div>
           <div class="store-item  ">
@@ -104,7 +105,7 @@
               <div  style="margin-left: 27px;" class="store-item-label">支付宝&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
             </div>
             <div class="right-content">
-              <Input v-model="addSotreItem.zfbAcount" placeholder="支付宝账号" ></Input>
+              <Input v-model="addSotreItem.shopAlipay" placeholder="支付宝账号" ></Input>
             </div>
           </div>
 
@@ -114,7 +115,7 @@
               <div   class="store-item-label">收款名<span class="red-star">*</span>&nbsp;&nbsp;&nbsp;&nbsp;</div>
             </div>
             <div class="right-content">
-              <Input v-model="addSotreItem.weixin" placeholder="收款名称" ></Input>
+              <Input v-model="addSotreItem.shopAlipayName" placeholder="收款名称" ></Input>
             </div>
           </div>
 
@@ -122,10 +123,10 @@
             <div class="left-content">
               <i class="iconfont  icon-fuwu" ></i>
               <div   class="store-item-label">店铺服务<span class="red-star">*</span></div>
-              <div v-for="item in storeService"   class="service-item"  @click="addService(item.value)">{{item.label}}</div>
-            </div>
-            <div class="rightT-content">
 
+            </div>
+            <div class="right-content">
+              <div v-for="item in storeService"   class="service-item"  @click="addService(item.value)">{{item.label}}</div>
             </div>
           </div>
 
@@ -162,18 +163,18 @@
               btnFont:'新增',
               modal2:false,
               modal_loading:false,
-              storeClassify:STORECLASSIFY,
-              saleType:SALETYPE,
               storeService:STORESERVICE,
+              storePayType:PAYTYPE,
               addSotreItem:{
-                defaultStore:false,
-                storeClassify:null,
-                saleType:null,
-                storeName:null,
-                storeAdress:[],
-                storeDetailAdress:null,
-                storePhone:null,
-                zfbAcount:null,
+                shopIsdefault:'0',
+                shopName:null,
+                marketName:[],
+                shopAddr:null,
+                shopWechatpay:null,
+                shopPhone1:null,
+                shopPhone2:null,
+                shopAlipay:null,
+                shopAlipayName:'',
               },
               columns10: [
                 {
@@ -201,7 +202,6 @@
                   title: '门店电话',
                   key: 'shopPhone1',
                 },
-
                 {
                   title: '门店服务',
                   key: 'shopTags',
