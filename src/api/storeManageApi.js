@@ -8,6 +8,9 @@ let getMarketUrl = "/api/17wa-shop/market";
 //更新、创建门店
 let manageShopUrl = '/api/17wa-shop/{account}';
 
+//删除门店
+let deleteStoreUrl = '/api/17wa-shop/{account}/{shop}';
+
 export default {
   getAllStoreByAccountId : function(accountId){
     getAllStoreByAccountIdUrl = getAllStoreByAccountIdUrl.replace('{account}',accountId);
@@ -19,5 +22,9 @@ export default {
   manageShop : function(accountId,shopObj){
     manageShopUrl = manageShopUrl.replace('{account}',accountId);
     return api.post(manageShopUrl,shopObj,null)
+  },
+  deleteStore: function(account,storeId){
+    deleteStoreUrl = deleteStoreUrl.replace('{account}',account).replace('{shop}',storeId);
+    return api.put(deleteStoreUrl,null,null)
   }
 }

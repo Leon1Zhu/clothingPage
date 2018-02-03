@@ -12,7 +12,7 @@
               <div class="store-item-label">请选择是否是默认主店铺</div>
             </div>
             <div class="right-content">
-              <i-switch v-model="addSotreItem.shopIsdefault === '1' " >
+              <i-switch v-model="addSotreItem.shopIsdefault === '1' " @on-change="changeDefault" >
                 <span slot="open"></span>
                 <span slot="close"></span>
               </i-switch>
@@ -156,10 +156,10 @@
           <span>门店删除确认</span>
         </p>
         <div style="text-align:center">
-          <p>你确认删除1号仓库么。</p>
+          <p>你确认删除[{{addSotreItem.shopName}}]么。</p>
         </div>
         <div slot="footer">
-          <Button type="error" size="large" long :loading="modal_loading" @click="del">删除</Button>
+          <Button type="error" size="large" class="delete_store" long :loading="modal_loading" @click="del">删除</Button>
         </div>
       </Modal>
     </div>
@@ -267,11 +267,24 @@
                         on: {
                           click: () => {
                               this.open=true
-                              this.addSotreItem = params.row
-                              this.marketNameArr = this.addSotreItem.marketName.split('|');
-                              this.shopTagsArr = this.addSotreItem.shopTags.split('|');
-                              this.payTypeArr = this.addSotreItem.payType.split('|');
-                              this.btnFont = '修改';
+                              this.addSotreItem.shopId =  params.row.shopId
+                              this.addSotreItem.shopIsdefault =  params.row.shopIsdefault
+                              this.addSotreItem.shopName =  params.row.shopName
+                              this.addSotreItem.marketName =  params.row.marketName
+                              this.addSotreItem.shopAddr =  params.row.shopAddr
+                              this.addSotreItem.shopWechat =  params.row.shopWechat
+                              this.addSotreItem.shopWechatpay =  params.row.shopWechatpay
+                              this.addSotreItem.shopPhone1 =  params.row.shopPhone1
+                              this.addSotreItem.shopPhone2 =  params.row.shopPhone2
+                              this.addSotreItem.shopAlipay =  params.row.shopAlipay
+                              this.addSotreItem.shopAlipayName =  params.row.shopAlipayName
+                              this.addSotreItem.shopTags =  params.row.shopTags
+                              this.addSotreItem.shopQq =  params.row.shopQq
+                              this.addSotreItem.payType = params.row.payType
+                              this.marketNameArr = this.addSotreItem.marketName === undefined ? []:this.addSotreItem.marketName.split('|');
+                              this.shopTagsArr = this.addSotreItem.shopTags ===undefined ? [] : this.addSotreItem.shopTags.split('|');
+                              this.payTypeArr = this.addSotreItem.payType === undefined ? []: this.addSotreItem.payType.split('|');
+                              this.btnFont = '修改'
                           }
                         }
                       }, ),
@@ -286,6 +299,7 @@
                         },
                         on:{
                             click: () => {
+                              this.addSotreItem =  params.row
                               this.modal2 = true
                             }
                         }
@@ -309,6 +323,9 @@
         mounted(){
         },
         methods: {
+          changeDefault(boolean){
+                this.addSotreItem.shopIsdefault  = boolean ? '1' :'0';
+          },
           getAllStore(){
             storeManageApi.getAllStoreByAccountId(this.$store.getters.getAccountId).then((response)=>{
                 this.data9 = response.data
@@ -320,7 +337,17 @@
             this.addSotreItem.shopTags =  this.shopTagsArr.join('|');
             this.addSotreItem.payType =  this.payTypeArr.join('|');
             this.addSotreItem.marketName =  this.marketNameArr.join('|');
+            if(ISNULL(this.addSotreItem.shopName)){
+                this.$error('操作出错','门店名称不能为空!');
+                return;
+            }
             storeManageApi.manageShop(this.$store.getters.getAccountId,this.addSotreItem).then((response) =>{
+                let flag = '门店新增成功！';
+                if(this.btnFont === '修改'){
+                  flag = '门店修改成功！';
+                }
+                this.$success('操作成功',flag)
+                this.getAllStore();
                 this.open = false;
             }).catch((response) =>{
               this.$error(null,'门店信息修改出错！');
@@ -331,7 +358,7 @@
           },
           addNewStore(){
             this.addSotreItem={
-              shopIsdefault:null,
+              shopIsdefault:'0',
                 shopName:null,
                 marketName:null,
                 shopAddr:null,
@@ -442,6 +469,7 @@
       position: relative;
       top:4px;
     }
+
   }
 
 </style>
