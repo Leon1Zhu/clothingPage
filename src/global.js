@@ -29,8 +29,9 @@ global.STORESERVICE = [{value:0,label:'一件代发'},{value:1,label:'退货退�
 //支付方式
 global.PAYTYPE = [{value:0,label:'支付宝'},{value:2,label:'银行卡'},{value:3,label:'信用卡'},{value:1,label:'微信'}];
 
-global.apiError = '接口出小差啦';
-global.operatorError = '操作出错啦';
+global.apiError = '接口异常';
+global.operatorError = '操作出错';
+global.operatorWarning = '操作异常';
 global.opeartorSuccess = '操作成功';
 
 global.SERVICEURL="http://appserver01.17wa.com/17wa"

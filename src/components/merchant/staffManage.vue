@@ -1,8 +1,8 @@
 <template>
   <div id="staffManage">
     <tool-bar>
-      <Input v-model="searchStaffName" placeholder="请输入店员姓名" style="margin-right: .5%;" ></Input>
-      <Button type="primary" icon="ios-search" @click.native="searchStaff"  style="margin-right: .5%;">搜索</Button>
+      <!--<Input v-model="searchStaffName" placeholder="请输入店员姓名" style="margin-right: .5%;" ></Input>-->
+     <!-- <Button type="primary" icon="ios-search" @click.native="searchStaff"  style="margin-right: .5%;">搜索</Button>-->
       <Button type="primary" icon="plus-round" @click.native="addNewStaff">添加新店员</Button>
     </tool-bar>
     <Table stripe border :columns="columns10" :data="data9"></Table>
@@ -16,18 +16,6 @@
           </div>
           <div class="right-content">
             <Input v-model="staffItem.accountName" placeholder="店员名称" ></Input>
-          </div>
-        </div>
-
-
-
-        <div class="store-item store-item-icon-color">
-          <div class="left-content">
-            <i class="iconfont  icon-xiugaimima" ></i>
-            <div class="store-item-label">店员密码<span class="red-star">*</span></div>
-          </div>
-          <div class="right-content">
-            <Input v-model="staffItem.accountPwd" placeholder="店员名称" ></Input>
           </div>
         </div>
 
@@ -69,9 +57,31 @@
           </div>
         </div>
 
-
+        <div class="store-item store-item-icon-color">
+          <div class="left-content">
+            <i class="iconfont  icon-xiugaimima" ></i>
+            <div class="store-item-label">设置新密码<span class="red-star">*</span></div>
+          </div>
+          <div class="right-content">
+            <Input style="width: 73.5%;" v-model="staffItem.accountPwd" type="password" placeholder="设置新密码" ></Input>
+          </div>
+        </div>
       </div>
     </my-drawer>
+
+
+    <Modal v-model="modal2" width="360">
+      <p slot="header" style="color:#f60;text-align:center">
+        <Icon type="information-circled"></Icon>
+        <span>店员账号删除确认</span>
+      </p>
+      <div style="text-align:center">
+        <p>你确认删除账户[{{staffItem.accountName}}]么。</p>
+      </div>
+      <div slot="footer">
+        <Button type="error" size="large" class="delete_store" long :loading="modal_loading" @click="del">删除</Button>
+      </div>
+    </Modal>
 
   </div>
 </template>
@@ -95,7 +105,7 @@
           accountName:null,
           accountPwd:null,
           accountType:'店员',
-          accountStatus:'1',
+          accountStatus:'0',
           shopId:null,
           shopName:null,
         },
@@ -144,6 +154,12 @@
                   on: {
                     click: () => {
                       this.btnFont = '修改'
+                      this.staffItem.accountId = params.row.accountId
+                      this.staffItem.accountName = params.row.accountName
+                      this.staffItem.accountType = params.row.accountType
+                      this.staffItem.accountStatus = params.row.accountStatus
+                      this.staffItem.shopId = params.row.shopId
+                      this.staffItem.shopName = params.row.shopName
                       this.open=true
                     }
                   }
@@ -159,7 +175,14 @@
                   },
                   on:{
                     click: () => {
-
+                      if(parseInt(params.row.accountId,10) === this.$store.getters.getAccountId){
+                          this.$warning(operatorWarning,'您无法删除自己的账户!')
+                          return;
+                      }
+                      this.staffItem =  params.row
+                      console.log(params.row.accountId)
+                      this.staffItem.accountId =  params.row.accountId
+                      this.modal2 = true
                     }
                   }
                 },)
@@ -169,6 +192,8 @@
         ],
         data9: [],
         storeSelectData:[],
+        modal2:false,
+        modal_loading:false,
       }
     },
     components: {
@@ -190,19 +215,27 @@
             if(this.btnFont=='修改'){
                 flag = '店员信息修改成功'
             }
-            this.$success(operatorError,flag)
+            this.$success(opeartorSuccess,flag)
             this.getAllAccount();
           this.open = false;
         }).catch(response =>{
             let flag = '新增店员失败';
             if(this.btnFont=='修改'){
-              flag = '店员信息修改是失败'
+              flag = '店员信息修改失败'
             }
             this.$error(operatorError,flag)
         })
       },
       addNewStaff(){
         this.btnFont = '新增'
+        this.staffItem={
+          accountName:null,
+            accountPwd:null,
+            accountType:'店员',
+            accountStatus:'1',
+            shopId:null,
+            shopName:null,
+        }
         this.open = true;
       },
       searchStaff(){
@@ -224,7 +257,20 @@
       selectStore(v1){
         this.staffItem.shopId = v1.value;
         this.staffItem.shopName = v1.label;
-      }
+      },
+      del () {
+        this.modal_loading = true;
+        console.log(this.staffItem.accountId)
+        staffManageApi.deleteAccount(this.$store.getters.getAccountId, this.staffItem.accountId ).then((response) =>{
+          this.$success(opeartorSuccess,'店员账号删除成功');
+          this.getAllAccount();
+          this.modal_loading = false;
+          this.modal2 = false;
+        }).catch((response) =>{
+          this.modal_loading = false;
+          this.$error(operatorError,response.data.message)
+        })
+      },
     }
 
 

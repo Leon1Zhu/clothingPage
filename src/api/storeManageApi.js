@@ -13,18 +13,15 @@ let deleteStoreUrl = '/api/17wa-shop/{account}/{shop}';
 
 export default {
   getAllStoreByAccountId : function(accountId){
-    getAllStoreByAccountIdUrl = getAllStoreByAccountIdUrl.replace('{account}',accountId);
-    return api.get(getAllStoreByAccountIdUrl,null)
+    return api.get(getAllStoreByAccountIdUrl.replace('{account}',accountId),null)
   },
   getMarket : function(){
     return api.get(getMarketUrl,null)
   },
   manageShop : function(accountId,shopObj){
-    manageShopUrl = manageShopUrl.replace('{account}',accountId);
-    return api.post(manageShopUrl,shopObj,null)
+    return api.post( manageShopUrl.replace('{account}',accountId),shopObj,null)
   },
   deleteStore: function(account,storeId){
-    deleteStoreUrl = deleteStoreUrl.replace('{account}',account).replace('{shop}',storeId);
-    return api.delete(deleteStoreUrl,null)
+    return api.delete(deleteStoreUrl.replace('{account}',account).replace('{shop}',storeId),null)
   }
 }
