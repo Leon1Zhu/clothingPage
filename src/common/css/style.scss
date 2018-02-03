@@ -215,6 +215,12 @@ table,.ivu-input{
 .store-item-icon-color:nth-child(13) .left-content .iconfont:before{
   background: #fe808c;
 }
+.mu-overlay{
+  z-index: 1000!important;
+}
+.mu-paper.mu-drawer{
+  z-index:1001!important;
+}
 
 
 

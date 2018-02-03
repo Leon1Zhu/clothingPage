@@ -331,7 +331,7 @@
             storeManageApi.getAllStoreByAccountId(this.$store.getters.getAccountId).then((response)=>{
                 this.data9 = response.data
             }).catch((response)=>{
-                this.$error('接口请求出错','获取店铺列表出错')
+                this.$error(apiError,'获取店铺列表出错')
             })
           },
           complateDrawer(){
@@ -339,7 +339,7 @@
             this.addSotreItem.payType =  this.payTypeArr.join('|');
             this.addSotreItem.marketName =  this.marketNameArr.join('|');
             if(ISNULL(this.addSotreItem.shopName)){
-                this.$error('操作出错','门店名称不能为空!');
+                this.$error(operatorError,'门店名称不能为空!');
                 return;
             }
             storeManageApi.manageShop(this.$store.getters.getAccountId,this.addSotreItem).then((response) =>{
@@ -347,11 +347,11 @@
                 if(this.btnFont === '修改'){
                   flag = '门店修改成功！';
                 }
-                this.$success('操作成功',flag)
+                this.$success(opeartorSuccess,flag)
                 this.getAllStore();
                 this.open = false;
             }).catch((response) =>{
-              this.$error(null,'门店信息修改出错！');
+              this.$error(operatorError,'门店信息修改出错！');
             })
           },
           addNewStore(){
@@ -400,12 +400,12 @@
           del () {
             this.modal_loading = true;
             storeManageApi.deleteStore(this.$store.getters.getAccountId, this.addSotreItem.shopId ).then((response) =>{
+                this.$success(opeartorSuccess,'门店删除成功');
                 this.getAllStore();
                 this.modal_loading = false;
-              this.modal2 = false;
+                this.modal2 = false;
             }).catch((response) =>{
-              this.modal_loading = false;
-                this.$error('操作出错',response.data.message)
+                this.$error(operatorError,response.data.message)
             })
           },
           getMarket(){
@@ -416,7 +416,7 @@
                 }
                   this.data = marketArr
               }).catch((response) => {
-                  this.$error('接口请求出错','获取地区列表出错')
+                  this.$error(apiError,'获取地区列表出错')
               })
           },
           changeMaeket(marketArr){
