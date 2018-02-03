@@ -300,6 +300,7 @@
                         on:{
                             click: () => {
                               this.addSotreItem =  params.row
+                              this.addSotreItem.shopId =  params.row.shopId
                               this.modal2 = true
                             }
                         }
@@ -353,9 +354,6 @@
               this.$error(null,'门店信息修改出错！');
             })
           },
-          changeDefaultStore(){
-
-          },
           addNewStore(){
             this.addSotreItem={
               shopIsdefault:'0',
@@ -401,10 +399,14 @@
           },
           del () {
             this.modal_loading = true;
-            setTimeout(() => {
-              this.modal_loading = false;
+            storeManageApi.deleteStore(this.$store.getters.getAccountId, this.addSotreItem.shopId ).then((response) =>{
+                this.getAllStore();
+                this.modal_loading = false;
               this.modal2 = false;
-            }, 2000);
+            }).catch((response) =>{
+              this.modal_loading = false;
+                this.$error('操作出错',response.data.message)
+            })
           },
           getMarket(){
               storeManageApi.getMarket().then((response) =>{

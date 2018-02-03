@@ -37,6 +37,8 @@ axios.interceptors.response.use(
     return response;
   },
   error => {
+    console.error("请求出错")
+    console.log(JSON.parse(JSON.stringify(error.response)))
   /*  if (error.response) {
       switch (error.response.status) {
         case 401:
@@ -45,7 +47,7 @@ axios.interceptors.response.use(
           refushToken();break;
       }
     }*/
-    return Promise.reject(error.response.data)   // 返回接口返回的错误信息
+    return Promise.reject(error.response)   // 返回接口返回的错误信息
   });
 /*global.refushToken=function(){
     if(new Date().getTime()-TOKENTIME.getTime()>30*60*1000){

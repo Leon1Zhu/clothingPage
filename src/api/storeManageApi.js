@@ -25,6 +25,6 @@ export default {
   },
   deleteStore: function(account,storeId){
     deleteStoreUrl = deleteStoreUrl.replace('{account}',account).replace('{shop}',storeId);
-    return api.put(deleteStoreUrl,null,null)
+    return api.delete(deleteStoreUrl,null)
   }
 }
