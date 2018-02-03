@@ -4,7 +4,7 @@
         <Button type="primary" icon="plus-round" @click.native="addNewStore('');">添加新门店</Button>
       </tool-bar>
       <Table stripe border :columns="columns10" :data="data9"></Table>
-      <my-drawer :open="open" title="门店管理" :btnFont="btnFont" @close-drawer="open=false" @complate-drawer="complateDrawer">
+      <my-drawer :open="open" title="门店管理" :btnFont="btnFont" @close-drawer="open = false" @complate-drawer="complateDrawer">
         <div class="store-change-content">
           <div class="store-item">
             <div class="left-content">
@@ -12,7 +12,7 @@
               <div class="store-item-label">请选择是否是默认主店铺</div>
             </div>
             <div class="right-content">
-              <i-switch v-model="addSotreItem.defaultStore" >
+              <i-switch v-model="addSotreItem.shopIsdefault === '1' " >
                 <span slot="open"></span>
                 <span slot="close"></span>
               </i-switch>
@@ -36,7 +36,7 @@
               <div class="store-item-label">门店地区<span class="red-star">*</span></div>
             </div>
             <div class="right-content">
-              <Cascader :data="data" v-model="addSotreItem.marketName"></Cascader>
+              <Cascader :data="data" v-model="marketNameArr"></Cascader>
             </div>
           </div>
 
@@ -52,10 +52,19 @@
           <div class="store-item  store-item-icon-color">
             <div class="left-content">
               <i class="iconfont  icon-dianhua" ></i>
-              <div   class="store-item-label">门店电话<span class="red-star">*</span></div>
+              <div   class="store-item-label">门店电话1<span class="red-star">*</span></div>
             </div>
             <div class="right-content">
-              <Input v-model="addSotreItem.storePhone" placeholder="详细地址" ></Input>
+              <Input v-model="addSotreItem.shopPhone1" placeholder="门店电话1" style="width: 72%;"></Input>
+            </div>
+          </div>
+
+          <div class="store-item  ">
+            <div class="left-content">
+              <div  style="margin-left: 27px;" class="store-item-label">门店电话2<span class="red-star">*</span></div>
+            </div>
+            <div class="right-content">
+              <Input v-model="addSotreItem.shopPhone2" placeholder="门店电话2" style="width: 72%;"></Input>
             </div>
           </div>
 
@@ -66,7 +75,7 @@
               <div   class="store-item-label">门店微信<span class="red-star">*</span></div>
             </div>
             <div class="right-content">
-              <Input v-model="addSotreItem.weixin" placeholder="门店微信" ></Input>
+              <Input v-model="addSotreItem.shopWechat" placeholder="门店微信" ></Input>
             </div>
           </div>
 
@@ -76,7 +85,7 @@
               <div   class="store-item-label">门店QQ&nbsp;&nbsp;<span class="red-star">*</span></div>
             </div>
             <div class="right-content">
-              <Input v-model="addSotreItem.weixin" placeholder="门店QQ" ></Input>
+              <Input v-model="addSotreItem.shopQq" placeholder="门店QQ" ></Input>
             </div>
           </div>
 
@@ -88,7 +97,7 @@
             </div>
             <div class="right-content" style="display: flex;justify-content: flex-end;">
               <div class="btn-content">
-                <div v-for="item in storePayType" style="margin-left: 3px;"  class="service-item"  @click="addService(item.value)">{{item.label}}</div>
+                <div v-for="item in storePayType" style="margin-left: 3px;"   class="service-item" :class="{ active : payTypeActiveClass(item.label)}"  @click="managepType(item.label)">{{item.label}}</div>
               </div>
             </div>
           </div>
@@ -128,7 +137,7 @@
             </div>
             <div class="right-content" style="display: flex; justify-content: flex-end">
               <div class="btn-content">
-                <div v-for="item in storeService"   class="service-item"  @click="addService(item.value)">{{item.label}}</div>
+                <div v-for="item in storeService"   class="service-item" :class="{ active : serviceActiveClass(item.label)}"  @click="manageService(item.label)">{{item.label}}</div>
               </div>
 
             </div>
@@ -170,16 +179,22 @@
               storeService:STORESERVICE,
               storePayType:PAYTYPE,
               addSotreItem:{
-                shopIsdefault:'0',
+                shopIsdefault:null,
                 shopName:null,
-                marketName:[],
+                marketName:null,
                 shopAddr:null,
+                shopWechat:null,
                 shopWechatpay:null,
                 shopPhone1:null,
                 shopPhone2:null,
                 shopAlipay:null,
-                shopAlipayName:'',
+                shopAlipayName:null,
+                shopTags:null,
+                shopQq:null,
               },
+              marketNameArr:null,
+              shopTagsArr:[],
+              payTypeArr:[],
               columns10: [
                 {
                   title: '门店名称',
@@ -252,7 +267,11 @@
                         on: {
                           click: () => {
                               this.open=true
-                              this.btnFont = '修改'
+                              this.addSotreItem = params.row
+                              this.marketNameArr = this.addSotreItem.marketName.split('|');
+                              this.shopTagsArr = this.addSotreItem.shopTags.split('|');
+                              this.payTypeArr = this.addSotreItem.payType.split('|');
+                              this.btnFont = '修改';
                           }
                         }
                       }, ),
@@ -276,53 +295,7 @@
                 }
               ],
               data9: [],
-              data: [{
-                value: 'beijing',
-                label: '北京',
-                children: [
-                  {
-                    value: 'gugong',
-                    label: '故宫'
-                  },
-                  {
-                    value: 'tiantan',
-                    label: '天坛'
-                  },
-                  {
-                    value: 'wangfujing',
-                    label: '王府井'
-                  }
-                ]
-              }, {
-                value: 'jiangsu',
-                label: '江苏',
-                children: [
-                  {
-                    value: 'nanjing',
-                    label: '南京',
-                    children: [
-                      {
-                        value: 'fuzimiao',
-                        label: '夫子庙',
-                      }
-                    ]
-                  },
-                  {
-                    value: 'suzhou',
-                    label: '苏州',
-                    children: [
-                      {
-                        value: 'zhuozhengyuan',
-                        label: '拙政园',
-                      },
-                      {
-                        value: 'shizilin',
-                        label: '狮子林',
-                      }
-                    ]
-                  }
-                ],
-              }]
+              data: []
             }
         },
         components: {
@@ -330,6 +303,7 @@
             'tool-bar':toolBar
         },
         created(){
+            this.getMarket();
             this.getAllStore()
         },
         mounted(){
@@ -339,20 +313,63 @@
             storeManageApi.getAllStoreByAccountId(this.$store.getters.getAccountId).then((response)=>{
                 this.data9 = response.data
             }).catch((response)=>{
-
+                this.$error('接口请求出错','获取店铺列表出错')
             })
           },
           complateDrawer(){
-
+            this.addSotreItem.shopTags =  this.shopTagsArr.join('|');
+            this.addSotreItem.payType =  this.payTypeArr.join('|');
+            this.addSotreItem.marketName =  this.marketNameArr.join('|');
+            storeManageApi.manageShop(this.$store.getters.getAccountId,this.addSotreItem).then((response) =>{
+                this.open = false;
+            }).catch((response) =>{
+              this.$error(null,'门店信息修改出错！');
+            })
           },
           changeDefaultStore(){
 
           },
           addNewStore(){
+            this.addSotreItem={
+              shopIsdefault:null,
+                shopName:null,
+                marketName:null,
+                shopAddr:null,
+                shopWechat:null,
+                shopWechatpay:null,
+                shopPhone1:null,
+                shopPhone2:null,
+                shopAlipay:null,
+                shopAlipayName:null,
+                shopTags:null,
+                shopQq:null,
+            };
+            this.shopTagsArr = [];
+            this.payTypeArr = [];
+            this.marketNameArr = [];
               this.open=true;
+
               this.btnFont = '新增'
           },
-          addService(service){
+          manageService(service){
+            for(let item in this.shopTagsArr){
+              if(this.shopTagsArr[item] === ""){this.shopTagsArr = [];break}
+              if(this.shopTagsArr[item] === service){
+                this.shopTagsArr.splice(item,1);
+                return;
+              }
+            }
+            this.shopTagsArr.push(service)
+          },
+          managepType(payType){
+              for(let item in this.payTypeArr){
+                  if(this.payTypeArr[item] === ""){this.payTypeArr = [];break}
+                  if(this.payTypeArr[item] === payType){
+                     this.payTypeArr.splice(item,1);
+                    return;
+                  }
+              }
+                this.payTypeArr.push(payType)
 
           },
           del () {
@@ -361,7 +378,46 @@
               this.modal_loading = false;
               this.modal2 = false;
             }, 2000);
-          }
+          },
+          getMarket(){
+              storeManageApi.getMarket().then((response) =>{
+                  let marketArr = response.data
+                for(let item in marketArr){
+                  marketArr[item] = this.changeMaeket(marketArr[item])
+                }
+                  this.data = marketArr
+              }).catch((response) => {
+                  this.$error('接口请求出错','获取地区列表出错')
+              })
+          },
+          changeMaeket(marketArr){
+              let marketItem = marketArr;
+              marketItem['value'] = marketItem['label'] = marketItem['mkName']
+              marketItem['children'] =  marketItem['subMarkets']
+              if(marketItem['subMarkets'] && marketItem['subMarkets'].length>0){
+                marketItem = marketItem['subMarkets'];
+                for(let itemT=0;itemT< marketItem.length;itemT++){
+                      marketItem[itemT] = this.changeMaeket(marketItem[itemT])
+                }
+              }
+            return marketArr;
+          },
+          serviceActiveClass(value){
+              for(let item=0;item< this.shopTagsArr.length;item++){
+                  if(value === this.shopTagsArr[item]){
+                    return true;
+                  }
+              }
+              return false;
+          },
+          payTypeActiveClass(value){
+            for(let item=0;item< this.payTypeArr.length;item++){
+              if(value === this.payTypeArr[item]){
+                return true;
+              }
+            }
+            return false;
+          },
         }
     }
 </script>

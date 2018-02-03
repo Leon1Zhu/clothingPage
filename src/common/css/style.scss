@@ -119,6 +119,11 @@ table,.ivu-input{
         line-height: 190%;
         transition: all .1s;
       }
+      .service-item.active{
+        background: $menuSelectFontColor;
+        color: #fff;
+        border: 1px solid $menuSelectFontColor!important;
+      }
       .service-item:hover{
         background: $menuSelectFontColor;
         color: #fff;
