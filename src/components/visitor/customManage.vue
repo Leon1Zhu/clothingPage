@@ -2,13 +2,13 @@
   <div id="customManage">
     <tool-bar>
       <Input v-model="searchStaffName" placeholder="请输入客户姓名" style="margin-right: .5%;" ></Input>
-      <Button type="primary" icon="ios-search" @click.native="searchCustom"  style="margin-right: .5%;">搜索</Button>
+      <Button type="primary" icon="ios-search" @click.native="getManageList"  style="margin-right: .5%;">搜索</Button>
       <div class="add-store-btn"><Button type="primary" icon="plus-round" @click.native="customManage('')">添加客户</Button></div>
     </tool-bar>
 
     <Table stripe border :columns="columns10" :data="data9"></Table>
 
-    <my-drawer :open="open" :btnFont="btnFont" @complateDrawer="complateDrawer"></my-drawer>
+    <my-drawer :open="open" :btnFont="btnFont" :customInfoProp="customInfoProp" @complateDrawer="complateDrawer" @close-drawer="open=false"></my-drawer>
 
 
   </div>
@@ -25,6 +25,7 @@
         open:false,
         searchStaffName:null,
         btnFont:'新增',
+        customInfoProp:null,
         columns10: [
           {
             title: '客户名称',
@@ -35,7 +36,7 @@
             key: 'customPhone'
           },
           {
-            title: '客户等级',
+            title: '客户积分',
             key: 'customGrade',
           },
           {
@@ -64,30 +65,16 @@
                   },
                   on: {
                     click: () => {
+                      this.customInfoProp = params.row
                       this.customManage(params.row)
                     }
                   }
                 }, ),
-                h('Button',{
-                  props: {
-                    type: 'ghost',
-                    shape: 'circle',
-                    icon:"trash-a"
-                  },
-                  style: {
-                    marginLeft:'3px'
-                  },
-                  on:{
-                    click: () => {
-
-                    }
-                  }
-                },)
               ]);
             }
           }
         ],
-        data9: []
+        data9: [],
       }
     },
     components: {
@@ -96,13 +83,19 @@
     },
     created(){
        this.getManageList();
+       this.btnFont = '新增'
     },
     mounted(){
     },
     methods: {
       complateDrawer(customInfo){
+          console.log(customInfo)
         customManageApi.addCusstom(this.$store.getters.getAccountId,customInfo).then(response =>{
-            this.$success(opeartorSuccess,'客户添加成功!')
+            let flag = '添加客户成功!';
+            if(this.btnFont === '修改'){
+                flag = '修改客户信息成功!'
+            }
+            this.$success(opeartorSuccess,flag)
             this.getManageList()
             this.open=false;
         }).catch(response =>{
@@ -120,15 +113,18 @@
         this.open=true;
       },
       getManageList(){
-          customManageApi.getCustomList(this.$store.getters.getAccountId,this.searchStaffName).then(response =>{
-
+          let searchInfo = null;
+          if(ISNULL(this.searchStaffName)){
+              searchInfo = 'all'
+          }else{
+              searchInfo = this.searchStaffName
+          }
+          customManageApi.getCustomList(this.$store.getters.getAccountId,searchInfo).then(response =>{
+              this.data9 = response.data
           }).catch(response =>{
-
+             this.$error(apiError.response.data.response)
         })
       },
-      searchCustom(){
-
-      }
     }
   }
 </script>

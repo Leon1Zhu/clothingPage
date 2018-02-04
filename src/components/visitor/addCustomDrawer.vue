@@ -1,5 +1,5 @@
 <template>
-  <my-drawer :open="open" title="客户管理" :btnFont="btnFont" @close-drawer="open=false" @complate-drawer="complateDrawer">
+  <my-drawer :open="open" title="客户管理" :btnFont="btnFont" @close-drawer="closeDrawer" @complate-drawer="complateDrawer">
     <div class="custom-info-content">
 
       <div class="store-item store-item-icon-color">
@@ -28,7 +28,7 @@
           <div class="store-item-label">客户生日<span class="red-star">*</span></div>
         </div>
         <div class="right-content">
-          <DatePicker :options="options3" type="date" format="yyyy-MM-dd"  placeholder="请选择出生日期" v-model="customInfo.customBirthday" style="width: 100%;"></DatePicker>
+          <DatePicker :options="options3" type="date" :format="format"  placeholder="请选择出生日期" v-model="customInfo.customBirth" style="width: 100%;"></DatePicker>
         </div>
       </div>
 
@@ -49,7 +49,7 @@
           <div class="store-item-label">最近消费&nbsp;&nbsp;</div>
         </div>
         <div class="right-content">
-          <Input v-model="customInfo.customLatestTime" placeholder="最近消费日期" disabled ></Input>
+          <Input v-model="customInfo.customLatestTime" disabled ></Input>
         </div>
       </div>
 
@@ -59,7 +59,7 @@
           <div class="store-item-label">消费金额&nbsp;&nbsp;</div>
         </div>
         <div class="right-content">
-          <Input v-model="customInfo.customLatestMoney" placeholder="最近消费金额" disabled></Input>
+          <Input v-model="customInfo.customLatestMoney"  disabled></Input>
         </div>
       </div>
 
@@ -69,7 +69,7 @@
           <div class="store-item-label">付款方式&nbsp;&nbsp;</div>
         </div>
         <div class="right-content">
-          <Input v-model="customInfo.customLatestPaytype" placeholder="最近消费付款方式"  disabled></Input>
+          <Input v-model="customInfo.customLatestPaytype"  disabled></Input>
         </div>
       </div>
 
@@ -80,7 +80,7 @@
           <div class="store-item-label">消费总额&nbsp;&nbsp;</div>
         </div>
         <div class="right-content">
-          <Input v-model="customInfo.customTotalMoney" placeholder="消费总额"  disabled></Input>
+          <Input v-model="customInfo.customTotalMoney"   disabled></Input>
         </div>
       </div>
 
@@ -91,7 +91,7 @@
           <div class="store-item-label">账户余额&nbsp;&nbsp;</div>
         </div>
         <div class="right-content">
-          <Input v-model="customInfo.customRemainMoney" placeholder="账户余额" disabled ></Input>
+          <Input v-model="customInfo.customRemainMoney"  disabled ></Input>
         </div>
       </div>
 
@@ -121,7 +121,7 @@
               customInfo:{
                 customName:null,
                 customPhone:null,
-                customBirthday:null,
+                customBirth:null,
                 customCard:null,
                 customLatestTime:null,
                 customLatestMoney:null,
@@ -129,40 +129,61 @@
                 customTotalMoney:null,
                 customRemainMoney:null,
               },
-              type:null,
               options3: {
                 disabledDate (date) {
-                  return new Date().Format('yyyy-MM-dd') <  new Date(date).Format('yyyy-MM-dd');
+                  return new Date().Format(dateFormatType) <  new Date(date).Format(dateFormatType);
                 }
               },
+              format:dateFormatType,
             }
         },
         components: {
             'my-drawer':myDrawer
         },
         created(){
-            if(this.btnFont === '修改'){
-                this.customInfo.customId = this.customInfoProp.customId
-                this.customInfo.customName = this.customInfoProp.customName
-                this.customInfo.customPhone = this.customInfoProp.customPhone
-                this.customInfo.customBirthday = this.customInfoProp.customBirthday
-                this.customInfo.customCard = this.customInfoProp.customCard
-                this.customInfo.customLatestTime = this.customInfoProp.customLatestTime
-                this.customInfo.customLatestMoney = this.customInfoProp.customLatestMoney
-                this.customInfo.customNcustomLatestPaytypeame = this.customInfoProp.customLatestPaytype
-                this.customInfo.customRemainMoney = this.customInfoProp.customRemainMoney
+        },
+        computed:{
+          type(){
+            if( this.btnFont === '新增'){
+              return 'ADD';
+            }else if(this.btnFont === '修改'){
+              this.customInfo.customId = this.customInfoProp.customId
+              this.customInfo.customName = this.customInfoProp.customName
+              this.customInfo.customPhone = this.customInfoProp.customPhone
+              this.customInfo.customBirth = this.customInfoProp.customBirth
+              this.customInfo.customCard = this.customInfoProp.customCard
+              this.customInfo.customLatestTime = ISNULL(this.customInfoProp.customLatestTime) ? '': new Date(this.customInfoProp.customLatestTime).Format(dateFormatType)
+              this.customInfo.customLatestMoney = this.customInfoProp.customLatestMoney
+              this.customInfo.customLatestPaytype = this.customInfoProp.customLatestPaytype
+              this.customInfo.customRemainMoney = this.customInfoProp.customRemainMoney
+              this.customInfo.customTotalMoney = this.customInfoProp.customTotalMoney
+              return'CHANGE';
             }
-          if( this.btnFont === '新增'){
-            this.type = 'ADD'
-          }else{
-            this.type = 'CHANGE'
           }
         },
-        mounted(){
-        },
+      watch:{
+            open(v1,v2){
+               if(v1 && this.btnFont ==='新增'){
+                   this.customInfo={
+                     customName:null,
+                     customPhone:null,
+                     customBirth:null,
+                     customCard:null,
+                     customLatestTime:null,
+                     customLatestMoney:null,
+                     customLatestPaytype:null,
+                     customTotalMoney:null,
+                     customRemainMoney:null,
+                 }
+               }
+            }
+      },
         methods: {
           complateDrawer(){
               this.$emit('complateDrawer',this.customInfo)
+          },
+          closeDrawer(){
+              this.$emit('close-drawer')
           }
         }
     }

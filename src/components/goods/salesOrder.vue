@@ -132,7 +132,7 @@
               tableHeight:100,
               options3: {
                 disabledDate (date) {
-                  return new Date().Format('yyyy/MM/dd') <  new Date(date).Format('yyyy/MM/dd');
+                  return new Date().Format(dateFormatType) <  new Date(date).Format(dateFormatType);
                 }
               },
               columns:  [
@@ -164,7 +164,7 @@
                 payable:0,
                 CustomInfo:'',
                 balanceMoney:10000,
-                payDate:new Date().Format('yyyy/MM/dd'),
+                payDate:new Date().Format(dateFormatType),
                 waiter:'',
                 remark:null,
                 payMoney:0,
@@ -215,7 +215,7 @@
                 allCount:this.orderInfo.allCount,
                 CustomInfo:'',
                 balanceMoney:this.orderInfo.balanceMoney,
-                payDate:new Date().Format('yyyy/MM/dd'),
+                payDate:new Date().Format(dateFormatType),
                 waiter:'',
                 remark:null,
                 payMoney:0,

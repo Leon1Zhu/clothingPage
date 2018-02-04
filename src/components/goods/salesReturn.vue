@@ -10,7 +10,7 @@
           style="width:100%" v-if="!isDetail">
         </AutoComplete>
         <div class="detail-tool-bar" v-else>
-          <DatePicker :value="searchDataArr" format="yyyy/MM/dd" type="daterange" placement="bottom-end" placeholder="请选择搜索的日期区间" ></DatePicker>
+          <DatePicker :value="searchDataArr" :format="format" type="daterange" placement="bottom-end" placeholder="请选择搜索的日期区间" ></DatePicker>
           <Button type="primary" icon="ios-search" @click.native="searchVisitorDetail"  style="margin-right: .5%;">搜索</Button>
         </div>
       </tool-bar>
@@ -74,6 +74,7 @@
     export default{
         data(){
             return {
+              format:dateFormatType,
               open:false,
               docked:false,
               returnitem:'',
