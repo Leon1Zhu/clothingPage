@@ -6,15 +6,18 @@ const state={
     accountName: 'admin',
     accountPwd: '123456',
     accountType : '管理员',
+    shopId: '1',
 }
 
 
 const getters = {
-    getAccountId : state => state.accountId,
-    getAccountName : state => state.accountName,
-    getAccountPwd : state => state.accountPwd,
-    getAccountType : state => state.accountType,
+  getAccountId: state => state.accountId,
+  getAccountName: state => state.accountName,
+  getAccountPwd: state => state.accountPwd,
+  getAccountType: state => state.accountType,
+  getShopId: state => state.shopId,
 }
+
 
 const mutations = {
 

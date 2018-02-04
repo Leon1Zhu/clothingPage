@@ -20,8 +20,10 @@ axios.interceptors.request.use(
         console.log(config)
       }*/
       config.url = SERVICEURL+config.url;
-      console.log("发送请求!")
-      console.log(config)
+      if(process.env.NODE_ENV=="development"){
+        console.log("发送请求!")
+        console.log(config)
+      }
     }
     return config;
   },
@@ -32,13 +34,17 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
   response => {
-    console.log("收到请求")
-    console.log(JSON.parse(JSON.stringify(response)))
+    if(process.env.NODE_ENV=="development"){
+      console.log("收到请求")
+      console.log(JSON.parse(JSON.stringify(response)))
+    }
     return response;
   },
   error => {
-    console.error("请求出错")
-    console.log(JSON.parse(JSON.stringify(error.response)))
+    if(process.env.NODE_ENV=="development"){
+      console.error("请求出错")
+      console.log(JSON.parse(JSON.stringify(error.response)))
+    }
   /*  if (error.response) {
       switch (error.response.status) {
         case 401:

@@ -135,7 +135,7 @@
             key: 'accountTime',
             render: (h, params) => {
               return h('p', {
-              },new Date(params.row.accountTime).Format('yyyy/MM/dd') );
+              },new Date(params.row.accountTime).Format(dateFormatType) );
             }
           },
           {

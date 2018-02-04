@@ -1,18 +1,19 @@
 <template>
     <div id="salesReturn">
       <tool-bar>
+        <div class="detail-tool-bar" v-if="!isDetail" >
+          <Input v-model="searchGoodsInfo" placeholder="商品code1,code2,商品名称" style="margin-right: .5%;" ></Input>
+          <DatePicker :value="searchDataArr" :format="format" type="daterange" placement="bottom-end" placeholder="请选择搜索的日期区间" ></DatePicker>
+          <Button type="primary" icon="ios-search" @click.native="getOrderTable"  style="margin-right: .5%;">搜索</Button>
+        </div>
         <AutoComplete
          v-model="customInfo"
           :data="autoData"
           icon="ios-search"
-          :filter-method="filterMethod"
           placeholder="请输入搜索客户信息"
-          style="width:100%" v-if="!isDetail">
+          style="width:100%" v-else>
         </AutoComplete>
-        <div class="detail-tool-bar" v-else>
-          <DatePicker :value="searchDataArr" format="yyyy/MM/dd" type="daterange" placement="bottom-end" placeholder="请选择搜索的日期区间" ></DatePicker>
-          <Button type="primary" icon="ios-search" @click.native="searchVisitorDetail"  style="margin-right: .5%;">搜索</Button>
-        </div>
+
       </tool-bar>
 
       <Table  border :columns="columns10" :data="data9"  :row-class-name="rowClassName"></Table>
@@ -20,7 +21,7 @@
         <color-content color="palevioletred" colorName="核销"></color-content>
         <color-content color="#495060" colorName="已付款"></color-content>
         <color-content color="#11b5ff" colorName="未付款"></color-content>
-        <Page :total="100" style="margin-top: 5px;flex: 1;" ></Page>
+        <Page :total="total" style="margin-top: 5px;flex: 1;" :page-size="size" @on-change="changePage" ></Page>
       </div>
 
 
@@ -62,7 +63,6 @@
         </div>
       </my-drawer>
 
-
     </div>
 </template>
 
@@ -71,16 +71,23 @@
   import myDrawer from'../../common/vue/myDrawer.vue'
   import colorContent from '../../common/vue/colorContent.vue';
   import toolBar from'../../common/vue/toolBar.vue'
+
+  import visitorApi from '../../api/visitManage'
     export default{
         data(){
             return {
+              searchGoodsInfo:null,
+              format:dateFormatType,
               open:false,
               docked:false,
               returnitem:'',
               returnMoney:0,
               precision:0,
               maxCount:0,
-              searchDataArr:[],
+              index:0,
+              total:0,
+              size:SIZE,
+              searchDataArr:[new Date(new Date().getTime()-365*24*60*60*1000).Format(dateFormatType),new Date().Format(dateFormatType)],
               autoData:['张三，12000', '李四，13000', '王五，140000'],
               customInfo:'',
               columns10: [
@@ -198,24 +205,38 @@
           'tool-bar':toolBar
         },
         created(){
+            this.getOrderTable()
         },
         computed: {
-          detailCustomName(){
-            console.log(this.$store.getters.getDetailCustomName == null)
-            this.$store.getters.getDetailCustomName
+          detailCustomId(){
+            return this.$store.getters.getDetailCustomId
           },
           isDetail(){
-            if (this.$route.path === '/visitorDetail') {
-              return true
+            if (this.$route.path === '/orderList') {
+              return false
             }
-            return false;
+            return true;
           },
         },
         mounted(){
         },
         methods: {
-          filterMethod (value, option) {
-            return option.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+          getOrderTable(){
+              if(this.isDetail){
+                  //表示获取个人详情列表
+              }else{
+                  //获取所有订单
+                this.getOrderByAccount()
+              }
+          },
+          getOrderByAccount(){
+              if(this.searchDataArr.length<2){
+                  this.$warning(operatorWarning,'请填写完整的查询时间段!');
+                  return;
+              }
+            visitorApi.getCustomOrderList(this.$store.getters.getAccountId,this.$store.getters.getShopId,this.searchDataArr[0],this.searchDataArr[1],this.searchGoodsInfo,this.index,this.size).then(response =>{
+
+            })
           },
           returnGoods(item){
               console.log(item)
@@ -238,8 +259,9 @@
               }
               return ''
           },
-          searchVisitorDetail(){
-
+          changePage(pageIndex){
+            this.index = pageIndex-1;
+            this.getOrderTable()
           }
         }
     }
@@ -261,7 +283,7 @@
       text-align: right;
     }
     .ivu-table-wrapper{
-      margin-top:1.5%;
+      margin-top:1%;
     }
     .drawer-img{
       width:100%;

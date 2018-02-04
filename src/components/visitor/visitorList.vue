@@ -1,38 +1,43 @@
 <template>
     <div id="visitList">
       <tool-bar>
-        <Input v-model="searchCustomName" placeholder="请输入客户姓名" style="margin-right: .5%;" ></Input>
+
+        <Input v-model="searchCustomName" placeholder="请输入客户姓名"   style="margin-right: .5%;">></Input>
         <Button type="primary" icon="ios-search" @click.native="searchVisitor"  >搜索</Button>
         <!--<Button type="primary" icon="plus-round" @click.native="addNewStaff">添加新店员</Button>-->
       </tool-bar>
 
       <Table stripe border :columns="columns10" :data="data9"></Table>
-      <Page :total="100" style="margin-top: 5px;"></Page>
+      <Page :total="total" style="margin-top: 5px;" :page-size="size"  @on-change="changePage"></Page>
     </div>
 </template>
 
 <script>
+  import customManageApi from '../../api/customManage'
   import toolBar from '../../common/vue/toolBar.vue'
     export default{
         data(){
             return {
+              index:0,
+              total:0,
+              size:SIZE,
               searchCustomName:null,
               columns10: [
                 {
                   title: '客户姓名',
-                  key: 'custom_name'
+                  key: 'customName'
                 },
                 {
                   title: '客户卡号',
-                  key: 'custom_card',
+                  key: 'customCard',
                 },
                 {
                   title: '交易总额',
-                  key: 'custom_total_money',
+                  key: 'customTotalMoney',
                 },
                 {
                   title: '账户余额',
-                  key: 'custom_remain_money',
+                  key: 'customRemainMoney',
                 },
                 {
                   title: '操作',
@@ -49,7 +54,7 @@
                         },
                         on: {
                           click: () => {
-                              this.$store.commit('setDetailCustomName',params.row.custom_name)
+                              this.$store.commit('setDetailCustomId',params.row.customId)
                              this.$router.push({ path: '/visitorDetail'})
                           }
                         }
@@ -58,59 +63,36 @@
                   }
                 }
               ],
-              data9: [
-                {
-                  custom_name:'张三',
-                  custom_card:'13001414944',
-                  custom_total_money:'1245784',
-                  custom_remain_money:'-23456',
-                },
-                {
-                  custom_name:'张三',
-                  custom_card:'13001414944',
-                  custom_total_money:'1245784',
-                  custom_remain_money:'-23455',
-                }, {
-                  custom_name:'张三',
-                  custom_card:'13001414944',
-                  custom_total_money:'1245784',
-                  custom_remain_money:'-23454',
-                }, {
-                  custom_name:'张三',
-                  custom_card:'13001414944',
-                  custom_total_money:'1245784',
-                  custom_remain_money:'-23453',
-                }, {
-                  custom_name:'张三',
-                  custom_card:'13001414944',
-                  custom_total_money:'1245784',
-                  custom_remain_money:'-23452',
-                }, {
-                  custom_name:'张三',
-                  custom_card:'13001414944',
-                  custom_total_money:'1245784',
-                  custom_remain_money:'-23451',
-                }, {
-                  custom_name:'张三',
-                  custom_card:'13001414944',
-                  custom_total_money:'1245784',
-                  custom_remain_money:'-23450',
-                },
-
-              ],
+              data9: [],
             }
         },
         components: {
             'tool-bar':toolBar
         },
         created(){
+            this.searchVisitor()
         },
         mounted(){
         },
         methods: {
           searchVisitor(){
-
+            let searchInfo = null;
+            if(ISNULL(this.searchCustomName)){
+              searchInfo = 'all'
+            }else{
+              searchInfo = this.searchCustomName
+            }
+            customManageApi.getCustomList(this.$store.getters.getAccountId,searchInfo,this.index,this.size).then(response =>{
+              this.data9 = response.data.content
+              this.total = response.data.totalElements
+            }).catch(response =>{
+              this.$error(apiError.response.data.response)
+            })
           },
+          changePage(pageIndex){
+            this.index = pageIndex-1;
+            this.searchVisitor()
+          }
         }
     }
 </script>

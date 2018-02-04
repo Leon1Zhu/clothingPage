@@ -3,30 +3,30 @@
  */
 import '../../globalFun'
 const state={
-  detailCustomName: ISNULL(sessionStorage.getItem('detailCustomName')) ? null : sessionStorage.getItem('detailCustomName'),
-  returnCustomName: ISNULL(sessionStorage.getItem('returnCustomName')) ? null : sessionStorage.getItem('returnCustomName'),
+  detailCustomId: ISNULL(sessionStorage.getItem('detailCustomId')) ? null : sessionStorage.getItem('detailCustomId'),
+  returnCustomId: ISNULL(sessionStorage.getItem('returnCustomId')) ? null : sessionStorage.getItem('returnCustomId'),
 }
 
 const getters = {
-  getDetailCustomName : state => state.detailCustomName,
-  getReturnCustomName : state => state.returnCustomName,
+  getDetailCustomId : state => state.detailCustomId,
+  getReturnCustomId : state => state.returnCustomId,
 }
 
 const mutations = {
-  setDetailCustomName(state,name){
-    state.detailCustomName = name
+  setDetailCustomId(state,name){
+    state.detailCustomId = name
   },
-  setReturnCustomName(state,name){
-    state.returnCustomName = name;
+  setReturnCustomId(state,name){
+    state.returnCustomId = name;
   }
 }
 
 const actions = {
   setDetailCustomNameAction({commit},name){
-    commit('setDetailCustomName',name)
+    commit('setDetailCustomId',name)
   },
   setReturnCustomNameAction({commit},name){
-    commit('setReturnCustomName',name)
+    commit('setReturnCustomId',name)
   }
 }
 
