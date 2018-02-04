@@ -1,7 +1,6 @@
 <template>
   <div class="repertory-shift-html">
     <tool-bar>
-
       <Input v-model="searchData.number" placeholder="请输入货号或者简称"></Input>
       <Col class="left-eight">
       <DatePicker v-model="searchData.time" type="daterange" placement="bottom-end" placeholder="选择日期"
@@ -11,10 +10,10 @@
         <Option v-for=" repertoryShift in repertoryShiftS" :value="repertoryShift.value">{{repertoryShift.name}}
         </Option>
       </Select>
-      <Button type="primary" icon="ios-search" @click.native="addNewStore('');" class="post-btn">搜索</Button>
+      <Button type="primary" icon="ios-search" @click.native="listGoodsRepertoryRecord();" class="post-btn">搜索</Button>
     </tool-bar>
     <div class="table-show">
-      <Table :columns="columns1" :data="data1"></Table>
+      <Table :columns="columns" :data="data"></Table>
     </div>
     <footer>
       <Page :total="100" class="footer-page"></Page>
@@ -23,24 +22,14 @@
 </template>
 <script>
   import toolBar from '../../common/vue/toolBar.vue';
+  import repertoryShiftApi from '../../api/repertoryShift';
 
   export default {
     props: {},
     data() {
       return {
         goodsAddOpen: true,
-        formItem: {
-          input: '',
-          select: '',
-          radio: 'male',
-          checkbox: [],
-          switch: true,
-          time: '',
-          slider: [20, 50],
-          value1: '1',
-          value2: [],
-        },
-        columns1: [
+        columns: [
           {
             title: '名称',
             key: 'name'
@@ -70,7 +59,7 @@
             key: 'type'
           }
         ],
-        data1: [
+        data: [
           {
             name: '三叶草卫衣',
             time: '2017-12-23 07:49:09',
@@ -172,8 +161,22 @@
       }
     },
     methods: {
-      searchRepertoryData() {
-        console.log(this.searchData);
+      listGoodsRepertoryRecord() {
+        let account = this.$store.getters.getAccountId;
+        let shopId = this.$store.getters.getShopId;
+        let searchData = {
+          status: '',
+          startDate: '',
+          endDate: '',
+          index: '',
+          size: '',
+          keyword: ''
+        };
+        repertoryShiftApi.listGoodsRepertoryRecord(account, shopId,).then(() => {
+
+        }).catch(() => {
+
+        })
       }
     },
     components: {
@@ -199,9 +202,9 @@
         text-align: right;
       }
     }
-    .left-eight{
-      .ivu-input:hover,.ivu-input:focus{
-        width:200px!important;
+    .left-eight {
+      .ivu-input:hover, .ivu-input:focus {
+        width: 200px !important;
       }
     }
   }

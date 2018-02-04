@@ -46,7 +46,7 @@
         sizeOpen: false,
         show: true,
         sizeDataS: [],
-        sizeName: 'XXL',
+        sizeName: '',
         sizeObject: {
           sizeName: '',
           sizeType: '自定义',

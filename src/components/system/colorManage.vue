@@ -36,7 +36,6 @@
             <!--<FormItem label="RGB颜色">
               <Input v-model="formItem.rgbColor" placeholder="rgb(255,231,200)"></Input>
             </FormItem>-->
-            <Alert>两个值都填时，默认取16进制</Alert>
           </Form>
         </div>
       </my-drawer>
@@ -56,8 +55,8 @@
         colorOpen: false,
         colorDataS: [],
         formItem: {
-          name: '黄色',
-          sixteenColor: '#fff000'
+          name: '',
+          sixteenColor: ''
         },
         colorData: {
           colorName: '',
