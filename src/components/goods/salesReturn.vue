@@ -136,7 +136,8 @@
                   key: 'orderMemo',
                 }
               ],
-              data9:[]
+              data9:[],
+              turnBackOrderNo:null,
             }
         },
         components: {
@@ -185,15 +186,28 @@
 
             })
           },
-          returnGoods(item){
-              console.log(item)
-            if(this.isDetail)return;
+          returnGoods(item,orderNo){
+            this.turnBackOrderNo = orderNo
             this.returnitem = item;
             this.maxCount = this.returnitem.detailAmount;
             this.open=true;
           },
           complateDrawer(){
-
+              let that =this;
+              let turnBack = {
+                account: that.$store.getters.getAccountId,
+                skuid : that.returnitem.skuId,
+                orderno : that.turnBackOrderNo,
+                amount :that.returnitem.detailAmount
+              }
+              console.log(turnBack)
+              visitorApi.turnBack(turnBack).then(response =>{
+                  this.getOrderTable();
+                  this.$success(opeartorSuccess,'退货成功！');
+                  this.open = false;
+              }).catch(response =>{
+                  this.$error(operatorError,response.data.message)
+              })
           },
           rowClassName (row, index) {
               if(row.orderRecharge > 0){

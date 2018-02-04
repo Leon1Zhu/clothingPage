@@ -73,7 +73,11 @@ import visitManageApi from '../../../api/visitManage'
         },
         methods: {
           returnItem(item){
-              this.$emit('returnItem',item)
+              if(item.detailProductName === '核销' || item.detailProductName === '抹零'){
+                  this.$warning(operatorWarning,'核销活抹零商品无法退货！');
+                  return;
+              }
+              this.$emit('returnItem',item,this.row.orderId)
           },
           getOrderListDetailInfo(){
               visitManageApi.getOrderDetailInfo(this.$store.getters.getAccountId,this.row.orderId).then(response =>{

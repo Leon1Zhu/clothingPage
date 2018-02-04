@@ -12,9 +12,6 @@
           colorName:{
             type:String,
           },
-          color:{
-            type:Object,
-          }
         },
         data(){
             return {}
