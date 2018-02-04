@@ -5,78 +5,26 @@
       <!--颜色管理-->
       <div class="color-manage">
         <!--颜色块-->
-        <div class="color-chunk">
+        <div v-for=" colorData in colorDataS" class="color-chunk">
           <!--颜色的名称-->
           <div class="color-name">
             <div class="title">
-              单色系&nbsp;&nbsp;
-              <span @click="addColor"><Icon class="ui-cursor" type="plus-circled" color="#06c1ae"></Icon></span>
+              {{colorData.seriesName}}&nbsp;&nbsp;
+              <span @click="addColor(colorData)"><Icon class="ui-cursor" type="plus-circled"
+                                                       color="#06c1ae"></Icon></span>
             </div>
           </div>
           <!--颜色的细节-->
           <div class="detail">
-            <Tag type="dot" v-if="show" closable @on-close="handleClose" color="blue">蓝色</Tag>
-            <Tag type="dot" v-if="show" closable @on-close="handleClose" color="green">绿色</Tag>
-            <Tag type="dot" v-if="show" closable @on-close="handleClose" color="red">红色</Tag>
-            <Tag type="dot" v-if="show" closable @on-close="handleClose" color="yellow">黄色</Tag>
-          </div>
-        </div>
-        <div class="color-chunk">
-          <!--颜色的名称-->
-          <div class="color-name">
-            <div class="title">
-              红色系&nbsp;&nbsp;
-              <span @click="addColor">
-              <Icon class="ui-cursor" type="plus-circled" color="#06c1ae"></Icon>
-            </span>
-            </div>
-          </div>
-          <!--颜色的细节-->
-          <div class="detail">
-            <Tag type="dot" closable @on-close="handleClose" color="#FF8C69">红色</Tag>
-            <Tag type="dot" closable @on-close="handleClose" color="#FF8247">粉红色</Tag>
-            <Tag type="dot" closable @on-close="handleClose" color="#FF34B3">玫瑰红</Tag>
-            <Tag type="dot" closable @on-close="handleClose" color="#FF0000">牡丹红</Tag>
-          </div>
-        </div>
-        <div class="color-chunk">
-          <!--颜色的名称-->
-          <div class="color-name">
-            <div class="title">
-              蓝色系&nbsp;&nbsp;
-              <span @click="addColor">
-              <Icon class="ui-cursor" type="plus-circled" color="#06c1ae"></Icon>
-            </span>
-            </div>
-          </div>
-          <!--颜色的细节-->
-          <div class="detail">
-            <Tag type="dot" closable @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-            <Tag type="dot" closable @on-close="handleClose" color="#00C5CD">天蓝</Tag>
-            <Tag type="dot" closable @on-close="handleClose" color="#00688B">蔚蓝</Tag>
-            <Tag type="dot" closable @on-close="handleClose" color="#0000CD">海蓝</Tag>
-          </div>
-        </div>
-        <div class="color-chunk">
-          <!--颜色的名称-->
-          <div class="color-name">
-            <div class="title">
-              蓝色系&nbsp;&nbsp;
-              <span @click="addColor">
-              <Icon class="ui-cursor" type="plus-circled" color="#06c1ae"></Icon>
-            </span>
-            </div>
-          </div>
-          <!--颜色的细节-->
-          <div class="detail">
-            <Tag type="dot" closable @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-            <Tag type="dot" closable @on-close="handleClose" color="#00C5CD">天蓝</Tag>
-            <Tag type="dot" closable @on-close="handleClose" color="#00688B">蔚蓝</Tag>
-            <Tag type="dot" closable @on-close="handleClose" color="#0000CD">海蓝</Tag>
+            <Tag v-for="color in colorData.colors" type="dot" closable
+                 @on-close="deleteColor(color.colorId, color.colorType)"
+                 :color="color.colorRgb">
+              {{color.colorName}}
+            </Tag>
           </div>
         </div>
       </div>
-      <my-drawer :open="colorOpen" title="颜色添加" @close-drawer="colorOpen=false" @complate-drawer="complateDrawer">
+      <my-drawer :open="colorOpen" title="颜色添加" @close-drawer="colorOpen=false" @complate-drawer="addColorData()">
         <div>
           <Form :model="formItem" :label-width="80">
             <FormItem label="颜色的名称">
@@ -85,9 +33,9 @@
             <FormItem label="16进制颜色">
               <Input v-model="formItem.sixteenColor" placeholder="#665424"></Input>
             </FormItem>
-            <FormItem label="RGB颜色">
+            <!--<FormItem label="RGB颜色">
               <Input v-model="formItem.rgbColor" placeholder="rgb(255,231,200)"></Input>
-            </FormItem>
+            </FormItem>-->
             <Alert>两个值都填时，默认取16进制</Alert>
           </Form>
         </div>
@@ -99,26 +47,65 @@
   import myDrawer from '../../common/vue/myDrawer.vue';
   import toolBar from '../../common/vue/toolBar.vue';
 
+  import colorApi from '../../api/colorManage';
+
   export default {
     props: {},
     data() {
       return {
         colorOpen: false,
-        show: true,
+        colorDataS: [],
         formItem: {
-          name: '粉红色',
-          sixteenColor: '#fff000',
-          rgbColor: 'rgb(255,186,123)'
+          name: '黄色',
+          sixteenColor: '#fff000'
         },
-        sizeName: 'XXL',
+        colorData: {
+          colorName: '',
+          colorRgb: '',
+          colorSeries: '',
+          colorType: '自定义'
+        },
       };
     },
+    created() {
+      this.getSysTemColor();
+    },
     methods: {
+      getSysTemColor() {
+        colorApi.getSysTemColor(this.$store.getters.getAccountId).then((response) => {
+          this.colorDataS = response.data;
+        }).catch((error) => {
+          this.$error(apiError, '获取错误')
+        });
+      },
+
       handleClose() {
         this.show = false;
       },
-      addColor() {
+      addColor(color) {
         this.colorOpen = true;
+        this.colorData.colorSeries = color.seriesName;
+      },
+      addColorData() {
+        this.colorData.colorName = this.formItem.name;
+        this.colorData.colorRgb = this.formItem.sixteenColor;
+        colorApi.addStoreColorBySysTem(this.$store.getters.getAccountId, this.colorData).then((response) => {
+          this.colorOpen = false;
+          this.getSysTemColor();
+        }).catch((error) => {
+          this.$error(apiError, '获取错误')
+        });
+      },
+      deleteColor(colorId, colorType) {
+        if (colorType === '系统') {
+          this.$Message.info('系统颜色，不允许删除！');
+        } else {
+          colorApi.deleteStoreColorBySysTemUrl(this.$store.getters.getAccountId, colorId).then((response) => {
+            this.getSysTemColor();
+          }).catch((error) => {
+            this.$error(apiError, '获取错误')
+          });
+        }
       }
     },
     components: {
@@ -137,19 +124,16 @@
       flex: 1;
       border-right: 2px solid #f8f6f2;
       .color-chunk {
-        padding: 8px;
-        padding-left: 0px;
+        padding: 8px 8px 8px 0px;
         margin: {
           top: 15px;
         }
         .color-name {
-          padding: 8px;
-          padding-left: 0px;
+          padding: 8px 8px 8px 0px;
           border-bottom: 1px solid #f8f6f2;
         }
         .detail {
-          padding: 8px;
-          padding-left: 0px;
+          padding: 8px 8px 8px 0px;
         }
       }
     }

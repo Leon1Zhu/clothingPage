@@ -5,42 +5,26 @@
       <!--尺码管理-->
       <div class="size-manage">
         <!--尺码块-->
-        <div class="size-chunk">
+        <div v-for="sizeData in sizeDataS" class="size-chunk">
           <!--尺码的名称-->
           <div class="size-name">
             <div class="title">
-              均码&nbsp;&nbsp;
-              <span @click="addSize"><Icon class="ui-cursor" type="plus-circled" color="#06c1ae"></Icon></span>
+              {{sizeData.sizetypeName}}&nbsp;&nbsp;
+              <span @click="addSize(sizeData)"><Icon class="ui-cursor" type="plus-circled"
+                                                     color="#06c1ae"></Icon></span>
             </div>
           </div>
           <!--尺码的细节-->
           <div class="detail">
-            <Tag type="dot" closable color="#06c1ae">M</Tag>
-            <Tag type="dot" closable color="#06c1ae">S</Tag>
-            <Tag type="dot" closable color="#06c1ae">L</Tag>
-            <Tag type="dot" closable color="#06c1ae">XL</Tag>
-            <Tag type="dot" closable color="#06c1ae">XXL</Tag>
-          </div>
-        </div>
-        <div class="size-chunk">
-          <!--尺码的名称-->
-          <div class="size-name">
-            <div class="title">
-              中国码&nbsp;&nbsp;
-              <span @click="addSize"><Icon class="ui-cursor" type="plus-circled" color="#06c1ae"></Icon></span>
-            </div>
-          </div>
-          <!--尺码的细节-->
-          <div class="detail">
-            <Tag type="dot" closable color="#06c1ae">L</Tag>
-            <Tag type="dot" closable color="#06c1ae">M</Tag>
-            <Tag type="dot" closable color="#06c1ae">X</Tag>
+            <Tag v-for="size in sizeData.sizes" type="dot" closable
+                 @on-close="deleteSize(size.sizeId, size.sizeType)" color="#06c1ae">{{size.sizeName}}
+            </Tag>
           </div>
         </div>
       </div>
-      <my-drawer :open="sizeOpen" title="尺码添加" @close-drawer="sizeOpen=false" @complate-drawer="complateDrawer">
-        <div>
-          <Form :model="formItem" :label-width="80">
+      <my-drawer :open="sizeOpen" title="尺码添加" @close-drawer="sizeOpen=false" @complate-drawer="addSizeData()">
+        <div class="add-size-drawer">
+          <Form :label-width="80">
             <FormItem label="尺码名称">
               <Input v-model="sizeName" placeholder="XXL"></Input>
             </FormItem>
@@ -53,6 +37,7 @@
 <script>
   import myDrawer from '../../common/vue/myDrawer.vue';
   import toolBar from '../../common/vue/toolBar.vue';
+  import sizeApi from '../../api/sizeManage';
 
   export default {
     props: {},
@@ -60,20 +45,52 @@
       return {
         sizeOpen: false,
         show: true,
-        formItem: {
-          name: '粉红色',
-          sixteenColor: '#fff000',
-          rgbColor: 'rgb(255,186,123)'
-        },
+        sizeDataS: [],
         sizeName: 'XXL',
+        sizeObject: {
+          sizeName: '',
+          sizeType: '自定义',
+          sizeTypeId: 0,
+          sizeTypeName: ''
+        }
       };
     },
+    created() {
+      this.getSysTemSize();
+    },
     methods: {
-      handleClose() {
-        this.show = false;
+      getSysTemSize() {
+        sizeApi.getSysTemSize(this.$store.getters.getAccountId).then((response) => {
+          this.sizeDataS = response.data;
+          console.log(this.sizeDataS);
+        }).catch((error) => {
+          this.$error(apiError, '获取错误')
+        });
       },
-      addSize() {
+      addSize(sizeData) {
         this.sizeOpen = true;
+        this.sizeObject.sizeTypeId = sizeData.sizetypeId;
+        this.sizeObject.sizeTypeName = sizeData.sizetypeName;
+      },
+      addSizeData() {
+        this.sizeObject.sizeName = this.sizeName;
+        sizeApi.addStoreSizeBySysTem(this.$store.getters.getAccountId, this.sizeObject).then((response) => {
+          this.getSysTemSize();
+          this.sizeOpen = false;
+        }).catch((error) => {
+          this.$error(apiError, '获取错误')
+        });
+      },
+      deleteSize(sizeId, sizeType) {
+        if (sizeType === '系统') {
+          this.$Message.info('系统尺码，不允许删除！');
+        } else {
+          sizeApi.deleteStoreSizeBySysTemUrl(this.$store.getters.getAccountId, sizeId).then((response) => {
+            this.getSysTemSize();
+          }).catch((error) => {
+            this.$error(apiError, '获取错误')
+          });
+        }
       }
     },
     components: {
@@ -91,21 +108,22 @@
     .size-manage {
       flex: 1;
       .size-chunk {
-        padding: 8px;
-        padding-left: 0px;
+        padding: 8px 8px 8px 0px;
         margin: {
           top: 15px;
         }
         .size-name {
-          padding: 8px;
-          padding-left: 0px;
+          padding: 8px 8px 8px 0px;
           border-bottom: 1px solid #f8f6f2;
         }
         .detail {
-          padding: 8px;
-          padding-left: 0px;
+          padding: 8px 8px 8px 0px;
         }
       }
     }
+  }
+
+  .add-size-drawer {
+    margin-top: 8px;
   }
 </style>
