@@ -7,7 +7,7 @@
     </tool-bar>
 
     <Table stripe border :columns="columns10" :data="data9"></Table>
-
+    <Page :total="total" style="margin-top: 5px;" :page-size="size" @on-change="changePage"></Page>
     <my-drawer :open="open" :btnFont="btnFont" :customInfoProp="customInfoProp" @complateDrawer="complateDrawer" @close-drawer="open=false"></my-drawer>
 
 
@@ -22,6 +22,9 @@
 
     data(){
       return {
+        index:0,
+        total:0,
+        size:SIZE,
         open:false,
         searchStaffName:null,
         btnFont:'新增',
@@ -43,14 +46,14 @@
             title: '客户卡号',
             key: 'customCard',
           },
-          {
+          /*{
             title: '消费总额',
             key: 'customTotalMoney',
           },
           {
             title: '账户余额',
             key: 'customRemainMoney',
-          }, {
+          },*/ {
             title: '操作',
             key: 'operate',
             render: (h, params) => {
@@ -119,12 +122,17 @@
           }else{
               searchInfo = this.searchStaffName
           }
-          customManageApi.getCustomList(this.$store.getters.getAccountId,searchInfo).then(response =>{
-              this.data9 = response.data
+          customManageApi.getCustomList(this.$store.getters.getAccountId,searchInfo,this.index,this.size).then(response =>{
+              this.data9 = response.data.content
+              this.total = response.data.totalElements
           }).catch(response =>{
              this.$error(apiError.response.data.response)
         })
       },
+      changePage(pageIndex){
+          this.index = pageIndex-1;
+          this.getManageList()
+      }
     }
   }
 </script>

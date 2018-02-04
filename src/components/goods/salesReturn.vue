@@ -199,11 +199,11 @@
           'tool-bar':toolBar
         },
         created(){
+            this.getOrderTable()
         },
         computed: {
-          detailCustomName(){
-            console.log(this.$store.getters.getDetailCustomName == null)
-            this.$store.getters.getDetailCustomName
+          detailCustomId(){
+            return this.$store.getters.getDetailCustomId
           },
           isDetail(){
             if (this.$route.path === '/visitorDetail') {
@@ -217,6 +217,9 @@
         methods: {
           filterMethod (value, option) {
             return option.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+          },
+          getOrderTable(){
+
           },
           returnGoods(item){
               console.log(item)

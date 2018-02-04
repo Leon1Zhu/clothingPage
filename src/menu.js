@@ -41,7 +41,7 @@ global.MENU = [
         linkHref: '/goodsManage',
         needPower:true,
       }, {
-        menuName: '销售开单',
+        menuName: '订单记录',
         menuIcon: 'icon-zonghekaidan',
         linkHref: '/salesOrder',
       }, {

@@ -8,6 +8,7 @@
       </tool-bar>
 
       <Table stripe border :columns="columns10" :data="data9"></Table>
+      <Page :total="total" style="margin-top: 5px;" :page-size="size"  @on-change="changePage"></Page>
     </div>
 </template>
 
@@ -17,6 +18,9 @@
     export default{
         data(){
             return {
+              index:0,
+              total:0,
+              size:SIZE,
               searchCustomName:null,
               columns10: [
                 {
@@ -50,7 +54,7 @@
                         },
                         on: {
                           click: () => {
-                              this.$store.commit('setDetailCustomName',params.row.custom_name)
+                              this.$store.commit('setDetailCustomId',params.row.customId)
                              this.$router.push({ path: '/visitorDetail'})
                           }
                         }
@@ -78,12 +82,17 @@
             }else{
               searchInfo = this.searchCustomName
             }
-            customManageApi.getCustomList(this.$store.getters.getAccountId,searchInfo).then(response =>{
-              this.data9 = response.data
+            customManageApi.getCustomList(this.$store.getters.getAccountId,searchInfo,this.index,this.size).then(response =>{
+              this.data9 = response.data.content
+              this.total = response.data.totalElements
             }).catch(response =>{
               this.$error(apiError.response.data.response)
             })
           },
+          changePage(pageIndex){
+            this.index = pageIndex-1;
+            this.searchVisitor()
+          }
         }
     }
 </script>
