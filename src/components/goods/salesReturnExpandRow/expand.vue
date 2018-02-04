@@ -4,41 +4,54 @@
     <Card  v-for="item in data1" @click.native="returnItem(item)">
       <div class="good-card">
         <div class="left-content">
-            <img class="good-img" :src="item.img">
+            <img class="good-img" :src="item.productPic">
         </div>
         <div class="center-content">
             <div class="top-content">
-              <div>商品货号:{{item.id}}</div>
-              <div>商品名称:{{item.name}}</div>
+              <div>商品货号:<span v-if="item.productCode && item.productCode2">{{item.productCode+'/'+item.productCode2}}</span></div>
+              <div>商品名称:{{item.detailProductName}}</div>
             </div>
-            <div class="bottom-content">
+
+            <div class="bottom-content" v-if="item.detailProductName === '核销' || item.detailProductName === '抹零' ">
               <div class="center-color-size">
-              <color-content :colorName="item.color" :color="item.colorName"></color-content>
+                <color-content :colorName="item.detailProductName" ></color-content>
+
+                <div class="size-content">
+                  {{item.detailProductName}}
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom-content" v-else>
+              <div class="center-color-size">
+              <color-content :colorName="item.colorName" :color="item.colorName"></color-content>
 
               <div class="size-content">
-                {{item.size}}
+                {{item.sizeName}}
               </div>
               </div>
             </div>
         </div>
         <div class="right-content">
           <div class="top-content">
-             <p class="prince-content">{{'+'+item.prince}}</p>
+             <p class="prince-content">{{'+'+item.detailPrice}}</p>
           </div>
           <div classs="right-center-content">
-            <p class="count-content">{{'x'+item.count}}</p>
+            <p class="count-content">{{'x'+item.detailAmount}}</p>
           </div>
           <div class="bottom-content">
-              <p class="returnCount">{{item.returnCount > 0 ? '-'+item.returnCount : ''}}</p>
+              <p class="returnCount">{{item.detailReturnamount > 0 ? '-'+item.detailReturnamount : 0}}</p>
           </div>
         </div>
       </div>
     </Card>
+    <Spin size="large" fix v-if="spinShow"></Spin>
   </div>
 </template>
 
 <script>
 import colorContent from '../../../common/vue/colorContent.vue'
+import visitManageApi from '../../../api/visitManage'
     export default{
         props: {
           row: Object
@@ -46,167 +59,33 @@ import colorContent from '../../../common/vue/colorContent.vue'
         data(){
             return {
               showHeader:false,
-              /*columns1: [
-                {
-                  align:'center',
-                  title: '图片',
-                  key: 'img',
-                  render: (h, params) => {
-                    return h('img', {
-                      style: {
-                        maxWidth: '80px',
-                        maxHeight:'80px'
-
-                      },
-                      domProps: {
-                         src: params.row.img
-                      },
-                  });
-                  }
-                },{
-                  title: '货号',
-                  key: 'id'
-                },{
-                  title: '颜色',
-                  key: 'color',
-                  render: (h, params) => {
-                    return h('div', [
-                      h('div', {
-                        style: {
-                          background: params.row.colorName,
-                          height:'1em',
-                          width:'1em',
-                          display:'inline-block',
-                        },
-                      }, ''),
-                      h('div',{
-                        style: {
-                          color: params.row.colorName,
-                          display:'inline-block',
-                          position: 'relative',
-                          top: '-2px',
-                          marginLeft: '5px',
-                        },
-                      },params.row.color)
-                    ]);
-                  }
-
-                },{
-                  title: '尺码',
-                  key: 'size'
-                },{
-                  title: '单价',
-                  key: 'prince'
-                },{
-                  title: '数量',
-                  key: 'count',
-                  render: (h, params) => {
-                    return h('div', [
-                      h('p', {
-                        style: {
-                          color: '#c1c2c3'
-                        },
-                      }, 'x'+params.row.count),
-                      h('p',{
-                        style: {
-                          color: '#fc934f'
-                        },
-                      },parseInt(params.row.returnCount,10) > 0 ? '-'+params.row.returnCount : '')
-                    ]);
-                  }
-                },
-              ],*/
-              data1:[
-                {
-                  img:'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
-                  id:'892726252525/0905',
-                  color:'浅蓝色',
-                  colorName:'#65cefa',
-                  size:'L',
-                  prince:152.00,
-                  count:10000,
-                  returnCount:1,
-                  name:'01016下口袋'
-                },
-                {
-                  img:'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
-                  id:'892726252525/0905',
-                  color:'浅绿色',
-                  colorName:'#5ac79d',
-                  size:'L',
-                  prince:152.00,
-                  count:10,
-                  returnCount:1,
-                  name:'01016下口袋'
-                },
-                {
-                  img:'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
-                  id:'892726252525/0905',
-                  color:'黑色',
-                  colorName:'black',
-                  size:'均码',
-                  prince:152.00,
-                  count:10,
-                  returnCount:1,
-                  name:'01016下口袋'
-                },
-                {
-                  img:'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
-                  id:'892726252525/0905',
-                  color:'黑色',
-                  colorName:'black',
-                  size:'均码',
-                  prince:152.00,
-                  count:10,
-                  returnCount:1,
-                  name:'01016下口袋'
-                },
-                {
-                  img:'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
-                  id:'892726252525/0905',
-                  color:'黑色',
-                  colorName:'black',
-                  size:'均码',
-                  prince:152.00,
-                  count:10,
-                  returnCount:1,
-                  name:'01016下口袋'
-                },
-                {
-                  img:'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
-                  id:'892726252525/0905',
-                  color:'黑色',
-                  colorName:'black',
-                  size:'均码',
-                  prince:152.00,
-                  count:10,
-                  returnCount:1,
-                  name:'01016下口袋'
-                },
-                {
-                  img:'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
-                  id:'892726252525/0905',
-                  color:'黑色',
-                  colorName:'black',
-                  size:'均码',
-                  prince:152.00,
-                  count:10,
-                  returnCount:1,
-                  name:'01016下口袋'
-                }
-              ]
+              spinShow:true,
+              data1:[]
             }
         },
         components: {
             'color-content':colorContent
         },
         created(){
+            this.getOrderListDetailInfo()
         },
         mounted(){
         },
         methods: {
           returnItem(item){
               this.$emit('returnItem',item)
+          },
+          getOrderListDetailInfo(){
+              visitManageApi.getOrderDetailInfo(this.$store.getters.getAccountId,this.row.orderId).then(response =>{
+                  this.data1 = response.data.details
+                  this.$nextTick(function(){
+                    this.spinShow = false;
+                  })
+
+              }).catch(response =>{
+                  this.$error(apiError,response.data.message)
+                  this.spinShow = false;
+              })
           }
         }
     }
