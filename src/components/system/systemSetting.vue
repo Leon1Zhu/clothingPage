@@ -34,18 +34,37 @@
           <span slot="close">否</span>
         </i-switch>
       </FormItem>
+      <FormItem label="积分抵扣">
+        <Tag type="dot" closable color="green">500积分抵扣50元</Tag>
+        <Tag type="dot" closable color="green">1000积分抵扣100元</Tag>
+        <Tag type="dot" closable color="green">200积分抵扣250元</Tag>
+        <Tag type="dot" closable color="green">3000积分抵扣350元</Tag>
+        <Button type="primary" shape="circle" icon="plus-round" @click="integrationOpen=true"></Button>
+      </FormItem>
       <FormItem>
         <Button type="primary">保存</Button>
       </FormItem>
     </Form>
+    <my-drawer :open="integrationOpen" title="积分规则添加" @close-drawer="integrationOpen=false" @complate-drawer="">
+      <div class="integration-add">
+        <Form :model="formItem" :label-width="80">
+          <FormItem label="积分规则">
+            <Input v-model="sizeName" placeholder="500积分抵扣50元"></Input>
+          </FormItem>
+        </Form>
+      </div>
+    </my-drawer>
   </div>
 </template>
 <script>
   import toolBar from '../../common/vue/toolBar.vue';
+  import myDrawer from '../../common/vue/myDrawer.vue';
+
   export default {
     props: {},
     data() {
       return {
+        integrationOpen: false,
         formItem: {
           input: '',
           select: '',
@@ -60,12 +79,17 @@
       };
     },
     methods: {},
-    components: {toolBar}
+    components: {toolBar, myDrawer}
   };
 </script>
 <style lang="scss" rel="stylesheet/scss" type="text/scss">
   @import '../../common/css/globalscss.scss';
+
   .system-setting-html {
     width: 100%;
+  }
+
+  .integration-add {
+    margin-top: 8px;
   }
 </style>
