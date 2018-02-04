@@ -90,11 +90,11 @@ global.MENU = [
         linkHref: '/storeChange',
       }, {
         menuName: '手动盘点',
-        menuIcon: 'icon-pandian',
+        menuIcon: 'icon-icon-open',
         linkHref: '/handStore',
       }, {
         menuName: '扫码盘点',
-        menuIcon: 'icon-pandian',
+        menuIcon: 'icon-saoma',
         linkHref: '/scanStore',
       }, {
         menuName: '货仓调货',
@@ -102,7 +102,7 @@ global.MENU = [
         linkHref: '/seasoningCondiments',
       }, {
         menuName: '调货记录',
-        menuIcon: 'icon-yunshupeisong',
+        menuIcon: 'icon-icon-test',
         linkHref: '/seasoningRecord',
       }
     ]

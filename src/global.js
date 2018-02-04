@@ -33,6 +33,7 @@ global.apiError = '接口异常';
 global.operatorError = '操作出错';
 global.operatorWarning = '操作异常';
 global.opeartorSuccess = '操作成功';
+global.SIZE = 5;
 
 global.SERVICEURL="http://appserver01.17wa.com/17wa"
 global.PICSERVICEURL="http://image02.17wa.com/17wa"
