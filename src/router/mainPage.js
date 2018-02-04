@@ -60,6 +60,8 @@ const visitorDetail = resolve => require(['@/components/visitor/visitorDetail.vu
 //商品管理
 const goodsManage = resolve => require(['@/components/goods/goodsManage.vue'], resolve);
 
+//订单列表
+const orderList = resolve => require(['@/components/visitor/orderList.vue'], resolve);
 const mainPageRouter = {
   path: '/',
   component: mainPage,
@@ -130,7 +132,7 @@ const mainPageRouter = {
     {
       path: '/scanStore',
       component: scanStore,
-      name: "手动盘点",
+      name: "扫码盘点",
       //needAlive表示该页面是否是标签页,keepAlive表示是否需要缓存改页面
       meta: {needAlive: true, keepAlive: true},
     },
@@ -181,6 +183,12 @@ const mainPageRouter = {
       path: '/visitorDetail',
       component: visitorDetail,
       name: "往来明细",
+      meta: {needAlive: true, keepAlive: true},
+    },
+    {
+      path: '/orderList',
+      component: orderList,
+      name: "订单列表",
       meta: {needAlive: true, keepAlive: true},
     },
     {

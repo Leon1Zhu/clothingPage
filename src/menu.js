@@ -63,7 +63,7 @@ global.MENU = [
       }, {
         menuName: '订单记录',
         menuIcon: 'icon-06',
-        linkHref: '/salesReturn',
+        linkHref: '/orderList',
       }
     ]
   }, {
