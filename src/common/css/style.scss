@@ -26,7 +26,7 @@ table,.ivu-input{
 }
 .mu-paper.mu-drawer{
   background: #f6f5f8;
-  width:446px;
+  width:400px;
   .drawer-content{
     overflow-x: hidden;
     min-height:100%;
@@ -45,7 +45,8 @@ table,.ivu-input{
       line-height: 60px;
       .ivu-icon-close{
         position: absolute;
-        right: 16px;
+        right: 11px;
+        padding:0 5px;
         line-height:54px;
         transition:transform .3s ;
       }
@@ -97,29 +98,41 @@ table,.ivu-input{
       margin-left:2px;
       color: $formInputLableFontColor;
     }
-    .service-item{
-      color: $menuSelectFontColor;
-      border: 1px dotted $menuSelectFontColor;
-      border-radius:30px;
-      padding:0px 6px;
-      font-size:12px;
-      margin-left:5px;
-      margin-top:5px;
-      height: 25px;
-      line-height: 190%;
-      transition: all .1s;
-    }
-    .service-item:hover{
-      background: $menuSelectFontColor;
-      color: #fff;
-      border: 1px solid $menuSelectFontColor!important;
-      cursor: pointer;
-    }
+
   }
   .right-content{
     flex:1 1 30%;
     text-align: right;
     line-height:200%;
+    .btn-content{
+      width:70%;
+      display: flex;
+      flex-wrap: wrap;
+      .service-item{
+        color: $menuSelectFontColor;
+        border: 1px dotted $menuSelectFontColor;
+        border-radius:2px;
+        padding:0px 6px;
+        font-size:12px;
+        margin-left:5px;
+        margin-top:5px;
+        height: 25px;
+        line-height: 190%;
+        transition: all .1s;
+      }
+      .service-item.active{
+        background: $menuSelectFontColor;
+        color: #fff;
+        border: 1px solid $menuSelectFontColor!important;
+      }
+      .service-item:hover{
+        background: $menuSelectFontColor;
+        color: #fff;
+        border: 1px solid $menuSelectFontColor!important;
+        cursor: pointer;
+      }
+    }
+
   }
 }
 .no-border-bottom-item{
@@ -154,52 +167,60 @@ table,.ivu-input{
   background: $menuSelectFontColor;
 }
 
-.store-item-icon-color:nth-child(2) .left-content .iconfont:before{
+
+.store-item-icon-color:nth-child(1) .left-content .iconfont:before{
   background: #808dc4;
 }
 
-.store-item-icon-color:nth-child(3) .left-content .iconfont:before{
+
+.store-item-icon-color:nth-child(2) .left-content .iconfont:before{
   background: #a2ce8d;
 }
 
-.store-item-icon-color:nth-child(4) .left-content .iconfont:before{
+.store-item-icon-color:nth-child(3) .left-content .iconfont:before{
   background: #71c8f2;
 }
 
 
-.store-item-icon-color:nth-child(5) .left-content .iconfont:before{
+.store-item-icon-color:nth-child(4) .left-content .iconfont:before{
   background: #17aca8;
 }
-.store-item-icon-color:nth-child(6) .left-content .iconfont:before{
+.store-item-icon-color:nth-child(5) .left-content .iconfont:before{
   background: cornflowerblue;
 }
 
 
-.store-item-icon-color:nth-child(7) .left-content .iconfont:before{
+.store-item-icon-color:nth-child(6) .left-content .iconfont:before{
   background: #f08e03;
 }
 
 
 
-.store-item-icon-color:nth-child(8) .left-content .iconfont:before{
+.store-item-icon-color:nth-child(7) .left-content .iconfont:before{
   background: #22c06b;
 }
 
-.store-item-icon-color:nth-child(9) .left-content .iconfont:before{
+.store-item-icon-color:nth-child(8) .left-content .iconfont:before{
   background: #13bdff;
 }
 
 
-.store-item-icon-color:nth-child(10) .left-content .iconfont:before{
+.store-item-icon-color:nth-child(9) .left-content .iconfont:before{
   background: #fd818c;
 }
 
-.store-item-icon-color:nth-child(13) .left-content .iconfont:before{
+.store-item-icon-color:nth-child(12) .left-content .iconfont:before{
   background: #19bdff;
 }
 
-.store-item-icon-color:nth-child(14) .left-content .iconfont:before{
+.store-item-icon-color:nth-child(13) .left-content .iconfont:before{
   background: #fe808c;
+}
+.mu-overlay{
+  z-index: 1000!important;
+}
+.mu-paper.mu-drawer{
+  z-index:1001!important;
 }
 
 

@@ -12,10 +12,12 @@ global.MENU = [
         menuName: '门店管理',
         menuIcon: 'icon-mendianguanli',
         linkHref: '/storeManage',
+        needPower:true,
       }, {
         menuName: '店员管理',
         menuIcon: 'icon-kehu',
         linkHref: '/staffManage',
+        needPower:true,
       }, {
         menuName: '颜色管理',
         menuIcon: 'icon-yanse',
@@ -37,6 +39,7 @@ global.MENU = [
         menuName: '商品管理',
         menuIcon: 'icon-gouwudai',
         linkHref: '/goodsManage',
+        needPower:true,
       }, {
         menuName: '销售开单',
         menuIcon: 'icon-zonghekaidan',

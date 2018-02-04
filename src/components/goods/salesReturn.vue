@@ -267,7 +267,7 @@
       width:100%;
     }
     .describe-content{
-      display: block;
+      display: flex;
       position: relative;
       width:100%;
       background: #fff;

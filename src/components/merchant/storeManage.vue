@@ -4,7 +4,7 @@
         <Button type="primary" icon="plus-round" @click.native="addNewStore('');">添加新门店</Button>
       </tool-bar>
       <Table stripe border :columns="columns10" :data="data9"></Table>
-      <my-drawer :open="open" title="门店管理" :btnFont="btnFont" @close-drawer="open=false" @complate-drawer="complateDrawer">
+      <my-drawer :open="open" title="门店管理" :btnFont="btnFont" @close-drawer="open = false" @complate-drawer="complateDrawer">
         <div class="store-change-content">
           <div class="store-item">
             <div class="left-content">
@@ -12,36 +12,13 @@
               <div class="store-item-label">请选择是否是默认主店铺</div>
             </div>
             <div class="right-content">
-              <i-switch v-model="addSotreItem.defaultStore" >
+              <i-switch v-model="addSotreItem.shopIsdefault === '1' " @on-change="changeDefault" >
                 <span slot="open"></span>
                 <span slot="close"></span>
               </i-switch>
             </div>
           </div>
 
-          <div class="store-item  store-item-icon-color">
-            <div class="left-content">
-              <i class="iconfont  icon-iconfontcaidan" ></i>
-              <div class="store-item-label">行业分类<span class="red-star">*</span></div>
-            </div>
-            <div class="right-content">
-              <Select v-model="addSotreItem.storeClassify" >
-                <Option v-for="item in storeClassify" :value="item.value" :key="item.value">{{ item.label }}</Option>
-              </Select>
-            </div>
-          </div>
-
-          <div class="store-item store-item-icon-color">
-            <div class="left-content">
-              <i class="iconfont  icon-gouwudai" ></i>
-              <div class="store-item-label">销售类型<span class="red-star">*</span></div>
-            </div>
-            <div class="right-content">
-              <Select v-model="addSotreItem.saleType" >
-                <Option v-for="item in saleType" :value="item.value" :key="item.value">{{ item.label }}</Option>
-              </Select>
-            </div>
-          </div>
 
           <div class="store-item store-item-icon-color">
             <div class="left-content">
@@ -49,7 +26,7 @@
               <div class="store-item-label">门店名称<span class="red-star">*</span></div>
             </div>
             <div class="right-content">
-              <Input v-model="addSotreItem.storeName" placeholder="门店名称" ></Input>
+              <Input v-model="addSotreItem.shopName" placeholder="门店名称" ></Input>
             </div>
           </div>
 
@@ -59,7 +36,7 @@
               <div class="store-item-label">门店地区<span class="red-star">*</span></div>
             </div>
             <div class="right-content">
-              <Cascader :data="data" v-model="addSotreItem.storeAdress"></Cascader>
+              <Cascader :data="data" v-model="marketNameArr"></Cascader>
             </div>
           </div>
 
@@ -68,17 +45,26 @@
               <div  style="margin-left: 27px;" class="store-item-label">详细地址<span class="red-star">*</span></div>
             </div>
             <div class="right-content">
-              <Input v-model="addSotreItem.storeDetailAdress" placeholder="详细地址" ></Input>
+              <Input v-model="addSotreItem.shopAddr" placeholder="详细地址" ></Input>
             </div>
           </div>
 
           <div class="store-item  store-item-icon-color">
             <div class="left-content">
               <i class="iconfont  icon-dianhua" ></i>
-              <div   class="store-item-label">门店电话<span class="red-star">*</span></div>
+              <div   class="store-item-label">门店电话1<span class="red-star">*</span></div>
             </div>
             <div class="right-content">
-              <Input v-model="addSotreItem.storePhone" placeholder="详细地址" ></Input>
+              <Input v-model="addSotreItem.shopPhone1" placeholder="门店电话1" style="width: 72%;"></Input>
+            </div>
+          </div>
+
+          <div class="store-item  ">
+            <div class="left-content">
+              <div  style="margin-left: 27px;" class="store-item-label">门店电话2<span class="red-star">*</span></div>
+            </div>
+            <div class="right-content">
+              <Input v-model="addSotreItem.shopPhone2" placeholder="门店电话2" style="width: 72%;"></Input>
             </div>
           </div>
 
@@ -89,7 +75,7 @@
               <div   class="store-item-label">门店微信<span class="red-star">*</span></div>
             </div>
             <div class="right-content">
-              <Input v-model="addSotreItem.weixin" placeholder="门店微信" ></Input>
+              <Input v-model="addSotreItem.shopWechat" placeholder="门店微信" ></Input>
             </div>
           </div>
 
@@ -99,7 +85,7 @@
               <div   class="store-item-label">门店QQ&nbsp;&nbsp;<span class="red-star">*</span></div>
             </div>
             <div class="right-content">
-              <Input v-model="addSotreItem.weixin" placeholder="门店QQ" ></Input>
+              <Input v-model="addSotreItem.shopQq" placeholder="门店QQ" ></Input>
             </div>
           </div>
 
@@ -109,8 +95,10 @@
               <i class="iconfont  icon-zhifufangshi" ></i>
               <div   class="store-item-label">支付方式<span class="red-star">*</span></div>
             </div>
-            <div class="right-content">
-              <Input v-model="addSotreItem.weixin" placeholder="选择支付方式" ></Input>
+            <div class="right-content" style="display: flex;justify-content: flex-end;">
+              <div class="btn-content">
+                <div v-for="item in storePayType" style="margin-left: 3px;"   class="service-item" :class="{ active : payTypeActiveClass(item.label)}"  @click="managepType(item.label)">{{item.label}}</div>
+              </div>
             </div>
           </div>
 
@@ -119,7 +107,7 @@
               <div  style="margin-left: 27px;" class="store-item-label">微信支付&nbsp;&nbsp;</div>
             </div>
             <div class="right-content">
-              <Input v-model="addSotreItem.storeDetailAdress" placeholder="微信支付账号" ></Input>
+              <Input v-model="addSotreItem.shopWechatpay" placeholder="微信支付账号" ></Input>
             </div>
           </div>
           <div class="store-item  ">
@@ -127,7 +115,7 @@
               <div  style="margin-left: 27px;" class="store-item-label">支付宝&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
             </div>
             <div class="right-content">
-              <Input v-model="addSotreItem.zfbAcount" placeholder="支付宝账号" ></Input>
+              <Input v-model="addSotreItem.shopAlipay" placeholder="支付宝账号" ></Input>
             </div>
           </div>
 
@@ -137,7 +125,7 @@
               <div   class="store-item-label">收款名<span class="red-star">*</span>&nbsp;&nbsp;&nbsp;&nbsp;</div>
             </div>
             <div class="right-content">
-              <Input v-model="addSotreItem.weixin" placeholder="收款名称" ></Input>
+              <Input v-model="addSotreItem.shopAlipayName" placeholder="收款名称" ></Input>
             </div>
           </div>
 
@@ -145,9 +133,12 @@
             <div class="left-content">
               <i class="iconfont  icon-fuwu" ></i>
               <div   class="store-item-label">店铺服务<span class="red-star">*</span></div>
-              <div v-for="item in storeService"   class="service-item"  @click="addService(item.value)">{{item.label}}</div>
+
             </div>
-            <div class="rightT-content">
+            <div class="right-content" style="display: flex; justify-content: flex-end">
+              <div class="btn-content">
+                <div v-for="item in storeService"   class="service-item" :class="{ active : serviceActiveClass(item.label)}"  @click="manageService(item.label)">{{item.label}}</div>
+              </div>
 
             </div>
           </div>
@@ -165,10 +156,10 @@
           <span>门店删除确认</span>
         </p>
         <div style="text-align:center">
-          <p>你确认删除1号仓库么。</p>
+          <p>你确认删除[{{addSotreItem.shopName}}]么。</p>
         </div>
         <div slot="footer">
-          <Button type="error" size="large" long :loading="modal_loading" @click="del">删除</Button>
+          <Button type="error" size="large" class="delete_store" long :loading="modal_loading" @click="del">删除</Button>
         </div>
       </Modal>
     </div>
@@ -177,6 +168,7 @@
 <script>
   import myDrawer from'../../common/vue/myDrawer.vue'
   import toolBar from'../../common/vue/toolBar.vue'
+  import storeManageApi from '../../api/storeManageApi'
     export default{
         data(){
             return {
@@ -184,49 +176,54 @@
               btnFont:'新增',
               modal2:false,
               modal_loading:false,
-              storeClassify:STORECLASSIFY,
-              saleType:SALETYPE,
               storeService:STORESERVICE,
+              storePayType:PAYTYPE,
               addSotreItem:{
-                defaultStore:false,
-                storeClassify:null,
-                saleType:null,
-                storeName:null,
-                storeAdress:[],
-                storeDetailAdress:null,
-                storePhone:null,
-                zfbAcount:null,
+                shopIsdefault:null,
+                shopName:null,
+                marketName:null,
+                shopAddr:null,
+                shopWechat:null,
+                shopWechatpay:null,
+                shopPhone1:null,
+                shopPhone2:null,
+                shopAlipay:null,
+                shopAlipayName:null,
+                shopTags:null,
+                shopQq:null,
               },
+              marketNameArr:null,
+              shopTagsArr:[],
+              payTypeArr:[],
               columns10: [
                 {
                   title: '门店名称',
-                  key: 'storeName'
+                  key: 'shopName'
                 },
                 {
                   title: '门店地区',
-                  key: 'storeAdress',
+                  key: 'marketName',
                 },
                 {
                   title: '门店地址',
-                  key: 'storeDetailAdress',
+                  key: 'shopAddr',
                 },
 
                 {
                   title: '门店微信',
-                  key: 'storeWeiXin',
+                  key: 'shopWechat',
                 },
                 {
                   title: '门店QQ',
-                  key: 'storeQQ',
+                  key: 'shopQq',
                 },
                 {
                   title: '门店电话',
-                  key: 'storePhone',
+                  key: 'shopPhone1',
                 },
-
                 {
                   title: '门店服务',
-                  key: 'storeService',
+                  key: 'shopTags',
                 },
                 {
                   title: '操作',
@@ -270,6 +267,23 @@
                         on: {
                           click: () => {
                               this.open=true
+                              this.addSotreItem.shopId =  params.row.shopId
+                              this.addSotreItem.shopIsdefault =  params.row.shopIsdefault
+                              this.addSotreItem.shopName =  params.row.shopName
+                              this.addSotreItem.marketName =  params.row.marketName
+                              this.addSotreItem.shopAddr =  params.row.shopAddr
+                              this.addSotreItem.shopWechat =  params.row.shopWechat
+                              this.addSotreItem.shopWechatpay =  params.row.shopWechatpay
+                              this.addSotreItem.shopPhone1 =  params.row.shopPhone1
+                              this.addSotreItem.shopPhone2 =  params.row.shopPhone2
+                              this.addSotreItem.shopAlipay =  params.row.shopAlipay
+                              this.addSotreItem.shopAlipayName =  params.row.shopAlipayName
+                              this.addSotreItem.shopTags =  params.row.shopTags
+                              this.addSotreItem.shopQq =  params.row.shopQq
+                              this.addSotreItem.payType = params.row.payType
+                              this.marketNameArr = this.addSotreItem.marketName === undefined ? []:this.addSotreItem.marketName.split('|');
+                              this.shopTagsArr = this.addSotreItem.shopTags ===undefined ? [] : this.addSotreItem.shopTags.split('|');
+                              this.payTypeArr = this.addSotreItem.payType === undefined ? []: this.addSotreItem.payType.split('|');
                               this.btnFont = '修改'
                           }
                         }
@@ -285,6 +299,8 @@
                         },
                         on:{
                             click: () => {
+                              this.addSotreItem =  params.row
+                              this.addSotreItem.shopId =  params.row.shopId
                               this.modal2 = true
                             }
                         }
@@ -293,100 +309,8 @@
                   }
                 }
               ],
-              data9: [
-                {
-                  storeName:'1号仓库',
-                  storeIndustry:'批发',
-                  storeType:'盛诺服饰工厂',
-                  storeAdress:'常熟-外贸村-朱家坝',
-                  storeDetailAdress:'朱家坝南村40号',
-                  storeWeiXin:'18752002039',
-                  storeQQ:'937154020',
-                  storePhone:'18752002039',
-                  storeService:'一件代发/换款换货',
-                },
-                {
-                  storeName:'1号仓库',
-                  storeIndustry:'批发',
-                  storeType:'盛诺服饰工厂',
-                  storeAdress:'常熟-外贸村-朱家坝',
-                  storeDetailAdress:'朱家坝南村40号',
-                  storeWeiXin:'18752002039',
-                  storeQQ:'937154020',
-                  storePhone:'18752002039',
-                  storeService:'一件代发/换款换货',
-                },
-                {
-                  storeName:'1号仓库',
-                  storeIndustry:'批发',
-                  storeType:'盛诺服饰工厂',
-                  storeAdress:'常熟-外贸村-朱家坝',
-                  storeDetailAdress:'朱家坝南村40号',
-                  storeWeiXin:'18752002039',
-                  storeQQ:'937154020',
-                  storePhone:'18752002039',
-                  storeService:'一件代发/换款换货',
-                },
-                {
-                  storeName:'1号仓库',
-                  storeIndustry:'批发',
-                  storeType:'盛诺服饰工厂',
-                  storeAdress:'常熟-外贸村-朱家坝',
-                  storeDetailAdress:'朱家坝南村40号',
-                  storeWeiXin:'18752002039',
-                  storeQQ:'937154020',
-                  storePhone:'18752002039',
-                  storeService:'一件代发/换款换货',
-                }
-
-              ],
-              data: [{
-                value: 'beijing',
-                label: '北京',
-                children: [
-                  {
-                    value: 'gugong',
-                    label: '故宫'
-                  },
-                  {
-                    value: 'tiantan',
-                    label: '天坛'
-                  },
-                  {
-                    value: 'wangfujing',
-                    label: '王府井'
-                  }
-                ]
-              }, {
-                value: 'jiangsu',
-                label: '江苏',
-                children: [
-                  {
-                    value: 'nanjing',
-                    label: '南京',
-                    children: [
-                      {
-                        value: 'fuzimiao',
-                        label: '夫子庙',
-                      }
-                    ]
-                  },
-                  {
-                    value: 'suzhou',
-                    label: '苏州',
-                    children: [
-                      {
-                        value: 'zhuozhengyuan',
-                        label: '拙政园',
-                      },
-                      {
-                        value: 'shizilin',
-                        label: '狮子林',
-                      }
-                    ]
-                  }
-                ],
-              }]
+              data9: [],
+              data: []
             }
         },
         components: {
@@ -394,30 +318,135 @@
             'tool-bar':toolBar
         },
         created(){
+            this.getMarket();
+            this.getAllStore()
         },
         mounted(){
         },
         methods: {
-          complateDrawer(){
-
+          changeDefault(boolean){
+                this.addSotreItem.shopIsdefault  = boolean ? '1' :'0';
           },
-          changeDefaultStore(){
-
+          getAllStore(){
+            storeManageApi.getAllStoreByAccountId(this.$store.getters.getAccountId).then((response)=>{
+                this.data9 = response.data
+            }).catch((response)=>{
+                this.$error(apiError,'获取店铺列表出错')
+            })
+          },
+          complateDrawer(){
+            this.addSotreItem.shopTags =  this.shopTagsArr.join('|');
+            this.addSotreItem.payType =  this.payTypeArr.join('|');
+            this.addSotreItem.marketName =  this.marketNameArr.join('|');
+            if(ISNULL(this.addSotreItem.shopName)){
+                this.$error(operatorError,'门店名称不能为空!');
+                return;
+            }
+            storeManageApi.manageShop(this.$store.getters.getAccountId,this.addSotreItem).then((response) =>{
+                let flag = '门店新增成功！';
+                if(this.btnFont === '修改'){
+                  flag = '门店修改成功！';
+                }
+                this.$success(opeartorSuccess,flag)
+                this.getAllStore();
+                this.open = false;
+            }).catch((response) =>{
+              this.$error(operatorError,'门店信息修改出错！');
+            })
           },
           addNewStore(){
+            this.addSotreItem={
+              shopIsdefault:'0',
+                shopName:null,
+                marketName:null,
+                shopAddr:null,
+                shopWechat:null,
+                shopWechatpay:null,
+                shopPhone1:null,
+                shopPhone2:null,
+                shopAlipay:null,
+                shopAlipayName:null,
+                shopTags:null,
+                shopQq:null,
+            };
+            this.shopTagsArr = [];
+            this.payTypeArr = [];
+            this.marketNameArr = [];
               this.open=true;
+
               this.btnFont = '新增'
           },
-          addService(service){
+          manageService(service){
+            for(let item in this.shopTagsArr){
+              if(this.shopTagsArr[item] === ""){this.shopTagsArr = [];break}
+              if(this.shopTagsArr[item] === service){
+                this.shopTagsArr.splice(item,1);
+                return;
+              }
+            }
+            this.shopTagsArr.push(service)
+          },
+          managepType(payType){
+              for(let item in this.payTypeArr){
+                  if(this.payTypeArr[item] === ""){this.payTypeArr = [];break}
+                  if(this.payTypeArr[item] === payType){
+                     this.payTypeArr.splice(item,1);
+                    return;
+                  }
+              }
+                this.payTypeArr.push(payType)
 
           },
           del () {
             this.modal_loading = true;
-            setTimeout(() => {
-              this.modal_loading = false;
-              this.modal2 = false;
-            }, 2000);
-          }
+            storeManageApi.deleteStore(this.$store.getters.getAccountId, this.addSotreItem.shopId ).then((response) =>{
+                this.$success(opeartorSuccess,'门店删除成功');
+                this.getAllStore();
+                this.modal_loading = false;
+                this.modal2 = false;
+            }).catch((response) =>{
+                this.$error(operatorError,response.data.message)
+            })
+          },
+          getMarket(){
+              storeManageApi.getMarket().then((response) =>{
+                  let marketArr = response.data
+                for(let item in marketArr){
+                  marketArr[item] = this.changeMaeket(marketArr[item])
+                }
+                  this.data = marketArr
+              }).catch((response) => {
+                  this.$error(apiError,'获取地区列表出错')
+              })
+          },
+          changeMaeket(marketArr){
+              let marketItem = marketArr;
+              marketItem['value'] = marketItem['label'] = marketItem['mkName']
+              marketItem['children'] =  marketItem['subMarkets']
+              if(marketItem['subMarkets'] && marketItem['subMarkets'].length>0){
+                marketItem = marketItem['subMarkets'];
+                for(let itemT=0;itemT< marketItem.length;itemT++){
+                      marketItem[itemT] = this.changeMaeket(marketItem[itemT])
+                }
+              }
+            return marketArr;
+          },
+          serviceActiveClass(value){
+              for(let item=0;item< this.shopTagsArr.length;item++){
+                  if(value === this.shopTagsArr[item]){
+                    return true;
+                  }
+              }
+              return false;
+          },
+          payTypeActiveClass(value){
+            for(let item=0;item< this.payTypeArr.length;item++){
+              if(value === this.payTypeArr[item]){
+                return true;
+              }
+            }
+            return false;
+          },
         }
     }
 </script>
@@ -442,6 +471,7 @@
       position: relative;
       top:4px;
     }
+
   }
 
 </style>
