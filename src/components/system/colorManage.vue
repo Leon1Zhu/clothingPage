@@ -97,7 +97,9 @@
       },
       deleteColor(colorId, colorType) {
         if (colorType === '系统') {
-          this.$Message.info('系统颜色，不允许删除！');
+          this.$Notice.error({
+            title: '系统颜色，不允许删除！',
+          });
         } else {
           colorApi.deleteStoreColorBySysTemUrl(this.$store.getters.getAccountId, colorId).then((response) => {
             this.getSysTemColor();

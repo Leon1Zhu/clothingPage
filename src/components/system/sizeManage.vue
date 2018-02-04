@@ -83,7 +83,9 @@
       },
       deleteSize(sizeId, sizeType) {
         if (sizeType === '系统') {
-          this.$Message.info('系统尺码，不允许删除！');
+          this.$Notice.error({
+            title: '系统尺码，不允许删除！',
+          });
         } else {
           sizeApi.deleteStoreSizeBySysTemUrl(this.$store.getters.getAccountId, sizeId).then((response) => {
             this.getSysTemSize();
