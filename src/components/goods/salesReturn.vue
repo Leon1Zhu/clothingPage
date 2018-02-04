@@ -25,35 +25,35 @@
       </div>
 
 
-      <my-drawer :open="open" title="退换入库" @close-drawer="open=false" @complate-drawer="complateDrawer">
-        <div class="drawer-img-content"><img class="drawer-img" :src="returnitem.img"></div>
+      <my-drawer :open="open" title="退换入库" btnFont="退款" @close-drawer="open=false" @complate-drawer="complateDrawer">
+        <div class="drawer-img-content"><img class="drawer-img" :src="returnitem.productPic"></div>
         <div class="describe-content">
           <div class="left-font">货号</div>
-          <div class="right-font">{{returnitem.id}}</div>
+          <div class="right-font">{{returnitem.productCode}}</div>
         </div>
 
         <div class="describe-content">
           <div class="left-font">颜色</div>
-          <div class="right-font">{{returnitem.color}}</div>
+          <div class="right-font">{{returnitem.colorName}}</div>
         </div>
 
 
         <div class="describe-content">
           <div class="left-font">尺码</div>
-          <div class="right-font">{{returnitem.size}}</div>
+          <div class="right-font">{{returnitem.sizeName}}</div>
         </div>
 
 
         <div class="describe-content" style="display: flex;padding: 10px 3%;">
           <div class="left-font"style="height: 32px;line-height: 32px">数量</div>
           <div class="right-font">
-            <InputNumber style="width: 70px;" :precision="precision" :max="maxCount" :min="1" v-model="returnitem.count"></InputNumber>
+            <InputNumber style="width: 70px;" :precision="precision" :max="maxCount" :min="1" v-model="returnitem.detailAmount"></InputNumber>
           </div>
         </div>
 
         <div class="describe-content">
           <div class="left-font">单价</div>
-          <div class="right-font">{{returnitem.prince}}</div>
+          <div class="right-font">{{returnitem.detailPrice}}</div>
         </div>
 
 
@@ -81,7 +81,6 @@
               open:false,
               docked:false,
               returnitem:'',
-              returnMoney:0,
               precision:0,
               maxCount:0,
               index:0,
@@ -106,96 +105,39 @@
                   }
                 },
                 {
-                  title: '序号',
-                  key: 'index'
+                  title: '客户名称',
+                  key: 'cusName'
                 },
                 {
                   title: '付款方式',
-                  key: 'payway'
+                  key: 'orderPaytype'
                 },
                 {
                   title: '总额',
-                  key: 'rental',
+                  key: 'orderMoney',
                   sortable: true
                 },
                 {
                   title: '实付金额',
-                  key: 'paymoney',
+                  key: 'orderPayment',
                   sortable: true
                 },
                 {
                   title: '交易时间',
-                  key: 'dealtime',
-                  sortable: true
+                  key: 'orderTime',
+                  sortable: true,
+                  render: (h, params) => {
+                    return h('p', {
+                    },new Date(params.row.orderTime).Format(dateFormatType) );
+                  }
                 },
                 {
                   title: '备注',
-                  key: 'remark',
+                  key: 'orderMemo',
                 }
               ],
-              data9:[
-                {
-                  index:1,
-                  payway:'支付宝',
-                  custom_name:'张三',
-                  rental:10121,
-                  paymoney:10120,
-                  dealtime:'2018/1/20',
-                  remark:'无',
-                  type:2
-                },
-                {
-                  index:2,
-                  custom_name:'张三',
-                  payway:'支付宝',
-                  rental:10121,
-                  paymoney:10120,
-                  dealtime:'2018/1/20',
-                  remark:'无',
-                  type:1
-                },
-                {
-                  index:3,
-                  custom_name:'张三',
-                  payway:'支付宝',
-                  rental:10121,
-                  paymoney:10120,
-                  dealtime:'2018/1/20',
-                  remark:'无',
-                  type:0
-                },
-                {
-                  index:4,
-                  custom_name:'张三',
-                  payway:'支付宝',
-                  rental:10121,
-                  paymoney:10120,
-                  dealtime:'2018/1/20',
-                  remark:'无',
-                  type:1
-                },
-                {
-                  index:5,
-                  custom_name:'张三',
-                  payway:'支付宝',
-                  rental:10121,
-                  paymoney:10120,
-                  dealtime:'2018/1/20',
-                  remark:'无',
-                  type:1
-                },
-                {
-                  index:6,
-                  custom_name:'张三',
-                  payway:'支付宝',
-                  rental:10121,
-                  paymoney:10120,
-                  dealtime:'2018/1/20',
-                  remark:'无',
-                  type:1
-                },
-
-              ]
+              data9:[],
+              turnBackOrderNo:null,
             }
         },
         components: {
@@ -217,6 +159,9 @@
             }
             return true;
           },
+          returnMoney(){
+              return this.returnitem.detailAmount * this.returnitem.detailPrice;
+          }
         },
         mounted(){
         },
@@ -234,27 +179,42 @@
                   this.$warning(operatorWarning,'请填写完整的查询时间段!');
                   return;
               }
-            visitorApi.getCustomOrderList(this.$store.getters.getAccountId,this.$store.getters.getShopId,this.searchDataArr[0],this.searchDataArr[1],this.searchGoodsInfo,this.index,this.size).then(response =>{
+            visitorApi.getOrderList(this.$store.getters.getAccountId,this.$store.getters.getShopId,this.searchDataArr[0],this.searchDataArr[1],this.searchGoodsInfo,this.index,this.size).then(response =>{
+              this.data9 = response.data.content
+              this.total = response.data.totalElements
+            }).catch(response =>{
 
             })
           },
-          returnGoods(item){
-              console.log(item)
-            if(this.isDetail)return;
+          returnGoods(item,orderNo){
+            this.turnBackOrderNo = orderNo
             this.returnitem = item;
-            this.returnMoney = item.count * item.prince
-            this.maxCount = item.count;
+            this.maxCount = this.returnitem.detailAmount;
             this.open=true;
           },
           complateDrawer(){
-
+              let that =this;
+              let turnBack = {
+                account: that.$store.getters.getAccountId,
+                skuid : that.returnitem.skuId,
+                orderno : that.turnBackOrderNo,
+                amount :that.returnitem.detailAmount
+              }
+              console.log(turnBack)
+              visitorApi.turnBack(turnBack).then(response =>{
+                  this.getOrderTable();
+                  this.$success(opeartorSuccess,'退货成功！');
+                  this.open = false;
+              }).catch(response =>{
+                  this.$error(operatorError,response.data.message)
+              })
           },
           rowClassName (row, index) {
-              if(row.type === 2){
+              if(row.orderRecharge > 0){
                   return 'recharge-order'
-              }else if(row.type ===1){
+              }else if(row.orderPayment >0){
                   return 'pay-order'
-              }else if(row.type === 0){
+              }else if(row.orderPayment == 0){
                   return 'nopay-order'
               }
               return ''
