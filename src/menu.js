@@ -41,13 +41,9 @@ global.MENU = [
         linkHref: '/goodsManage',
         needPower:true,
       }, {
-        menuName: '订单记录',
+        menuName: '销售开单',
         menuIcon: 'icon-zonghekaidan',
         linkHref: '/salesOrder',
-      }, {
-        menuName: '退换入库',
-        menuIcon: 'icon-tuihuochuli',
-        linkHref: '/salesReturn',
       }
     ]
   }, {
@@ -64,6 +60,10 @@ global.MENU = [
         menuName: '往来列表',
         menuIcon: 'icon-liebiao',
         linkHref: '/visitorList',
+      }, {
+        menuName: '订单记录',
+        menuIcon: 'icon-06',
+        linkHref: '/salesReturn',
       }
     ]
   }, {
