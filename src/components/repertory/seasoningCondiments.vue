@@ -5,7 +5,7 @@
       <Button class="search-button" type="primary">搜索</Button>
     </tool-bar>
     <Table :columns="columns10" :data="data9"></Table>
-    <my-drawer :open="seasoningOpen" title="库存添加" @close-drawer="seasoningOpen=false"
+    <my-drawer :open="seasoningOpen" title="门店调货" @close-drawer="seasoningOpen=false"
                @complate-drawer="">
       <div class="seasoning-condiments">
         <div class="ui segment">
@@ -18,20 +18,9 @@
           <div class="ui vertical segment">
             <p>南京三号仓库 <span class="green">[10件库存]</span></p>
           </div>
-        </div>
-        <div class="ui segment">
-          <Form :label-width="40" label-position="left">
-            <FormItem label="数量">
-              <Input placeholder="请输入数量"></Input>
-            </FormItem>
-            <FormItem label="调出">
-              <Select>
-                <Option value="1">南京1号仓库</Option>
-                <Option value="2">南京2号仓库</Option>
-                <Option value="3">南京3号仓库</Option>
-              </Select>
-            </FormItem>
-          </Form>
+          <div class="ui vertical segment">
+            <Input placeholder="请输入数量"></Input>
+          </div>
         </div>
       </div>
     </my-drawer>

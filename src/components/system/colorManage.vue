@@ -26,17 +26,22 @@
       </div>
       <my-drawer :open="colorOpen" title="颜色添加" @close-drawer="colorOpen=false" @complate-drawer="addColorData()">
         <div>
-          <Form :model="formItem" :label-width="80">
-            <FormItem label="颜色的名称">
-              <Input v-model="formItem.name" placeholder="颜色的名称"></Input>
-            </FormItem>
-            <FormItem label="16进制颜色">
-              <Input v-model="formItem.sixteenColor" placeholder="#665424"></Input>
-            </FormItem>
-            <!--<FormItem label="RGB颜色">
-              <Input v-model="formItem.rgbColor" placeholder="rgb(255,231,200)"></Input>
-            </FormItem>-->
-          </Form>
+          <div class="store-item">
+            <div class="left-content">
+              <div class="store-item-label">颜色的名称<span class="red-star">*</span></div>
+            </div>
+            <div class="right-content">
+              <Input v-model="formItem.name" class="input-width" placeholder="颜色的名称"></Input>
+            </div>
+          </div>
+          <div class="store-item">
+            <div class="left-content">
+              <div class="store-item-label">16进制颜色<span class="red-star">*</span></div>
+            </div>
+            <div class="right-content">
+              <Input v-model="formItem.sixteenColor" class="input-width" placeholder="16进制颜色"></Input>
+            </div>
+          </div>
         </div>
       </my-drawer>
     </div>
@@ -136,6 +141,23 @@
         .detail {
           padding: 8px 8px 8px 0px;
         }
+      }
+    }
+  }
+
+  .store-item {
+    padding: 5px 0px;
+    border-bottom: 1px solid $formLabelBorderBottomColor;
+    display: flex;
+    .left-content {
+      display: flex;
+      flex: 1;
+      line-height: 200%;
+    }
+    .right-content {
+      text-align: right;
+      .input-width {
+        width: 82%;
       }
     }
   }

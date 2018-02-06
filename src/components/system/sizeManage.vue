@@ -24,11 +24,14 @@
       </div>
       <my-drawer :open="sizeOpen" title="尺码添加" @close-drawer="sizeOpen=false" @complate-drawer="addSizeData()">
         <div class="add-size-drawer">
-          <Form :label-width="80">
-            <FormItem label="尺码名称">
-              <Input v-model="sizeName" placeholder="XXL"></Input>
-            </FormItem>
-          </Form>
+          <div class="store-item">
+            <div class="left-content">
+              <div class="store-item-label">颜色的名称<span class="red-star">*</span></div>
+            </div>
+            <div class="right-content">
+              <Input v-model="sizeName" class="input-width" placeholder="XXL"></Input>
+            </div>
+          </div>
         </div>
       </my-drawer>
     </div>
@@ -127,5 +130,19 @@
 
   .add-size-drawer {
     margin-top: 8px;
+  }
+
+  .store-item {
+    padding: 5px 0px;
+    border-bottom: 1px solid $formLabelBorderBottomColor;
+    display: flex;
+    .left-content {
+      display: flex;
+      flex: 1;
+      line-height: 200%;
+    }
+    .right-content {
+      text-align: right;
+    }
   }
 </style>

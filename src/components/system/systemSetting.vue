@@ -3,10 +3,10 @@
     <tool-bar></tool-bar>
     <Form :model="formItem" label-position="left" :label-width="100">
       <FormItem label="库存预警数量">
-        <Input v-model="formItem.input" placeholder="库存预警数量"></Input>
+        <Input v-model="formItem.input" placeholder="库存预警数量" style="width: 200px"></Input>
       </FormItem>
-      <FormItem label="系统价格赔率">
-        <Input v-model="formItem.input" placeholder="系统价格赔率"></Input>
+      <FormItem label="系统价格倍率">
+        <Input v-model="formItem.input" placeholder="系统价格倍率" style="width: 200px"></Input>
       </FormItem>
       <FormItem label="价格尾数开启">
         <i-switch v-model="formItem.switch" size="large">
@@ -15,7 +15,7 @@
         </i-switch>
       </FormItem>
       <FormItem label="价格尾数">
-        <Select v-model="formItem.select">
+        <Select v-model="formItem.select" style="width: 90px">
           <Option value="0">0</Option>
           <Option value="1">1</Option>
           <Option value="2">2</Option>
@@ -86,7 +86,7 @@
   @import '../../common/css/globalscss.scss';
 
   .system-setting-html {
-    width: 100%;
+    width: 800px;
   }
 
   .integration-add {

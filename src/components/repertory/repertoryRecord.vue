@@ -22,7 +22,7 @@
     </div>
     <Modal
       v-model="add"
-      title="库存管理"
+      title="库存添加"
       @on-ok="ok"
       @on-cancel="cancel">
       <div class="goods-infor">
@@ -39,49 +39,50 @@
         <div class="detail" v-for="goodsSku in goodsSkuS">
           <Tag type="dot" class="color" color="#00EEEE">{{goodsSku.colorName}}</Tag>
           <Tag checkable class="size" color="blue">{{goodsSku.sizeName}}</Tag>
+          <span class="total">20</span>
           <InputNumber :min="1" v-model="goodsSku.amount" class="truth-total"></InputNumber>
         </div>
       </div>
-      <Button id="add-repertory" class="" @click="addRepertoryInformation" type="primary" shape="circle"
-              icon="plus-round"></Button>
+      <!--<Button id="add-repertory" class="" @click="addRepertoryInformation" type="primary" shape="circle"
+              icon="plus-round"></Button>-->
     </Modal>
 
     <footer>
       <Page :total="pageTotal" :page-size="pageSize" class="footer-page" @on-change="pageChange"></Page>
     </footer>
 
-    <my-drawer :open="repertoryAddOpen" title="库存添加" @close-drawer="repertoryAddOpen=false"
-               @complate-drawer="myDrawerConfirm">
-      <div class="add-repertory">
-        <Card>
-          <p slot="title">
-            <Icon type="crop"></Icon>
-            请选择颜色
-          </p>
-          <ul>
-            <Tag type="dot" closable color="blue">蓝色</Tag>
-            <Tag type="dot" closable color="green">绿色</Tag>
-          </ul>
-        </Card>
-        <Card class="hn-ui-margin">
-          <p slot="title">
-            <Icon type="contrast"></Icon>
-            请选择颜色
-          </p>
-          <ul>
-            <Tag type="dot" closable color="blue">XXL</Tag>
-            <Tag type="dot" closable color="green">XL</Tag>
-          </ul>
-        </Card>
-        <Card class="hn-ui-margin">
-          <p slot="title">
-            <Icon type="code-working"></Icon>
-            请输入数量
-          </p>
-          <Input v-model="goodsCount" type="number" placeholder="请输入数量"></Input>
-        </Card>
-      </div>
-    </my-drawer>
+    <!--    <my-drawer :open="repertoryAddOpen" title="库存添加" @close-drawer="repertoryAddOpen=false"
+                   @complate-drawer="myDrawerConfirm">
+          <div class="add-repertory">
+            <Card>
+              <p slot="title">
+                <Icon type="crop"></Icon>
+                请选择颜色
+              </p>
+              <ul>
+                <Tag type="dot" closable color="blue">蓝色</Tag>
+                <Tag type="dot" closable color="green">绿色</Tag>
+              </ul>
+            </Card>
+            <Card class="hn-ui-margin">
+              <p slot="title">
+                <Icon type="contrast"></Icon>
+                请选择颜色
+              </p>
+              <ul>
+                <Tag type="dot" closable color="blue">XXL</Tag>
+                <Tag type="dot" closable color="green">XL</Tag>
+              </ul>
+            </Card>
+            <Card class="hn-ui-margin">
+              <p slot="title">
+                <Icon type="code-working"></Icon>
+                请输入数量
+              </p>
+              <Input v-model="goodsCount" type="number" placeholder="请输入数量"></Input>
+            </Card>
+          </div>
+        </my-drawer>-->
   </div>
 </template>
 <script>
@@ -136,9 +137,9 @@
         };
         repertoryRecordApi.listAllGoods(account, params).then((rep) => {
           console.log(rep);
-          /*let repertory = rep.data;
+          let repertory = rep.data;
           this.pageTotal = repertory.totalElements;
-          this.goodsData = repertory.content;*/
+          this.goodsData = repertory.content;
         }).catch((rep) => {
           this.$error(apiError, '获取全部商品出错!')
         })

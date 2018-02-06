@@ -1,24 +1,33 @@
 <template>
   <div class="">
-    <tool-bar>
-      <Input v-model="goodsNumber" placeholder="请输入货号或简称"></Input>
-      <Button class="search-button" type="primary">搜索</Button>
-    </tool-bar>
-    <div class="store-change-html">
-      <div class="type-choose">
-        <ul>
-          <li class="choose-li icon-cursor" :class="{'active': wordType == 1}" @click="wordType = 1">异常记录</li>
-          <li class="choose-li icon-cursor" :class="{'active': wordType == 2}" @click="wordType = 2">正常记录</li>
-        </ul>
+    <Modal
+      v-model="modal"
+      width="1200"
+      title="库存核对"
+      @on-ok="ok"
+      @on-cancel="cancel">
+      <tool-bar>
+        <Input v-model="goodsNumber" placeholder="请输入货号或简称"></Input>
+        <Button class="search-button" type="primary">搜索</Button>
+      </tool-bar>
+      <div class="store-change-html">
+        <div class="type-choose">
+          <ul>
+            <li class="choose-li icon-cursor" :class="{'active': wordType == 1}" @click="wordType = 1">异常记录</li>
+            <li class="choose-li icon-cursor" :class="{'active': wordType == 2}" @click="wordType = 2">正常记录</li>
+          </ul>
+        </div>
+        <div class="data-show">
+          <Table class="" :columns="columns" :data="data"></Table>
+        </div>
       </div>
-      <div class="data-show">
-        <Table class="" :columns="columns" :data="data"></Table>
-      </div>
-      <Modal
-        v-model="check"
-        title="库存核对"
-        @on-ok="ok"
-        @on-cancel="cancel">
+      <footer>
+        <Page :total="100" class="footer-page"></Page>
+      </footer>
+    </Modal>
+    <my-drawer :open="check" title="清单盘点" @close-drawer="check=false"
+               @complate-drawer="">
+      <div class="add-repertory">
         <div class="goods-infor">
           <div class="goods-img">
             <img :src="imgUrl" alt="">
@@ -32,28 +41,25 @@
         <div class="repertory-infor">
           <div class="detail">
             <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-            <Tag checkable class="size" color="blue">M</Tag>
+            <Tag class="size" color="blue">M</Tag>
             <span class="total">20</span>
-            <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
+            <InputNumber :min="1" v-model="value1" class="truth-total"></InputNumber>
           </div>
           <div class="detail">
             <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-            <Tag checkable class="size" color="blue">XL</Tag>
+            <Tag class="size" color="blue">XL</Tag>
             <span class="total">20</span>
-            <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
+            <InputNumber :min="1" v-model="value1" class="truth-total"></InputNumber>
           </div>
           <div class="detail">
             <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-            <Tag checkable class="size" color="blue">XXL</Tag>
+            <Tag class="size" color="blue">XL</Tag>
             <span class="total">20</span>
-            <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
+            <InputNumber :min="1" v-model="value1" class="truth-total"></InputNumber>
           </div>
         </div>
-      </Modal>
-    </div>
-    <footer>
-      <Page :total="100" class="footer-page"></Page>
-    </footer>
+      </div>
+    </my-drawer>
   </div>
 </template>
 <script>
@@ -61,10 +67,13 @@
   import toolBar from '../../common/vue/toolBar.vue';
 
   export default {
-    props: {},
+    props: {
+      modal:{
+        default: false
+      }
+    },
     data() {
       return {
-        checkStoreDialog: false,
         check: false,
         imgUrl: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
         goodsNumber: '',
@@ -208,7 +217,12 @@
         ]
       };
     },
-    methods: {},
+    methods: {
+      ok() {
+      },
+      cancel() {
+      }
+    },
     components: {myDrawer, toolBar}
   };
 </script>
@@ -304,6 +318,68 @@
         &.color-active {
           background-color: #FFE4E1;
         }
+      }
+    }
+  }
+
+  .repertory-infor {
+    .detail {
+      display: flex;
+      padding: 8px;
+      border-bottom: 1px solid #f8f6f2;
+      .size, .total, .truth-total {
+        margin-left: 20px;
+      }
+      .size {
+        width: 70px;
+        text-align: center;
+      }
+
+      .total {
+        margin-top: 1px;
+      }
+      .size, .total {
+        height: 32px;
+        line-height: 32px;
+        padding: 0 15px;
+      }
+      .truth-total {
+        margin-top: 1px;
+      }
+    }
+  }
+
+  .goods-infor {
+    display: flex;
+    .goods-img {
+      img {
+        width: 85px;
+        height: 85px;
+      }
+    }
+    .goods-introduction {
+      margin-left: 32px;
+      h4 {
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .ids, .number {
+        font-size: 14px;
+        margin-top: 8px;
+        color: rgba(0, 0, 0, 0.4);
+      }
+      .sure-store {
+        margin-top: 8px;
+      }
+    }
+  }
+
+  .add-repertory {
+    padding: 8px;
+    width: 100%;
+    .hn-ui-margin {
+      margin: {
+        top: 8px;
       }
     }
   }

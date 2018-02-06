@@ -1,32 +1,35 @@
 <template>
   <div class="repertory-record-html">
     <tool-bar>
-
       <Input v-model="goodsNumber" placeholder="请输入货号或简称"></Input>
       <Button class="search-button" type="primary">搜索</Button>
       <Button class="search-button" type="warning">开始盘点</Button>
       <Button class="search-button" type="error">结束盘点</Button>
+      <Button class="search-button" type="info" @click.native="storeRecord=true">盘点记录</Button>
     </tool-bar>
     <div class="goods-show">
-      <div class="item" v-for="goods in goodsData">
+      <div class="item" v-for="goods in goodsData" :class="{'active-gray':goods.flag == 0,
+      'active-red':goods.flag == 1,
+      'active-green':goods.flag == 2}">
         <div class="goods-img">
           <img :src="imgUrl" alt="">
         </div>
         <div class="goods-introduction">
           <h4>{{goods.name}}</h4>
           <div class="ids">商品id:{{goods.ids}}</div>
-          <div class="number">货号:{{goods.number}}</div>
-          <div class="count">库存数量:{{goods.count}}</div>
+          <!--<div class="number">货号:{{goods.number}}</div>-->
+          <div class="count">库存总量:{{goods.count}}</div>
+          <div class="count">盘点总量:{{goods.count}}</div>
           <div class="operation">
             <!--<Button type="primary" shape="circle" icon="gear-b" @click="check = true"></Button>-->
-            <Button type="warning" shape="circle" icon="compose" @click="check = true"></Button>
+            <Button type="primary" shape="circle" icon="clipboard" @click="check = true"></Button>
           </div>
         </div>
       </div>
     </div>
     <Modal
       v-model="check"
-      title="库存核对"
+      title="手动盘点"
       @on-ok="ok"
       @on-cancel="cancel">
       <div class="goods-infor">
@@ -63,16 +66,19 @@
     <footer>
       <Page :total="100" class="footer-page"></Page>
     </footer>
+    <store-record :modal="storeRecord"></store-record>
   </div>
 </template>
 <script>
   import myDrawer from '../../common/vue/myDrawer.vue';
   import toolBar from '../../common/vue/toolBar.vue';
+  import storeRecord from './storeRecord.vue';
 
   export default {
     props: {},
     data() {
       return {
+        storeRecord: false,
         goodsNumber: '',
         check: false,
         add: false,
@@ -86,88 +92,91 @@
             name: '三叶草卫衣',
             ids: '454564',
             number: '5456',
-            count: 454
+            count: 454,
+            flag: 2
           },
           {
             imageUrl: './1.jpg',
             name: '三叶草卫衣',
             ids: '454564',
             number: '5456',
-            count: 454
-
+            count: 454,
+            flag: 1
           },
           {
             imageUrl: './1.jpg',
             name: '三叶草卫衣',
             ids: '454564',
             number: '5456',
-            count: 454
-
+            count: 454,
+            flag: 2
           },
           {
             imageUrl: './1.jpg',
             name: '三叶草卫衣',
             ids: '454564',
             number: '5456',
-            count: 454
-
+            count: 454,
+            flag: 1
           },
           {
             imageUrl: './1.jpg',
             name: '三叶草卫衣',
             ids: '454564',
             number: '5456',
-            count: 454
-
+            count: 454,
+            flag: 2
           },
           {
             imageUrl: './1.jpg',
             name: '三叶草卫衣',
             ids: '454564',
             number: '5456',
-            count: 454
+            count: 454,
+            flag: 1
+          }, {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456',
+            count: 454,
+            flag: 2
+          }, {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456',
+            count: 454,
+            flag: 1
+          }, {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456',
+            count: 454,
+            flag: 0
+          }, {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456',
+            count: 454,
+            flag: 0
+          }, {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456',
+            count: 454,
+            flag: 1
 
           }, {
             imageUrl: './1.jpg',
             name: '三叶草卫衣',
             ids: '454564',
             number: '5456',
-            count: 454
-
-          }, {
-            imageUrl: './1.jpg',
-            name: '三叶草卫衣',
-            ids: '454564',
-            number: '5456',
-            count: 454
-
-          }, {
-            imageUrl: './1.jpg',
-            name: '三叶草卫衣',
-            ids: '454564',
-            number: '5456',
-            count: 454
-
-          }, {
-            imageUrl: './1.jpg',
-            name: '三叶草卫衣',
-            ids: '454564',
-            number: '5456',
-            count: 454
-
-          }, {
-            imageUrl: './1.jpg',
-            name: '三叶草卫衣',
-            ids: '454564',
-            number: '5456',
-            count: 454
-
-          }, {
-            imageUrl: './1.jpg',
-            name: '三叶草卫衣',
-            ids: '454564',
-            number: '5456',
-            count: 454
+            count: 454,
+            flag: 0
 
           }
         ],
@@ -201,7 +210,8 @@
     },
     components: {
       myDrawer,
-      toolBar
+      toolBar,
+      storeRecord
     }
   };
 </script>

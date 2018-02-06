@@ -1,12 +1,16 @@
 <template>
   <div class="repertory-record-html">
     <tool-bar>
-
       <Input v-model="goodsNumber" placeholder="请输入货号或简称"></Input>
       <Button class="search-button" type="primary">搜索</Button>
+      <Button class="search-button" type="warning">开始盘点</Button>
+      <Button class="search-button" type="error">结束盘点</Button>
+      <Button class="search-button" type="info" @click.native="storeRecord=true">盘点记录</Button>
     </tool-bar>
     <div class="goods-show">
-      <div class="item" v-for="goods in goodsData">
+      <div class="item" v-for="(goods,index) in goodsData" :class="{'active-gray':goods.flag == 0,
+      'active-red':goods.flag == 1,
+      'active-green':goods.flag == 2}">
         <div class="goods-img">
           <img :src="imgUrl" alt="">
         </div>
@@ -17,17 +21,31 @@
           <div class="count">库存数量:{{goods.count}}</div>
           <div class="operation">
             <!--<Button type="primary" shape="circle" icon="gear-b" @click="check = true"></Button>-->
-            <Button type="primary" shape="circle" icon="clipboard" @click="repertoryAddOpen = true"></Button>
+            <Button type="primary" shape="circle" icon="clipboard"
+                    @click="repertoryAddOpen = true, storeRecordIndex=index"></Button>
           </div>
         </div>
       </div>
     </div>
-
     <footer>
       <Page :total="100" class="footer-page"></Page>
     </footer>
 
-    <my-drawer :open="repertoryAddOpen" title="库存添加" @close-drawer="repertoryAddOpen=false"
+    <Modal
+      v-model="repertoryAddOpen"
+      title="清单盘点"
+      @on-ok="ok"
+      @on-cancel="cancel">
+      <RadioGroup v-model="phone" size="large">
+        <Radio label="1">
+          <span>有误</span>
+        </Radio>
+        <Radio label="2">
+          <span>无误</span>
+        </Radio>
+      </RadioGroup>
+    </Modal>
+    <!--<my-drawer :open="repertoryAddOpen" title="清单盘点" @close-drawer="repertoryAddOpen=false"
                @complate-drawer="handleClose">
       <div class="add-repertory">
         <div class="goods-infor">
@@ -38,16 +56,6 @@
             <h4>三叶草卫衣</h4>
             <div class="ids">商品id:454564</div>
             <div class="number">货号:5456</div>
-            <RadioGroup v-model="phone" class="sure-store">
-              <Radio label="1">
-                <Icon type="close-circled"></Icon>
-                <span>有误</span>
-              </Radio>
-              <Radio label="0">
-                <Icon type="checkmark-circled"></Icon>
-                <span>无误</span>
-              </Radio>
-            </RadioGroup>
           </div>
         </div>
         <div class="repertory-infor">
@@ -66,19 +74,33 @@
             <Tag checkable class="size" color="blue">XL</Tag>
             <InputNumber :min="1" v-model="value1" class="truth-total" disabled></InputNumber>
           </div>
+          <RadioGroup v-model="phone" class="sure-store">
+            <Radio label="1">
+              <Icon type="close-circled"></Icon>
+              <span>有误</span>
+            </Radio>
+            <Radio label="0">
+              <Icon type="checkmark-circled"></Icon>
+              <span>无误</span>
+            </Radio>
+          </RadioGroup>
         </div>
       </div>
-    </my-drawer>
+    </my-drawer>-->
+    <store-record :modal="storeRecord"></store-record>
   </div>
 </template>
 <script>
   import myDrawer from '../../common/vue/myDrawer.vue';
   import toolBar from '../../common/vue/toolBar.vue';
+  import storeRecord from './storeRecord.vue';
 
   export default {
     props: {},
     data() {
       return {
+        storeRecordIndex: 0,
+        storeRecord: false,
         goodsNumber: '',
         check: false,
         add: false,
@@ -93,30 +115,16 @@
             name: '三叶草卫衣',
             ids: '454564',
             number: '5456',
-            count: 454
+            count: 454,
+            flag: 1
           },
           {
             imageUrl: './1.jpg',
             name: '三叶草卫衣',
             ids: '454564',
             number: '5456',
-            count: 454
-
-          },
-          {
-            imageUrl: './1.jpg',
-            name: '三叶草卫衣',
-            ids: '454564',
-            number: '5456',
-            count: 454
-
-          },
-          {
-            imageUrl: './1.jpg',
-            name: '三叶草卫衣',
-            ids: '454564',
-            number: '5456',
-            count: 454
+            count: 454,
+            flag: 2
 
           },
           {
@@ -124,7 +132,8 @@
             name: '三叶草卫衣',
             ids: '454564',
             number: '5456',
-            count: 454
+            count: 454,
+            flag: 1
 
           },
           {
@@ -132,49 +141,74 @@
             name: '三叶草卫衣',
             ids: '454564',
             number: '5456',
-            count: 454
+            count: 454,
+            flag: 2
+
+          },
+          {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456',
+            count: 454,
+            flag: 1
+
+          },
+          {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456',
+            count: 454,
+            flag: 0
 
           }, {
             imageUrl: './1.jpg',
             name: '三叶草卫衣',
             ids: '454564',
             number: '5456',
-            count: 454
+            count: 454,
+            flag: 1
 
           }, {
             imageUrl: './1.jpg',
             name: '三叶草卫衣',
             ids: '454564',
             number: '5456',
-            count: 454
+            count: 454,
+            flag: 0
 
           }, {
             imageUrl: './1.jpg',
             name: '三叶草卫衣',
             ids: '454564',
             number: '5456',
-            count: 454
+            count: 454,
+            flag: 1
 
           }, {
             imageUrl: './1.jpg',
             name: '三叶草卫衣',
             ids: '454564',
             number: '5456',
-            count: 454
+            count: 454,
+            flag: 2
 
           }, {
             imageUrl: './1.jpg',
             name: '三叶草卫衣',
             ids: '454564',
             number: '5456',
-            count: 454
+            count: 454,
+            flag: 1
 
           }, {
             imageUrl: './1.jpg',
             name: '三叶草卫衣',
             ids: '454564',
             number: '5456',
-            count: 454
+            count: 454,
+            flag: 1
 
           }
         ],
@@ -204,11 +238,16 @@
       handleClose() {
         this.modal1 = false;
         this.modal2 = false;
+      },
+      ok() {
+        this.goodsData[this.storeRecordIndex].flag = this.phone;
+        this.phone = 1;
       }
     },
     components: {
       myDrawer,
-      toolBar
+      toolBar,
+      storeRecord
     }
   };
 </script>
@@ -234,7 +273,15 @@
           top: 8px;
           left: 2%;
         }
-        background-color: #f8f6f2;
+        &.active-gray {
+          background-color: #f8f6f2;
+        }
+        &.active-red {
+          background-color: #FFE7BA;
+        }
+        &.active-green {
+          background-color: #C6E2FF;
+        }
         .goods-img {
           img {
             width: 100px;
@@ -270,6 +317,7 @@
     }
     footer {
       .footer-page {
+        margin-top: 8px;
         text-align: right;
       }
     }

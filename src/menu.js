@@ -80,11 +80,11 @@ global.MENU = [
         menuName: '库存管理',
         menuIcon: 'icon-kucun',
         linkHref: '/repertoryRecord',
-      }, {
+      }/*, {
         menuName: '盘点记录',
         menuIcon: 'icon-pandian',
         linkHref: '/storeRecord',
-      }, {
+      }*/, {
         menuName: '清单盘点',
         menuIcon: 'icon-pandian',
         linkHref: '/storeChange',
