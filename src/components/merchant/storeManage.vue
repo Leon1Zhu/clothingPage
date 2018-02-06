@@ -203,6 +203,25 @@
                 {
                   title: '门店地区',
                   key: 'marketName',
+                  render: (h, params) => {
+                      if(!ISNULL(params.row.marketName)){
+                        let market = params.row.marketName.replace('|')
+                        let innerHtml = '';
+                        for(let i = 0;len=market.length;i<len;i++;){
+                            innerHtml+= ''
+                        }
+                        return h('div', {
+                          domProps: {
+                            innerHTML: 'baz'
+                          }
+                        },);
+                        return '<div>111</div>';
+                      }else{
+                        return h('div', {},params.row.marketName);
+                      }
+
+                  }
+
                 },
                 {
                   title: '门店地址',

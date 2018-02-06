@@ -22,7 +22,6 @@
             <div class="goods-other-info">
               <p>商品ID:<span>{{item.product_id}}</span></p>
               <p>货号:<span>{{item.product_code}}</span></p>
-              <p>描述:<span>{{item.product_desc}}</span></p>
             </div>
 
           </div>
@@ -248,16 +247,22 @@
 <style lang="scss" rel="stylesheet/scss">
   @import "../../common/css/globalscss";
   #goodsManage{
+    height:100%;
     width:100%;
+    overflow:auto;
     position: relative;
     .goods-content{
+      position: relative;
+      height:88%;
+      overflow: auto;
+      height: calc( 100% - 85px);
       display: flex;
       flex-wrap: wrap;
       margin-left:-1%;
-      margin-top:-1%;
       .ivu-card{
         width:32%;
         max-width:32%;
+        position: relative;
         margin-left: 1%;
         margin-top:1%;
         .ivu-card-body{
@@ -267,6 +272,7 @@
           width:100%;
           position: relative;
           img{
+            display: inline;
             width:100%;
           }
         }
@@ -287,22 +293,21 @@
           margin-bottom: 5px;
         }
         .goods-operator{
+          .ivu-btn{
+            border: none;
+          }
           .change_status{
             background-color: $menuSelectFontColor;
-            border-color: $menuSelectFontColor;
           }
           .change_goodsinfo{
             background: #f8ab48;
-            border-color: #f6a524;
           }
           .delete_goods{
             background: #72c6f2;
-            border-color: #c3e5f8;
 
           }
           .goods-qr-code{
             background: #4d66ac;
-            border-color: #8d99c3;
           }
           .change_goodsinfo,.delete_goods,.goods-qr-code{
             margin-left:5px;

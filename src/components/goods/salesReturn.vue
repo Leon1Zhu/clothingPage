@@ -18,9 +18,21 @@
 
       <Table  border :columns="columns10" :data="data9"  :row-class-name="rowClassName"></Table>
       <div class="explain-content" style="display: flex;">
-        <color-content color="palevioletred" colorName="核销"></color-content>
-        <color-content color="#495060" colorName="已付款"></color-content>
-        <color-content color="#11b5ff" colorName="未付款"></color-content>
+        <div class="color-contentT">
+          <div class="colordiamonds"  style="background:palevioletred"></div>
+          <div class="colorName">核销</div>
+        </div>
+
+        <div class="color-contentT" style="margin-left: 5px;">
+          <div class="colordiamonds"  style="background:#495060"></div>
+          <div class="colorName">已付款</div>
+        </div>
+
+        <div class="color-contentT" style="margin-left: 5px;">
+          <div class="colordiamonds"  style="background:#11b5ff"></div>
+          <div class="colorName">未付款</div>
+        </div>
+
         <Page :total="total" style="margin-top: 5px;flex: 1;" :page-size="size" @on-change="changePage" ></Page>
       </div>
 
@@ -292,5 +304,28 @@
    .color-content:not(:first-child){
      margin-left:5px;
    }
+
+    .color-contentT{
+      display: flex;
+      color: $menuSelectFontColor;
+      width: 61px;
+      height:25px;
+      padding: 3px;
+      border: 1px solid $menuSelectFontColor;
+      font-size:12px;
+      margin-top:3px;
+      border-radius:3px;
+      .colordiamonds{
+        border-radius:100%;
+        margin-top:2.5px;
+        width: 12px;
+        height:12px;
+        margin-right:3px;
+        margin-left:2px;
+      }
+      .colorName{
+        line-height:150%;
+      }
+    }
   }
 </style>
