@@ -26,7 +26,10 @@
   .tool-bar{
     display: flex;
     text-align: right;
-    margin-bottom:3px;
+    margin-bottom:18px;
+    .ivu-icon-ios-search{
+      font-weight:700;
+    }
     .page-tag-lable{
       line-height: 2;
       font-size: 20px;

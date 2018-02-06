@@ -226,6 +226,8 @@
         margin:0 auto;
         max-width:2880px;
         padding: 10px;
+        height:100%;
+        position: relative;
       }
       .layout-copy{
         text-align: center;

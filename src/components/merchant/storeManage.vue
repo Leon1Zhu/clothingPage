@@ -203,6 +203,22 @@
                 {
                   title: '门店地区',
                   key: 'marketName',
+                  render: (h, params) => {
+                      if(!ISNULL(params.row.marketName)){
+                        let market = params.row.marketName.split('|')
+                        let innerHtml = '';
+                        innerHtml+= '<div class="ivu-tag ivu-tag-blue ivu-tag-checked"><span class="ivu-tag-text ivu-tag-color-white">'+market[market.length-1]+'</span> </div>'
+                        return h('div', {
+                          domProps: {
+                            innerHTML: innerHtml
+                          }
+                        },);
+                      }else{
+                        return h('div', {},params.row.marketName);
+                      }
+
+                  }
+
                 },
                 {
                   title: '门店地址',
@@ -223,15 +239,33 @@
                 },
                 {
                   title: '门店服务',
+                  width:'18%',
                   key: 'shopTags',
+                  render: (h, params) => {
+                    if(!ISNULL(params.row.marketName)){
+                      let shopTags = params.row.shopTags.split('|')
+                      let innerHtml = '';
+                      for(let i=0,len = shopTags.length;i<len;i++){
+                        innerHtml+= '<div class="ivu-tag ivu-tag-blue ivu-tag-checked"><span class="ivu-tag-text ivu-tag-color-white">'+shopTags[i]+'</span> </div>'
+                      }
+                      return h('div', {
+                        domProps: {
+                          innerHTML: innerHtml
+                        }
+                      },);
+                    }else{
+                      return h('div', {},params.row.shopTags);
+                    }
+
+                  }
                 },
                 {
                   title: '操作',
                   key: 'operate',
+                  width:'9%',
                   render: (h, params) => {
                     return h('div',{
                         style:{
-                            display:'flex'
                         }
                     }, [
                      /* h('Tooltip', {
@@ -256,13 +290,13 @@
                           }
                         }, ),
                       ]),*/
-                      h('Button', {
-                        props: {
-                          type: 'ghost',
-                          shape: 'circle',
-                          icon:"ios-compose-outline"
+                      h('i', {
+                        'class':{
+                          iconfont:true,
+                          'icon-bi':true,
                         },
                         style: {
+                          color:SYSTEMCOLOR
                         },
                         on: {
                           click: () => {
@@ -288,14 +322,14 @@
                           }
                         }
                       }, ),
-                      h('Button',{
-                        props: {
-                          type: 'ghost',
-                          shape: 'circle',
-                          icon:"trash-a"
+                      h('i',{
+                        'class':{
+                          iconfont:true,
+                          'icon-shanchu4':true,
                         },
                         style: {
-                            marginLeft:'3px'
+                            marginLeft:'20%',
+                            color:SYSTEMCOLOR
                         },
                         on:{
                             click: () => {
@@ -453,6 +487,9 @@
 <style lang="scss" rel="stylesheet/scss">
   @import '../../common/css/globalscss';
   #storeManage{
+    .iconfont:hover{
+      cursor: pointer;
+    }
     .ivu-select,.ivu-input-type{
       width: 70%;
     }
@@ -470,6 +507,9 @@
       color: $menuSelectFontColor;
       position: relative;
       top:4px;
+    }
+    .ivu-tag-blue{
+      background: $menuSelectFontColor;
     }
 
   }

@@ -25,7 +25,7 @@ global.MENU = [
       }
       , {
         menuName: '尺码管理',
-        menuIcon: 'icon-gouwuche',
+        menuIcon: 'icon-3changgouchima',
         linkHref: '/sizeManage',
       }
     ]
