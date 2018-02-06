@@ -58,13 +58,13 @@
             key: 'operate',
             render: (h, params) => {
               return h('div', [
-                h('Button', {
-                  props: {
-                    type: 'ghost',
-                    shape: 'circle',
-                    icon:"ios-compose-outline"
+                h('i', {
+                  'class':{
+                    iconfont:true,
+                    'icon-bi':true,
                   },
                   style: {
+                    color:SYSTEMCOLOR
                   },
                   on: {
                     click: () => {
@@ -139,6 +139,9 @@
 <style lang="scss" rel="stylesheet/scss">
   @import "../../common/css/globalscss";
   #customManage{
+    .iconfont:hover{
+      cursor: pointer;
+    }
     .custom-info-content{
       padding:0 5px;
       .ivu-input-wrapper{

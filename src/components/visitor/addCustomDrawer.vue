@@ -121,7 +121,7 @@
               customInfo:{
                 customName:null,
                 customPhone:null,
-                customBirth:null,
+                customBirth:new Date().Format(dateFormatType),
                 customCard:null,
                 customLatestTime:null,
                 customLatestMoney:null,
@@ -167,7 +167,7 @@
                    this.customInfo={
                      customName:null,
                      customPhone:null,
-                     customBirth:null,
+                     customBirth:new Date().Format(dateFormatType),
                      customCard:null,
                      customLatestTime:null,
                      customLatestMoney:null,

@@ -141,15 +141,16 @@
           {
             title: '操作',
             key: 'operate',
+            width:'10%',
             render: (h, params) => {
               return h('div', [
-                h('Button', {
-                  props: {
-                    type: 'ghost',
-                    shape: 'circle',
-                    icon:"ios-compose-outline"
+                h('i', {
+                  'class':{
+                    iconfont:true,
+                    'icon-bi':true,
                   },
                   style: {
+                    color:SYSTEMCOLOR
                   },
                   on: {
                     click: () => {
@@ -164,14 +165,14 @@
                     }
                   }
                 }, ),
-                h('Button',{
-                  props: {
-                    type: 'ghost',
-                    shape: 'circle',
-                    icon:"trash-a"
+                h('i',{
+                  'class':{
+                    iconfont:true,
+                    'icon-shanchu4':true,
                   },
                   style: {
-                    marginLeft:'3px'
+                    marginLeft:'20%',
+                    color:SYSTEMCOLOR
                   },
                   on:{
                     click: () => {
@@ -279,6 +280,9 @@
 <style lang="scss" rel="stylesheet/scss">
   @import '../../common/css/globalscss';
   #staffManage{
+    .iconfont:hover{
+      cursor: pointer;
+    }
     .store-change-content{
       .ivu-select,.ivu-input-type{
         width: 70%;

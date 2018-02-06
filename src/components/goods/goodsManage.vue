@@ -259,6 +259,7 @@
       display: flex;
       flex-wrap: wrap;
       margin-left:-1%;
+      margin-top:-1%;
       .ivu-card{
         width:32%;
         max-width:32%;
