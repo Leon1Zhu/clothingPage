@@ -3,7 +3,7 @@
  */
 import api from './index'
 
-let listGoodsRepertoryRecordUrl = 'api/17wa-inventory/product/{account}/{shopId}';
+let listGoodsRepertoryRecordUrl = '/api/17wa-inventory/product/{account}/{shopId}';
 
 let getSingleGoodsRepertoryRecordUrl = '/api/17wa-inventory/detail/{account}/{skuid}';
 

@@ -1,106 +1,57 @@
 <template>
   <div class="repertory-record-html">
     <tool-bar>
-
-      <Input v-model="goodsNumber" placeholder="请输入货号或简称"></Input>
-      <Button class="search-button" type="primary">搜索</Button>
+      <Input v-model="goodsCode" placeholder="请输入货号或简称"></Input>
+      <Button class="search-button" type="primary" @click="searchGoodS">搜索</Button>
     </tool-bar>
     <div class="goods-show">
       <div class="item" v-for="goods in goodsData">
         <div class="goods-img">
-          <img :src="imgUrl" alt="">
+          <img :src="goods.productPic" alt="">
         </div>
         <div class="goods-introduction">
-          <h4>{{goods.name}}</h4>
-          <div class="ids">商品id:{{goods.ids}}</div>
-          <div class="number">货号:{{goods.number}}</div>
+          <h4>{{goods.productName}}</h4>
+          <div class="ids">商品id:{{goods.productId}}</div>
+          <div class="number">货号:{{goods.productCode}}</div>
           <div class="count">库存数量:{{goods.count}}</div>
           <div class="operation">
-            <!--<Button type="primary" shape="circle" icon="gear-b" @click="check = true"></Button>-->
-            <Button type="warning" shape="circle" icon="compose" @click="add = true"></Button>
+            <Button type="warning" shape="circle" icon="compose" @click="checkRepertory(goods.productCode)"></Button>
           </div>
         </div>
       </div>
     </div>
-    <!--    <Modal
-          v-model="check"
-          title="库存核对"
-          @on-ok="ok"
-          @on-cancel="cancel">
-          <div class="goods-infor">
-            <div class="goods-img">
-              <img :src="imgUrl" alt="">
-            </div>
-            <div class="goods-introduction">
-              <h4>三叶草卫衣</h4>
-              <div class="ids">商品id:454564</div>
-              <div class="number">货号:5456</div>
-            </div>
-          </div>
-          <div class="repertory-infor">
-            <div class="detail">
-              <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-              <Tag checkable class="size" color="blue">M</Tag>
-              <span class="total">20</span>
-              <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
-            </div>
-            <div class="detail">
-              <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-              <Tag checkable class="size" color="blue">XL</Tag>
-              <span class="total">20</span>
-              <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
-            </div>
-            <div class="detail">
-              <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-              <Tag checkable class="size" color="blue">XXL</Tag>
-              <span class="total">20</span>
-              <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
-            </div>
-          </div>
-        </Modal>-->
-
     <Modal
       v-model="add"
-      title="库存添加"
+      title="库存管理"
       @on-ok="ok"
       @on-cancel="cancel">
       <div class="goods-infor">
         <div class="goods-img">
-          <img :src="imgUrl" alt="">
+          <img :src="goodsDetail.productPic" alt="">
         </div>
         <div class="goods-introduction">
-          <h4>三叶草卫衣</h4>
-          <div class="ids">商品id:454564</div>
-          <div class="number">货号:5456</div>
+          <h4>{{goodsDetail.productName}}</h4>
+          <div class="ids">商品id:{{goodsDetail.productId}}</div>
+          <div class="number">货号:{{goodsDetail.productCode}}</div>
         </div>
       </div>
       <div class="repertory-infor">
-        <div class="detail">
-          <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-          <Tag checkable class="size" color="blue">M</Tag>
-          <InputNumber :min="1" v-model="value1" class="truth-total"></InputNumber>
-        </div>
-        <div class="detail">
-          <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-          <Tag checkable class="size" color="blue">XL</Tag>
-          <InputNumber :min="1" v-model="value1" class="truth-total"></InputNumber>
-        </div>
-        <div class="detail">
-          <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-          <Tag checkable class="size" color="blue">XL</Tag>
-          <InputNumber :min="1" v-model="value1" class="truth-total"></InputNumber>
+        <div class="detail" v-for="goodsSku in goodsSkuS">
+          <Tag type="dot" class="color" color="#00EEEE">{{goodsSku.colorName}}</Tag>
+          <Tag checkable class="size" color="blue">{{goodsSku.sizeName}}</Tag>
+          <InputNumber :min="1" v-model="goodsSku.amount" class="truth-total"></InputNumber>
         </div>
       </div>
-      <Button id="add-repertory" class="" @click="addRepertoryInformation()" type="primary" shape="circle"
+      <Button id="add-repertory" class="" @click="addRepertoryInformation" type="primary" shape="circle"
               icon="plus-round"></Button>
     </Modal>
 
     <footer>
-      <Page :total="100" class="footer-page"></Page>
+      <Page :total="pageTotal" :page-size="pageSize" class="footer-page" @on-change="pageChange"></Page>
     </footer>
 
     <my-drawer :open="repertoryAddOpen" title="库存添加" @close-drawer="repertoryAddOpen=false"
-               @complate-drawer="handleClose">
+               @complate-drawer="myDrawerConfirm">
       <div class="add-repertory">
         <Card>
           <p slot="title">
@@ -127,7 +78,7 @@
             <Icon type="code-working"></Icon>
             请输入数量
           </p>
-          <Input v-model="value1" type="number" placeholder="请输入数量"></Input>
+          <Input v-model="goodsCount" type="number" placeholder="请输入数量"></Input>
         </Card>
       </div>
     </my-drawer>
@@ -136,116 +87,27 @@
 <script>
   import myDrawer from '../../common/vue/myDrawer.vue';
   import toolBar from '../../common/vue/toolBar.vue';
+  import repertoryRecordApi from '../../api/repertoryRecord';
+  import colorManageApi from '../../api/colorManage';
+  import sizeManageApi from '../../api/sizeManage';
 
   export default {
     props: {},
     data() {
       return {
-        goodsNumber: '',
-        check: false,
+        account: this.$store.getters.getAccountId,
+        shopId: this.$store.getters.getShopId,
+        goodsCode: '',
+        pageSize: 10,
+        pageNumber: 1,
+        pageTotal: 60,
         add: false,
-        value1: 1,
-        imgUrl: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+        goodsCount: 1,
         repertoryAddOpen: false,
         // 库存展示的信息数组
-        goodsData: [
-          {
-            imageUrl: './1.jpg',
-            name: '三叶草卫衣',
-            ids: '454564',
-            number: '5456',
-            count: 454
-          },
-          {
-            imageUrl: './1.jpg',
-            name: '三叶草卫衣',
-            ids: '454564',
-            number: '5456',
-            count: 454
-
-          },
-          {
-            imageUrl: './1.jpg',
-            name: '三叶草卫衣',
-            ids: '454564',
-            number: '5456',
-            count: 454
-
-          },
-          {
-            imageUrl: './1.jpg',
-            name: '三叶草卫衣',
-            ids: '454564',
-            number: '5456',
-            count: 454
-
-          },
-          {
-            imageUrl: './1.jpg',
-            name: '三叶草卫衣',
-            ids: '454564',
-            number: '5456',
-            count: 454
-
-          },
-          {
-            imageUrl: './1.jpg',
-            name: '三叶草卫衣',
-            ids: '454564',
-            number: '5456',
-            count: 454
-
-          }, {
-            imageUrl: './1.jpg',
-            name: '三叶草卫衣',
-            ids: '454564',
-            number: '5456',
-            count: 454
-
-          }, {
-            imageUrl: './1.jpg',
-            name: '三叶草卫衣',
-            ids: '454564',
-            number: '5456',
-            count: 454
-
-          }, {
-            imageUrl: './1.jpg',
-            name: '三叶草卫衣',
-            ids: '454564',
-            number: '5456',
-            count: 454
-
-          }, {
-            imageUrl: './1.jpg',
-            name: '三叶草卫衣',
-            ids: '454564',
-            number: '5456',
-            count: 454
-
-          }, {
-            imageUrl: './1.jpg',
-            name: '三叶草卫衣',
-            ids: '454564',
-            number: '5456',
-            count: 454
-
-          }, {
-            imageUrl: './1.jpg',
-            name: '三叶草卫衣',
-            ids: '454564',
-            number: '5456',
-            count: 454
-
-          }
-        ],
-        detailArray: [
-          {
-            size: '',
-            color: '',
-            count: ''
-          }
-        ],
+        goodsData: [],
+        goodsSkuS: [],
+        goodsDetail: {},
         // 添加库存的信息数组
         addRepertoryArray: [
           {
@@ -258,13 +120,63 @@
         goodsInformation: {}
       };
     },
+    created() {
+      this.listAllGoods();
+    },
     methods: {
+      /**
+       * 获取所有商品的库存
+       */
+      listAllGoods() {
+        let account = this.$store.getters.getAccountId;
+        let shopId = this.$store.getters.getShopId;
+        let params = {
+          index: this.pageNumber,
+          size: this.pageSize
+        };
+        repertoryRecordApi.listAllGoods(account, params).then((rep) => {
+          console.log(rep);
+          /*let repertory = rep.data;
+          this.pageTotal = repertory.totalElements;
+          this.goodsData = repertory.content;*/
+        }).catch((rep) => {
+          this.$error(apiError, '获取全部商品出错!')
+        })
+      },
       addRepertoryInformation() {
         this.repertoryAddOpen = true;
       },
-      handleClose() {
-        this.modal1 = false;
-        this.modal2 = false;
+      myDrawerConfirm() {
+
+      },
+      checkRepertory(productCode) {
+        this.add = true;
+        repertoryRecordApi.getSingleGoods(this.account, this.shopId, productCode).then((rep) => {
+          this.goodsSkuS = rep.data.skus;
+          this.goodsDetail = rep.data.product;
+        }).catch((rep) => {
+          this.$error(apiError, '获取商品SKU出错!')
+        })
+      },
+      pageChange(page) {
+        this.pageNumber = page;
+        this.listAllGoods();
+      },
+      searchGoodS() {
+        if (this.goodsCode === '') {
+          this.listAllGoods();
+        } else {
+          repertoryRecordApi.getSingleGoods(this.account, this.shopId, this.goodsCode).then((rep) => {
+            this.goodsData = [];
+            this.goodsData.push(rep.data.product);
+          }).catch((rep) => {
+            this.$error(apiError, '搜索商品出错!')
+          })
+        }
+      },
+      ok() {
+      },
+      cancel() {
       }
     },
     components: {
@@ -305,7 +217,7 @@
         .goods-introduction {
           margin-left: 14px;
           h4 {
-            font-size: 14px;
+            font-size: 12px;
             margin-top: 3px;
             font-weight: 600;
           }

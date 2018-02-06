@@ -3,14 +3,14 @@
     <tool-bar>
       <Input v-model="searchData.number" placeholder="请输入货号或者简称"></Input>
       <Col class="left-eight">
-      <DatePicker v-model="searchData.time" type="daterange" placement="bottom-end" placeholder="选择日期"
+      <DatePicker :value="searchData.time" type="daterange" placement="bottom-end" placeholder="选择日期"
                   style="width: 200px"></DatePicker>
       </Col>
-      <Select class="left-eight" v-module="searchData.type" style="width: 100px">
+      <Select v-model="searchData.type" class="left-eight" style="width: 100px">
         <Option v-for=" repertoryShift in repertoryShiftS" :value="repertoryShift.value">{{repertoryShift.name}}
         </Option>
       </Select>
-      <Button type="primary" icon="ios-search" @click.native="listGoodsRepertoryRecord();" class="post-btn">搜索</Button>
+      <Button type="primary" icon="ios-search" @click.native="listGoodsRepertoryRecord()" class="post-btn">搜索</Button>
     </tool-bar>
     <div class="table-show">
       <Table :columns="columns" :data="data"></Table>
@@ -160,23 +160,27 @@
         }
       }
     },
+    created() {
+      this.listGoodsRepertoryRecord();
+    },
     methods: {
       listGoodsRepertoryRecord() {
         let account = this.$store.getters.getAccountId;
         let shopId = this.$store.getters.getShopId;
+        let time = this.searchData.time;
         let searchData = {
-          status: '',
-          startDate: '',
-          endDate: '',
-          index: '',
-          size: '',
-          keyword: ''
+          status: this.searchData.type,
+          startDate: '2016-08-08',
+          endDate: '2018-08-08',
+          index: '1',
+          size: '10',
+          /* keyword: ''*/
         };
-        repertoryShiftApi.listGoodsRepertoryRecord(account, shopId,).then(() => {
-
+        repertoryShiftApi.listGoodsRepertoryRecord(account, shopId, searchData).then((response) => {
+          console.log(response);
         }).catch(() => {
-
-        })
+          this.$error(apiError, '获取库存记录出错!')
+        });
       }
     },
     components: {
