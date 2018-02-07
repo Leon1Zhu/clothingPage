@@ -45,19 +45,19 @@
       <div class="repertory-infor">
         <div class="detail">
           <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-          <Tag checkable class="size" color="blue">M</Tag>
+          <Tag class="size" color="blue">M</Tag>
           <span class="total">20</span>
           <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
         </div>
         <div class="detail">
           <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-          <Tag checkable class="size" color="blue">XL</Tag>
+          <Tag class="size" color="blue">XL</Tag>
           <span class="total">20</span>
           <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
         </div>
         <div class="detail">
           <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-          <Tag checkable class="size" color="blue">XXL</Tag>
+          <Tag class="size" color="blue">XXL</Tag>
           <span class="total">20</span>
           <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
         </div>
@@ -84,7 +84,6 @@
         add: false,
         value1: 1,
         imgUrl: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
-        repertoryAddOpen: false,
         // 库存展示的信息数组
         goodsData: [
           {
@@ -201,11 +200,6 @@
     },
     methods: {
       addRepertoryInformation() {
-        this.repertoryAddOpen = true;
-      },
-      handleClose() {
-        this.modal1 = false;
-        this.modal2 = false;
       }
     },
     components: {
