@@ -136,7 +136,6 @@
           size: this.pageSize
         };
         repertoryRecordApi.listAllGoods(account, params).then((rep) => {
-          console.log(rep);
           let repertory = rep.data;
           this.pageTotal = repertory.totalElements;
           this.goodsData = repertory.content;

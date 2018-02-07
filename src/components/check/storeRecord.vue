@@ -1,9 +1,9 @@
 <template>
   <div class="">
     <Modal
-      v-model="modal"
+      v-model="modalStatus"
       width="1200"
-      title="库存核对"
+      title="盘点记录"
       @on-ok="ok"
       @on-cancel="cancel">
       <tool-bar>
@@ -68,7 +68,7 @@
 
   export default {
     props: {
-      modal: {
+      modalStatus: {
         default: false
       }
     },
@@ -221,6 +221,7 @@
       ok() {
       },
       cancel() {
+        this.$emit('close-record');
       }
     },
     components: {myDrawer, toolBar}

@@ -66,7 +66,7 @@
     <footer>
       <Page :total="100" class="footer-page"></Page>
     </footer>
-    <store-record :modal="storeRecord"></store-record>
+    <store-record :modalStatus="storeRecord" @close-record="storeRecord=false"></store-record>
   </div>
 </template>
 <script>
