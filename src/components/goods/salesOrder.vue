@@ -3,52 +3,51 @@
       <div class="salesOrder-content">
         <Form  :label-width="70">
           <Row >
-            <Col span="12">
-            <FormItem label="客户信息"  >
-              <AutoComplete
-                v-model="orderInfo.CustomInfo"
-                :data="autoData"
-                icon="ios-search"
-                :filter-method="filterMethod"
-                placeholder="请选择客户信息"
-                style="width:100%">
-              </AutoComplete>
-              <Button type="ghost" @click="orderInfo.CustomInfo=''">清除</Button>
-              <Button type="ghost" >新增</Button>
-              <FormItem label="余款" :label-width="50" style="flex: 1 1 50%;">
+              <Col span="12" >
+              <FormItem label="开单店员" >
+                <AutoComplete
+                  v-model="orderInfo.waiter"
+                  :data="waiterData"
+                  icon="ios-search"
+                  :filter-method="filterMethod"
+                  placeholder="请选择客户信息"
+                  style="width:100%">
+                </AutoComplete>
+                <Button type="ghost" >核销</Button>
+                <Button type="ghost" >抹零</Button>
+              </FormItem>
+              </Col>
+
+              <Col span="12" style="display: flex;">
+              <FormItem label="客户信息"  >
+                <AutoComplete
+                  v-model="orderInfo.CustomInfo"
+                  :data="autoData"
+                  icon="ios-search"
+                  :filter-method="filterMethod"
+                  placeholder="请选择客户信息"
+                  style="width:100%">
+                </AutoComplete>
+                <Button type="ghost" @click="orderInfo.CustomInfo=''">清除</Button>
+                <Button type="ghost" >新增</Button>
+              </FormItem>
+              <FormItem label="余款" :label-width="50" style="display: flex;flex: 1;">
                 <span class="disable-input">{{orderInfo.balanceMoney}}</span>
               </FormItem>
-            </FormItem>
-            </Col>
-
-            <Col span="12">
-            <FormItem label="开单店员" >
-              <AutoComplete
-                v-model="orderInfo.waiter"
-                :data="waiterData"
-                icon="ios-search"
-                :filter-method="filterMethod"
-                placeholder="请选择客户信息"
-                style="width:100%">
-              </AutoComplete>
-              <Button type="ghost" >核销</Button>
-              <Button type="ghost" >抹零</Button>
-            </FormItem>
-
-            </Col>
+              </Col>
           </Row>
 
           <Row >
             <Col span="12">
               <div class="pay-way" style="display: flex;">
-                <FormItem label="总件数"   style="flex: 1 1 33%;">
+                <FormItem label="总件数"   :label-width="70" style="flex: 1 1 33%;">
                   <span class="disable-input">{{orderInfo.allCount}}</span>
                   <!--  <Input  v-model="orderInfo.allCount" disabled></Input>-->
                 </FormItem>
-                <FormItem label="应付"  style="flex: 1 1 33%;">
+                <FormItem label="应付"  :label-width="50" style="flex: 1 1 33%;">
                   <span class="disable-input">{{orderInfo.payable}}</span>
                 </FormItem>
-                <FormItem label="实付" :label-width="50"  style="flex: 1 1 33%;">
+                <FormItem label="实付"   :label-width="50"  style="flex: 1 1 33%;">
                   <InputNumber   v-model="orderInfo.payMoney" style="width: 100%"></InputNumber>
                 </FormItem>
               </div>
@@ -187,7 +186,6 @@
         methods: {
           // 单元格编辑回调
           cellEditDone(newValue,oldValue,rowIndex,rowData,field){
-
             this.tableData[rowIndex][field] = newValue
             this.tableData[rowIndex].sum =   this.tableData[rowIndex].count * this.tableData[rowIndex].prince
             this.countMoney()
@@ -247,7 +245,41 @@
 </script>
 <style lang="scss" rel="stylesheet/scss">
   @import '../../common/css/globalscss.scss';
+
   #salesOrder{
+    .ivu-row{
+      width:100%;
+      transition: all .2s;
+    }
+    .ivu-row:first-child{
+      .ivu-col-span-12:nth-child(2){
+        .ivu-form-item:nth-child(2){
+          .ivu-form-item-content{
+            width:100%;
+          }
+        }
+      }
+    }
+
+    @media (min-width: 1680px) {
+      .ivu-row:not(:first-child){
+        width:50%;
+      }
+      .ivu-row:nth-child(3) {
+        width:50%;
+        transform: translate(100%,-56px);
+        .ivu-col.ivu-col-span-12:first-child{
+          width:40%;
+        }
+        .ivu-col.ivu-col-span-12:nth-child(2){
+          width:60%;
+        }
+      }
+      .order-table{
+        transform: translateY(-56px);
+      }
+
+    }
     .ivu-select-dropdown.ivu-auto-complete{
       text-align: left;
     }
@@ -315,6 +347,7 @@
       }
     }
     .order-table{
+      transition: transform .2s;
       .ivu-auto-complete input{
         width:200px;
         transition: width .5s;
