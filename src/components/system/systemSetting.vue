@@ -47,11 +47,22 @@
     </Form>
     <my-drawer :open="integrationOpen" title="积分规则添加" @close-drawer="integrationOpen=false" @complate-drawer="">
       <div class="integration-add">
-        <Form :model="formItem" :label-width="80">
-          <FormItem label="积分规则">
-            <Input v-model="sizeName" placeholder="500积分抵扣50元"></Input>
-          </FormItem>
-        </Form>
+        <div class="store-item">
+          <div class="left-content">
+            <div class="store-item-label">积分数量<span class="red-star">*</span></div>
+          </div>
+          <div class="right-content">
+            <Input v-model="jfNumber" class="input-width" placeholder="积分数量"></Input>
+          </div>
+        </div>
+        <div class="store-item">
+          <div class="left-content">
+            <div class="store-item-label">金额数量<span class="red-star">*</span></div>
+          </div>
+          <div class="right-content">
+            <Input v-model="moneyNumber" class="input-width" placeholder="金额数量"></Input>
+          </div>
+        </div>
       </div>
     </my-drawer>
   </div>
@@ -65,6 +76,8 @@
     data() {
       return {
         integrationOpen: false,
+        jfNumber: '',
+        moneyNumber: '',
         formItem: {
           input: '',
           select: '',
@@ -91,5 +104,19 @@
 
   .integration-add {
     margin-top: 8px;
+  }
+
+  .store-item {
+    padding: 5px 0px;
+    border-bottom: 1px solid $formLabelBorderBottomColor;
+    display: flex;
+    .left-content {
+      display: flex;
+      flex: 1;
+      line-height: 200%;
+    }
+    .right-content {
+      text-align: right;
+    }
   }
 </style>

@@ -26,7 +26,7 @@
         <div class="add-size-drawer">
           <div class="store-item">
             <div class="left-content">
-              <div class="store-item-label">颜色的名称<span class="red-star">*</span></div>
+              <div class="store-item-label">尺码的名称<span class="red-star">*</span></div>
             </div>
             <div class="right-content">
               <Input v-model="sizeName" class="input-width" placeholder="XXL"></Input>

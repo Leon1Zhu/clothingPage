@@ -2,7 +2,7 @@
   <div class="repertory-record-html">
     <tool-bar>
       <Input v-model="goodsCode" placeholder="请输入货号或简称"></Input>
-      <Button class="search-button" type="primary" @click="searchGoodS">搜索</Button>
+      <Button class="search-button" icon="ios-search" type="primary" @click="searchGoodS">搜索</Button>
     </tool-bar>
     <div class="goods-show">
       <div class="item" v-for="goods in goodsData">
@@ -13,7 +13,7 @@
           <h4>{{goods.productName}}</h4>
           <div class="ids">商品id:{{goods.productId}}</div>
           <div class="number">货号:{{goods.productCode}}</div>
-          <div class="count">库存数量:{{goods.count}}</div>
+          <div class="count">库存数量:{{goods.productId}}</div>
           <div class="operation">
             <Button type="warning" shape="circle" icon="compose" @click="checkRepertory(goods.productCode)"></Button>
           </div>

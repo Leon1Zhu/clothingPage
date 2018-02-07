@@ -2,7 +2,7 @@
   <div class="">
     <tool-bar>
       <Input v-model="goodsNumber" placeholder="请输入货号或简称"></Input>
-      <Button class="search-button" type="primary">搜索</Button>
+      <Button class="search-button" icon="ios-search" type="primary">搜索</Button>
     </tool-bar>
     <Table :columns="columns1" :data="data1"></Table>
   </div>
@@ -14,6 +14,7 @@
     props: {},
     data() {
       return {
+        goodsNumber: '',
         columns1: [
           {
             title: '名称',
@@ -30,20 +31,25 @@
           {
             title: '颜色',
             key: 'color'
-          },
-          {
-            title: '类型',
-            key: 'type'
           }, {
             title: '操作',
             key: 'action',
             width: 150,
             align: 'center',
             render: (h, params) => {
+              let btnName = '';
+              let type = ''
+              if (params.row.type === '调入') {
+                btnName = '确认调入';
+                type = 'info'
+              } else {
+                btnName = '确认调出';
+                type = 'primary'
+              }
               return h('div', [
                 h('Button', {
                   props: {
-                    type: 'primary',
+                    type: type,
                     size: 'small'
                   },
                   style: {
@@ -54,7 +60,7 @@
                       this.show(params.index)
                     }
                   }
-                }, '确认')
+                }, btnName)
               ]);
             }
           }
@@ -96,7 +102,7 @@
   };
 </script>
 <style lang="scss" rel="stylesheet/scss" type="text/scss">
-.search-button {
-  margin-left: 8px;
-}
+  .search-button {
+    margin-left: 8px;
+  }
 </style>

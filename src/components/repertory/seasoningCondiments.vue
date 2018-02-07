@@ -2,14 +2,14 @@
   <div class="seasoning-condiments-html">
     <tool-bar>
       <Input v-model="goodsNumber" placeholder="请输入货号或简称"></Input>
-      <Button class="search-button" type="primary">搜索</Button>
+      <Button class="search-button" icon="ios-search" type="primary">搜索</Button>
     </tool-bar>
     <Table :columns="columns10" :data="data9"></Table>
     <my-drawer :open="seasoningOpen" title="门店调货" @close-drawer="seasoningOpen=false"
                @complate-drawer="">
       <div class="seasoning-condiments">
         <div class="ui segment">
-          <div class="ui vertical segment">
+          <div class="ui vertical segment active">
             <p>南京一号仓库 <span class="red">[1件库存]</span></p>
           </div>
           <div class="ui vertical segment">
@@ -208,13 +208,16 @@
 
     .ui.vertical.segment {
       margin: 0;
-      padding-left: 0;
+      padding-left: 8px;
       padding-right: 0;
       background: none transparent;
       border-radius: 0;
       box-shadow: none;
       border: none;
       border-bottom: 1px solid rgba(34, 36, 38, .15);
+      &.active {
+        background-color: #f8f6f2;
+      }
     }
 
     .ivu-select-dropdown {

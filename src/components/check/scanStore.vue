@@ -2,7 +2,7 @@
   <div class="repertory-record-html">
     <tool-bar>
       <Input v-model="goodsNumber" placeholder="扫描商品货号" @on-blur="check = true"></Input>
-      <Button class="search-button" type="primary">搜索</Button>
+      <Button class="search-button" icon="ios-search" type="primary">搜索</Button>
       <Button class="search-button" type="warning">开始盘点</Button>
       <Button class="search-button" type="error">结束盘点</Button>
       <Button class="search-button" type="info" @click.native="storeRecord = true">盘点记录</Button>

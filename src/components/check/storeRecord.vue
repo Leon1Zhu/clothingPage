@@ -8,7 +8,7 @@
       @on-cancel="cancel">
       <tool-bar>
         <Input v-model="goodsNumber" placeholder="请输入货号或简称"></Input>
-        <Button class="search-button" type="primary">搜索</Button>
+        <Button class="search-button" type="primary" icon="ios-search">搜索</Button>
       </tool-bar>
       <div class="store-change-html">
         <div class="type-choose">
@@ -68,7 +68,7 @@
 
   export default {
     props: {
-      modal:{
+      modal: {
         default: false
       }
     },
