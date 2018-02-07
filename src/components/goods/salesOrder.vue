@@ -255,6 +255,7 @@
       .ivu-col-span-12:nth-child(2){
         .ivu-form-item:nth-child(2){
           .ivu-form-item-content{
+            margin-left:0!important;
             width:100%;
           }
         }

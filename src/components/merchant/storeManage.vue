@@ -246,15 +246,15 @@
                       let shopTags = params.row.shopTags.split('|')
                       let innerHtml = '';
                       for(let i=0,len = shopTags.length;i<len;i++){
-                        innerHtml+= '<div class="ivu-tag ivu-tag-blue ivu-tag-checked"><span class="ivu-tag-text ivu-tag-color-white">'+shopTags[i]+'</span> </div>'
+                        innerHtml+=  ISNULL(shopTags[i]) ?  '' : '<div class="ivu-tag ivu-tag-blue ivu-tag-checked"><span class="ivu-tag-text ivu-tag-color-white">'+shopTags[i]+'</span> </div>' ;
                       }
                       return h('div', {
                         domProps: {
-                          innerHTML: innerHtml
+                          innerHTML: ISNULL(innerHtml) ? '无' : innerHtml
                         }
                       },);
                     }else{
-                      return h('div', {},params.row.shopTags);
+                      return h('div', {},'无');
                     }
 
                   }
