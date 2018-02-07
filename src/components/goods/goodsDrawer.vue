@@ -16,18 +16,18 @@
                 <Input v-model="formItem.input" placeholder="货号"></Input>
               </FormItem>
               <FormItem >
-                <span slot="label">货号<span class="red-star">*</span></span>
+                <span slot="label">简称<span class="red-star">*</span></span>
                 <Input v-model="formItem.input" placeholder="简称"></Input>
               </FormItem>
               <FormItem >
-                <span slot="label">货号<span class="red-star">*</span></span>
+                <span slot="label">售价<span class="red-star">*</span></span>
                 <Input v-model="formItem.input" placeholder="售价"></Input>
               </FormItem>
               <FormItem :label-width="120">
                 <div style="width: 120px;" slot="label" >
                   自定义售价
                   <span class="red-star">*</span>
-                  <Tooltip content="填写自定义售价，系统赔率将失效" placement="top">
+                  <Tooltip content="填写自定义售价，系统倍率将失效" placement="top">
                     <i class="iconfont  icon-wenhao" style="left: -3px;position: relative;top: 3px;" ></i>
                   </Tooltip>
                 </div>
@@ -53,6 +53,9 @@
               <Collapse >
                 <Panel name="1">
                   颜色<span class="red-star">*</span>
+                  <Tag type="dot" color="blue">蓝色</Tag>
+                  <Tag type="dot" color="green">绿色</Tag>
+                  <Tag type="dot" color="red">红色</Tag>
                   <div slot="content">
                     <div class="color-chunk">
                       <!--颜色的名称-->
@@ -88,6 +91,13 @@
                 </Panel>
                 <Panel name="2">
                   尺码<span class="red-star">*</span>
+
+                  <Tag checkable color="blue">S</Tag>
+                  <Tag checkable color="blue">M</Tag>
+                  <Tag checkable color="blue">XL</Tag>
+                  <Tag checkable color="blue">XXL</Tag>
+                  <div>
+                  </div>
                   <div slot="content">
                     <div class="size-chunk">
                       <!--尺码的名称-->
@@ -122,6 +132,10 @@
                 </Panel>
                 <Panel name="3">
                   分类<span class="red-star">*</span>
+
+                  <Tag checkable color="blue">上衣</Tag>
+                  <Tag checkable color="blue">裤子</Tag>
+                  <Tag checkable color="blue">外衣</Tag>
                   <div slot="content">
                     <Tag checkable color="blue">上衣</Tag>
                     <Tag checkable color="blue">裤子</Tag>
@@ -157,10 +171,33 @@
               <FormItem>
                 <Row>
                   <Col span="11">
-                  <Input v-model="formItem.input" placeholder="腰围"></Input>
+                  <Input v-model="formItem.input" placeholder="腰围"  class="centerInput" disabled></Input>
                   </Col>
                   <Col span="1" style="text-align: center">
-                  -
+                  </Col>
+                  <Col span="11">
+                  <Input v-model="formItem.input" placeholder="" ></Input>
+                  </Col>
+                </Row>
+              </FormItem>
+              <FormItem>
+                <Row>
+                  <Col span="11">
+                  <Input v-model="formItem.input" placeholder="腿围" class="centerInput" disabled> </Input>
+                  </Col>
+                  <Col span="1" style="text-align: center">
+                  </Col>
+                  <Col span="11">
+                  <Input v-model="formItem.input" placeholder="" ></Input>
+                  </Col>
+                </Row>
+              </FormItem>
+              <FormItem>
+                <Row>
+                  <Col span="11">
+                  <Input v-model="formItem.input" placeholder="大腿围" class="centerInput" disabled></Input>
+                  </Col>
+                  <Col span="1" style="text-align: center">
                   </Col>
                   <Col span="11">
                   <Input v-model="formItem.input" placeholder=""></Input>
@@ -170,36 +207,9 @@
               <FormItem>
                 <Row>
                   <Col span="11">
-                  <Input v-model="formItem.input" placeholder="腿围"></Input>
+                  <Input v-model="formItem.input" placeholder="小腿围" class="centerInput" disabled></Input>
                   </Col>
                   <Col span="1" style="text-align: center">
-                  -
-                  </Col>
-                  <Col span="11">
-                  <Input v-model="formItem.input" placeholder=""></Input>
-                  </Col>
-                </Row>
-              </FormItem>
-              <FormItem>
-                <Row>
-                  <Col span="11">
-                  <Input v-model="formItem.input" placeholder="大腿围"></Input>
-                  </Col>
-                  <Col span="1" style="text-align: center">
-                  -
-                  </Col>
-                  <Col span="11">
-                  <Input v-model="formItem.input" placeholder=""></Input>
-                  </Col>
-                </Row>
-              </FormItem>
-              <FormItem>
-                <Row>
-                  <Col span="11">
-                  <Input v-model="formItem.input" placeholder="小腿围"></Input>
-                  </Col>
-                  <Col span="1" style="text-align: center">
-                  -
                   </Col>
                   <Col span="11">
                   <Input v-model="formItem.input" placeholder=""></Input>
@@ -269,6 +279,9 @@
   .goodsAddDrawer{
     .ui.vertical.segment:first-child,.ui.vertical.segment:nth-child(3){
       border-bottom:1px solid $borderColorGoodsDrawer;
+    }
+    .centerInput input{
+      text-align: center;
     }
     .ui.segment {
       background: #fff;

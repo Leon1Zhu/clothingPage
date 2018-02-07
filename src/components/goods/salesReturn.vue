@@ -23,12 +23,12 @@
           <div class="colorName">核销</div>
         </div>
 
-        <div class="color-contentT" style="margin-left: 5px;">
+        <div class="color-contentT" style="margin-left: 10px;">
           <div class="colordiamonds"  style="background:#495060"></div>
           <div class="colorName">已付款</div>
         </div>
 
-        <div class="color-contentT" style="margin-left: 5px;">
+        <div class="color-contentT" style="margin-left: 10px;">
           <div class="colordiamonds"  style="background:#11b5ff"></div>
           <div class="colorName">未付款</div>
         </div>

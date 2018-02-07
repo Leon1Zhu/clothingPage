@@ -201,8 +201,9 @@
               sum += this.tableData[item].sum
               countSum += parseInt(this.tableData[item].count,10)
             }
-            this.orderInfo.payable = sum
-            this.orderInfo.allCount = countSum
+            this.orderInfo.payable = sum;
+            this.orderInfo.payMoney = sum;
+            this.orderInfo.allCount = countSum;
           },
           filterMethod (value, option) {
             return option.toLowerCase().indexOf(value.toLowerCase()) !== -1;
