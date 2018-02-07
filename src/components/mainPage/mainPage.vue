@@ -253,7 +253,7 @@
         height:100%;
         right: 0px;
         bottom: 0px;
-        min-width:700px;
+        min-width:840px;
       }
       .ivu-col.ivu-col-span-20{
         left:200px;

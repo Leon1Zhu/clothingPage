@@ -66,10 +66,10 @@
       <div class="store-item  store-item-icon-color" v-if="type==='CHANGE'">
         <div class="left-content">
           <i class="iconfont  icon-zhifufangshi" ></i>
-          <div class="store-item-label">付款方式&nbsp;&nbsp;</div>
+          <div class="store-item-label">积分余额&nbsp;&nbsp;</div>
         </div>
         <div class="right-content">
-          <Input v-model="customInfo.customLatestPaytype"  disabled></Input>
+          <Input v-model="customInfo.customGrade"  disabled></Input>
         </div>
       </div>
 
@@ -125,7 +125,7 @@
                 customCard:null,
                 customLatestTime:null,
                 customLatestMoney:null,
-                customLatestPaytype:null,
+                customGrade:null,
                 customTotalMoney:null,
                 customRemainMoney:null,
               },
@@ -154,7 +154,7 @@
               this.customInfo.customCard = this.customInfoProp.customCard
               this.customInfo.customLatestTime = ISNULL(this.customInfoProp.customLatestTime) ? '': new Date(this.customInfoProp.customLatestTime).Format(dateFormatType)
               this.customInfo.customLatestMoney = this.customInfoProp.customLatestMoney
-              this.customInfo.customLatestPaytype = this.customInfoProp.customLatestPaytype
+              this.customInfo.customGrade = this.customInfoProp.customGrade
               this.customInfo.customRemainMoney = this.customInfoProp.customRemainMoney
               this.customInfo.customTotalMoney = this.customInfoProp.customTotalMoney
               return'CHANGE';
@@ -171,7 +171,7 @@
                      customCard:null,
                      customLatestTime:null,
                      customLatestMoney:null,
-                     customLatestPaytype:null,
+                     customGrade:null,
                      customTotalMoney:null,
                      customRemainMoney:null,
                  }

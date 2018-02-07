@@ -253,7 +253,7 @@
     position: relative;
     .goods-content{
       position: relative;
-      height:88%;
+     /* height:88%;*/
       overflow: auto;
       height: calc( 100% - 85px);
       display: flex;
@@ -270,6 +270,9 @@
           padding-bottom:6px;
         }
         .goods-img{
+          height:220px;
+          max-height:220px;
+          overflow: hidden;
           width:100%;
           position: relative;
           img{
@@ -278,6 +281,7 @@
           }
         }
         .goods-desc{
+          margin-top:1%;
           .goods-name{
             font-size:16px;
           }
