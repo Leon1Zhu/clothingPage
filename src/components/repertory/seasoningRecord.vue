@@ -2,6 +2,10 @@
   <div class="">
     <tool-bar>
       <Input v-model="goodsNumber" placeholder="请输入货号或简称"></Input>
+      <Col class="left-eight">
+      <DatePicker :value="searchDataTime" type="daterange" placement="bottom-end" placeholder="选择日期"
+                  style="width: 200px"></DatePicker>
+      </Col>
       <Button class="search-button" icon="ios-search" type="primary">搜索</Button>
     </tool-bar>
     <Table :columns="columns1" :data="data1"></Table>
@@ -15,6 +19,7 @@
     data() {
       return {
         goodsNumber: '',
+        searchDataTime: '',
         columns1: [
           {
             title: '名称',
@@ -102,7 +107,13 @@
   };
 </script>
 <style lang="scss" rel="stylesheet/scss" type="text/scss">
+  @import '../../common/css/globalscss.scss';
+
   .search-button {
+    margin-left: 8px;
+  }
+
+  .left-eight {
     margin-left: 8px;
   }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="repertory-record-html">
     <tool-bar>
-      <Input v-model="goodsNumber" placeholder="扫描商品货号" @on-blur="check = true"></Input>
+      <Input v-model="goodsNumber" icon="qr-scanner" placeholder="扫描商品货号" @on-blur="check = true"></Input>
       <Button class="search-button" icon="ios-search" type="primary">搜索</Button>
       <Button class="search-button" type="warning">开始盘点</Button>
       <Button class="search-button" type="error">结束盘点</Button>
@@ -31,7 +31,7 @@
       title="扫码盘点"
       @on-ok="ok"
       @on-cancel="cancel">
-      <Input v-model="goodsNumber" placeholder="扫描商品货号"></Input>
+      <Input v-model="goodsNumber" icon="qr-scanner" placeholder="扫描商品货号"></Input>
       <div class="goods-infor">
         <div class="goods-img">
           <img :src="imgUrl" alt="">
