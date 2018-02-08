@@ -30,15 +30,15 @@
             </div>
           </div>
 
-          <div class="store-item no-border-bottom-item store-item-icon-color">
-            <div class="left-content">
-              <i class="iconfont  icon-10xiangxidizhi" ></i>
-              <div class="store-item-label">门店地区<span class="red-star">*</span></div>
-            </div>
-            <div class="right-content">
-              <Cascader :data="data" v-model="marketNameArr"></Cascader>
-            </div>
-          </div>
+           <div class="store-item no-border-bottom-item store-item-icon-color">
+             <div class="left-content">
+               <i class="iconfont  icon-10xiangxidizhi" ></i>
+               <div class="store-item-label">门店地区<span class="red-star">*</span></div>
+             </div>
+             <div class="right-content">
+               <Cascader :data="data" v-model="marketNameArr"></Cascader>
+             </div>
+           </div>
 
           <div class="store-item  ">
             <div class="left-content">
@@ -192,7 +192,7 @@
                 shopTags:null,
                 shopQq:null,
               },
-              marketNameArr:null,
+              marketNameArr:[],
               shopTagsArr:[],
               payTypeArr:[],
               columns10: [
