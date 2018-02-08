@@ -27,6 +27,36 @@
       @on-cancel="cancel">
       <div class="goods-infor">
         <div class="goods-img">
+          <img :src="imgUrl" alt="">
+        </div>
+        <div class="goods-introduction">
+          <h4>三叶草卫衣</h4>
+          <div class="ids">商品id:454564</div>
+          <div class="number">货号:5456</div>
+        </div>
+      </div>
+      <div class="repertory-infor">
+        <div class="detail">
+          <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
+          <Tag class="size" color="blue">M</Tag>
+          <span class="total">20</span>
+          <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
+        </div>
+        <div class="detail">
+          <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
+          <Tag class="size" color="blue">XL</Tag>
+          <span class="total">20</span>
+          <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
+        </div>
+        <div class="detail">
+          <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
+          <Tag class="size" color="blue">XXL</Tag>
+          <span class="total">20</span>
+          <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
+        </div>
+      </div>
+      <!--<div class="goods-infor">
+        <div class="goods-img">
           <img :src="goodsDetail.productPic" alt="">
         </div>
         <div class="goods-introduction">
@@ -42,9 +72,7 @@
           <span class="total">20</span>
           <InputNumber :min="1" v-model="goodsSku.amount" class="truth-total"></InputNumber>
         </div>
-      </div>
-      <!--<Button id="add-repertory" class="" @click="addRepertoryInformation" type="primary" shape="circle"
-              icon="plus-round"></Button>-->
+      </div>-->
     </Modal>
 
     <footer>
@@ -96,6 +124,7 @@
     props: {},
     data() {
       return {
+        imgUrl: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
         account: this.$store.getters.getAccountId,
         shopId: this.$store.getters.getShopId,
         goodsCode: '',
@@ -106,7 +135,60 @@
         goodsCount: 1,
         repertoryAddOpen: false,
         // 库存展示的信息数组
-        goodsData: [],
+        goodsData: [
+          {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }
+
+        ],
         goodsSkuS: [],
         goodsDetail: {},
         // 添加库存的信息数组
@@ -122,13 +204,13 @@
       };
     },
     created() {
-      this.listAllGoods();
+      /*this.listAllGoods();*/
     },
     methods: {
       /**
        * 获取所有商品的库存
        */
-      listAllGoods() {
+      /*listAllGoods() {
         let account = this.$store.getters.getAccountId;
         let shopId = this.$store.getters.getShopId;
         let params = {
@@ -136,14 +218,13 @@
           size: this.pageSize
         };
         repertoryRecordApi.listAllGoods(account, params).then((rep) => {
-          console.log(rep);
           let repertory = rep.data;
           this.pageTotal = repertory.totalElements;
           this.goodsData = repertory.content;
         }).catch((rep) => {
           this.$error(apiError, '获取全部商品出错!')
         })
-      },
+      },*/
       addRepertoryInformation() {
         this.repertoryAddOpen = true;
       },
@@ -152,12 +233,12 @@
       },
       checkRepertory(productCode) {
         this.add = true;
-        repertoryRecordApi.getSingleGoods(this.account, this.shopId, productCode).then((rep) => {
+        /*repertoryRecordApi.getSingleGoods(this.account, this.shopId, productCode).then((rep) => {
           this.goodsSkuS = rep.data.skus;
           this.goodsDetail = rep.data.product;
         }).catch((rep) => {
           this.$error(apiError, '获取商品SKU出错!')
-        })
+        })*/
       },
       pageChange(page) {
         this.pageNumber = page;

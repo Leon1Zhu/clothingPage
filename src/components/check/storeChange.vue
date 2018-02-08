@@ -5,7 +5,7 @@
       <Button class="search-button" icon="ios-search" type="primary">搜索</Button>
       <Button class="search-button" type="warning">开始盘点</Button>
       <Button class="search-button" type="error">结束盘点</Button>
-      <Button class="search-button" type="info" @click.native="storeRecord=true">盘点记录</Button>
+      <Button class="search-button" type="info" @click="storeRecord=true">盘点记录</Button>
     </tool-bar>
     <div class="goods-show">
       <div class="item" v-for="(goods,index) in goodsData" :class="{'active-gray':goods.flag == 0,
@@ -20,7 +20,6 @@
           <div class="number">货号:{{goods.number}}</div>
           <div class="count">库存数量:{{goods.count}}</div>
           <div class="operation">
-            <!--<Button type="primary" shape="circle" icon="gear-b" @click="check = true"></Button>-->
             <Button type="primary" shape="circle" icon="clipboard"
                     @click="repertoryAddOpen = true, storeRecordIndex=index"></Button>
           </div>
@@ -36,7 +35,34 @@
       title="清单盘点"
       @on-ok="ok"
       @on-cancel="cancel">
-      <RadioGroup v-model="phone" size="large">
+      <div class="goods-infor">
+        <div class="goods-img">
+          <img :src="imgUrl" alt="">
+        </div>
+        <div class="goods-introduction">
+          <h4>三叶草卫衣</h4>
+          <div class="ids">商品id:454564</div>
+          <div class="number">货号:5456</div>
+        </div>
+      </div>
+      <div class="repertory-infor">
+        <div class="detail">
+          <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
+          <Tag class="size" color="blue">M</Tag>
+          <span class="total">20</span>
+        </div>
+        <div class="detail">
+          <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
+          <Tag class="size" color="blue">XL</Tag>
+          <span class="total">20</span>
+        </div>
+        <div class="detail">
+          <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
+          <Tag class="size" color="blue">XXL</Tag>
+          <span class="total">20</span>
+        </div>
+      </div>
+      <RadioGroup v-model="phone" class="radiogroup" size="large">
         <Radio label="1">
           <span>有误</span>
         </Radio>
@@ -45,49 +71,7 @@
         </Radio>
       </RadioGroup>
     </Modal>
-    <!--<my-drawer :open="repertoryAddOpen" title="清单盘点" @close-drawer="repertoryAddOpen=false"
-               @complate-drawer="handleClose">
-      <div class="add-repertory">
-        <div class="goods-infor">
-          <div class="goods-img">
-            <img :src="imgUrl" alt="">
-          </div>
-          <div class="goods-introduction">
-            <h4>三叶草卫衣</h4>
-            <div class="ids">商品id:454564</div>
-            <div class="number">货号:5456</div>
-          </div>
-        </div>
-        <div class="repertory-infor">
-          <div class="detail">
-            <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-            <Tag checkable class="size" color="blue">M</Tag>
-            <InputNumber :min="1" v-model="value1" class="truth-total" disabled></InputNumber>
-          </div>
-          <div class="detail">
-            <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-            <Tag checkable class="size" color="blue">XL</Tag>
-            <InputNumber :min="1" v-model="value1" class="truth-total" disabled></InputNumber>
-          </div>
-          <div class="detail">
-            <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-            <Tag checkable class="size" color="blue">XL</Tag>
-            <InputNumber :min="1" v-model="value1" class="truth-total" disabled></InputNumber>
-          </div>
-          <RadioGroup v-model="phone" class="sure-store">
-            <Radio label="1">
-              <Icon type="close-circled"></Icon>
-              <span>有误</span>
-            </Radio>
-            <Radio label="0">
-              <Icon type="checkmark-circled"></Icon>
-              <span>无误</span>
-            </Radio>
-          </RadioGroup>
-        </div>
-      </div>
-    </my-drawer>-->
-    <store-record :modal="storeRecord"></store-record>
+    <store-record :modalStatus="storeRecord" @close-record="storeRecord=false"></store-record>
   </div>
 </template>
 <script>
@@ -393,6 +377,14 @@
 
   .search-button {
     margin-left: 8px;
+  }
+
+  .radiogroup {
+    margin-left: 74%;
+    margin-top: 8px;
+    span {
+      font-weight: 600;
+    }
   }
 
 </style>

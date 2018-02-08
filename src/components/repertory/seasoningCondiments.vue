@@ -9,13 +9,13 @@
                @complate-drawer="">
       <div class="seasoning-condiments">
         <div class="ui segment">
-          <div class="ui vertical segment active">
+          <div class="ui vertical segment html-cursor" :class="{'active':repertory == 0}" @click="repertory = 0">
             <p>南京一号仓库 <span class="red">[1件库存]</span></p>
           </div>
-          <div class="ui vertical segment">
+          <div class="ui vertical segment html-cursor" :class="{'active':repertory == 1}" @click="repertory = 1">
             <p>南京二号仓库 <span class="red">[5件库存]</span></p>
           </div>
-          <div class="ui vertical segment">
+          <div class="ui vertical segment html-cursor" :class="{'active':repertory == 2}" @click="repertory = 2">
             <p>南京三号仓库 <span class="green">[10件库存]</span></p>
           </div>
           <div class="ui vertical segment">
@@ -35,6 +35,7 @@
     props: {},
     data() {
       return {
+        repertory: 0,
         seasoningOpen: false,
         seasoningIn: '1',
         seasoningOut: '2',
