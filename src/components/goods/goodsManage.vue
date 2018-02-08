@@ -32,8 +32,8 @@
           </div>
 
           <div class="goods-operator">
-            <Button class="change_status" type="primary" shape="circle" icon="edit" @click.native="open=true"></Button>
-            <Button class="change_goodsinfo" type="primary" shape="circle" icon="ios-gear" @click.native="goodsAddOpen = true"></Button>
+            <Button class="change_status" type="primary" shape="circle" icon="edit" @click.native="goodsAddOpen = true"></Button>
+            <Button class="change_goodsinfo" type="primary" shape="circle" icon="ios-gear" @click.native="open=true "></Button>
             <Button class="delete_goods " type="primary" shape="circle"icon="trash-a" ></Button>
             <Button class="goods-qr-code ivu-btn-icon-only" type="primary" shape="circle" ><i class="iconfont  icon-erweima" ></i></Button>
           </div>
