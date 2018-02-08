@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="seasoning-record">
     <tool-bar>
       <Input v-model="goodsNumber" placeholder="请输入货号或简称"></Input>
       <Col class="left-eight">
@@ -116,4 +116,12 @@
   .left-eight {
     margin-left: 8px;
   }
+.seasoning-record{
+  .left-eight {
+    .ivu-input:hover, .ivu-input:focus {
+      width: 200px !important;
+    }
+  }
+}
+
 </style>
