@@ -3,7 +3,7 @@
     <Modal
       v-model="modalStatus"
       width="1200"
-      title="库存核对"
+      title="盘点记录"
       @on-ok="ok"
       @on-cancel="cancel">
       <tool-bar>
