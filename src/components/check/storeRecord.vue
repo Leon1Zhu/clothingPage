@@ -25,7 +25,7 @@
         <Page :total="100" class="footer-page"></Page>
       </footer>
     </Modal>
-    <my-drawer :open="check" title="清单盘点" @close-drawer="check=false"
+    <my-drawer :open="check" title="库存核对" @close-drawer="check=false"
                @complate-drawer="">
       <div class="add-repertory">
         <div class="goods-infor">
