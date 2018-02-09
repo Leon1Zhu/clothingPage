@@ -109,8 +109,8 @@
           spanRightBigValue:22,
           spanleftValue:4,
           spanRightValue: 20,
-          spanLeft: 2,
-          spanRight: 22,
+          spanLeft: 4,
+          spanRight: 20,
           accordion:true,
           menu:MENU,
         }
