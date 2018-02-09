@@ -198,23 +198,26 @@
               columns10: [
                 {
                   title: '门店名称',
-                  key: 'shopName'
+                  key: 'shopName',
                 },
                 {
                   title: '门店地区',
                   key: 'marketName',
+                  width:'20%',
                   render: (h, params) => {
                       if(!ISNULL(params.row.marketName)){
                         let market = params.row.marketName.split('|')
                         let innerHtml = '';
-                        innerHtml+= '<div class="ivu-tag ivu-tag-blue ivu-tag-checked"><span class="ivu-tag-text ivu-tag-color-white">'+market[market.length-1]+'</span> </div>'
+                        for(let i=0,len = market.length;i<len;i++) {
+                          innerHtml += '<div class="ivu-tag ivu-tag-blue ivu-tag-checked"><span class="ivu-tag-text ivu-tag-color-white">' + market[i] + '</span> </div>'
+                        }
                         return h('div', {
-                          domProps: {
+                            domProps: {
                             innerHTML: innerHtml
                           }
                         },);
                       }else{
-                        return h('div', {},params.row.marketName);
+                        return h('div', {},params.row.marketName);i
                       }
 
                   }
@@ -228,19 +231,22 @@
                 {
                   title: '门店微信',
                   key: 'shopWechat',
+                  width:'11%',
                 },
                 {
                   title: '门店QQ',
                   key: 'shopQq',
+                  width:'11%',
                 },
                 {
                   title: '门店电话',
                   key: 'shopPhone1',
+                  width:'11%',
                 },
                 {
                   title: '门店服务',
-                  width:'18%',
                   key: 'shopTags',
+                  width:'19%',
                   render: (h, params) => {
                     if(!ISNULL(params.row.marketName)){
                       let shopTags = params.row.shopTags.split('|')
@@ -262,7 +268,7 @@
                 {
                   title: '操作',
                   key: 'operate',
-                  width:'9%',
+                  width:'7%',
                   render: (h, params) => {
                     return h('div',{
                         style:{

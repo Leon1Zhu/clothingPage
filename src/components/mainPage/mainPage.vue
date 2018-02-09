@@ -4,7 +4,7 @@
     <Col :span="spanLeft" class="layout-menu-left" >
     <Menu   themem="dark" width="auto" :accordion="accordion" >
       <div class="layout-logo-left">
-        <div class="bgImg" ：class="">  </div>
+        <div class="bgImg" :class="{ 'smallLogo' : spanLeft < 4 }">  </div>
         <!--<img class="fire-cow" src="../../assets/logo2.png">-->
       </div>
       <div class="big-menu" v-show="spanLeft === 4">
@@ -196,12 +196,21 @@
       overflow-x: auto;
       overflow-y: hidden;
       height:100%;
-     /* .bgImg{
+      .bgImg{
         background: url("../../assets/logo2.png");
         height:40px;
         width:100%;
         background-size:cover;
-      }*/
+        transition: all .2s;
+        margin-top:2%;
+      }
+      .bgImg.smallLogo{
+        background: url("../../assets/logo2.png");
+        height:40px;
+        width: 81%;
+        margin-left: 16%;
+        background-size:cover;
+      }
       .user-operator{
         li:hover{
           background: $menuSelectFontColor;
@@ -261,7 +270,7 @@
         height:100%;
         right: 0px;
         bottom: 0px;
-        min-width:840px;
+        min-width:1200px;
       }
       .ivu-col.ivu-col-span-20{
         left:200px;
@@ -312,7 +321,7 @@
         width: 90%;
         height: 40px;
         border-radius: 3px;
-        margin:5px 5% 15px 5%;
+        margin:5px 5% 8px 5%;
       }
       .layout-ceiling-main a{
         color: #9ba7b5;

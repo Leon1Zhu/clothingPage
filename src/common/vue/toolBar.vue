@@ -26,22 +26,28 @@
   .tool-bar{
     display: flex;
     text-align: right;
-    margin-bottom:18px;
+    margin-bottom:10px;
+    height:46px;
     .ivu-icon-ios-search{
       font-weight:700;
     }
     .page-tag-lable{
-      line-height: 2;
+      line-height:46px;
       font-size: 20px;
       border-left:4px solid $menuSelectFontColor;
       padding-left:8px;
+      height:46px;
     }
     .right-content{
       flex:1;
-      margin-top:4px;
-      height:32px;
+      height:46px;
       display: flex;
       justify-content: flex-end;
+      .ivu-btn,.ivu-input{
+        height:40px!important;
+        margin-top:5px!important;
+        font-size:14px!important;
+      }
       .ivu-input{
         width:200px;
         transition: width .5s;
@@ -56,10 +62,10 @@
         left:auto!important;
       }
     }
-    @media (max-width: 720px) {
+   /* @media (max-width: 720px) {
       .page-tag-lable{
         display: none;
       }
-    }
+    }*/
   }
 </style>

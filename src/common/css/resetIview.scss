@@ -147,3 +147,24 @@
   width: 50px;
   height: 50px;
 }
+
+.menu-list-content{
+  .ivu-tag{
+    .ivu-tag-dot-inner{
+      display: none;
+    }
+  }
+
+  .ivu-tag.activeTag{
+    background: $menuSelectFontColor!important;
+    .ivu-icon.ivu-icon-ios-close-empty:before{
+      color: white;
+    }
+    .ivu-tag-text{
+      color: white;
+    }
+  }
+
+
+}
+

@@ -226,8 +226,22 @@
         created(){
         },
         mounted(){
+
+          this.resizeHeight()
+          window.onresize = function(){
+            this.resizeHeight();
+          }.bind(this)
+
         },
         methods: {
+          resizeHeight(){
+            this.$nextTick(function(){
+              let dom =document.getElementsByClassName('goods-img')
+              for(let i =0,len=dom.length;i<len;i++){
+                dom[i].style.maxHeight = dom[i].clientWidth+'px'
+              }
+            })
+          },
           addNewGoods(){
               this.goodsAddOpen = true;
 
@@ -251,15 +265,26 @@
     width:100%;
     overflow:auto;
     position: relative;
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 15px;
+    }
+
+    ::-webkit-scrollbar-thumb:vertical {
+      height: 88%;
+      background-color: rgba(125, 125, 125, 0.7);
+      -webkit-border-radius: 10px;
+    }
+
     .goods-content{
       position: relative;
-     /* height:88%;*/
       overflow: auto;
-      height: calc( 100% - 85px);
+      height:85%;
+      height: calc( 100% - 96px);
       display: flex;
       flex-wrap: wrap;
       margin-left:-1%;
-      margin-top:-1%;
+      align-items: flex-start;
       .ivu-card{
         width:32%;
         max-width:32%;
@@ -270,8 +295,8 @@
           padding-bottom:6px;
         }
         .goods-img{
-          height:220px;
-          max-height:220px;
+          max-width:300px;
+          margin:0 auto;
           overflow: hidden;
           width:100%;
           position: relative;
@@ -327,11 +352,17 @@
           width:32%;
           max-width:32%;
         }
+        .goods-info-card:nth-child(n):nth-child(-n+3){
+          margin-top:0!important;
+        }
       }
       @media (min-width: 1280px) {
         .ivu-card {
           width:24%;
           max-width:24%;
+        }
+        .goods-info-card:nth-child(n):nth-child(-n+4){
+          margin-top:0!important;
         }
       }
       @media (min-width: 1620px) {
@@ -339,11 +370,17 @@
           width:19%;
           max-width:19%;
         }
+        .goods-info-card:nth-child(n):nth-child(-n+5){
+          margin-top:0!important;
+        }
       }
       @media (min-width: 1920px) {
         .ivu-card {
           width:15.65%;
           max-width:15.65%;
+        }
+        .goods-info-card:nth-child(n):nth-child(-n+6){
+          margin-top:0!important;
         }
       }
 
@@ -351,6 +388,9 @@
         .ivu-card {
           width:13.28%;
           max-width:13.28%;
+        }
+        .goods-info-card:nth-child(n):nth-child(-n+7){
+          margin-top:0!important;
         }
       }
     }
