@@ -138,8 +138,9 @@
                 {field: 'sum', title: '', width: 150, titleAlign: 'center',columnAlign:'center',componentName:'table-addOperate'},
                 {field: 'id', title:'序号', width: 180, titleAlign: 'center',columnAlign:'center', isResize:true},
                 {field: 'goodName', title: '货品',width: 180,  titleAlign: 'center',columnAlign:'center',isResize:true},
-                {field: 'color', title: '颜色',width: 150,  titleAlign: 'center',columnAlign:'center',isResize:true},
-                {field: 'size', title: '尺码', width: 150, titleAlign: 'center',columnAlign:'center',isResize:true},
+                {field: 'systemCode', title: '系统货号',width: 180,  titleAlign: 'center',columnAlign:'center',isResize:true},
+                {field: 'color', title: '颜色',width: 150,  titleAlign: 'center',columnAlign:'center',isResize:true,componentName:'table-ColorSelect'},
+                {field: 'size', title: '尺码', width: 150, titleAlign: 'center',columnAlign:'center',isResize:true,componentName: 'table-SizeSelect'},
                 {field: 'count', title: '数量', width: 150, titleAlign: 'center',columnAlign:'center',isEdit:true,isResize:true},
                 {field: 'prince', title: '单价', width: 150, titleAlign: 'center',columnAlign:'center',isEdit:true,isResize:true},
                 {field: 'sum', title: '合计', width: 150, titleAlign: 'center',columnAlign:'center', formatter: function (rowData,rowIndex,pagingIndex,field) {
@@ -148,13 +149,13 @@
                 {field: 'sum', title: '', width: 150, titleAlign: 'center',columnAlign:'center',componentName:'table-operation'}
               ],
               tableData: [
-                {"id":"1","goodName":"01016下口袋","color":"浅蓝","size":"L",count:10,prince:14,sum:140},
-                {"id":"2","goodName":"01016下口袋","color":"浅蓝","size":"L",count:10,prince:24,sum:240},
-                {"id":"3","goodName":"01016下口袋","color":"浅蓝","size":"L",count:10,prince:34,sum:340},
-                {"id":"4","goodName":"01016下口袋","color":"浅蓝","size":"L",count:10,prince:44,sum:440},
-                {"id":"5","goodName":"01016下口袋","color":"浅蓝","size":"L",count:10,prince:54,sum:540},
-                {"id":"6","goodName":"01016下口袋","color":"浅蓝","size":"L",count:10,prince:64,sum:640},
-                {"id":"7","goodName":"01016下口袋","color":"浅蓝","size":"L",count:10,prince:74,sum:740}
+                {"id":"1","systemCode":"x125","goodName":"01016下口袋","color":"浅蓝","size":"L",count:10,prince:14,sum:140},
+                {"id":"2","systemCode":"x125","goodName":"01016下口袋","color":"浅蓝","size":"L",count:10,prince:24,sum:240},
+                {"id":"3","systemCode":"x125","goodName":"01016下口袋","color":"浅蓝","size":"L",count:10,prince:34,sum:340},
+                {"id":"4","systemCode":"x125","goodName":"01016下口袋","color":"浅蓝","size":"L",count:10,prince:44,sum:440},
+                {"id":"5","systemCode":"x125","goodName":"01016下口袋","color":"浅蓝","size":"L",count:10,prince:54,sum:540},
+                {"id":"6","systemCode":"x125","goodName":"01016下口袋","color":"浅蓝","size":"L",count:10,prince:64,sum:640},
+                {"id":"7","systemCode":"x125","goodName":"01016下口袋","color":"浅蓝","size":"L",count:10,prince:74,sum:740}
               ],
               orderInfo:{
                 payWay:0,
@@ -302,18 +303,25 @@
       border-radius: 3px;
       height:auto!important;
       td{
-        width:11.12%!important;
+        width:11.4%;
       }
 
       .v-table-header-row{
-        td:first-child,td:last-child{
-          width: 8%!important;
+        td:nth-child(2){
+          width: 8%;
         }
+        td:first-child,td:last-child{
+          width: 6%;
+        }
+
       }
       .v-table-btable{
         .v-table-row{
+          td:nth-child(2){
+            width: 8%;
+          }
           td:first-child,td:last-child{
-            width:8%!important;
+            width:6%;
           }
         }
       }

@@ -4,7 +4,8 @@
     <Col :span="spanLeft" class="layout-menu-left" >
     <Menu   themem="dark" width="auto" :accordion="accordion" >
       <div class="layout-logo-left">
-        <img class="fire-cow" src="../../assets/logo.png">
+        <div class="bgImg" ：class="">  </div>
+        <!--<img class="fire-cow" src="../../assets/logo2.png">-->
       </div>
       <div class="big-menu" v-show="spanLeft === 4">
         <div class="fire-cow-menu" v-for="(menuItem,index) in menu">
@@ -43,9 +44,9 @@
     </Col>
     <Col :span="spanRight" class="main-content-span">
     <div class="layout-header">
-      <!--<Button type="text" @click="toggleClick">
+      <Button type="text" @click="toggleClick">
         <Icon type="navicon" size="32"></Icon>
-      </Button>-->
+      </Button>
       <div class="user-tool-bar">
 
 
@@ -187,6 +188,7 @@
 <style lang="scss" rel="stylesheet/scss" >
   @import '../../common/css/globalscss.scss';
     .mainLayout{
+
       border: 1px solid #d7dde4;
       background: #f5f7f9;
       position: relative;
@@ -194,6 +196,12 @@
       overflow-x: auto;
       overflow-y: hidden;
       height:100%;
+     /* .bgImg{
+        background: url("../../assets/logo2.png");
+        height:40px;
+        width:100%;
+        background-size:cover;
+      }*/
       .user-operator{
         li:hover{
           background: $menuSelectFontColor;
