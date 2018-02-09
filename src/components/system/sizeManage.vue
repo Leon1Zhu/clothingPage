@@ -5,22 +5,33 @@
       <!--尺码管理-->
       <div class="size-manage">
         <!--尺码块-->
-        <div v-for="sizeData in sizeDataS" class="size-chunk">
-          <!--尺码的名称-->
+        <Card v-for="sizeData in sizeDataS" class="card-size">
+          <p slot="title">
+            {{sizeData.sizetypeName}}&nbsp;<span @click="addSize(sizeData)">&nbsp;<Icon class="ui-cursor"
+                                                                                  type="ios-plus-outline"
+                                                                                  color="#06c1ae"></Icon></span>
+          </p>
+          <Tag v-for="size in sizeData.sizes" closable
+               @on-close="deleteSize(size.sizeId, size.sizeType)" type="dot" class="size-tag" color="#06c1ae">{{size.sizeName}}
+          </Tag>
+        </Card>
+        <!--<div v-for="sizeData in sizeDataS" class="size-chunk">
+          &lt;!&ndash;尺码的名称&ndash;&gt;
           <div class="size-name">
             <div class="title">
               {{sizeData.sizetypeName}}&nbsp;&nbsp;
-              <span @click="addSize(sizeData)"><Icon class="ui-cursor" type="plus-circled"
+              <span @click="addSize(sizeData)"><Icon class="ui-cursor" type="ios-plus-outline"
                                                      color="#06c1ae"></Icon></span>
+
             </div>
           </div>
-          <!--尺码的细节-->
+          &lt;!&ndash;尺码的细节&ndash;&gt;
           <div class="detail">
-            <Tag v-for="size in sizeData.sizes" type="dot" closable
-                 @on-close="deleteSize(size.sizeId, size.sizeType)" color="#06c1ae">{{size.sizeName}}
+            <Tag v-for="size in sizeData.sizes" closable
+                 @on-close="deleteSize(size.sizeId, size.sizeType)" class="size-tag" color="#06c1ae">{{size.sizeName}}
             </Tag>
           </div>
-        </div>
+        </div>-->
       </div>
       <my-drawer :open="sizeOpen" title="尺码添加" @close-drawer="sizeOpen=false" @complate-drawer="addSizeData()">
         <div class="add-size-drawer">
@@ -112,10 +123,23 @@
     width: 100%;
     .size-manage {
       flex: 1;
+      .card-size {
+        margin-top: 8px;
+        .ivu-tag-dot-inner {
+          display: none;
+        }
+        .ui-cursor {
+          font-weight: 600;
+        }
+      }
       .size-chunk {
         padding: 8px 8px 8px 0px;
         margin: {
           top: 15px;
+        }
+        border: 1px solid #dddee1;
+        &:hover {
+
         }
         .size-name {
           padding: 8px 8px 8px 0px;
@@ -123,6 +147,12 @@
         }
         .detail {
           padding: 8px 8px 8px 0px;
+          .size-tag {
+            height: 32px;
+            line-height: 32px;
+            border: 1px solid #e9eaec !important;
+            padding: 0 12px;
+          }
         }
       }
     }

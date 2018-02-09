@@ -5,16 +5,28 @@
       <!--颜色管理-->
       <div class="color-manage">
         <!--颜色块-->
-        <div v-for=" colorData in colorDataS" class="color-chunk">
-          <!--颜色的名称-->
+        <Card v-for="colorData in colorDataS" class="card-color">
+          <p slot="title">
+            {{colorData.seriesName}}&nbsp;&nbsp;
+            <span @click="addColor(colorData)"><Icon class="ui-cursor" type="ios-plus-outline"
+                                                     color="#06c1ae"></Icon></span>
+          </p>
+          <Tag v-for="color in colorData.colors" type="dot" closable
+               @on-close="deleteColor(color.colorId, color.colorType)"
+               :color="color.colorRgb">
+            {{color.colorName}}
+          </Tag>
+        </Card>
+        <!--<div v-for=" colorData in colorDataS" class="color-chunk">
+          &lt;!&ndash;颜色的名称&ndash;&gt;
           <div class="color-name">
             <div class="title">
               {{colorData.seriesName}}&nbsp;&nbsp;
-              <span @click="addColor(colorData)"><Icon class="ui-cursor" type="plus-circled"
+              <span @click="addColor(colorData)"><Icon class="ui-cursor" type="ios-plus-outline"
                                                        color="#06c1ae"></Icon></span>
             </div>
           </div>
-          <!--颜色的细节-->
+          &lt;!&ndash;颜色的细节&ndash;&gt;
           <div class="detail">
             <Tag v-for="color in colorData.colors" type="dot" closable
                  @on-close="deleteColor(color.colorId, color.colorType)"
@@ -22,7 +34,7 @@
               {{color.colorName}}
             </Tag>
           </div>
-        </div>
+        </div>-->
       </div>
       <my-drawer :open="colorOpen" title="颜色添加" @close-drawer="colorOpen=false" @complate-drawer="addColorData()">
         <div>
@@ -128,7 +140,12 @@
     width: 100%;
     .color-manage {
       flex: 1;
-      border-right: 2px solid #f8f6f2;
+      .card-color {
+        margin-top: 8px;
+        .ui-cursor {
+          font-weight: 600 ;
+        }
+      }
       .color-chunk {
         padding: 8px 8px 8px 0px;
         margin: {
