@@ -26,12 +26,12 @@
               <FormItem :label-width="120">
                 <div style="width: 120px;" slot="label" >
                   自定义售价
-                  <span class="red-star">*</span>
+                  <span class="red-star" style="margin-left: -3px;">*</span>
                   <Tooltip content="填写自定义售价，系统倍率将失效" placement="top">
                     <i class="iconfont  icon-wenhao" style="left: -3px;position: relative;top: 3px;" ></i>
                   </Tooltip>
                 </div>
-                <Input v-model="formItem.input" placeholder="自定义售价" style="width: 80%;"></Input>
+                <Input v-model="formItem.input" placeholder="自定义售价" style="width: 82.5%;"></Input>
               </FormItem>
             </Form>
           </div>
@@ -285,7 +285,7 @@
     }
     .ui.segment {
       background: #fff;
-      padding: .5em 1em;
+      padding: 0em 1em;
       border-radius: .28571429rem;
       &.vertical {
         margin: 0;
@@ -367,6 +367,7 @@
 
     .add-goods {
       .add-img {
+        margin:.5em 0;
         width: 76px;
         height: 76px;
         border-radius:3px;
@@ -377,7 +378,7 @@
             top: 13px;
             left: 17px;
           }
-          color: gray;
+          color: #c9c9c9;
         }
       }
       .detail, .tag {
@@ -389,6 +390,9 @@
       margin-top: 10px;
       color: rgba(0, 0, 0, 0.4);
       font-size: 8px;
+      display: block;
+      line-height: 1.5;
+      padding-bottom: 6px;
     }
 
   }
