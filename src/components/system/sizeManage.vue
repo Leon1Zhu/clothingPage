@@ -123,6 +123,7 @@
     display: flex;
     width: 100%;
     .size-manage {
+      margin-top: -8px;
       flex: 1;
       .card-size {
         margin-top: 8px;

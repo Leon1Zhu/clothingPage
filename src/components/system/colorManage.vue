@@ -140,6 +140,7 @@
     width: 100%;
     .color-manage {
       flex: 1;
+      margin-top: -8px;
       .card-color {
         margin-top: 8px;
         .ui-cursor {
