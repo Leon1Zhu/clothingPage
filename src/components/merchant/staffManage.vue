@@ -62,7 +62,7 @@
             <div class="store-item-label">设置新密码<span class="red-star">*</span></div>
           </div>
           <div class="right-content">
-            <Input  v-model="staffItem.accountPwd" type="password" placeholder="设置新密码" ></Input>
+            <Input  v-model="staffItem.accountPwd" type="password" placeholder="设置新密码" style="width: 74%"></Input>
           </div>
         </div>
       </div>
