@@ -8,11 +8,12 @@
         <Card v-for="sizeData in sizeDataS" class="card-size">
           <p slot="title">
             {{sizeData.sizetypeName}}&nbsp;<span @click="addSize(sizeData)">&nbsp;<Icon class="ui-cursor"
-                                                                                  type="ios-plus-outline"
-                                                                                  color="#06c1ae"></Icon></span>
+                                                                                        type="ios-plus-outline"
+                                                                                        color="#06c1ae"></Icon></span>
           </p>
           <Tag v-for="size in sizeData.sizes" closable
-               @on-close="deleteSize(size.sizeId, size.sizeType)" type="dot" class="size-tag" color="#06c1ae">{{size.sizeName}}
+               @on-close="deleteSize(size.sizeId, size.sizeType)" type="dot" class="size-tag" color="#06c1ae">
+            {{size.sizeName}}
           </Tag>
         </Card>
         <!--<div v-for="sizeData in sizeDataS" class="size-chunk">
@@ -125,6 +126,10 @@
       flex: 1;
       .card-size {
         margin-top: 8px;
+        .size-tag {
+          width: 95px !important;
+          text-align: center;
+        }
         .ivu-tag-dot-inner {
           display: none;
         }
@@ -152,6 +157,8 @@
             line-height: 32px;
             border: 1px solid #e9eaec !important;
             padding: 0 12px;
+            width: 95px !important;
+            text-align: center;
           }
         }
       }
