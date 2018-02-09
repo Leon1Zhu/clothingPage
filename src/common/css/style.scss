@@ -66,9 +66,8 @@ table,.ivu-input{
       padding:0 $drawerPadding;
     }
     .ivu-btn.ivu-btn-primary.ivu-btn-long{
-      width:66%;
-      margin:0 auto;
-      margin-bottom:16px;
+      width:55%;
+      margin:0 auto 16px;
     }
 
   }
@@ -83,7 +82,9 @@ table,.ivu-input{
 }
 
 .store-item .iconfont{
-  font-size:18px;
+  font-size:16px;
+  line-height:2;
+  padding-right:3px;
 }
 .store-item:first-child .iconfont{
   padding:0px;
@@ -159,7 +160,7 @@ table,.ivu-input{
 }
 
 .store-item:first-child .iconfont{
-  padding:0px;
+  padding:0;
   font-size:16px;
 }
 

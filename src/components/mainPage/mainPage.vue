@@ -332,6 +332,8 @@
 
       .ivu-btn.ivu-btn-text:hover{
         color:$menuSelectFontColor;
+        border-color: transparent;
+
       }
       .fire-cow{
         height:40px;
