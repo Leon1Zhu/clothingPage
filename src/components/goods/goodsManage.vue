@@ -16,12 +16,11 @@
           </div>
 
           <div class="goods-desc">
-            <p class="goods-name">
+            <p class="goods-name" >
               {{item.product_name}}
             </p>
             <div class="goods-other-info">
-              <p>商品ID:<span>{{item.product_id}}</span></p>
-              <p>货号:<span>{{item.product_code}}</span></p>
+              <p>商品ID:<span>{{item.product_id}}<span style="display: inline-block;margin: 0 3px;">/</span>{{item.product_code}}</span></p>
             </div>
 
           </div>
@@ -306,13 +305,12 @@
           }
         }
         .goods-desc{
-          margin-top:1%;
+          margin-top:10px;
           .goods-name{
             font-size:16px;
           }
           .goods-other-info{
-            line-height: 1.3;
-            margin: 5px 0px;
+            margin: 8px 0px;
             color: rgba(0,0,0,.4);
           }
         }

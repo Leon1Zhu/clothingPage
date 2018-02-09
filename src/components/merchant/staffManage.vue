@@ -38,7 +38,6 @@
           </div>
           <div class="right-content">
             <Select v-model="staffItem.accountType" >
-              <Option  value="管理员" >管理员</Option>
               <Option  value="店员" >店员</Option>
             </Select>
           </div>
@@ -63,7 +62,7 @@
             <div class="store-item-label">设置新密码<span class="red-star">*</span></div>
           </div>
           <div class="right-content">
-            <Input style="width: 73.5%;" v-model="staffItem.accountPwd" type="password" placeholder="设置新密码" ></Input>
+            <Input  v-model="staffItem.accountPwd" type="password" placeholder="设置新密码" ></Input>
           </div>
         </div>
       </div>
@@ -117,6 +116,10 @@
           {
             title: '关联门店',
             key: 'shopName',
+            render: (h, params) => {
+              return h('p', {
+              },params.row.accountName === 'admin' ? '无': params.row.shopName);
+            }
           },
           {
             title: '店员类别',
