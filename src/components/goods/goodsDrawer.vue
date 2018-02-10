@@ -149,19 +149,31 @@
                   </div>
                 </Panel>
               </Collapse>-->
-              <FormItem label="颜色">
-                <div class="ivu-input-wrapper">
+              <FormItem label="颜色" class="property-content">
+                <div class="ivu-input-wrapper" style="text-align: left;">
                   <Tag type="dot" closable color="blue">蓝色</Tag>
                   <Tag type="dot" closable color="green">绿色</Tag>
                   <Tag type="dot" closable color="red">红色</Tag>
+                  <Tag type="dot" >
+                      <Icon type="plus-round" ></Icon>
+                  </Tag>
                 </div>
 
               </FormItem>
-              <FormItem label="尺码">
-                <Input v-model="formItem.input" placeholder="初始库存"></Input>
+              <FormItem label="尺码" class="property-content">
+
+                <div class="ivu-input-wrapper" style="text-align: left;">
+                  <Tag checkable color="blue">S</Tag>
+                  <Tag checkable color="blue">M</Tag>
+                  <Tag checkable color="blue">XL</Tag>
+                  <Tag type="dot" >
+                    <Icon type="plus-round" ></Icon>
+                  </Tag>
+                </div>
+
               </FormItem>
-              <FormItem label="分类">
-                <Input v-model="formItem.input" placeholder="初始库存"></Input>
+              <FormItem label="分类" class="property-content">
+                <Cascader :data="data"></Cascader>
               </FormItem>
               <FormItem label="初始库存">
                 <Input v-model="formItem.input" placeholder="初始库存"></Input>
@@ -180,7 +192,7 @@
           </div>
           <div class="ui vertical segment">
             尺码表（CM）
-            <div class="tag">
+            <div class="size-tag">
               <Tag checkable color="blue">S</Tag>
               <Tag checkable color="blue">M</Tag>
               <Tag checkable color="blue">XL</Tag>
@@ -243,7 +255,7 @@
           </div>
           <div class="ui vertical segment">
             <Form :model="formItem" :label-width="80" label-position="left">
-              <FormItem label="备注">
+              <FormItem label="备注" style="border-top: 1px solid #f2f1f1;">
                 <Input v-model="formItem.input" placeholder="备注"></Input>
               </FormItem>
             </Form>
@@ -277,6 +289,53 @@
           value1: '',
           value2: [],
         },
+        data: [{
+          value: 'beijing',
+          label: '北京',
+          children: [
+            {
+              value: 'gugong',
+              label: '故宫'
+            },
+            {
+              value: 'tiantan',
+              label: '天坛'
+            },
+            {
+              value: 'wangfujing',
+              label: '王府井'
+            }
+          ]
+        }, {
+          value: 'jiangsu',
+          label: '江苏',
+          children: [
+            {
+              value: 'nanjing',
+              label: '南京',
+              children: [
+                {
+                  value: 'fuzimiao',
+                  label: '夫子庙',
+                }
+              ]
+            },
+            {
+              value: 'suzhou',
+              label: '苏州',
+              children: [
+                {
+                  value: 'zhuozhengyuan',
+                  label: '拙政园',
+                },
+                {
+                  value: 'shizilin',
+                  label: '狮子林',
+                }
+              ]
+            }
+          ],
+        }]
       };
     },
     methods: {
@@ -383,6 +442,24 @@
       border:1px solid $menuSelectFontColor;
       color: $menuSelectFontColor;
     }
+    .ivu-tag{
+      width:90px;
+      text-align: center;
+      height:32px;
+      line-height:32px;
+    }
+    .property-content{
+      .ivu-tag:last-child{
+        .ivu-tag-dot-inner{
+          display: none;
+        }
+        .ivu-icon.ivu-icon-plus-round{
+          font-size: 23px;
+          line-height: 32px;
+          color: #c9c9c9;
+        }
+      }
+    }
 
     .add-goods {
       .add-img {
@@ -403,15 +480,42 @@
       .detail, .tag {
         margin-top: 8px;
       }
+      .detail .ivu-input-wrapper{
+        width:90%;
+      }
     }
 
     .explain {
-      margin-top: 10px;
+      margin:5px 0 ;
       color: rgba(0, 0, 0, 0.4);
       font-size: 8px;
       display: block;
       line-height: 1.5;
       padding-bottom: 6px;
+    }
+    .property-content .ivu-tag-dot{
+      padding:0 10px;
+    }
+
+    .ui.vertical.segment .size-tag{
+      margin-top:5px;
+      margin-left:5%;
+      .ivu-tag{
+        background: $menuSelectFontColor;
+        .ivu-tag-text{
+          color: #fff;
+        }
+      }
+      .ivu-tag-checked{
+        border-color: $menuSelectFontColor;
+        background: white;
+        .ivu-tag-color-white{
+          color: $menuSelectFontColor!important;
+        }
+      }
+      .ivu-tag:not(:first-child):not(:nth-child(4n)){
+        margin-left:10px;
+      }
     }
 
   }
