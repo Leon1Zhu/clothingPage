@@ -50,7 +50,12 @@
                   <span slot="close"></span>
                 </i-switch>
               </FormItem>
-              <Collapse >
+
+
+
+
+
+             <!-- <Collapse >
                 <Panel name="1">
                   颜色<span class="red-star">*</span>
                   <Tag type="dot" color="blue">蓝色</Tag>
@@ -58,13 +63,13 @@
                   <Tag type="dot" color="red">红色</Tag>
                   <div slot="content">
                     <div class="color-chunk">
-                      <!--颜色的名称-->
+                      &lt;!&ndash;颜色的名称&ndash;&gt;
                       <div class="color-name">
                         <div class="title">
                           单色系&nbsp;&nbsp;
                         </div>
                       </div>
-                      <!--颜色的细节-->
+                      &lt;!&ndash;颜色的细节&ndash;&gt;
                       <div class="detail">
                         <Tag type="dot" color="blue">蓝色</Tag>
                         <Tag type="dot" color="green">绿色</Tag>
@@ -73,13 +78,13 @@
                       </div>
                     </div>
                     <div class="color-chunk">
-                      <!--颜色的名称-->
+                      &lt;!&ndash;颜色的名称&ndash;&gt;
                       <div class="color-name">
                         <div class="title">
                           红色系&nbsp;&nbsp;
                         </div>
                       </div>
-                      <!--颜色的细节-->
+                      &lt;!&ndash;颜色的细节&ndash;&gt;
                       <div class="detail">
                         <Tag type="dot" color="'#FF8C69'">红色</Tag>
                         <Tag type="dot" color="'#FF8247'">粉色</Tag>
@@ -100,13 +105,13 @@
                   </div>
                   <div slot="content">
                     <div class="size-chunk">
-                      <!--尺码的名称-->
+                      &lt;!&ndash;尺码的名称&ndash;&gt;
                       <div class="size-name">
                         <div class="title">
                           均码&nbsp;&nbsp;
                         </div>
                       </div>
-                      <!--尺码的细节-->
+                      &lt;!&ndash;尺码的细节&ndash;&gt;
                       <div class="detail">
                         <Tag type="dot" color="'#06c1ae'">M</Tag>
                         <Tag type="dot" color="'#06c1ae'">L</Tag>
@@ -115,13 +120,13 @@
                       </div>
                     </div>
                     <div class="size-chunk">
-                      <!--尺码的名称-->
+                      &lt;!&ndash;尺码的名称&ndash;&gt;
                       <div class="size-name">
                         <div class="title">
                           中国码&nbsp;&nbsp;
                         </div>
                       </div>
-                      <!--尺码的细节-->
+                      &lt;!&ndash;尺码的细节&ndash;&gt;
                       <div class="detail">
                         <Tag type="dot" color="#06c1ae">L</Tag>
                         <Tag type="dot" color="'#06c1ae'">M</Tag>
@@ -143,7 +148,21 @@
                     <Tag checkable color="blue">卫衣</Tag>
                   </div>
                 </Panel>
-              </Collapse>
+              </Collapse>-->
+              <FormItem label="颜色">
+                <div class="ivu-input-wrapper">
+                  <Tag type="dot" closable color="blue">蓝色</Tag>
+                  <Tag type="dot" closable color="green">绿色</Tag>
+                  <Tag type="dot" closable color="red">红色</Tag>
+                </div>
+
+              </FormItem>
+              <FormItem label="尺码">
+                <Input v-model="formItem.input" placeholder="初始库存"></Input>
+              </FormItem>
+              <FormItem label="分类">
+                <Input v-model="formItem.input" placeholder="初始库存"></Input>
+              </FormItem>
               <FormItem label="初始库存">
                 <Input v-model="formItem.input" placeholder="初始库存"></Input>
               </FormItem>

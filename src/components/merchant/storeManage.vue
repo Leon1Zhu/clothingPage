@@ -55,7 +55,7 @@
               <div   class="store-item-label">门店电话1<span class="red-star">*</span></div>
             </div>
             <div class="right-content">
-              <Input v-model="addSotreItem.shopPhone1" placeholder="门店电话1" style="width: 72%;"></Input>
+              <Input v-model="addSotreItem.shopPhone1" placeholder="门店电话1" style="width: 71.5%;"></Input>
             </div>
           </div>
 
@@ -64,7 +64,7 @@
               <div  style="margin-left: 27px;" class="store-item-label">门店电话2<span class="red-star">*</span></div>
             </div>
             <div class="right-content">
-              <Input v-model="addSotreItem.shopPhone2" placeholder="门店电话2" style="width: 72%;"></Input>
+              <Input v-model="addSotreItem.shopPhone2" placeholder="门店电话2" style="width: 71.5%;"></Input>
             </div>
           </div>
 
@@ -107,7 +107,7 @@
               <div  style="margin-left: 27px;" class="store-item-label">微信支付&nbsp;&nbsp;</div>
             </div>
             <div class="right-content">
-              <Input v-model="addSotreItem.shopWechatpay" placeholder="微信支付账号" ></Input>
+              <Input v-model="addSotreItem.shopWechatpay" placeholder="微信支付账号" style="width: 69.5%;" ></Input>
             </div>
           </div>
           <div class="store-item  ">
