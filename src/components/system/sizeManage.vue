@@ -6,7 +6,7 @@
       <div class="size-manage">
         <!--尺码块-->
         <Card v-for="sizeData in sizeDataS" class="card-size">
-          <p slot="title">
+          <p slot="title" class="title">
             {{sizeData.sizetypeName}}&nbsp;<span @click="addSize(sizeData)">&nbsp;<Icon class="ui-cursor"
                                                                                         type="ios-plus-outline"
                                                                                         color="#06c1ae"></Icon></span>
@@ -16,23 +16,6 @@
             {{size.sizeName}}
           </Tag>
         </Card>
-        <!--<div v-for="sizeData in sizeDataS" class="size-chunk">
-          &lt;!&ndash;尺码的名称&ndash;&gt;
-          <div class="size-name">
-            <div class="title">
-              {{sizeData.sizetypeName}}&nbsp;&nbsp;
-              <span @click="addSize(sizeData)"><Icon class="ui-cursor" type="ios-plus-outline"
-                                                     color="#06c1ae"></Icon></span>
-
-            </div>
-          </div>
-          &lt;!&ndash;尺码的细节&ndash;&gt;
-          <div class="detail">
-            <Tag v-for="size in sizeData.sizes" closable
-                 @on-close="deleteSize(size.sizeId, size.sizeType)" class="size-tag" color="#06c1ae">{{size.sizeName}}
-            </Tag>
-          </div>
-        </div>-->
       </div>
       <my-drawer :open="sizeOpen" title="尺码添加" @close-drawer="sizeOpen=false" @complate-drawer="addSizeData()">
         <div class="add-size-drawer">
@@ -125,6 +108,10 @@
     .size-manage {
       margin-top: -8px;
       flex: 1;
+      .title span {
+        float: right;
+        margin-right: 8px;
+      }
       .card-size {
         margin-top: 8px;
         .size-tag {

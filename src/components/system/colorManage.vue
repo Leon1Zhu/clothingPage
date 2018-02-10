@@ -6,7 +6,7 @@
       <div class="color-manage">
         <!--颜色块-->
         <Card v-for="colorData in colorDataS" class="card-color">
-          <p slot="title">
+          <p slot="title" class="title">
             {{colorData.seriesName}}&nbsp;&nbsp;
             <span @click="addColor(colorData)"><Icon class="ui-cursor" type="ios-plus-outline"
                                                      color="#06c1ae"></Icon></span>
@@ -17,24 +17,6 @@
             {{color.colorName}}
           </Tag>
         </Card>
-        <!--<div v-for=" colorData in colorDataS" class="color-chunk">
-          &lt;!&ndash;颜色的名称&ndash;&gt;
-          <div class="color-name">
-            <div class="title">
-              {{colorData.seriesName}}&nbsp;&nbsp;
-              <span @click="addColor(colorData)"><Icon class="ui-cursor" type="ios-plus-outline"
-                                                       color="#06c1ae"></Icon></span>
-            </div>
-          </div>
-          &lt;!&ndash;颜色的细节&ndash;&gt;
-          <div class="detail">
-            <Tag v-for="color in colorData.colors" type="dot" closable
-                 @on-close="deleteColor(color.colorId, color.colorType)"
-                 :color="color.colorRgb">
-              {{color.colorName}}
-            </Tag>
-          </div>
-        </div>-->
       </div>
       <my-drawer :open="colorOpen" title="颜色添加" @close-drawer="colorOpen=false" @complate-drawer="addColorData()">
         <div>
@@ -141,10 +123,14 @@
     .color-manage {
       flex: 1;
       margin-top: -8px;
+      .title span {
+        float: right;
+        margin-right: 8px;
+      }
       .card-color {
         margin-top: 8px;
         .ui-cursor {
-          font-weight: 600 ;
+          font-weight: 600;
         }
       }
       .color-chunk {
