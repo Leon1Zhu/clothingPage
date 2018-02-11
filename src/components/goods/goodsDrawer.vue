@@ -1,6 +1,6 @@
 <template>
   <div class="goodsAddDrawer">
-    <my-drawer :open="goodsAddOpen" title="商品添加" @close-drawer="closeGoodsDrawer"
+    <my-drawer :open="goodsAddOpen" :btnFont="btnFont" title="商品添加" @close-drawer="closeGoodsDrawer"
                @complate-drawer="addGoodsCallback">
       <div class="add-goods">
         <div class="ui segment">
@@ -51,104 +51,6 @@
                 </i-switch>
               </FormItem>
 
-
-
-
-
-             <!-- <Collapse >
-                <Panel name="1">
-                  颜色<span class="red-star">*</span>
-                  <Tag type="dot" color="blue">蓝色</Tag>
-                  <Tag type="dot" color="green">绿色</Tag>
-                  <Tag type="dot" color="red">红色</Tag>
-                  <div slot="content">
-                    <div class="color-chunk">
-                      &lt;!&ndash;颜色的名称&ndash;&gt;
-                      <div class="color-name">
-                        <div class="title">
-                          单色系&nbsp;&nbsp;
-                        </div>
-                      </div>
-                      &lt;!&ndash;颜色的细节&ndash;&gt;
-                      <div class="detail">
-                        <Tag type="dot" color="blue">蓝色</Tag>
-                        <Tag type="dot" color="green">绿色</Tag>
-                        <Tag type="dot" color="red">红色</Tag>
-                        <Tag type="dot" color="yellow">黄色</Tag>
-                      </div>
-                    </div>
-                    <div class="color-chunk">
-                      &lt;!&ndash;颜色的名称&ndash;&gt;
-                      <div class="color-name">
-                        <div class="title">
-                          红色系&nbsp;&nbsp;
-                        </div>
-                      </div>
-                      &lt;!&ndash;颜色的细节&ndash;&gt;
-                      <div class="detail">
-                        <Tag type="dot" color="'#FF8C69'">红色</Tag>
-                        <Tag type="dot" color="'#FF8247'">粉色</Tag>
-                        <Tag type="dot" color="'#FF34B3'">玫瑰</Tag>
-                        <Tag type="dot" color="'#FF0000'">牡红</Tag>
-                      </div>
-                    </div>
-                  </div>
-                </Panel>
-                <Panel name="2">
-                  尺码<span class="red-star">*</span>
-
-                  <Tag checkable color="blue">S</Tag>
-                  <Tag checkable color="blue">M</Tag>
-                  <Tag checkable color="blue">XL</Tag>
-                  <Tag checkable color="blue">XXL</Tag>
-                  <div>
-                  </div>
-                  <div slot="content">
-                    <div class="size-chunk">
-                      &lt;!&ndash;尺码的名称&ndash;&gt;
-                      <div class="size-name">
-                        <div class="title">
-                          均码&nbsp;&nbsp;
-                        </div>
-                      </div>
-                      &lt;!&ndash;尺码的细节&ndash;&gt;
-                      <div class="detail">
-                        <Tag type="dot" color="'#06c1ae'">M</Tag>
-                        <Tag type="dot" color="'#06c1ae'">L</Tag>
-                        <Tag type="dot" color="'#06c1ae'">XL</Tag>
-                        <Tag type="dot" color="'#06c1ae'">XXL</Tag>
-                      </div>
-                    </div>
-                    <div class="size-chunk">
-                      &lt;!&ndash;尺码的名称&ndash;&gt;
-                      <div class="size-name">
-                        <div class="title">
-                          中国码&nbsp;&nbsp;
-                        </div>
-                      </div>
-                      &lt;!&ndash;尺码的细节&ndash;&gt;
-                      <div class="detail">
-                        <Tag type="dot" color="#06c1ae">L</Tag>
-                        <Tag type="dot" color="'#06c1ae'">M</Tag>
-                        <Tag type="dot" color="'#06c1ae'">X</Tag>
-                      </div>
-                    </div>
-                  </div>
-                </Panel>
-                <Panel name="3">
-                  分类<span class="red-star">*</span>
-
-                  <Tag checkable color="blue">上衣</Tag>
-                  <Tag checkable color="blue">裤子</Tag>
-                  <Tag checkable color="blue">外衣</Tag>
-                  <div slot="content">
-                    <Tag checkable color="blue">上衣</Tag>
-                    <Tag checkable color="blue">裤子</Tag>
-                    <Tag checkable color="blue">外衣</Tag>
-                    <Tag checkable color="blue">卫衣</Tag>
-                  </div>
-                </Panel>
-              </Collapse>-->
               <FormItem label="颜色" class="property-content">
                 <div class="ivu-input-wrapper" style="text-align: left;">
                   <Tag type="dot" closable color="blue">蓝色</Tag>
@@ -180,86 +82,92 @@
               </FormItem>
             </Form>
           </div>
-          <div class="ui vertical segment">
-            <Form :model="formItem" :label-width="80" label-position="left">
-              <FormItem label="面料">
-                <Input v-model="formItem.input" placeholder="面料"></Input>
-              </FormItem>
-              <FormItem label="成份">
-                <Input v-model="formItem.input" placeholder="成份"></Input>
-              </FormItem>
-            </Form>
-          </div>
-          <div class="ui vertical segment">
-            尺码表（CM）
-            <div class="size-tag">
-              <Tag checkable color="blue">S</Tag>
-              <Tag checkable color="blue">M</Tag>
-              <Tag checkable color="blue">XL</Tag>
-              <Tag checkable color="blue">XXL</Tag>
+          <section class="showDetailItem" v-if="!showDetail" >
+            <p @click="showDetail = !showDetail">更多信息</p>
+            <Icon type="chevron-down"></Icon>
+          </section>
+          <section v-if="showDetail">
+            <div class="ui vertical segment">
+              <Form :model="formItem" :label-width="80" label-position="left">
+                <FormItem label="面料">
+                  <Input v-model="formItem.input" placeholder="面料"></Input>
+                </FormItem>
+                <FormItem label="成份">
+                  <Input v-model="formItem.input" placeholder="成份"></Input>
+                </FormItem>
+              </Form>
             </div>
-            <Form :model="formItem" class="detail">
-              <FormItem>
-                <Row>
-                  <Col span="11">
-                  <Input v-model="formItem.input" placeholder="腰围"  class="centerInput" disabled></Input>
-                  </Col>
-                  <Col span="1" style="text-align: center">
-                  </Col>
-                  <Col span="11">
-                  <Input v-model="formItem.input" placeholder="" ></Input>
-                  </Col>
-                </Row>
-              </FormItem>
-              <FormItem>
-                <Row>
-                  <Col span="11">
-                  <Input v-model="formItem.input" placeholder="腿围" class="centerInput" disabled> </Input>
-                  </Col>
-                  <Col span="1" style="text-align: center">
-                  </Col>
-                  <Col span="11">
-                  <Input v-model="formItem.input" placeholder="" ></Input>
-                  </Col>
-                </Row>
-              </FormItem>
-              <FormItem>
-                <Row>
-                  <Col span="11">
-                  <Input v-model="formItem.input" placeholder="大腿围" class="centerInput" disabled></Input>
-                  </Col>
-                  <Col span="1" style="text-align: center">
-                  </Col>
-                  <Col span="11">
-                  <Input v-model="formItem.input" placeholder=""></Input>
-                  </Col>
-                </Row>
-              </FormItem>
-              <FormItem>
-                <Row>
-                  <Col span="11">
-                  <Input v-model="formItem.input" placeholder="小腿围" class="centerInput" disabled></Input>
-                  </Col>
-                  <Col span="1" style="text-align: center">
-                  </Col>
-                  <Col span="11">
-                  <Input v-model="formItem.input" placeholder=""></Input>
-                  </Col>
-                </Row>
-              </FormItem>
-              <p class="explain">
-                <Icon type="information-circled" size="20" ></Icon>
-                填写尺码详细可分享给客户
-              </p>
-            </Form>
-          </div>
-          <div class="ui vertical segment">
-            <Form :model="formItem" :label-width="80" label-position="left">
-              <FormItem label="备注" style="border-top: 1px solid #f2f1f1;">
-                <Input v-model="formItem.input" placeholder="备注"></Input>
-              </FormItem>
-            </Form>
-          </div>
+            <div class="ui vertical segment" style="margin-top: 10px;">
+              尺码表（CM）
+              <div class="size-tag">
+                <Tag checkable color="blue">S</Tag>
+                <Tag checkable color="blue">M</Tag>
+                <Tag checkable color="blue">XL</Tag>
+                <Tag checkable color="blue">XXL</Tag>
+              </div>
+              <Form :model="formItem" class="detail">
+                <FormItem>
+                  <Row>
+                    <Col span="11">
+                    <Input v-model="formItem.input" placeholder="腰围"  class="centerInput" disabled></Input>
+                    </Col>
+                    <Col span="1" style="text-align: center">
+                    </Col>
+                    <Col span="11">
+                    <Input v-model="formItem.input" placeholder="" ></Input>
+                    </Col>
+                  </Row>
+                </FormItem>
+                <FormItem>
+                  <Row>
+                    <Col span="11">
+                    <Input v-model="formItem.input" placeholder="腿围" class="centerInput" disabled> </Input>
+                    </Col>
+                    <Col span="1" style="text-align: center">
+                    </Col>
+                    <Col span="11">
+                    <Input v-model="formItem.input" placeholder="" ></Input>
+                    </Col>
+                  </Row>
+                </FormItem>
+                <FormItem>
+                  <Row>
+                    <Col span="11">
+                    <Input v-model="formItem.input" placeholder="大腿围" class="centerInput" disabled></Input>
+                    </Col>
+                    <Col span="1" style="text-align: center">
+                    </Col>
+                    <Col span="11">
+                    <Input v-model="formItem.input" placeholder=""></Input>
+                    </Col>
+                  </Row>
+                </FormItem>
+                <FormItem>
+                  <Row>
+                    <Col span="11">
+                    <Input v-model="formItem.input" placeholder="小腿围" class="centerInput" disabled></Input>
+                    </Col>
+                    <Col span="1" style="text-align: center">
+                    </Col>
+                    <Col span="11">
+                    <Input v-model="formItem.input" placeholder=""></Input>
+                    </Col>
+                  </Row>
+                </FormItem>
+                <p class="explain">
+                  <Icon type="information-circled" size="20" ></Icon>
+                  填写尺码详细可分享给客户
+                </p>
+              </Form>
+            </div>
+            <div class="ui vertical segment">
+              <Form :model="formItem" :label-width="80" label-position="left">
+                <FormItem label="备注" style="border-bottom: 0px;border-top: 1px solid #f2f1f1;">
+                  <Input v-model="formItem.input" placeholder="备注"></Input>
+                </FormItem>
+              </Form>
+            </div>
+          </section>
         </div>
       </div>
     </my-drawer>
@@ -273,10 +181,14 @@
       goodsAddOpen: {
         type: Boolean,
         default: false
+      },
+      btnFont: {
+          type : String,
       }
     },
     data() {
       return {
+        showDetail:false,
         formItem: {
           input: '',
           select: '',
@@ -337,6 +249,19 @@
           ],
         }]
       };
+    },
+    watch:{
+      goodsAddOpen(v1,v2){
+          let that = this;
+          (v1 && this.btnFont === '新增') && ( that.showDetail = false)
+
+
+          (v1 && this.btnFont === '修改') && (that.showDetail = true)
+
+        console.log(v1)
+        console.log( (v1 && this.btnFont === '修改') && ( this.showDetail = true ))
+
+      }
     },
     methods: {
       addGoodsCallback() {
@@ -498,7 +423,7 @@
     }
 
     .ui.vertical.segment .size-tag{
-      margin-top:5px;
+      margin-top:10px;
       margin-left:5%;
       .ivu-tag{
         background: $menuSelectFontColor;
@@ -518,5 +443,29 @@
       }
     }
 
+    .showDetailItem{
+      position: relative;
+      background: #f7f7f9;
+      margin: 0px -19px;
+      height: 50px;
+      line-height: 30px;
+      text-align: center;
+      color: #20b8a5;
+      p{
+        padding:10px 0  10px;
+        display: inline-block;
+
+      }
+      p:hover{
+        cursor: pointer;
+      }
+      i{
+        color: rgba(32,184,165,.6);
+        position: relative;
+        top:-3px;
+        opacity:0;
+        animation: moveDown 1.4s ease-in infinite ;
+      }
+    }
   }
 </style>

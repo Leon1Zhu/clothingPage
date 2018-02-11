@@ -31,7 +31,7 @@
           </div>
 
           <div class="goods-operator">
-            <Button class="change_status" type="primary" shape="circle" icon="edit" @click.native="goodsAddOpen = true"></Button>
+            <Button class="change_status" type="primary" shape="circle" icon="edit" @click.native="goodsAddOpen = true;btnFont='修改'"></Button>
             <Button class="change_goodsinfo" type="primary" shape="circle" icon="ios-gear" @click.native="open=true "></Button>
             <Button class="delete_goods " type="primary" shape="circle"icon="trash-a" ></Button>
             <Button class="goods-qr-code ivu-btn-icon-only" type="primary" shape="circle" ><i class="iconfont  icon-erweima" ></i></Button>
@@ -101,7 +101,7 @@
           </div>
         </div>
       </my-drawer>
-      <goods-drawer :goodsAddOpen="goodsAddOpen"  @closeGoodsDrawer="closeGoodsDrawer"></goods-drawer>
+      <goods-drawer :btnFont="btnFont" :goodsAddOpen="goodsAddOpen"  @closeGoodsDrawer="closeGoodsDrawer"></goods-drawer>
 
     </div>
 </template>
@@ -117,6 +117,7 @@
                 goodsAddOpen:false,
                 open:false,
                 searchGoodsInfo:null,
+                btnFont:'新增',
                 goodsItem:{
                     product_code:19172525,
                 },
@@ -226,7 +227,6 @@
         created(){
         },
         mounted(){
-
           this.resizeHeight()
           window.onresize = function(){
             this.resizeHeight();
@@ -244,6 +244,7 @@
           },
           addNewGoods(){
               this.goodsAddOpen = true;
+              this.btnFont='新增';
 
           },
           searchGoods(){

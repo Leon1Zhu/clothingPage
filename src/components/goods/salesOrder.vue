@@ -3,22 +3,7 @@
       <div class="salesOrder-content">
         <Form  :label-width="70">
           <Row >
-              <Col span="12" >
-              <FormItem label="开单店员" >
-                <AutoComplete
-                  v-model="orderInfo.waiter"
-                  :data="waiterData"
-                  icon="ios-search"
-                  :filter-method="filterMethod"
-                  placeholder="请选择客户信息"
-                  style="width:100%">
-                </AutoComplete>
-                <Button type="ghost" >核销</Button>
-                <Button type="ghost" >抹零</Button>
-              </FormItem>
-              </Col>
-
-              <Col span="12" style="display: flex;">
+              <Col span="12" class="flexStyle">
               <FormItem label="客户信息"  >
                 <AutoComplete
                   v-model="orderInfo.CustomInfo"
@@ -31,15 +16,36 @@
                 <Button type="ghost" @click="orderInfo.CustomInfo=''">清除</Button>
                 <Button type="ghost" >新增</Button>
               </FormItem>
-              <FormItem label="余款" :label-width="50" style="display: flex;flex: 1;">
+              <FormItem label="余款" :label-width="50" class="flexStyle" style="flex: 1;">
                 <span class="disable-input">{{orderInfo.balanceMoney}}</span>
               </FormItem>
               </Col>
+
+            <Col span="12" >
+            <FormItem label="开单店员" class="orderStaff">
+              <AutoComplete
+                v-model="orderInfo.waiter"
+                :data="waiterData"
+                icon="ios-search"
+                :filter-method="filterMethod"
+                placeholder="请选择客户信息"
+                >
+              </AutoComplete>
+              <FormItem label="开单日期"  style="flex: 1;">
+                <DatePicker :options="options3" type="date" format="yyyy/MM/dd"  placeholder="请选择开单日期" v-model="orderInfo.payDate" style="width: 100%;"></DatePicker>
+                <Button type="ghost" >核销</Button>
+                <Button type="ghost" >抹零</Button>
+              </FormItem>
+
+            </FormItem>
+            </Col>
+
+
           </Row>
 
           <Row >
             <Col span="12">
-              <div class="pay-way" style="display: flex;">
+              <div class="pay-way flexStyle" >
                 <FormItem label="总件数"   :label-width="70" style="flex: 1 1 33%;">
                   <span class="disable-input">{{orderInfo.allCount}}</span>
                   <!--  <Input  v-model="orderInfo.allCount" disabled></Input>-->
@@ -54,7 +60,7 @@
             </Col>
 
             <Col span="12">
-              <FormItem label="付款方式"  >
+              <FormItem label="付款方式"  class="payWayClass">
                 <Select v-model="orderInfo.payWay">
                   <Option v-for="item in paymentWay" :value="item.value" :key="item.value">{{ item.label }}</Option>
                 </Select>
@@ -65,32 +71,25 @@
                   <Option  value="1" >使用5000积分抵扣50元</Option>
                   <Option  value="1" >使用50000积分抵扣500元</Option>
                 </Select>
+                <FormItem label="备注"  :label-width="45" style="flex: 1;">
+                  <Input  placeholder="请输入开单备注" v-model="orderInfo.remark"></Input>
+                  <Button type="ghost" @click="emptyOrderInfo">重新开单</Button>
+                  <Button type="ghost" @click="goodReturn">退换入库</Button>
+                </FormItem>
+
               </FormItem>
+
             </Col>
 
           </Row>
 
-          <Row >
-            <Col span="12">
-              <FormItem label="开单日期" >
-                <DatePicker :options="options3" type="date" format="yyyy/MM/dd"  placeholder="请选择开单日期" v-model="orderInfo.payDate" style="width: 100%;"></DatePicker>
-              </FormItem>
-            </Col>
-            <Col span="12">
-            <FormItem label="备注" >
-              <Input  placeholder="请输入开单备注" v-model="orderInfo.remark"></Input>
-              <Button type="ghost" @click="emptyOrderInfo">清空从填</Button>
-              <Button type="ghost" @click="goodReturn">退换入库</Button>
-            </FormItem>
-            </Col>
-          </Row>
         </Form>
       </div>
       <div class="order-table">
         <Card>
-          <div slot="title" style="display: flex;">
+          <div slot="title " class="flexStyle">
             <div style="line-height: 2;">购买商品列表</div>
-            <div style="flex: 1;text-align: right;display: flex;justify-content: flex-end">
+            <div class="flexStyle" style="flex: 1;text-align: right;justify-content: flex-end">
               <AutoComplete
                 v-model="addGoodsInfo"
                 :data="goodData"
@@ -253,7 +252,7 @@
       transition: all .2s;
     }
     .ivu-row:first-child{
-      .ivu-col-span-12:nth-child(2){
+      .ivu-col-span-12:nth-child(1){
         .ivu-form-item:nth-child(2){
           .ivu-form-item-content{
             margin-left:0!important;
@@ -263,25 +262,6 @@
       }
     }
 
-    @media (min-width: 1680px) {
-      .ivu-row:not(:first-child){
-        width:50%;
-      }
-      .ivu-row:nth-child(3) {
-        width:50%;
-        transform: translate(100%,-56px);
-        .ivu-col.ivu-col-span-12:first-child{
-          width:40%;
-        }
-        .ivu-col.ivu-col-span-12:nth-child(2){
-          width:60%;
-        }
-      }
-      .order-table{
-        transform: translateY(-56px);
-      }
-
-    }
     .ivu-select-dropdown.ivu-auto-complete{
       text-align: left;
     }
@@ -291,6 +271,9 @@
         margin-left:5px;
       }
     }
+
+
+
     .v-table-rightview{
       width:100%!important;
       position: relative;
@@ -372,6 +355,19 @@
           right:110px!important;
           left:auto!important;
           width:300px!important;
+        }
+      }
+    }
+
+    .orderStaff .ivu-auto-complete,.payWayClass .ivu-select{
+      width:auto;
+    }
+    .payWayClass{
+      .ivu-select-selection{
+        border-color: #20b8a5!important;
+        color: #20b8a5;
+        .ivu-icon{
+          color: #20b8a5;
         }
       }
     }

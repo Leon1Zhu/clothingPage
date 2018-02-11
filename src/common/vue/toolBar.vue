@@ -43,10 +43,27 @@
       height:46px;
       display: flex;
       justify-content: flex-end;
-      .ivu-btn,.ivu-input{
+      .ivu-btn,.ivu-input,.ivu-select{
         height:40px!important;
         margin-top:5px!important;
         font-size:14px!important;
+
+      }
+      .ivu-input-wrapper{
+        .ivu-icon-ios-calendar-outline{
+          line-height:50px;
+          font-size:20px;
+        }
+      }
+      .ivu-select {
+        .ivu-select-selection {
+          height: 40px !important;
+          .ivu-select-placeholder,.ivu-select-selected-value{
+            height:100%;
+            line-height:40px;
+            font-size:14px;
+          }
+        }
       }
       .ivu-input{
         width:200px;
