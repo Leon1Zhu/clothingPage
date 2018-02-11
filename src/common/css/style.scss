@@ -1,17 +1,19 @@
 @import "globalscss";
-html,body,#app{
-  font-size:$fontSize;
+
+html, body, #app {
+  font-size: $fontSize;
   position: relative;
-  width:100%;
-  height:100%;
+  width: 100%;
+  height: 100%;
   -webkit-font-smoothing: antialiased;
-  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif!important;
-}
-table,.ivu-input{
-  font-size:$fontSize;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif !important;
 }
 
-.disable-input{
+table, .ivu-input {
+  font-size: $fontSize;
+}
+
+.disable-input {
   display: inline-block;
   width: 100%;
   height: 32px;
@@ -25,55 +27,57 @@ table,.ivu-input{
   /*color: #ccc;*/
   line-height: 190%;
 }
-.mu-paper.mu-drawer{
+
+.mu-paper.mu-drawer {
   background: #f6f5f8;
-  width:400px;
+  width: 400px;
   height: 100%;
   overflow: hidden;
-  .drawer-content{
+  .drawer-content {
     overflow-x: hidden;
     position: relative;
     height: 100%;
-    min-height:100%;
+    min-height: 100%;
     display: flex;
     flex-flow: column;
-    width:100%;
+    width: 100%;
     background: #fff;
-    .drawer-title{
+    .drawer-title {
       position: relative;
       background: $menuSelectFontColor;
-      width:100%;
-      height:60px;
+      width: 100%;
+      height: 60px;
       color: #fff;
-      font-size:20px;
+      font-size: 20px;
       text-align: center;
       line-height: 60px;
-      .ivu-icon-close{
+      .ivu-icon-close {
         position: absolute;
         right: 11px;
-        padding:0 5px;
-        line-height:54px;
-        transition:transform .3s ;
+        padding: 0 5px;
+        line-height: 54px;
+        transition: transform .3s;
       }
-      .ivu-icon-close:hover{
+      .ivu-icon-close:hover {
         cursor: pointer;
         transform: rotate(90deg);
       }
     }
-    .content{
+    .content {
       overflow: auto;
-      flex:1;
+      flex: 1;
       margin-bottom: 3px;
-      padding:0 $drawerPadding;
+      padding: 0 $drawerPadding;
     }
-    .ivu-btn.ivu-btn-primary.ivu-btn-long{
-      width:55%;
-      margin:0 auto 16px;
+    .ivu-btn.ivu-btn-primary.ivu-btn-long {
+      width: 55%;
+      margin: 0 auto 16px;
     }
 
   }
 }
-.red-star{
+
+.red-star {
   color: #fb2f2f;
   font-size: 19px;
 }
@@ -82,162 +86,221 @@ table,.ivu-input{
   cursor: pointer;
 }
 
-.store-item .iconfont{
-  font-size:16px;
-  line-height:2;
-  padding-right:3px;
-}
-.store-item:first-child .iconfont{
-  padding:0px;
-  font-size:16px;
+.store-item .iconfont {
+  font-size: 16px;
+  line-height: 2;
+  padding-right: 3px;
 }
 
-.store-item{
-  padding:5px 0px;
-  border-bottom:1px solid $formLabelBorderBottomColor;
+.store-item:first-child .iconfont {
+  padding: 0px;
+  font-size: 16px;
+}
+
+.store-item {
+  padding: 5px 0px;
+  border-bottom: 1px solid $formLabelBorderBottomColor;
   display: flex;
-  .iconfont:before{
-    border-radius:100%;
+  .iconfont:before {
+    border-radius: 100%;
     color: #fff;
   }
-  .left-content{
+  .left-content {
     display: flex;
-    line-height:200%;
-    flex-wrap:wrap;
-    .store-item-label{
-      margin-left:2px;
+    line-height: 200%;
+    flex-wrap: wrap;
+    .store-item-label {
+      margin-left: 2px;
       color: $formInputLableFontColor;
     }
 
   }
-  .right-content{
-    flex:1 1 30%;
+  .right-content {
+    flex: 1 1 30%;
     text-align: right;
-    line-height:200%;
-    .btn-content{
-      width:70%;
+    line-height: 200%;
+    .btn-content {
+      width: 70%;
       display: flex;
       flex-wrap: wrap;
-      .service-item{
+      .service-item {
         color: $menuSelectFontColor;
         border: 1px dotted $menuSelectFontColor;
-        border-radius:2px;
-        padding:0px 6px;
-        font-size:12px;
-        margin-left:5px;
-        margin-top:5px;
+        border-radius: 2px;
+        padding: 0px 6px;
+        font-size: 12px;
+        margin-left: 5px;
+        margin-top: 5px;
         height: 25px;
         line-height: 190%;
         transition: all .1s;
       }
-      .service-item.active{
+      .service-item.active {
         background: $menuSelectFontColor;
         color: #fff;
-        border: 1px solid $menuSelectFontColor!important;
+        border: 1px solid $menuSelectFontColor !important;
       }
-      .service-item:hover{
+      .service-item:hover {
         background: $menuSelectFontColor;
         color: #fff;
-        border: 1px solid $menuSelectFontColor!important;
+        border: 1px solid $menuSelectFontColor !important;
         cursor: pointer;
       }
     }
 
   }
 }
-.no-border-bottom-item{
+
+.no-border-bottom-item {
   position: relative;
-  border-bottom:0px;
+  border-bottom: 0px;
 }
-.no-border-bottom-item:after{
+
+.no-border-bottom-item:after {
   content: ' ';
   position: absolute;
-  bottom:0px;
-  right:0px;
-  width:92%;
-  width:calc(100% - 27px);
-  height:1px;
+  bottom: 0px;
+  right: 0px;
+  width: 92%;
+  width: calc(100% - 27px);
+  height: 1px;
   background: $formLabelBorderBottomColor;
 }
 
-.store-item:first-child .iconfont{
-  padding:0px;
-  font-size:16px;
+.store-item:first-child .iconfont {
+  padding: 0px;
+  font-size: 16px;
 }
 
-.store-item-icon-color .iconfont:before{
-  padding:4px;
+.store-item-icon-color .iconfont:before {
+  padding: 4px;
 }
 
-.ivu-date-picker-cells-cell-today em:after{
+.ivu-date-picker-cells-cell-today em:after {
   background: $menuSelectFontColor;
 }
 
-.store-item-icon-color:first-child  .left-content .iconfont:before{
+.store-item-icon-color:first-child .left-content .iconfont:before {
   background: $menuSelectFontColor;
 }
 
-
-.store-item-icon-color:nth-child(1) .left-content .iconfont:before{
+.store-item-icon-color:nth-child(1) .left-content .iconfont:before {
   background: #808dc4;
 }
 
-
-.store-item-icon-color:nth-child(2) .left-content .iconfont:before{
+.store-item-icon-color:nth-child(2) .left-content .iconfont:before {
   background: #a2ce8d;
 }
 
-.store-item-icon-color:nth-child(3) .left-content .iconfont:before{
+.store-item-icon-color:nth-child(3) .left-content .iconfont:before {
   background: #71c8f2;
 }
 
-
-.store-item-icon-color:nth-child(4) .left-content .iconfont:before{
+.store-item-icon-color:nth-child(4) .left-content .iconfont:before {
   background: #17aca8;
 }
-.store-item-icon-color:nth-child(5) .left-content .iconfont:before{
+
+.store-item-icon-color:nth-child(5) .left-content .iconfont:before {
   background: cornflowerblue;
 }
 
-
-.store-item-icon-color:nth-child(6) .left-content .iconfont:before{
+.store-item-icon-color:nth-child(6) .left-content .iconfont:before {
   background: #f08e03;
 }
 
-
-
-.store-item-icon-color:nth-child(7) .left-content .iconfont:before{
+.store-item-icon-color:nth-child(7) .left-content .iconfont:before {
   background: #22c06b;
 }
 
-.store-item-icon-color:nth-child(8) .left-content .iconfont:before{
+.store-item-icon-color:nth-child(8) .left-content .iconfont:before {
   background: #13bdff;
 }
 
-
-.store-item-icon-color:nth-child(9) .left-content .iconfont:before{
+.store-item-icon-color:nth-child(9) .left-content .iconfont:before {
   background: #fd818c;
 }
 
-.store-item-icon-color:nth-child(12) .left-content .iconfont:before{
+.store-item-icon-color:nth-child(12) .left-content .iconfont:before {
   background: #19bdff;
 }
 
-.store-item-icon-color:nth-child(13) .left-content .iconfont:before{
+.store-item-icon-color:nth-child(13) .left-content .iconfont:before {
   background: #fe808c;
 }
-.mu-overlay{
-  z-index: 1000!important;
+
+.mu-overlay {
+  z-index: 1000 !important;
 }
-.mu-paper.mu-drawer{
-  z-index:1001!important;
+
+.mu-paper.mu-drawer {
+  z-index: 1001 !important;
 }
 
 .ui-cursor {
   cursor: pointer;
 }
-.flexStyle{
+
+.flexStyle {
   display: flex;
+}
+
+.active-gray {
+  border: 1px solid #f4a21d;
+  color: #000 !important;
+}
+
+.active-red {
+  border: 1px solid #FFE7BA;
+  color: #f4a21d !important;
+}
+
+.active-green {
+  border: 1px solid #06b9a5;
+  color: #06b9a5 !important;
+}
+
+.goods-show {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -2%;
+  .item {
+    display: flex;
+    width: 23%;
+    padding: 15px;
+    height: 115px;
+    font-size: 14px;
+    margin: {
+      top: 8px;
+      left: 2%;
+    }
+    .goods-img {
+      img {
+        width: 88px;
+        height: 88px;
+      }
+    }
+    .goods-introduction {
+      margin-left: 14px;
+      h4 {
+        font-size: 14px;
+        margin-top: 3px;
+        font-weight: 600;
+      }
+      .ids {
+        font-size: 12px;
+        margin-top: 15px;
+      }
+      .number, .count {
+        font-size: 12px;
+        margin-top: 8px;
+      }
+    }
+    .operation {
+      margin-left: 20px;
+      margin-top: 27.5px;
+    }
+  }
 }
 
 

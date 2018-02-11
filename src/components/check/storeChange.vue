@@ -1,9 +1,9 @@
 <template>
-  <div class="repertory-record-html">
+  <div class="store-change-html">
     <tool-bar>
       <Input v-model="goodsNumber" placeholder="请输入货号或简称"></Input>
       <Button class="search-button" icon="ios-search" type="primary">搜索</Button>
-      <Button class="search-button" type="warning">开始盘点</Button>
+      <Button class="search-button" type="primary">重新盘点</Button>
       <Button class="search-button" type="error">结束盘点</Button>
       <Button class="search-button" type="info" @click="storeRecord=true">盘点记录</Button>
     </tool-bar>
@@ -19,10 +19,10 @@
           <div class="ids">商品id:{{goods.ids}}</div>
           <div class="number">货号:{{goods.number}}</div>
           <div class="count">库存数量:{{goods.count}}</div>
-          <div class="operation">
-            <Button type="primary" shape="circle" icon="clipboard"
-                    @click="repertoryAddOpen = true, storeRecordIndex=index"></Button>
-          </div>
+        </div>
+        <div class="operation">
+          <Button type="primary" shape="circle" icon="gear-a"
+                  @click="repertoryAddOpen = true, storeRecordIndex=index"></Button>
         </div>
       </div>
     </div>
@@ -63,10 +63,10 @@
         </div>
       </div>
       <RadioGroup v-model="phone" class="radiogroup" size="large">
-        <Radio label="1">
+        <Radio label="2">
           <span>有误</span>
         </Radio>
-        <Radio label="2">
+        <Radio label="1">
           <span>无误</span>
         </Radio>
       </RadioGroup>
@@ -100,7 +100,7 @@
             ids: '454564',
             number: '5456',
             count: 454,
-            flag: 1
+            flag: 2
           },
           {
             imageUrl: './1.jpg',
@@ -117,7 +117,7 @@
             ids: '454564',
             number: '5456',
             count: 454,
-            flag: 1
+            flag: 2
 
           },
           {
@@ -135,10 +135,66 @@
             ids: '454564',
             number: '5456',
             count: 454,
-            flag: 1
+            flag: 2
 
           },
           {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456',
+            count: 454,
+            flag: 2
+
+          }, {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456',
+            count: 454,
+            flag: 2
+
+          }, {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456',
+            count: 454,
+            flag: 0
+
+          }, {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456',
+            count: 454,
+            flag: 0
+
+          }, {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456',
+            count: 454,
+            flag: 0
+
+          }, {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456',
+            count: 454,
+            flag: 0
+
+          }, {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456',
+            count: 454,
+            flag: 0
+
+          }, {
             imageUrl: './1.jpg',
             name: '三叶草卫衣',
             ids: '454564',
@@ -160,7 +216,7 @@
             ids: '454564',
             number: '5456',
             count: 454,
-            flag: 0
+            flag: 1
 
           }, {
             imageUrl: './1.jpg',
@@ -176,7 +232,7 @@
             ids: '454564',
             number: '5456',
             count: 454,
-            flag: 2
+            flag: 1
 
           }, {
             imageUrl: './1.jpg',
@@ -186,6 +242,13 @@
             count: 454,
             flag: 1
 
+          }, {
+            imageUrl: './1.jpg',
+            name: '三叶草卫衣',
+            ids: '454564',
+            number: '5456',
+            count: 454,
+            flag: 1
           }, {
             imageUrl: './1.jpg',
             name: '三叶草卫衣',
@@ -238,67 +301,10 @@
 <style lang="scss" rel="stylesheet/scss" type="text/scss">
   @import '../../common/css/globalscss.scss';
 
-  .repertory-record-html {
+  .store-change-html {
     width: 100%;
     display: flex;
     flex-direction: column;
-    .goods-show {
-      flex: 1;
-      display: flex;
-      flex-wrap: wrap;
-      margin-left: -2%;
-      .item {
-        display: flex;
-        width: 23%;
-        padding: 15px;
-        height: 130px;
-        font-size: 14px;
-        margin: {
-          top: 8px;
-          left: 2%;
-        }
-        &.active-gray {
-          background-color: #f8f6f2;
-        }
-        &.active-red {
-          background-color: #FFE7BA;
-        }
-        &.active-green {
-          background-color: #C6E2FF;
-        }
-        .goods-img {
-          img {
-            width: 100px;
-            height: 100px;
-          }
-        }
-        .goods-introduction {
-          margin-left: 14px;
-          h4 {
-            font-size: 14px;
-            margin-top: 3px;
-            font-weight: 600;
-          }
-          .ids {
-            color: rgba(0, 0, 0, 0.4);
-            font-size: 12px;
-            margin-top: 7px;
-          }
-          .number, .count {
-            color: rgba(0, 0, 0, 0.4);
-            font-size: 12px;
-            margin-top: 5px;
-          }
-          .operation {
-            color: rgba(0, 0, 0, 0.4);
-            margin-top: 5px;
-            .add {
-              margin-left: 14px;
-            }
-          }
-        }
-      }
-    }
     footer {
       .footer-page {
         margin-top: 8px;
@@ -351,7 +357,6 @@
       .ids, .number {
         font-size: 14px;
         margin-top: 8px;
-        color: rgba(0, 0, 0, 0.4);
       }
       .sure-store {
         margin-top: 8px;

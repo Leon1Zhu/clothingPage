@@ -10,7 +10,7 @@
         <Input v-model="goodsNumber" placeholder="请输入货号或简称"></Input>
         <Button class="search-button" type="primary" icon="ios-search">搜索</Button>
       </tool-bar>
-      <div class="store-change-html">
+      <div class="store-record-html">
         <div class="type-choose">
           <ul>
             <li class="choose-li icon-cursor" :class="{'active': wordType == 1}" @click="wordType = 1">异常记录</li>
@@ -43,17 +43,20 @@
             <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
             <Tag class="size" color="blue">M</Tag>
             <span class="total">20</span>
-            <InputNumber :min="1" v-model="value1" class="truth-total"></InputNumber>
-          </div>
-          <div class="detail">
-            <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-            <Tag class="size" color="blue">XL</Tag>
             <span class="total">20</span>
             <InputNumber :min="1" v-model="value1" class="truth-total"></InputNumber>
           </div>
           <div class="detail">
             <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
             <Tag class="size" color="blue">XL</Tag>
+            <span class="total">20</span>
+            <span class="total">20</span>
+            <InputNumber :min="1" v-model="value1" class="truth-total"></InputNumber>
+          </div>
+          <div class="detail">
+            <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
+            <Tag class="size" color="blue">XL</Tag>
+            <span class="total">20</span>
             <span class="total">20</span>
             <InputNumber :min="1" v-model="value1" class="truth-total"></InputNumber>
           </div>
@@ -90,6 +93,10 @@
           {
             title: '货号',
             key: 'number'
+          },
+          {
+            title: '数据库数量',
+            key: 'count'
           },
           {
             title: '库存数量',
@@ -167,7 +174,61 @@
             number: 'X123456',
             count: '50',
             date: '2016-10-03'
-          },
+          }, {
+            name: '纯棉纱衬衫',
+            id: '1231564',
+            number: 'X123456',
+            count: '50',
+            date: '2016-10-03'
+          }, {
+            name: '纯棉纱衬衫',
+            id: '1231564',
+            number: 'X123456',
+            count: '50',
+            date: '2016-10-03'
+          }, {
+            name: '纯棉纱衬衫',
+            id: '1231564',
+            number: 'X123456',
+            count: '50',
+            date: '2016-10-03'
+          }, {
+            name: '纯棉纱衬衫',
+            id: '1231564',
+            number: 'X123456',
+            count: '50',
+            date: '2016-10-03'
+          }, {
+            name: '纯棉纱衬衫',
+            id: '1231564',
+            number: 'X123456',
+            count: '50',
+            date: '2016-10-03'
+          }, {
+            name: '纯棉纱衬衫',
+            id: '1231564',
+            number: 'X123456',
+            count: '50',
+            date: '2016-10-03'
+          }, {
+            name: '纯棉纱衬衫',
+            id: '1231564',
+            number: 'X123456',
+            count: '50',
+            date: '2016-10-03'
+          }, {
+            name: '纯棉纱衬衫',
+            id: '1231564',
+            number: 'X123456',
+            count: '50',
+            date: '2016-10-03'
+          }, {
+            name: '纯棉纱衬衫',
+            id: '1231564',
+            number: 'X123456',
+            count: '50',
+            date: '2016-10-03'
+          }
         ],
         goodsDetailS: [
           {
@@ -228,7 +289,7 @@
   };
 </script>
 <style lang="scss" rel="stylesheet/scss" type="text/scss">
-  .store-change-html {
+  .store-record-html {
     display: flex;
     width: 100%;
     .type-choose {
@@ -281,6 +342,7 @@
         padding: 8px;
         margin-top: 8px;
         background-color: #f8f6f2;
+
         .top {
           display: flex;
           .goods-img {
@@ -332,20 +394,20 @@
         margin-left: 20px;
       }
       .size {
-        width: 70px;
+        width: 50px;
         text-align: center;
       }
-
       .total {
         margin-top: 1px;
       }
       .size, .total {
         height: 32px;
         line-height: 32px;
-        padding: 0 15px;
+        padding: 0 10px;
       }
       .truth-total {
         margin-top: 1px;
+        width: 50px;
       }
     }
   }

@@ -6,111 +6,58 @@
     </tool-bar>
     <div class="goods-show">
       <div class="item" v-for="goods in goodsData">
-        <div class="goods-img">
-          <img :src="goods.productPic" alt="">
+        <div class="goods-infor">
+          <div class="goods-img">
+            <img :src="imgUrl" alt="">
+          </div>
+          <div class="goods-introduction">
+            <h4>三叶草卫衣</h4>
+            <div class="ids">商品id:4544</div>
+            <div class="number">货号:5456</div>
+          </div>
         </div>
-        <div class="goods-introduction">
-          <h4>{{goods.productName}}</h4>
-          <div class="ids">商品id:{{goods.productId}}</div>
-          <div class="number">货号:{{goods.productCode}}</div>
-          <div class="count">库存数量:{{goods.productId}}</div>
-          <div class="operation">
-            <Button type="warning" shape="circle" icon="compose" @click="checkRepertory(goods.productCode)"></Button>
+        <div class="repertory-infor">
+          <div class="detail">
+            <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
+            <Tag class="size" color="#06b9a5">M</Tag>
+            <span class="total">0</span>
+            <Button type="primary" shape="circle" icon="edit" class="repertory-add-btn"
+                    @click="repertoryAddOpen = true"></Button>
+          </div>
+          <div class="detail">
+            <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
+            <Tag class="size" color="#06b9a5">XL</Tag>
+            <span class="total">0</span>
+            <Button type="primary" shape="circle" icon="edit" class="repertory-add-btn"
+                    @click="repertoryAddOpen = true"></Button>
+          </div>
+          <div class="detail">
+            <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
+            <Tag class="size" color="#06b9a5">XXL</Tag>
+            <span class="total">0</span>
+            <Button type="primary" shape="circle" icon="edit" class="repertory-add-btn"
+                    @click="repertoryAddOpen = true"></Button>
           </div>
         </div>
       </div>
     </div>
-    <Modal
-      v-model="add"
-      title="库存添加"
-      @on-ok="ok"
-      @on-cancel="cancel">
-      <div class="goods-infor">
-        <div class="goods-img">
-          <img :src="imgUrl" alt="">
-        </div>
-        <div class="goods-introduction">
-          <h4>三叶草卫衣</h4>
-          <div class="ids">商品id:454564</div>
-          <div class="number">货号:5456</div>
-        </div>
-      </div>
-      <div class="repertory-infor">
-        <div class="detail">
-          <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-          <Tag class="size" color="blue">M</Tag>
-          <span class="total">20</span>
-          <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
-        </div>
-        <div class="detail">
-          <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-          <Tag class="size" color="blue">XL</Tag>
-          <span class="total">20</span>
-          <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
-        </div>
-        <div class="detail">
-          <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-          <Tag class="size" color="blue">XXL</Tag>
-          <span class="total">20</span>
-          <InputNumber :max="10" :min="1" v-model="value1" class="truth-total"></InputNumber>
-        </div>
-      </div>
-      <!--<div class="goods-infor">
-        <div class="goods-img">
-          <img :src="goodsDetail.productPic" alt="">
-        </div>
-        <div class="goods-introduction">
-          <h4>{{goodsDetail.productName}}</h4>
-          <div class="ids">商品id:{{goodsDetail.productId}}</div>
-          <div class="number">货号:{{goodsDetail.productCode}}</div>
-        </div>
-      </div>
-      <div class="repertory-infor">
-        <div class="detail" v-for="goodsSku in goodsSkuS">
-          <Tag type="dot" class="color" color="#00EEEE">{{goodsSku.colorName}}</Tag>
-          <Tag checkable class="size" color="blue">{{goodsSku.sizeName}}</Tag>
-          <span class="total">20</span>
-          <InputNumber :min="1" v-model="goodsSku.amount" class="truth-total"></InputNumber>
-        </div>
-      </div>-->
-    </Modal>
-
     <footer>
       <Page :total="pageTotal" :page-size="pageSize" class="footer-page" @on-change="pageChange"></Page>
     </footer>
 
-    <!--    <my-drawer :open="repertoryAddOpen" title="库存添加" @close-drawer="repertoryAddOpen=false"
-                   @complate-drawer="myDrawerConfirm">
-          <div class="add-repertory">
-            <Card>
-              <p slot="title">
-                <Icon type="crop"></Icon>
-                请选择颜色
-              </p>
-              <ul>
-                <Tag type="dot" closable color="blue">蓝色</Tag>
-                <Tag type="dot" closable color="green">绿色</Tag>
-              </ul>
-            </Card>
-            <Card class="hn-ui-margin">
-              <p slot="title">
-                <Icon type="contrast"></Icon>
-                请选择颜色
-              </p>
-              <ul>
-                <Tag type="dot" closable color="blue">XXL</Tag>
-                <Tag type="dot" closable color="green">XL</Tag>
-              </ul>
-            </Card>
-            <Card class="hn-ui-margin">
-              <p slot="title">
-                <Icon type="code-working"></Icon>
-                请输入数量
-              </p>
-              <Input v-model="goodsCount" type="number" placeholder="请输入数量"></Input>
-            </Card>
+    <my-drawer :open="repertoryAddOpen" title="库存添加" @close-drawer="repertoryAddOpen=false"
+               @complate-drawer="myDrawerConfirm">
+      <div class="add-repertory">
+        <div class="store-item">
+          <div class="left-content">
+            <div class="store-item-label">库存数量<span class="red-star">*</span></div>
           </div>
-        </my-drawer>-->
+          <div class="right-content">
+            <Input v-model="sizeName" class="input-width" placeholder="正数增加|负数减少"></Input>
+          </div>
+        </div>
+      </div>
+    </my-drawer>
   </div>
 </template>
 <script>
@@ -186,8 +133,57 @@
             productName: '三叶草卫衣',
             productId: '11',
             productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
           }
-
         ],
         goodsSkuS: [],
         goodsDetail: {},
@@ -281,9 +277,9 @@
       margin-left: -2%;
       .item {
         display: flex;
-        width: 23%;
+        width: 48%;
         padding: 15px;
-        height: 130px;
+        height: 150px;
         font-size: 14px;
         margin: {
           top: 8px;
@@ -292,26 +288,26 @@
         background-color: #f8f6f2;
         .goods-img {
           img {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
           }
         }
         .goods-introduction {
           margin-left: 14px;
           h4 {
-            font-size: 12px;
-            margin-top: 3px;
+            font-size: 16px;
+            margin-top: 25px;
             font-weight: 600;
           }
           .ids {
             color: rgba(0, 0, 0, 0.4);
-            font-size: 12px;
-            margin-top: 7px;
+            font-size: 14px;
+            margin-top: 15px;
           }
           .number, .count {
             color: rgba(0, 0, 0, 0.4);
-            font-size: 12px;
-            margin-top: 5px;
+            font-size: 14px;
+            margin-top: 15px;
           }
           .operation {
             color: rgba(0, 0, 0, 0.4);
@@ -331,10 +327,14 @@
   }
 
   .repertory-infor {
+    margin-left: 14px;
     .detail {
       display: flex;
-      padding: 8px;
+      padding: 2px;
       border-bottom: 1px solid #f8f6f2;
+      .repertory-add-btn {
+        margin-left: 8px;
+      }
       .size, .total, .truth-total {
         margin-left: 20px;
       }
@@ -379,25 +379,25 @@
     }
   }
 
-  #add-repertory {
-    position: absolute;
-    bottom: 90px !important;
-    right: 30px !important;
-  }
-
-  .add-repertory {
-    padding: 8px;
-    width: 100%;
-    .hn-ui-margin {
-      margin: {
-        top: 8px;
-      }
-    ;
-    }
-  }
-
   .search-button {
     margin-left: 8px;
+  }
+
+  .store-item {
+    padding: 5px 0px;
+    border-bottom: 1px solid $formLabelBorderBottomColor;
+    display: flex;
+    .left-content {
+      display: flex;
+      flex: 1;
+      line-height: 200%;
+    }
+    .right-content {
+      text-align: right;
+      .input-width {
+        width: 82%;
+      }
+    }
   }
 
 </style>

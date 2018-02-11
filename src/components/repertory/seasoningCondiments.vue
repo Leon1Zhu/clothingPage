@@ -4,7 +4,26 @@
       <Input v-model="goodsNumber" placeholder="请输入货号或简称"></Input>
       <Button class="search-button" icon="ios-search" type="primary">搜索</Button>
     </tool-bar>
-    <Table :columns="columns10" :data="data9"></Table>
+    <div class="goods-show">
+      <div class="item" v-for="goods in goodsData">
+        <div class="goods-img">
+          <img :src="imgUrl" alt="">
+        </div>
+        <div class="goods-introduction">
+          <div class="code">货号:4544 / X1254</div>
+          <div class="name">简称:5456</div>
+          <div class="color">颜色:5456</div>
+          <div class="size">尺码:5456</div>
+          <div class="counts">数量:5456</div>
+          <div class="operation-btn">
+            <Button type="primary" size="small" @click="seasoningOpen = true">确认调货</Button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <Page :total="100" :page-size="10" class="footer-page" @on-change=""></Page>
+    </footer>
     <my-drawer :open="seasoningOpen" title="门店调货" @close-drawer="seasoningOpen=false"
                @complate-drawer="">
       <div class="seasoning-condiments">
@@ -34,148 +53,120 @@
 </template>
 <script>
   import myDrawer from '../../common/vue/myDrawer.vue';
-  import expandRow from '../repertory/seasoningExpand.vue';
   import toolBar from '../../common/vue/toolBar.vue';
 
   export default {
     props: {},
     data() {
       return {
+        imgUrl: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
         repertory: 0,
         seasoningOpen: false,
         seasoningIn: '1',
         seasoningOut: '2',
-        columns10: [
+        goodsData: [
           {
-            title: '编号',
-            key: 'name'
-          },
-          {
-            title: '颜色',
-            key: 'color'
-          },
-          {
-            title: '尺码',
-            key: 'size'
-          },
-          {
-            title: '数量',
-            key: 'number'
-          },
-          {
-            title: '操作',
-            key: 'action',
-            width: 150,
-            align: 'center',
-            render: (h, params) => {
-              return h('div', [
-                h('Button', {
-                  props: {
-                    type: 'primary',
-                    size: 'small'
-                  },
-                  style: {
-                    marginRight: '5px'
-                  },
-                  on: {
-                    click: () => {
-                      this.seasoningOpen = true;
-                    }
-                  }
-                }, '库存调拨')
-              ]);
-            }
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
+          }, {
+            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
+            productName: '三叶草卫衣',
+            productId: '11',
+            productCode: '15045624585',
           }
         ],
-        columns11: [
-          {
-            type: 'expand',
-            width: 50,
-            render: (h, params) => {
-              return h(expandRow, {
-                props: {
-                  row: params.row
-                }
-              })
-            }
-          },
-          {
-            title: '名称',
-            key: 'name'
-          },
-          {
-            title: '门店',
-            key: 'store'
-          },
-          {
-            title: '操作',
-            key: 'action',
-            width: 150,
-            align: 'center',
-            render: (h, params) => {
-              return h('div', [
-                h('Button', {
-                  props: {
-                    type: 'primary',
-                    size: 'small'
-                  },
-                  style: {
-                    marginRight: '5px'
-                  },
-                  on: {
-                    click: () => {
-                      this.seasoningOpen = true;
-                    }
-                  }
-                }, '调出')
-              ]);
-            }
-          }
-        ],
-        data9: [
-          {
-            name: '三叶草卫衣',
-            size: 'XL',
-            color: '红色',
-            number: '25',
-            store: '八达成一号店'
-          },
-          {
-            name: '三叶草卫衣',
-            size: 'XL',
-            color: '红色',
-            number: '25',
-            store: '八达成一号店'
-          },
-          {
-            name: '三叶草卫衣',
-            size: 'XL',
-            color: '红色',
-            number: '25',
-            store: '八达成一号店'
-          },
-          {
-            name: '三叶草卫衣',
-            size: 'XL',
-            color: '红色',
-            number: '25',
-            store: '八达成一号店'
-          },
-          {
-            name: '三叶草卫衣',
-            size: 'XL',
-            color: '红色',
-            number: '25',
-            store: '八达成一号店'
-          },
-          {
-            name: '三叶草卫衣',
-            size: 'XL',
-            color: '红色',
-            number: '25',
-            store: '八达成一号店'
-          },
-        ]
       };
     },
     methods: {
@@ -186,14 +177,54 @@
     },
     components: {
       myDrawer,
-      expandRow,
       toolBar
     }
   };
 </script>
 <style lang="scss" rel="stylesheet/scss" type="text/scss">
   .seasoning-condiments-html {
+    .goods-show {
+      margin-left: -2%;
+      .item {
+        width: 100%;
+        padding: 15px;
+        height: 80px;
+        font-size: 14px;
+        margin: {
+          top: 8px;
+          left: 2%;
+        }
+        background-color: #f8f6f2;
+        display: flex;
+        border: 1px solid rgba(34, 36, 38, .15);
+        &:hover {
+          box-shadow: 0 2px 4px 0 rgba(34, 36, 38, .12), 0 2px 10px 0 rgba(34, 36, 38, .15);
+        }
+        .goods-img {
+          img {
+            width: 50px;
+            height: 50px;
+          }
+        }
+        .goods-introduction {
+          margin-left: 14px;
+          flex: 1;
+          display: flex;
+          line-height: 50px;
+          .code, .name, .color, .size, .counts, .operation-btn {
+            flex: 1;
+            font-size: 14px;
+          }
 
+        }
+      }
+    }
+    footer {
+      margin-top: 8px;
+      .footer-page {
+        text-align: right;
+      }
+    }
   }
 
   .seasoning-condiments {

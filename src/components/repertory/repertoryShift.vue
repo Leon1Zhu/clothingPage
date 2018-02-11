@@ -16,6 +16,15 @@
       <Table :columns="columns" :data="data"></Table>
     </div>
     <footer>
+      <div class="total-record">
+        <span>合计:</span>
+        <span class="word">入库:<span class="system-word-color">531</span></span>
+        <span class="word">出库:<span class="system-word-color">200</span></span>
+        <span class="word">销售:<span class="system-word-color">100</span></span>
+        <span class="word">退货:<span class="system-word-color">21</span></span>
+        <span class="word">盘点:<span class="system-word-color">0</span></span>
+        <span class="word">调货:<span class="system-word-color">-10</span></span>
+      </div>
       <Page :total="100" class="footer-page"></Page>
     </footer>
   </div>
@@ -31,7 +40,7 @@
         goodsAddOpen: true,
         columns: [
           {
-            title: '名称',
+            title: '货号',
             key: 'name'
           },
           {
@@ -61,8 +70,8 @@
         ],
         data: [
           {
-            name: '三叶草卫衣',
-            time: '2017-12-23 07:49:09',
+            name: '545612 / x1253',
+            time: '2017-12-23 07:49',
             number: 1152462502,
             color: '浅蓝色',
             size: 'XXL',
@@ -70,8 +79,17 @@
             type: '入库',
           },
           {
-            name: '三叶草卫衣',
-            time: '2017-12-23 07:49:09',
+            name: '545612 / x1253',
+            time: '2017-12-23 07:49',
+            number: 1152462502,
+            color: '浅蓝色',
+            size: 'XXL',
+            total: '120',
+            type: '出库',
+          },
+          {
+            name: '545612 / x1253',
+            time: '2017-12-23 07:49',
             number: 1152462502,
             color: '浅蓝色',
             size: 'XXL',
@@ -79,8 +97,17 @@
             type: '入库',
           },
           {
-            name: '三叶草卫衣',
-            time: '2017-12-23 07:49:09',
+            name: '545612 / x1253',
+            time: '2017-12-23 07:49',
+            number: 1152462502,
+            color: '浅蓝色',
+            size: 'XXL',
+            total: '120',
+            type: '出库',
+          },
+          {
+            name: '545612 / x1253',
+            time: '2017-12-23 07:49',
             number: 1152462502,
             color: '浅蓝色',
             size: 'XXL',
@@ -88,8 +115,8 @@
             type: '入库',
           },
           {
-            name: '三叶草卫衣',
-            time: '2017-12-23 07:49:09',
+            name: '545612 / x1253',
+            time: '2017-12-23 07:49',
             number: 1152462502,
             color: '浅蓝色',
             size: 'XXL',
@@ -97,41 +124,119 @@
             type: '入库',
           },
           {
-            name: '三叶草卫衣',
-            time: '2017-12-23 07:49:09',
+            name: '545612 / x1253',
+            time: '2017-12-23 07:49',
             number: 1152462502,
             color: '浅蓝色',
             size: 'XXL',
             total: '120',
-            type: '入库',
+            type: '销售',
           },
           {
-            name: '三叶草卫衣',
-            time: '2017-12-23 07:49:09',
+            name: '545612 / x1253',
+            time: '2017-12-23 07:49',
+            number: 1152462502,
+            color: '浅蓝色',
+            size: 'XXL',
+            total: '120',
+            type: '销售',
+          }, {
+            name: '545612 / x1253',
+            time: '2017-12-23 07:49',
+            number: 1152462502,
+            color: '浅蓝色',
+            size: 'XXL',
+            total: '120',
+            type: '销售',
+          }, {
+            name: '545612 / x1253',
+            time: '2017-12-23 07:49',
+            number: 1152462502,
+            color: '浅蓝色',
+            size: 'XXL',
+            total: '120',
+            type: '销售',
+          }, {
+            name: '545612 / x1253',
+            time: '2017-12-23 07:49',
+            number: 1152462502,
+            color: '浅蓝色',
+            size: 'XXL',
+            total: '120',
+            type: '销售',
+          }, {
+            name: '545612 / x1253',
+            time: '2017-12-23 07:49',
+            number: 1152462502,
+            color: '浅蓝色',
+            size: 'XXL',
+            total: '120',
+            type: '销售',
+          }, {
+            name: '545612 / x1253',
+            time: '2017-12-23 07:49',
             number: 1152462502,
             color: '浅蓝色',
             size: 'XXL',
             total: '120',
             type: '入库',
+          }, {
+            name: '545612 / x1253',
+            time: '2017-12-23 07:49',
+            number: 1152462502,
+            color: '浅蓝色',
+            size: 'XXL',
+            total: '120',
+            type: '调货',
+          }, {
+            name: '545612 / x1253',
+            time: '2017-12-23 07:49',
+            number: 1152462502,
+            color: '浅蓝色',
+            size: 'XXL',
+            total: '120',
+            type: '调货',
+          }, {
+            name: '545612 / x1253',
+            time: '2017-12-23 07:49',
+            number: 1152462502,
+            color: '浅蓝色',
+            size: 'XXL',
+            total: '120',
+            type: '调货',
+          }, {
+            name: '545612 / x1253',
+            time: '2017-12-23 07:49',
+            number: 1152462502,
+            color: '浅蓝色',
+            size: 'XXL',
+            total: '120',
+            type: '入库',
+          }, {
+            name: '545612 / x1253',
+            time: '2017-12-23 07:49',
+            number: 1152462502,
+            color: '浅蓝色',
+            size: 'XXL',
+            total: '120',
+            type: '调货',
+          }, {
+            name: '545612 / x1253',
+            time: '2017-12-23 07:49',
+            number: 1152462502,
+            color: '浅蓝色',
+            size: 'XXL',
+            total: '120',
+            type: '入库',
+          }, {
+            name: '545612 / x1253',
+            time: '2017-12-23 07:49:09',
+            number: 1152462502,
+            color: '浅蓝色',
+            size: 'XXL',
+            total: '120',
+            type: '调货',
           },
-          {
-            name: '三叶草卫衣',
-            time: '2017-12-23 07:49:09',
-            number: 1152462502,
-            color: '浅蓝色',
-            size: 'XXL',
-            total: '120',
-            type: '入库',
-          },
-          {
-            name: '三叶草卫衣',
-            time: '2017-12-23 07:49:09',
-            number: 1152462502,
-            color: '浅蓝色',
-            size: 'XXL',
-            total: '120',
-            type: '入库',
-          }
         ],
         repertoryShiftS: [
           {
@@ -201,8 +306,25 @@
       margin-top: 8px;
     }
     footer {
+      display: flex;
       margin-top: 8px;
+      .total-record {
+        height: 32px;
+        padding: 8px;
+        width: 680px;
+        background-color: #dcdcdc;
+        span {
+          font-weight: 600;
+        }
+        .word {
+          margin-left: 12px;
+        }
+        .system-word-color {
+          color: #06b9a5;
+        }
+      }
       .footer-page {
+        flex: 1;
         text-align: right;
       }
     }

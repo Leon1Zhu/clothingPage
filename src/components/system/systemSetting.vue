@@ -1,6 +1,10 @@
 <template>
   <div class="system-setting-html">
-    <tool-bar></tool-bar>
+    <tool-bar>
+      <Button type="primary" icon="ios-search" class="password-setting " @click="passwordOpen = true">登陆密码设置
+      </Button>
+      <Button type="primary" icon="ios-search" class="phone-setting " @click="phoneOpen = true">手机绑定设置</Button>
+    </tool-bar>
     <Form :model="formItem" label-position="left" :label-width="100">
       <FormItem label="库存预警数量">
         <Input v-model="formItem.input" placeholder="库存预警数量" style="width: 200px"></Input>
@@ -9,10 +13,19 @@
         <Input v-model="formItem.input" placeholder="系统价格倍率" style="width: 200px"></Input>
       </FormItem>
       <FormItem label="价格尾数开启">
+        <Col span="3">
         <i-switch v-model="formItem.switch" size="large">
           <span slot="open">是</span>
           <span slot="close">否</span>
         </i-switch>
+        </Col>
+        <Col span="11">
+        <label class="ivu-form-item-label">是否抹零</label>
+        <i-switch v-model="formItem.switch" size="large">
+          <span slot="open">是</span>
+          <span slot="close">否</span>
+        </i-switch>
+        </Col>
       </FormItem>
       <FormItem label="价格尾数">
         <Select v-model="formItem.select" style="width: 90px">
@@ -28,18 +41,12 @@
           <Option value="9">9</Option>
         </Select>
       </FormItem>
-      <FormItem label="是否抹零">
-        <i-switch v-model="formItem.switch" size="large">
-          <span slot="open">是</span>
-          <span slot="close">否</span>
-        </i-switch>
-      </FormItem>
       <FormItem label="积分抵扣">
         <Tag type="dot" closable color="green">500积分抵扣50元</Tag>
         <Tag type="dot" closable color="green">1000积分抵扣100元</Tag>
         <Tag type="dot" closable color="green">200积分抵扣250元</Tag>
         <Tag type="dot" closable color="green">3000积分抵扣350元</Tag>
-        <Button type="primary" shape="circle" icon="plus-round" @click="integrationOpen=true"></Button>
+        <Button type="primary" @click="integrationOpen=true">添加积分规则</Button>
       </FormItem>
       <FormItem>
         <Button type="primary">保存</Button>
@@ -49,19 +56,67 @@
       <div class="integration-add">
         <div class="store-item">
           <div class="left-content">
-            <div class="store-item-label">积分数量<span class="red-star">*</span></div>
+            <div class="store-item-label">设置积分<span class="red-star">*</span></div>
           </div>
           <div class="right-content">
-            <Input v-model="jfNumber" class="input-width" placeholder="积分数量"></Input>
+            <Input v-model="jfNumber" class="input-width" placeholder="积分"></Input>
           </div>
         </div>
         <div class="store-item">
           <div class="left-content">
-            <div class="store-item-label">金额数量<span class="red-star">*</span></div>
+            <Tooltip content="5000积分，倍率10--5000积分抵扣500元" placement="top-start">
+              <div class="store-item-label">倍率<span class="red-star">*</span></div>
+            </Tooltip>
           </div>
           <div class="right-content">
-            <Input v-model="moneyNumber" class="input-width" placeholder="金额数量"></Input>
+            <Input v-model="moneyNumber" class="input-width" placeholder="倍率"></Input>
           </div>
+        </div>
+      </div>
+    </my-drawer>
+
+    <my-drawer :open="passwordOpen" title="密码设置" @close-drawer="passwordOpen=false" @complate-drawer="">
+      <div class="store-item">
+        <div class="left-content">
+          <div class="store-item-label">旧密码<span class="red-star">*</span></div>
+        </div>
+        <div class="right-content">
+          <Input v-model="oldPassword" type="password" class="input-width" placeholder="旧密码"></Input>
+        </div>
+      </div>
+      <div class="store-item">
+        <div class="left-content">
+          <div class="store-item-label">新密码<span class="red-star">*</span></div>
+        </div>
+        <div class="right-content">
+          <Input v-model="newPassword" type="password" class="input-width" placeholder="新密码"></Input>
+        </div>
+      </div>
+      <div class="store-item">
+        <div class="left-content">
+          <div class="store-item-label">确认密码<span class="red-star">*</span></div>
+        </div>
+        <div class="right-content">
+          <Input v-model="surePassword" type="password" class="input-width" placeholder="确认密码"></Input>
+        </div>
+      </div>
+    </my-drawer>
+
+    <my-drawer :open="phoneOpen" title="手机绑定" @close-drawer="phoneOpen=false" @complate-drawer="">
+      <div class="store-item">
+        <div class="left-content">
+          <div class="store-item-label">新手机<span class="red-star">*</span></div>
+        </div>
+        <div class="right-content">
+          <Input v-model="surePassword" class="input-width" placeholder="新手机"></Input>
+        </div>
+      </div>
+      <div class="store-item">
+        <div class="left-content">
+          <Button type="primary" class="phone-setting">发送验证码</Button>
+        </div>
+        <div class="right-content">
+          <Input v-model="surePassword" class="input-width" placeholder="验证码"></Input>
         </div>
       </div>
     </my-drawer>
@@ -76,8 +131,13 @@
     data() {
       return {
         integrationOpen: false,
+        passwordOpen: false,
+        phoneOpen: false,
         jfNumber: '',
         moneyNumber: '',
+        oldPassword: '',
+        newPassword: '',
+        surePasswordL: '',
         formItem: {
           input: '',
           select: '',
@@ -99,7 +159,10 @@
   @import '../../common/css/globalscss.scss';
 
   .system-setting-html {
-    width: 800px;
+    width: 98%;
+    .password-setting, .phone-setting {
+      margin-left: 8px;
+    }
   }
 
   .integration-add {
