@@ -102,7 +102,6 @@ Vue.component('table-ColorSelect',{
     }
   },
   created(){
-    console.log(this.field)
   },
   methods:{
     addRow(){
@@ -130,7 +129,6 @@ Vue.component('table-SizeSelect',{
     }
   },
   created(){
-    console.log(this.rowData)
   },
   methods:{
     addRow(){
@@ -141,6 +139,79 @@ Vue.component('table-SizeSelect',{
     }
   }
 
+})
+var vTableMixin = {
+  template: `<AutoComplete v-model="selectValue"  :data="goodData"  :filter-method="filterMethod" placeholder="搜索商品信息" @on-change="changeValue"></AutoComplete>`,
+  data(){
+    return {
+      goodData: ['01016下口袋/125/浅蓝/L', '01016下口袋/x125/浅//L', '01016下口袋/x125/浅蓝/L'],
+      selectValue: '',
+    }
+  },
+  created(){
+  },
+  methods:{
+    filterMethod (value, option) {
+      return option.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+    },
+    changeValue(value){
+    }
+  }
+}
+
+
+Vue.component('goodsTypeComponent',{
+  props:{
+    rowData:{
+      type:Object
+    },
+    field:{
+      type:String
+    },
+    index:{
+      type:Number
+    }
+  },
+  mixins: [vTableMixin],
+  methods:{
+    addRow(){
+      // 参数根据业务场景随意构造
+      let params = {type:'add',index:this.index};
+      /* this.$emit('on-custom-comp',params);*/
+    },
+    changeValue(value){
+      this.selectValue=value.split('/')[0];
+    }
+  }
+})
+
+
+Vue.component('goodsCodeComponent',{
+  props:{
+    rowData:{
+      type:Object
+    },
+    field:{
+      type:String
+    },
+    index:{
+      type:Number
+    }
+  },
+  mixins: [vTableMixin],
+  created(){
+  },
+  methods:{
+    addRow(){
+      // 参数根据业务场景随意构造
+      let params = {type:'add',index:this.index};
+      /* this.$emit('on-custom-comp',params);*/
+
+    },
+    changeValue(value){
+      this.selectValue=value.split('/')[1];
+    }
+  }
 })
 
 

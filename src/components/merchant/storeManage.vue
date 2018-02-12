@@ -226,6 +226,7 @@
                 {
                   title: '门店地址',
                   key: 'shopAddr',
+                  width:'14%'
                 },
 
                 {
@@ -246,7 +247,7 @@
                 {
                   title: '门店服务',
                   key: 'shopTags',
-                  width:'19%',
+                  width:'17%',
                   render: (h, params) => {
                     if(!ISNULL(params.row.marketName)){
                       let shopTags = params.row.shopTags.split('|')

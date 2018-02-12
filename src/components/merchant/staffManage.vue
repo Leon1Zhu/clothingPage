@@ -59,10 +59,10 @@
         <div class="store-item store-item-icon-color">
           <div class="left-content">
             <i class="iconfont  icon-xiugaimima" ></i>
-            <div class="store-item-label">设置新密码<span class="red-star">*</span></div>
+            <div class="store-item-label">设置密码<span class="red-star">*</span></div>
           </div>
           <div class="right-content">
-            <Input  v-model="staffItem.accountPwd" type="password" placeholder="设置新密码" style="width: 74%"></Input>
+            <Input  v-model="staffItem.accountPwd" type="password" placeholder="设置密码" ></Input>
           </div>
         </div>
       </div>

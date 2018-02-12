@@ -46,7 +46,7 @@
           <Row >
             <Col span="12">
               <div class="pay-way flexStyle" >
-                <FormItem label="总件数"   :label-width="70" style="flex: 1 1 33%;">
+                <FormItem label="订单件数"   :label-width="70" style="flex: 1 1 33%;">
                   <span class="disable-input">{{orderInfo.allCount}}</span>
                   <!--  <Input  v-model="orderInfo.allCount" disabled></Input>-->
                 </FormItem>
@@ -87,17 +87,17 @@
       </div>
       <div class="order-table">
         <Card>
-          <div slot="title " class="flexStyle">
+          <div slot="title" style="display: flex;">
             <div style="line-height: 2;">购买商品列表</div>
             <div class="flexStyle" style="flex: 1;text-align: right;justify-content: flex-end">
-              <AutoComplete
+             <!-- <AutoComplete
                 v-model="addGoodsInfo"
                 :data="goodData"
                 icon="ios-search"
                 :filter-method="filterMethod"
                 placeholder="请输入搜索商品序号"
                 style="margin-right: 1%;">
-              </AutoComplete>
+              </AutoComplete>-->
               <Button type="ghost" @click="saveOrder">保存订单</Button>
             </div>
           </div>
@@ -136,8 +136,8 @@
               columns:  [
                 {field: 'sum', title: '', width: 150, titleAlign: 'center',columnAlign:'center',componentName:'table-addOperate'},
                 {field: 'id', title:'序号', width: 180, titleAlign: 'center',columnAlign:'center', isResize:true},
-                {field: 'goodName', title: '货品',width: 180,  titleAlign: 'center',columnAlign:'center',isResize:true},
-                {field: 'systemCode', title: '系统货号',width: 180,  titleAlign: 'center',columnAlign:'center',isResize:true},
+                {field: 'systemCode', title: '商品货号',width: 180,  titleAlign: 'center',columnAlign:'center',isResize:true,componentName:'goodsCodeComponent'},
+                {field: 'goodName', title: '商品简称',width: 180,  titleAlign: 'center',columnAlign:'center',isResize:true,componentName:'goodsTypeComponent'},
                 {field: 'color', title: '颜色',width: 150,  titleAlign: 'center',columnAlign:'center',isResize:true,componentName:'table-ColorSelect'},
                 {field: 'size', title: '尺码', width: 150, titleAlign: 'center',columnAlign:'center',isResize:true,componentName: 'table-SizeSelect'},
                 {field: 'count', title: '数量', width: 150, titleAlign: 'center',columnAlign:'center',isEdit:true,isResize:true},
@@ -169,7 +169,7 @@
                 payMoney:0,
               },
               goodData: ['123/01016下口袋/浅蓝/L', '123456/01016下口袋/浅//L', '123456789/01016下口袋/浅蓝/L'],
-              autoData: ['张三，12000', '李四，13000', '王五，140000'],
+              autoData: ['张三，18752002039', '李四，18752002039', '王五，18752002039'],
               waiterData: ['张三', '李四', '王五']
             }
         },
@@ -223,7 +223,6 @@
           },
           //表格点击事件
           customCompFunc(params){
-            console.log(params);
 
             if (params.type === 'delete'){ // do delete operation
 
@@ -231,7 +230,7 @@
               this.countMoney()
 
             }else if (params.type === 'add'){ // do edit operation
-
+              this.addColum(params.index)
             }
           },
           goodReturn(){
@@ -239,6 +238,12 @@
           },
           saveOrder(){
               this.$warning('操作错误','请将信息填写完整！')
+          },
+          addColum(index){
+              this.tableData.splice(index+1,0, {"id":index+2,"systemCode":"","goodName":"","color":"","size":"",count:0,prince:0,sum:0})
+              for(let  i=index+2,len=this.tableData.length;i<len;i++){
+                this.tableData[i].id = parseInt(this.tableData[i].id,10)+1;
+              }
           }
         },
     }
@@ -321,6 +326,11 @@
     }
     .v-table-title-cell,.v-table-body-cell{
       width:initial!important;
+      .ivu-auto-complete{
+        .ivu-input{
+          text-align:center;
+        }
+      }
     }
     .v-table-row{
     }
@@ -340,23 +350,13 @@
     }
     .order-table{
       transition: transform .2s;
-      .ivu-auto-complete input{
-        width:200px;
-        transition: width .5s;
-      }
-      .ivu-auto-complete input:hover,.ivu-auto-complete input:focus{
-        width:300px;
-        .ivu-select-dropdown.ivu-auto-complete{
-          width:300px!important;
-        }
-      }
-      .ivu-auto-complete{
+      /*.ivu-auto-complete{
         .ivu-select-dropdown.ivu-auto-complete{
           right:110px!important;
           left:auto!important;
           width:300px!important;
         }
-      }
+      }*/
     }
 
     .orderStaff .ivu-auto-complete,.payWayClass .ivu-select{

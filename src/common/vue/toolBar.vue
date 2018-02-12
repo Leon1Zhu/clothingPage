@@ -50,7 +50,7 @@
 
       }
       .ivu-input-wrapper{
-        .ivu-icon-ios-calendar-outline{
+        .ivu-icon{
           line-height:50px;
           font-size:20px;
         }

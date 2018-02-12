@@ -154,6 +154,13 @@
                     </Col>
                   </Row>
                 </FormItem>
+                <FormItem>
+                  <Row  class="addSizeBtn">
+                    <Col span="22" >
+                      <Button  type="ghost" icon="plus-round"></Button>
+                    </Col>
+                  </Row>
+                </FormItem>
                 <p class="explain">
                   <Icon type="information-circled" size="20" ></Icon>
                   填写尺码详细可分享给客户
@@ -337,7 +344,7 @@
       border-bottom: 1px solid $borderColorGoodsDrawer;
     }
     .ivu-form .ivu-form-item-label{
-      padding:10px 0px 10px 0px;
+      padding:10px 0px 12px 0px;
     }
     .ivu-form-item-content {
       text-align: right;
@@ -465,6 +472,21 @@
         top:-3px;
         opacity:0;
         animation: moveDown 1.4s ease-in infinite ;
+      }
+    }
+    .addSizeBtn{
+      margin-left: 4.5%;
+      .ivu-col{
+        left:0;
+        .ivu-btn{
+          width:100%;
+          border-color: #dddee1!important;
+          color: #cdcdcd!important;
+        }
+        .ivu-btn:hover{
+          border-color: $menuSelectFontColor!important;
+          color: $menuSelectFontColor!important;
+        }
       }
     }
   }

@@ -18,7 +18,7 @@ global.USERINFO=[];
 
 global.SYSTEMCOLOR = '#06b9a5';
 //付款方式
-global.PAYMENTWAY = [{value:0,label:'现金'},{value:1,label:'支付宝'},{value:2,label:'微信'},{value:3,label:'银行卡'},{value:4,label:'信用卡'}];
+global.PAYMENTWAY = [{value:0,label:'现金'},{value:1,label:'支付宝'},{value:2,label:'微信'},{value:3,label:'银行卡'},{value:4,label:'信用卡'},{value:5,label:'未付'}];
 //行业分类
 global.STORECLASSIFY = [{value:0,label:'女装'},{value:1,label:'男装'},{value:2,label:'童装'}];
 //销售类型
