@@ -1,42 +1,44 @@
 <template>
   <div class="repertory-record-html">
-    <tool-bar>
-      <Input v-model="goodsCode" placeholder="请输入货号或简称"></Input>
-      <Button class="search-button" icon="ios-search" type="primary" @click="searchGoodS">搜索</Button>
-    </tool-bar>
-    <div class="goods-show">
-      <div class="item" v-for="goods in goodsData">
-        <div class="goods-infor">
-          <div class="goods-img">
-            <img :src="imgUrl" alt="">
+    <div class="top-content">
+      <tool-bar>
+        <Input v-model="goodsCode" placeholder="请输入货号或简称"></Input>
+        <Button class="search-button" icon="ios-search" type="primary" @click="searchGoodS">搜索</Button>
+      </tool-bar>
+      <div class="goods-show">
+        <div class="item" v-for="goods in goodsData">
+          <div class="goods-infor">
+            <div class="goods-img">
+              <img :src="imgUrl" alt="">
+            </div>
+            <div class="goods-introduction">
+              <h4>三叶草卫衣</h4>
+              <div class="ids">商品id:4544</div>
+              <div class="number">货号:5456</div>
+            </div>
           </div>
-          <div class="goods-introduction">
-            <h4>三叶草卫衣</h4>
-            <div class="ids">商品id:4544</div>
-            <div class="number">货号:5456</div>
-          </div>
-        </div>
-        <div class="repertory-infor">
-          <div class="detail">
-            <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-            <Tag class="size" color="#06b9a5">M</Tag>
-            <span class="total">0</span>
-            <Button type="primary" shape="circle" icon="edit" class="repertory-add-btn"
-                    @click="repertoryAddOpen = true"></Button>
-          </div>
-          <div class="detail">
-            <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-            <Tag class="size" color="#06b9a5">XL</Tag>
-            <span class="total">0</span>
-            <Button type="primary" shape="circle" icon="edit" class="repertory-add-btn"
-                    @click="repertoryAddOpen = true"></Button>
-          </div>
-          <div class="detail">
-            <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-            <Tag class="size" color="#06b9a5">XXL</Tag>
-            <span class="total">0</span>
-            <Button type="primary" shape="circle" icon="edit" class="repertory-add-btn"
-                    @click="repertoryAddOpen = true"></Button>
+          <div class="repertory-infor">
+            <div class="detail">
+              <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
+              <Tag class="size" color="#06b9a5">M</Tag>
+              <span class="total">0</span>
+              <Button type="primary" shape="circle" icon="edit" class="repertory-add-btn"
+                      @click="repertoryAddOpen = true"></Button>
+            </div>
+            <div class="detail">
+              <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
+              <Tag class="size" color="#06b9a5">XL</Tag>
+              <span class="total">0</span>
+              <Button type="primary" shape="circle" icon="edit" class="repertory-add-btn"
+                      @click="repertoryAddOpen = true"></Button>
+            </div>
+            <div class="detail">
+              <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
+              <Tag class="size" color="#06b9a5">XXL</Tag>
+              <span class="total">0</span>
+              <Button type="primary" shape="circle" icon="edit" class="repertory-add-btn"
+                      @click="repertoryAddOpen = true"></Button>
+            </div>
           </div>
         </div>
       </div>
@@ -268,8 +270,13 @@
 
   .repertory-record-html {
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
+    .top-content {
+      height: 94%;
+      overflow-y: auto;
+    }
     .goods-show {
       flex: 1;
       display: flex;

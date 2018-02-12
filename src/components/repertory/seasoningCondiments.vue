@@ -1,22 +1,24 @@
 <template>
   <div class="seasoning-condiments-html">
-    <tool-bar>
-      <Input v-model="goodsNumber" placeholder="请输入货号或简称"></Input>
-      <Button class="search-button" icon="ios-search" type="primary">搜索</Button>
-    </tool-bar>
-    <div class="goods-show">
-      <div class="item" v-for="goods in goodsData">
-        <div class="goods-img">
-          <img :src="imgUrl" alt="">
-        </div>
-        <div class="goods-introduction">
-          <div class="code">货号:4544 / X1254</div>
-          <div class="name">简称:5456</div>
-          <div class="color">颜色:5456</div>
-          <div class="size">尺码:5456</div>
-          <div class="counts">数量:5456</div>
-          <div class="operation-btn">
-            <Button type="primary" size="small" @click="seasoningOpen = true">确认调货</Button>
+    <div class="top-content">
+      <tool-bar>
+        <Input v-model="goodsNumber" placeholder="请输入货号或简称"></Input>
+        <Button class="search-button" icon="ios-search" type="primary">搜索</Button>
+      </tool-bar>
+      <div class="goods-show">
+        <div class="item" v-for="goods in goodsData">
+          <div class="goods-img">
+            <img :src="imgUrl" alt="">
+          </div>
+          <div class="goods-introduction">
+            <div class="code">货号:4544 / X1254</div>
+            <div class="name">简称:5456</div>
+            <div class="color">颜色:5456</div>
+            <div class="size">尺码:5456</div>
+            <div class="counts">数量:5456</div>
+            <div class="operation-btn">
+              <Button type="primary" size="small" @click="seasoningOpen = true">确认调货</Button>
+            </div>
           </div>
         </div>
       </div>
@@ -183,6 +185,11 @@
 </script>
 <style lang="scss" rel="stylesheet/scss" type="text/scss">
   .seasoning-condiments-html {
+    height: 100%;
+    .top-content {
+      height: 94%;
+      overflow-y: auto;
+    }
     .goods-show {
       margin-left: -2%;
       .item {

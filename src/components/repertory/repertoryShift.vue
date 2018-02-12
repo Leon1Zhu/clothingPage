@@ -1,19 +1,21 @@
 <template>
   <div class="repertory-shift-html">
-    <tool-bar>
-      <Input v-model="searchData.number" placeholder="请输入货号或者简称"></Input>
-      <Col class="left-eight">
-      <DatePicker :value="searchData.time" type="daterange" placement="bottom-end" placeholder="选择日期"
-                  style="width: 200px"></DatePicker>
-      </Col>
-      <Select v-model="searchData.type" class="left-eight" style="width: 100px">
-        <Option v-for=" repertoryShift in repertoryShiftS" :value="repertoryShift.value">{{repertoryShift.name}}
-        </Option>
-      </Select>
-      <Button type="primary" icon="ios-search" @click.native="listGoodsRepertoryRecord()" class="post-btn">搜索</Button>
-    </tool-bar>
-    <div class="table-show">
-      <Table :columns="columns" :data="data"></Table>
+    <div class="top-content">
+      <tool-bar>
+        <Input v-model="searchData.number" placeholder="请输入货号或者简称"></Input>
+        <Col class="left-eight">
+        <DatePicker :value="searchData.time" type="daterange" placement="bottom-end" placeholder="选择日期"
+                    style="width: 200px"></DatePicker>
+        </Col>
+        <Select v-model="searchData.type" class="left-eight" style="width: 100px">
+          <Option v-for=" repertoryShift in repertoryShiftS" :value="repertoryShift.value">{{repertoryShift.name}}
+          </Option>
+        </Select>
+        <Button type="primary" icon="ios-search" @click.native="listGoodsRepertoryRecord()" class="post-btn">搜索</Button>
+      </tool-bar>
+      <div class="table-show">
+        <Table :columns="columns" :data="data"></Table>
+      </div>
     </div>
     <footer>
       <div class="total-record">
@@ -297,6 +299,11 @@
   @import '../../common/css/globalscss.scss';
 
   .repertory-shift-html {
+    height: 100%;
+    .top-content {
+      height: 94%;
+      overflow-y: auto;
+    }
     .left-eight {
       margin: {
         left: 8px;
@@ -306,6 +313,7 @@
       margin-top: 8px;
     }
     footer {
+      bottom: 8px;
       display: flex;
       margin-top: 8px;
       .total-record {

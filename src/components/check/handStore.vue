@@ -1,29 +1,31 @@
 <template>
   <div class="hand-store-html">
-    <tool-bar>
-      <Input v-model="goodsNumber" placeholder="请输入货号或简称"></Input>
-      <Button class="search-button" icon="ios-search" type="primary">搜索</Button>
-      <Button class="search-button" type="primary">重新盘点</Button>
-      <Button class="search-button" type="error">结束盘点</Button>
-      <Button class="search-button" type="info" @click.native="storeRecord=true">盘点记录</Button>
-    </tool-bar>
-    <div class="goods-show">
-      <div class="item" v-for="goods in goodsData" :class="{'active-gray':goods.flag == 0,
+    <div class="top-content">
+      <tool-bar>
+        <Input v-model="goodsNumber" placeholder="请输入货号或简称"></Input>
+        <Button class="search-button" icon="ios-search" type="primary">搜索</Button>
+        <Button class="search-button" type="primary">重新盘点</Button>
+        <Button class="search-button" type="error">结束盘点</Button>
+        <Button class="search-button" type="info" @click.native="storeRecord=true">盘点记录</Button>
+      </tool-bar>
+      <div class="goods-show">
+        <div class="item" v-for="goods in goodsData" :class="{'active-gray':goods.flag == 0,
       'active-red':goods.flag == 1,
       'active-green':goods.flag == 2}">
-        <div class="goods-img">
-          <img :src="imgUrl" alt="">
-        </div>
-        <div class="goods-introduction">
-          <h4>{{goods.name}}</h4>
-          <div class="ids">商品id:{{goods.ids}}</div>
-          <!--<div class="number">货号:{{goods.number}}</div>-->
-          <div class="count">库存总量:{{goods.count}}</div>
-          <div class="count">盘点总量:{{goods.count}}</div>
-        </div>
-        <div class="operation">
-          <!--<Button type="primary" shape="circle" icon="gear-b" @click="check = true"></Button>-->
-          <Button type="primary" shape="circle" icon="gear-a" @click="check = true"></Button>
+          <div class="goods-img">
+            <img :src="imgUrl" alt="">
+          </div>
+          <div class="goods-introduction">
+            <h4>{{goods.name}}</h4>
+            <div class="ids">商品id:{{goods.ids}}</div>
+            <!--<div class="number">货号:{{goods.number}}</div>-->
+            <div class="count">库存总量:{{goods.count}}</div>
+            <div class="count">盘点总量:{{goods.count}}</div>
+          </div>
+          <div class="operation">
+            <!--<Button type="primary" shape="circle" icon="gear-b" @click="check = true"></Button>-->
+            <Button type="primary" shape="circle" icon="gear-a" @click="check = true"></Button>
+          </div>
         </div>
       </div>
     </div>
@@ -267,14 +269,17 @@
 
   .hand-store-html {
     width: 100%;
+    height: 100%;
     display: flex;
-    flex-direction: column;
-    .footer-page {
-      margin-top: 8px;
+    .top-content {
+      height: 96%;
+      overflow-y: auto;
     }
+    flex-direction: column;
     footer {
       .footer-page {
         text-align: right;
+        margin-top: 8px;
       }
     }
   }

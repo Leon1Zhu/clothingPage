@@ -1,28 +1,30 @@
 <template>
   <div class="store-change-html">
-    <tool-bar>
-      <Input v-model="goodsNumber" placeholder="请输入货号或简称"></Input>
-      <Button class="search-button" icon="ios-search" type="primary">搜索</Button>
-      <Button class="search-button" type="primary">重新盘点</Button>
-      <Button class="search-button" type="error">结束盘点</Button>
-      <Button class="search-button" type="info" @click="storeRecord=true">盘点记录</Button>
-    </tool-bar>
-    <div class="goods-show">
-      <div class="item" v-for="(goods,index) in goodsData" :class="{'active-gray':goods.flag == 0,
+    <div class="top-content">
+      <tool-bar>
+        <Input v-model="goodsNumber" placeholder="请输入货号或简称"></Input>
+        <Button class="search-button" icon="ios-search" type="primary">搜索</Button>
+        <Button class="search-button" type="primary">重新盘点</Button>
+        <Button class="search-button" type="error">结束盘点</Button>
+        <Button class="search-button" type="info" @click="storeRecord=true">盘点记录</Button>
+      </tool-bar>
+      <div class="goods-show">
+        <div class="item" v-for="(goods,index) in goodsData" :class="{'active-gray':goods.flag == 0,
       'active-red':goods.flag == 1,
       'active-green':goods.flag == 2}">
-        <div class="goods-img">
-          <img :src="imgUrl" alt="">
-        </div>
-        <div class="goods-introduction">
-          <h4>{{goods.name}}</h4>
-          <div class="ids">商品id:{{goods.ids}}</div>
-          <div class="number">货号:{{goods.number}}</div>
-          <div class="count">库存数量:{{goods.count}}</div>
-        </div>
-        <div class="operation">
-          <Button type="primary" shape="circle" icon="gear-a"
-                  @click="repertoryAddOpen = true, storeRecordIndex=index"></Button>
+          <div class="goods-img">
+            <img :src="imgUrl" alt="">
+          </div>
+          <div class="goods-introduction">
+            <h4>{{goods.name}}</h4>
+            <div class="ids">商品id:{{goods.ids}}</div>
+            <div class="number">货号:{{goods.number}}</div>
+            <div class="count">库存数量:{{goods.count}}</div>
+          </div>
+          <div class="operation">
+            <Button type="primary" shape="circle" icon="gear-a"
+                    @click="repertoryAddOpen = true, storeRecordIndex=index"></Button>
+          </div>
         </div>
       </div>
     </div>
@@ -303,8 +305,13 @@
 
   .store-change-html {
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
+    .top-content {
+      height: 94%;
+      overflow-y: auto;
+    }
     footer {
       .footer-page {
         margin-top: 8px;
