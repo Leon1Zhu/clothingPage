@@ -217,7 +217,7 @@
                           }
                         },);
                       }else{
-                        return h('div', {},params.row.marketName);i
+                        return h('div', {},params.row.marketName);
                       }
 
                   }

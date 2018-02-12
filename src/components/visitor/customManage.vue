@@ -35,17 +35,22 @@
             key: 'customName'
           },
           {
+            title: '客户卡号',
+            key: 'customCard',
+          },
+          {
             title: '联系方式',
             key: 'customPhone'
           },
           {
-            title: '客户积分',
-            key: 'customGrade',
+            title: '客户生日',
+            key: 'customBirth',
+            render: (h, params) => {
+              return h('div', {},new Date().Format(dateFormatType));
+
+            }
           },
-          {
-            title: '客户卡号',
-            key: 'customCard',
-          },
+
           /*{
             title: '消费总额',
             key: 'customTotalMoney',
