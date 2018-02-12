@@ -328,6 +328,7 @@
     }
     footer {
       .footer-page {
+        margin-top: 8px;
         text-align: right;
       }
     }
