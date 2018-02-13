@@ -36,6 +36,10 @@
                   key: 'customTotalMoney',
                 },
                 {
+                  title: '账户积分',
+                  key: 'customGrade'
+                },
+                {
                   title: '账户余额',
                   key: 'customRemainMoney',
                 },

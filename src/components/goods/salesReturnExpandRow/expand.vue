@@ -1,7 +1,7 @@
 <template>
   <div class="good-table-expand">
-   <!-- <Table class="my-table" :show-header="!showHeader"  :columns="columns1" :data="data1"></Table>-->
-    <Card  v-for="item in data1" @click.native="returnItem(item)">
+    <Table class="my-table" :show-header="!showHeader"  :columns="columns1" :data="data1"></Table>
+    <!--<Card  v-for="item in data1" @click.native="returnItem(item)">
       <div class="good-card">
         <div class="left-content">
             <img class="good-img" :src="item.productPic">
@@ -44,7 +44,7 @@
           </div>
         </div>
       </div>
-    </Card>
+    </Card>-->
     <Spin size="large" fix v-if="spinShow"></Spin>
   </div>
 </template>
@@ -60,7 +60,41 @@ import visitManageApi from '../../../api/visitManage'
             return {
               showHeader:false,
               spinShow:true,
-              data1:[]
+              data1:[],
+              columns1: [
+                {
+                  title: '商品货号',
+                  key: '081802000104'
+                },
+                {
+                  title: '图片',
+                  key: 'productPic',
+                  render: (h,params){
+                      return h('div',{
+                          class
+                      },[])
+                  }
+                },
+                {
+                  title: '总额',
+                  key: 'orderMoney',
+                  sortable: true
+                },
+                {
+                  title: '实付金额',
+                  key: 'orderPayment',
+                  sortable: true
+                },
+                {
+                  title: '交易时间',
+                  key: 'orderTime',
+                  sortable: true,
+                },
+                {
+                  title: '备注',
+                    key: 'orderMemo',
+                }
+              ],
             }
         },
         components: {
@@ -82,6 +116,7 @@ import visitManageApi from '../../../api/visitManage'
           getOrderListDetailInfo(){
               visitManageApi.getOrderDetailInfo(this.$store.getters.getAccountId,this.row.orderId).then(response =>{
                   this.data1 = response.data.details
+            console.log(this.data1)
                   this.$nextTick(function(){
                     this.spinShow = false;
                   })
@@ -97,7 +132,16 @@ import visitManageApi from '../../../api/visitManage'
 <style lang="scss" rel="stylesheet/scss">
   @import "../../../common/css/globalscss";
   .good-table-expand{
-    margin-left:-1%;
+
+
+
+
+
+
+
+
+
+   /* margin-left:-1%;
     display: flex;
     width:100%;
     position: relative;
@@ -221,7 +265,7 @@ import visitManageApi from '../../../api/visitManage'
         margin-left:1%;
       }
     }
-
+*/
 
 
 

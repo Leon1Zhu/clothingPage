@@ -1,18 +1,11 @@
 <template>
     <div id="salesReturn">
       <tool-bar>
-        <div class="detail-tool-bar" v-if="!isDetail" >
-          <Input v-model="searchGoodsInfo" placeholder="商品code1,code2,商品名称" style="margin-right: .5%;" ></Input>
+        <div class="detail-tool-bar"  >
+          <Input v-model="customInfo" placeholder="客户名称" style="margin-right: .5%;" ></Input>
           <DatePicker :value="searchDataArr" :format="format" type="daterange" placement="bottom-end" placeholder="请选择搜索的日期区间" ></DatePicker>
           <Button type="primary" icon="ios-search" @click.native="getOrderTable"  style="margin-right: .5%;">搜索</Button>
         </div>
-        <AutoComplete
-         v-model="customInfo"
-          :data="autoData"
-          icon="ios-search"
-          placeholder="请输入搜索客户信息"
-          style="width:100%" v-else>
-        </AutoComplete>
 
       </tool-bar>
 
@@ -88,7 +81,7 @@
     export default{
         data(){
             return {
-              searchGoodsInfo:null,
+              customInfo:null,
               format:dateFormatType,
               open:false,
               docked:false,
@@ -98,7 +91,7 @@
               index:0,
               total:0,
               size:SIZE,
-              searchDataArr:[new Date(new Date().getTime()-365*24*60*60*1000).Format(dateFormatType),new Date().Format(dateFormatType)],
+              searchDataArr:[new Date(new Date().getTime()-7*24*60*60*1000).Format(dateFormatType),new Date().Format(dateFormatType)],
               autoData:['张三，12000', '李四，13000', '王五，140000'],
               customInfo:'',
               columns10: [
@@ -191,7 +184,7 @@
                   this.$warning(operatorWarning,'请填写完整的查询时间段!');
                   return;
               }
-            visitorApi.getOrderList(this.$store.getters.getAccountId,this.$store.getters.getShopId,this.searchDataArr[0],this.searchDataArr[1],this.searchGoodsInfo,this.index,this.size).then(response =>{
+            visitorApi.getOrderList(this.$store.getters.getAccountId,this.$store.getters.getShopId,this.searchDataArr[0],this.searchDataArr[1],this.customInfo,this.index,this.size).then(response =>{
               this.data9 = response.data.content
               this.total = response.data.totalElements
             }).catch(response =>{
@@ -313,7 +306,7 @@
       padding: 3px;
       border: 1px solid $menuSelectFontColor;
       font-size:12px;
-      margin-top:3px;
+      margin-top:5px;
       border-radius:3px;
       .colordiamonds{
         border-radius:100%;
