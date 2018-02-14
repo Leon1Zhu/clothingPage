@@ -32,7 +32,7 @@
         customInfoProp:null,
         columns10: [
           {
-            title: '客户名称',
+            title: '客户姓名',
             key: 'customName'
           },
           {

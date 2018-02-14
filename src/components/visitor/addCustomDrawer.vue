@@ -5,10 +5,10 @@
       <div class="store-item store-item-icon-color">
         <div class="left-content">
           <i class="iconfont  icon-kehu" ></i>
-          <div class="store-item-label">客户名称<span class="red-star">*</span></div>
+          <div class="store-item-label">客户姓名<span class="red-star">*</span></div>
         </div>
         <div class="right-content">
-          <Input v-model="customInfo.customName" placeholder="客户名称" ></Input>
+          <Input v-model="customInfo.customName" placeholder="客户姓名" ></Input>
         </div>
       </div>
 
