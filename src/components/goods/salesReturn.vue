@@ -8,7 +8,7 @@
         </div>
 
       </tool-bar>
-      <section>
+      <section v-if="isDetail">
         <div class="custom-basic-info">
           <div>账单周期： <em>{{searchDataArr[0]}} <span>~</span>{{searchDataArr[1]}}</em></div>
           <Table  border :columns="columns1" :data="data1"  ></Table>
@@ -21,11 +21,11 @@
 
         <div class="custom-consume-detail">
           <div>期间消费明细</div>
-          <Table  border :columns="columns10" :data="data9"  :row-class-name="rowClassName"></Table>
+
         </div>
 
       </section>
-
+      <Table  border :columns="columns10" :data="data9"  :row-class-name="rowClassName"></Table>
 
 
       <div class="explain-content" style="display: flex;">
@@ -117,7 +117,52 @@
               data1: null,
               columns2:null,
               data2: null,
-              columns10:colData.columns10,
+              columns10: [
+                {
+                  type: 'expand',
+                  width: 50,
+                  render: (h, params) => {
+                    return h(expandRow, {
+                      props: {
+                        row: params.row
+                      },
+                      on:{
+                        returnItem: this.returnGoods
+                      },
+                    })
+                  }
+                },
+                {
+                  title: '客户姓名',
+                  key: 'cusName'
+                },
+                {
+                  title: '付款方式',
+                  key: 'orderPaytype'
+                },
+                {
+                  title: '获得积分',
+                  key: 'orderMoney',
+                  sortable: true
+                },
+                {
+                  title: '使用积分',
+                  key: 'orderMoney',
+                },
+                {
+                  title: '交易时间',
+                  key: 'orderTime',
+                  sortable: true,
+                  render: (h, params) => {
+                    return h('p', {
+                    },new Date(params.row.orderTime).Format(dateFormatType) );
+                  }
+                },
+                {
+                  title: '备注',
+                  key: 'orderMemo',
+                }
+              ],
               data9:[],
               turnBackOrderNo:null,
             }
@@ -131,7 +176,6 @@
         created(){
 
           this.customInfo =  this.$route.path === '/salesReturn' ?  this.$store.getters.getreturnCustomName: this.customInfo
-          console.log(this.customInfo)
           this.getOrderTable()
         },
         computed: {
