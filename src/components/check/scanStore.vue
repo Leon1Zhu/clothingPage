@@ -7,9 +7,35 @@
       <Button class="search-button" type="error">结束盘点</Button>
       <Button class="search-button" type="info" @click.native="storeRecord = true">盘点记录</Button>
     </tool-bar>
-    <div class="goods-show">
-
+    <div class="sku-show">
+      <div class="explain">商品信息展示（下拉选择）</div>
+      <Select @on-change="scanModal=true" class="select-sku" v-model="selectValue" size="large" style="width:300px">
+        <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+      </Select>
     </div>
+    <Modal
+      v-model="scanModal"
+      title="扫码盘点"
+      @on-ok="ok"
+      @on-cancel="cancel">
+      <div class="goods-infor">
+        <div class="goods-img">
+          <img :src="imgUrl" alt="">
+        </div>
+        <div class="goods-introduction">
+          <h4>三叶草卫衣</h4>
+          <div class="ids">商品id:454564</div>
+          <div class="number">货号:5456</div>
+        </div>
+      </div>
+      <div class="repertory-infor">
+        <div class="detail">
+          <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
+          <Tag class="size" color="#06b9a5">M</Tag>
+          <InputNumber :min="1" v-model="value1" class="truth-total" disabled></InputNumber>
+        </div>
+      </div>
+    </Modal>
   </div>
 </template>
 <script>
@@ -21,6 +47,18 @@
     props: {},
     data() {
       return {
+        scanModal: false,
+        selectValue: '',
+        cityList: [
+          {
+            value: '三叶草卫衣-淡蓝-xl',
+            label: '三叶草卫衣-淡蓝-xl'
+          },
+          {
+            value: '三叶草卫衣-淡蓝-xl',
+            label: '三叶草卫衣-淡蓝-xl'
+          }
+        ],
         goodsNumber: '',
         check: false,
         add: false,
@@ -52,6 +90,18 @@
 
   .search-button {
     margin-left: 8px;
+  }
+
+  .sku-show {
+    margin-left: 350px;
+    margin-top: 100px;
+    width: 300px;
+    .explain {
+      font-size: 20px;
+      color: rgba(0, 0, 0, 0.4);
+      text-align: center;
+      margin-bottom: 16px;
+    }
   }
 
 </style>
