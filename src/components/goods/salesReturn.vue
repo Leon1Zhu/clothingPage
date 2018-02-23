@@ -4,7 +4,9 @@
         <div class="detail-tool-bar"  >
           <Input v-if="!isDetail" v-model="customInfo" placeholder="客户名称" style="margin-right: 5px;" ></Input>
           <DatePicker @on-change="changeTimePicker"  :value="searchDataArr"   :format="format" type="daterange" placement="bottom-end" placeholder="请选择搜索的日期区间" ></DatePicker>
-          <Button type="primary" icon="ios-search" @click.native="getOrderTable"  >搜索</Button>
+          <Button type="primary" icon="ios-search" @click.native="getOrderTable"  style="margin-right: 5px;" >搜索</Button>
+          <Button type="primary"  @click.native="changeTimePicker('week')"  style="margin-right: 5px;" >最近一周</Button>
+          <Button type="primary"  @click.native="changeTimePicker('30')"  >最近30天</Button>
         </div>
 
       </tool-bar>
@@ -118,9 +120,39 @@
               columns2:null,
               data2: null,
               columns10: [
+
+                {
+                  title: '日期',
+                  key: 'orderTime',
+                  sortable: true,
+                  render: (h, params) => {
+                    return h('p', {
+                    },new Date(params.row.orderTime).Format(dateFormatType) );
+                  }
+                },
+                {
+                  title: '名称',
+                  key: 'cusName'
+                },
+                {
+                  title: '订单金额',
+                  key: 'orderMoney'
+                },
+                {
+                  title: '实付金额',
+                  key: 'orderPayment'
+                },
+                {
+                  title: '总件数',
+                  key: ''
+                },
+                {
+                  title: '备注',
+                  key: 'orderMemo',
+                },
                 {
                   type: 'expand',
-                  width: 50,
+                  title:'更多',
                   render: (h, params) => {
                     return h(expandRow, {
                       props: {
@@ -131,36 +163,6 @@
                       },
                     })
                   }
-                },
-                {
-                  title: '客户姓名',
-                  key: 'cusName'
-                },
-                {
-                  title: '付款方式',
-                  key: 'orderPaytype'
-                },
-                {
-                  title: '获得积分',
-                  key: 'orderMoney',
-                  sortable: true
-                },
-                {
-                  title: '使用积分',
-                  key: 'orderMoney',
-                },
-                {
-                  title: '交易时间',
-                  key: 'orderTime',
-                  sortable: true,
-                  render: (h, params) => {
-                    return h('p', {
-                    },new Date(params.row.orderTime).Format(dateFormatType) );
-                  }
-                },
-                {
-                  title: '备注',
-                  key: 'orderMemo',
                 }
               ],
               data9:[],
@@ -201,7 +203,19 @@
         },
         methods: {
           changeTimePicker(val){
-            this.searchDataArrTemp = val;
+              console.log(val)
+              switch (val){
+                case 'week':
+                  this.searchDataArrTemp = [new Date(new Date().getTime()-7*24*60*60*1000).Format(dateFormatType),new Date().Format(dateFormatType)];
+                  this.searchDataArr = this.searchDataArrTemp
+                  break;
+                case '30':
+                  this.searchDataArrTemp = [new Date(new Date().getTime()-30*24*60*60*1000).Format(dateFormatType),new Date().Format(dateFormatType)];
+                  this.searchDataArr = this.searchDataArrTemp
+                  break;
+                default:
+                  this.searchDataArrTemp = val;
+              }
           },
           getOrderTable(){
 
