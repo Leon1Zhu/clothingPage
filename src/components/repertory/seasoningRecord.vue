@@ -11,7 +11,7 @@
     <div class="goods-show">
       <div class="item" v-for="goods in goodsData">
         <div class="goods-img">
-          <img :src="imgUrl" class="html-cursor" alt="">
+          <img :src="imgUrl" class="html-cursor" @click="imageShow=true" alt="">
         </div>
         <div class="goods-introduction">
           <div class="code">货号:4544 / X1254</div>
@@ -30,6 +30,13 @@
     <footer>
       <Page :total="100" :page-size="10" class="footer-page" @on-change=""></Page>
     </footer>
+    <Modal
+      v-model="imageShow"
+      title="图片展示"
+      @on-ok="ok"
+      @on-cancel="cancel">
+      <img :src="imgUrl" alt="">
+    </Modal>
   </div>
 </template>
 <script>
@@ -39,6 +46,7 @@
     props: {},
     data() {
       return {
+        imageShow: false,
         goodsNumber: '',
         searchDataTime: '',
         imgUrl: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',

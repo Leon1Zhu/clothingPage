@@ -7,7 +7,7 @@
       </tool-bar>
       <div class="goods-show">
         <div class="item" v-for="goods in goodsData">
-          <div class="goods-img">
+          <div class="goods-img" @click="imageShow=true">
             <img :src="imgUrl" class="html-cursor" alt="">
           </div>
           <div class="goods-introduction">
@@ -51,6 +51,13 @@
         </div>
       </div>
     </my-drawer>
+    <Modal
+      v-model="imageShow"
+      title="图片展示"
+      @on-ok="ok"
+      @on-cancel="cancel">
+      <img :src="imgUrl" alt="">
+    </Modal>
   </div>
 </template>
 <script>
@@ -61,6 +68,7 @@
     props: {},
     data() {
       return {
+        imageShow: false,
         imgUrl: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
         repertory: 0,
         seasoningOpen: false,
