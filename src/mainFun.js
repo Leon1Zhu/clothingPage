@@ -141,7 +141,7 @@ Vue.component('table-SizeSelect',{
 
 })
 var vTableMixin = {
-  template: `<AutoComplete v-model="selectValue"  :data="goodData"  :filter-method="filterMethod" placeholder="搜索商品信息" @on-change="changeValue"></AutoComplete>`,
+  template: `<AutoComplete v-model="selectValue"  :data="goodData"  :filter-method="filterMethod" placeholder="" @on-change="changeValue"></AutoComplete>`,
   data(){
     return {
       goodData: ['01016下口袋/125/浅蓝/L', '01016下口袋/x125/浅//L', '01016下口袋/x125/浅蓝/L'],
@@ -152,6 +152,7 @@ var vTableMixin = {
   },
   methods:{
     filterMethod (value, option) {
+      if(ISNULL(value))return;
       return option.toLowerCase().indexOf(value.toLowerCase()) !== -1;
     },
     changeValue(value){
