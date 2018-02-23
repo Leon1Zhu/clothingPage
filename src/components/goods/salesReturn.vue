@@ -1,22 +1,33 @@
 <template>
     <div id="salesReturn">
       <tool-bar>
-        <div class="detail-tool-bar" v-if="!isDetail" >
-          <Input v-model="searchGoodsInfo" placeholder="商品code1,code2,商品名称" style="margin-right: .5%;" ></Input>
-          <DatePicker :value="searchDataArr" :format="format" type="daterange" placement="bottom-end" placeholder="请选择搜索的日期区间" ></DatePicker>
-          <Button type="primary" icon="ios-search" @click.native="getOrderTable"  style="margin-right: .5%;">搜索</Button>
+        <div class="detail-tool-bar"  >
+          <Input v-if="!isDetail" v-model="customInfo" placeholder="客户名称" style="margin-right: 5px;" ></Input>
+          <DatePicker @on-change="changeTimePicker"  :value="searchDataArr"   :format="format" type="daterange" placement="bottom-end" placeholder="请选择搜索的日期区间" ></DatePicker>
+          <Button type="primary" icon="ios-search" @click.native="getOrderTable"  >搜索</Button>
         </div>
-        <AutoComplete
-         v-model="customInfo"
-          :data="autoData"
-          icon="ios-search"
-          placeholder="请输入搜索客户信息"
-          style="width:100%" v-else>
-        </AutoComplete>
 
       </tool-bar>
+      <section v-if="isDetail">
+        <div class="custom-basic-info">
+          <div>账单周期： <em>{{searchDataArr[0]}} <span>~</span>{{searchDataArr[1]}}</em></div>
+          <Table  border :columns="columns1" :data="data1"  ></Table>
+        </div>
 
+        <div class="custom-consume-info">
+          <div>期间消费汇总</div>
+          <Table  border :columns="columns2" :data="data2"  ></Table>
+        </div>
+
+        <div class="custom-consume-detail">
+          <div>期间消费明细</div>
+
+        </div>
+
+      </section>
       <Table  border :columns="columns10" :data="data9"  :row-class-name="rowClassName"></Table>
+
+
       <div class="explain-content" style="display: flex;">
         <div class="color-contentT">
           <div class="colordiamonds"  style="background:palevioletred"></div>
@@ -83,12 +94,12 @@
   import myDrawer from'../../common/vue/myDrawer.vue'
   import colorContent from '../../common/vue/colorContent.vue';
   import toolBar from'../../common/vue/toolBar.vue'
+  import colData from './salesReturnColAndData'
 
   import visitorApi from '../../api/visitManage'
     export default{
         data(){
             return {
-              searchGoodsInfo:null,
               format:dateFormatType,
               open:false,
               docked:false,
@@ -98,9 +109,14 @@
               index:0,
               total:0,
               size:SIZE,
-              searchDataArr:[new Date(new Date().getTime()-365*24*60*60*1000).Format(dateFormatType),new Date().Format(dateFormatType)],
+              searchDataArr:[new Date(new Date().getTime()-7*24*60*60*1000).Format(dateFormatType),new Date().Format(dateFormatType)],
+              searchDataArrTemp:null,
               autoData:['张三，12000', '李四，13000', '王五，140000'],
               customInfo:'',
+              columns1:null,
+              data1: null,
+              columns2:null,
+              data2: null,
               columns10: [
                 {
                   type: 'expand',
@@ -117,7 +133,7 @@
                   }
                 },
                 {
-                  title: '客户名称',
+                  title: '客户姓名',
                   key: 'cusName'
                 },
                 {
@@ -125,14 +141,13 @@
                   key: 'orderPaytype'
                 },
                 {
-                  title: '总额',
+                  title: '获得积分',
                   key: 'orderMoney',
                   sortable: true
                 },
                 {
-                  title: '实付金额',
-                  key: 'orderPayment',
-                  sortable: true
+                  title: '使用积分',
+                  key: 'orderMoney',
                 },
                 {
                   title: '交易时间',
@@ -159,17 +174,24 @@
           'tool-bar':toolBar
         },
         created(){
-            this.getOrderTable()
+
+          this.customInfo =  this.$route.path === '/salesReturn' ?  this.$store.getters.getreturnCustomName: this.customInfo
+          this.getOrderTable()
         },
         computed: {
           detailCustomId(){
             return this.$store.getters.getDetailCustomId
           },
           isDetail(){
-            if (this.$route.path === '/orderList') {
-              return false
+              console.log(this.$route.path)
+            if (this.$route.path === '/visitorDetail') {
+                this.columns1=colData.columns1;
+                this.data1= colData.data1;
+                this.columns2= colData.columns2;
+                this.data2= colData.data2;
+              return true
             }
-            return true;
+            return false;
           },
           returnMoney(){
               return this.returnitem.detailAmount * this.returnitem.detailPrice;
@@ -178,9 +200,15 @@
         mounted(){
         },
         methods: {
+          changeTimePicker(val){
+            this.searchDataArrTemp = val;
+          },
           getOrderTable(){
+
               if(this.isDetail){
                   //表示获取个人详情列表
+                if(ISNULL(this.searchDataArrTemp)) return;
+                this.searchDataArr = this.searchDataArrTemp
               }else{
                   //获取所有订单
                 this.getOrderByAccount()
@@ -191,7 +219,7 @@
                   this.$warning(operatorWarning,'请填写完整的查询时间段!');
                   return;
               }
-            visitorApi.getOrderList(this.$store.getters.getAccountId,this.$store.getters.getShopId,this.searchDataArr[0],this.searchDataArr[1],this.searchGoodsInfo,this.index,this.size).then(response =>{
+            visitorApi.getOrderList(this.$store.getters.getAccountId,this.$store.getters.getShopId,this.searchDataArr[0],this.searchDataArr[1],this.customInfo,this.index,this.size).then(response =>{
               this.data9 = response.data.content
               this.total = response.data.totalElements
             }).catch(response =>{
@@ -242,20 +270,23 @@
   @import "../../common/css/globalscss";
   #salesReturn{
     .drawer-img-content{
+      height:350px;
+      max-height:350px;
+      overflow: hidden;
       margin-left:  -$drawerPadding;
       margin-right:-$drawerPadding;
     }
     .detail-tool-bar{
       display: flex;
       .ivu-date-picker{
-        margin-right: 1%;
+        margin-right: 5px;
       }
     }
     .ivu-page{
       text-align: right;
     }
     .ivu-table-wrapper{
-      margin-top:1%;
+      margin:.3% 0 .8%;
     }
     .drawer-img{
       width:100%;
@@ -313,7 +344,7 @@
       padding: 3px;
       border: 1px solid $menuSelectFontColor;
       font-size:12px;
-      margin-top:3px;
+      margin-top:5px;
       border-radius:3px;
       .colordiamonds{
         border-radius:100%;
@@ -326,6 +357,25 @@
       .colorName{
         line-height:150%;
       }
+    }
+    .custom-basic-info,.custom-consume-info,.custom-consume-detail{
+      text-align: center;
+      > div{
+        font-size:16px;
+        font-weight:700;
+      }
+      em{
+        font-size:16px;
+        font-weight:700;
+      }
+      span{
+        display: inline-block;
+        margin-right:3px;
+      }
+    }
+
+    .custom-consume-info,.custom-consume-detail{
+      padding-top:8px;
     }
   }
 </style>

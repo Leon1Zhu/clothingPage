@@ -4,20 +4,22 @@
 import '../../globalFun'
 const state={
   detailCustomId: ISNULL(sessionStorage.getItem('detailCustomId')) ? null : sessionStorage.getItem('detailCustomId'),
-  returnCustomId: ISNULL(sessionStorage.getItem('returnCustomId')) ? null : sessionStorage.getItem('returnCustomId'),
+  returnCustomName: ISNULL(sessionStorage.getItem('returnCustomName')) ? null : sessionStorage.getItem('returnCustomName'),
 }
 
 const getters = {
   getDetailCustomId : state => state.detailCustomId,
-  getReturnCustomId : state => state.returnCustomId,
+  getreturnCustomName : state => state.returnCustomName,
 }
 
 const mutations = {
   setDetailCustomId(state,name){
     state.detailCustomId = name
+    sessionStorage.setItem('detailCustomId',name)
   },
-  setReturnCustomId(state,name){
-    state.returnCustomId = name;
+  setreturnCustomName(state,name){
+    state.returnCustomName = name;
+    sessionStorage.setItem('returnCustomName',name)
   }
 }
 
@@ -26,7 +28,7 @@ const actions = {
     commit('setDetailCustomId',name)
   },
   setReturnCustomNameAction({commit},name){
-    commit('setReturnCustomId',name)
+    commit('setreturnCustomName',name)
   }
 }
 

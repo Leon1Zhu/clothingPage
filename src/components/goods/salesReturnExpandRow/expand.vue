@@ -1,7 +1,7 @@
 <template>
   <div class="good-table-expand">
-   <!-- <Table class="my-table" :show-header="!showHeader"  :columns="columns1" :data="data1"></Table>-->
-    <Card  v-for="item in data1" @click.native="returnItem(item)">
+    <Table @on-row-click="rowClick" class="my-table" :show-header="showHeader"  :columns="columns1" :data="data1"></Table>
+    <!--<Card  v-for="item in data1" @click.native="returnItem(item)">
       <div class="good-card">
         <div class="left-content">
             <img class="good-img" :src="item.productPic">
@@ -44,7 +44,7 @@
           </div>
         </div>
       </div>
-    </Card>
+    </Card>-->
     <Spin size="large" fix v-if="spinShow"></Spin>
   </div>
 </template>
@@ -60,7 +60,82 @@ import visitManageApi from '../../../api/visitManage'
             return {
               showHeader:false,
               spinShow:true,
-              data1:[]
+              data1:[],
+              columns1: [
+                {
+                  title: '商品名称',
+                  key: 'detailProductName'
+                },
+                {
+                  title: '商品货号',
+                  key: 'productCode',
+                  render: (h,params) =>{
+                      return h('div',[
+                         h('span',params.row.productCode) ,
+                         h('span',{
+                             style:{
+                                 margin:'0 3px'
+                             }
+                         },ISNULL(params.row.productCode)|| ISNULL(params.row.productCode2) ? '' :  '/'),
+                        h('span',params.row.productCode2)
+                        ],)
+                  }
+                },
+                {
+                  title: '图片',
+                  key: 'productPic',
+                  render: (h,params) => {
+                      return h('div',{
+                          'class':{
+                              'product-image' : true
+                          },
+                          style:{
+                            background: 'url("'+params.row.productPic+'")',
+                            backgroundSize: 'cover',
+                            margin: '3px auto'
+                          }
+                      })
+                  }
+                },
+                {
+                  title: '颜色',
+                  width:'14%',
+                  key: 'colorName',
+                },
+                {
+                  title: '尺码',
+                  width:'10%',
+                  key: 'sizeName',
+                },
+                {
+                  title: '单价',
+                  width:'10%',
+                  key: 'detailPrice',
+                },
+                {
+                  title: '购买信息',
+                  key: 'orderMemo',
+                  width:'6%',
+                  render: (h,params) => {
+                  return h('div',{
+                    'class':{
+                      'product-buy-info' : true
+                    }
+                  },[
+                    h('span',{
+                      'class': {
+                         'count-content' : true,
+                      }
+                    },'X'+(ISNULL(params.row.detailAmount) ? 0: params.row.detailAmount)),
+                    h('span',{
+                      'class': {
+                        'return-content' : true,
+                      }
+                    },(ISNULL(params.row.detailReturnamount)) ? 0: ('X'+params.row.detailReturnamount)),
+                  ])
+                }
+                }
+              ],
             }
         },
         components: {
@@ -72,16 +147,25 @@ import visitManageApi from '../../../api/visitManage'
         mounted(){
         },
         methods: {
-          returnItem(item){
+          rowClick(value,index){
+            if(value.detailProductName === '核销' || value.detailProductName === '抹零'){
+              this.$warning(operatorWarning,'核销活抹零商品无法退货！');
+              return;
+            }
+            this.$emit('returnItem',value,value.orderId)
+
+          },
+          /*returnItem(item){
               if(item.detailProductName === '核销' || item.detailProductName === '抹零'){
                   this.$warning(operatorWarning,'核销活抹零商品无法退货！');
                   return;
               }
               this.$emit('returnItem',item,this.row.orderId)
-          },
+          },*/
           getOrderListDetailInfo(){
               visitManageApi.getOrderDetailInfo(this.$store.getters.getAccountId,this.row.orderId).then(response =>{
                   this.data1 = response.data.details
+            console.log(this.data1)
                   this.$nextTick(function(){
                     this.spinShow = false;
                   })
@@ -97,7 +181,31 @@ import visitManageApi from '../../../api/visitManage'
 <style lang="scss" rel="stylesheet/scss">
   @import "../../../common/css/globalscss";
   .good-table-expand{
-    margin-left:-1%;
+      .product-image{
+        width:60px;
+        height:60px;
+      }
+    .product-buy-info{
+      span{
+        display: block;
+      }
+      .count-content{
+        color: #c6cecf;
+      }
+      .return-content{
+        margin-top: 5px;
+        color: rgba(255,0,0,.5);
+      }
+    }
+
+
+
+
+
+
+
+
+   /* margin-left:-1%;
     display: flex;
     width:100%;
     position: relative;
@@ -221,7 +329,7 @@ import visitManageApi from '../../../api/visitManage'
         margin-left:1%;
       }
     }
-
+*/
 
 
 

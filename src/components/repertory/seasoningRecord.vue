@@ -225,6 +225,11 @@
         text-align: right;
       }
     }
+    .left-eight {
+      .ivu-input:hover, .ivu-input:focus {
+        width: 200px !important;
+      }
+    }
   }
 
 </style>

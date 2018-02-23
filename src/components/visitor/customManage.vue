@@ -2,8 +2,9 @@
   <div id="customManage">
     <tool-bar>
       <Input v-model="searchStaffName" placeholder="请输入客户姓名" style="margin-right: .5%;" ></Input>
-      <Button type="primary" icon="ios-search" @click.native="getManageList"  style="margin-right: .5%;">搜索</Button>
-      <div class="add-store-btn"><Button type="primary" icon="plus-round" @click.native="customManage('')">添加客户</Button></div>
+      <Button type="primary" icon="ios-search" @click.native="getManageList"  style="margin-right: 5px;">搜索</Button>
+      <div class="add-store-btn"><Button type="primary" icon="plus-round" @click.native="customManage('')" style="margin-right: 5px;">添加客户</Button></div>
+      <Button type="primary"  ><i style="margin-right: 4px;position: relative;top: 1px;" class="ivu-icon iconfont  icon-change" ></i><span>变更记录</span></Button>
     </tool-bar>
 
     <Table stripe border :columns="columns10" :data="data9"></Table>
@@ -31,21 +32,26 @@
         customInfoProp:null,
         columns10: [
           {
-            title: '客户名称',
+            title: '客户姓名',
             key: 'customName'
+          },
+          {
+            title: '客户卡号',
+            key: 'customCard',
           },
           {
             title: '联系方式',
             key: 'customPhone'
           },
           {
-            title: '客户积分',
-            key: 'customGrade',
+            title: '客户生日',
+            key: 'customBirth',
+            render: (h, params) => {
+              return h('div', {},new Date().Format(dateFormatType));
+
+            }
           },
-          {
-            title: '客户卡号',
-            key: 'customCard',
-          },
+
           /*{
             title: '消费总额',
             key: 'customTotalMoney',

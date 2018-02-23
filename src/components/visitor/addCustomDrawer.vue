@@ -5,10 +5,10 @@
       <div class="store-item store-item-icon-color">
         <div class="left-content">
           <i class="iconfont  icon-kehu" ></i>
-          <div class="store-item-label">客户名称<span class="red-star">*</span></div>
+          <div class="store-item-label">客户姓名<span class="red-star">*</span></div>
         </div>
         <div class="right-content">
-          <Input v-model="customInfo.customName" placeholder="客户名称" ></Input>
+          <Input v-model="customInfo.customName" placeholder="客户姓名" ></Input>
         </div>
       </div>
 
@@ -43,25 +43,6 @@
       </div>
 
 
-      <div class="store-item  store-item-icon-color" v-if="type==='CHANGE'">
-        <div class="left-content">
-          <i class="iconfont  icon-lishijilu" ></i>
-          <div class="store-item-label">最近消费&nbsp;&nbsp;</div>
-        </div>
-        <div class="right-content">
-          <Input v-model="customInfo.customLatestTime" disabled ></Input>
-        </div>
-      </div>
-
-      <div class="store-item  store-item-icon-color" v-if="type==='CHANGE'">
-        <div class="left-content">
-          <i class="iconfont  icon-jine" ></i>
-          <div class="store-item-label">消费金额&nbsp;&nbsp;</div>
-        </div>
-        <div class="right-content">
-          <Input v-model="customInfo.customLatestMoney"  disabled></Input>
-        </div>
-      </div>
 
       <div class="store-item  store-item-icon-color" v-if="type==='CHANGE'">
         <div class="left-content">
@@ -152,8 +133,6 @@
               this.customInfo.customPhone = this.customInfoProp.customPhone
               this.customInfo.customBirth = this.customInfoProp.customBirth
               this.customInfo.customCard = this.customInfoProp.customCard
-              this.customInfo.customLatestTime = ISNULL(this.customInfoProp.customLatestTime) ? '': new Date(this.customInfoProp.customLatestTime).Format(dateFormatType)
-              this.customInfo.customLatestMoney = this.customInfoProp.customLatestMoney
               this.customInfo.customGrade = this.customInfoProp.customGrade
               this.customInfo.customRemainMoney = this.customInfoProp.customRemainMoney
               this.customInfo.customTotalMoney = this.customInfoProp.customTotalMoney
@@ -169,8 +148,6 @@
                      customPhone:null,
                      customBirth:new Date().Format(dateFormatType),
                      customCard:null,
-                     customLatestTime:null,
-                     customLatestMoney:null,
                      customGrade:null,
                      customTotalMoney:null,
                      customRemainMoney:null,

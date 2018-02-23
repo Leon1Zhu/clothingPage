@@ -234,7 +234,11 @@
             }
           },
           goodReturn(){
-              this.$router.push({ path: '/salesReturn'})
+              ISNULL(this.orderInfo.CustomInfo) ? this.$warning(operatorWarning,'请先选择需要退货的客户!') : this.toReturnPage()
+          },
+          toReturnPage(){
+            this.$store.commit('setreturnCustomName',this.orderInfo.CustomInfo)
+            this.$router.push({ path: '/salesReturn'})
           },
           saveOrder(){
               this.$warning('操作错误','请将信息填写完整！')
