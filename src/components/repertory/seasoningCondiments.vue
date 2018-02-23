@@ -8,7 +8,7 @@
       <div class="goods-show">
         <div class="item" v-for="goods in goodsData">
           <div class="goods-img">
-            <img :src="imgUrl" alt="">
+            <img :src="imgUrl" class="html-cursor" alt="">
           </div>
           <div class="goods-introduction">
             <div class="code">货号:4544 / X1254</div>
@@ -17,7 +17,7 @@
             <div class="size">尺码:5456</div>
             <div class="counts">数量:5456</div>
             <div class="operation-btn">
-              <Button type="primary" size="small" @click="seasoningOpen = true">确认调货</Button>
+              <Button type="primary" size="small" @click="seasoningOpen = true">库存调拨</Button>
             </div>
           </div>
         </div>
@@ -218,11 +218,13 @@
           flex: 1;
           display: flex;
           line-height: 50px;
-          .code, .name, .color, .size, .counts, .operation-btn {
+          .code, .name, .color, .size, .counts {
             flex: 1;
+          }
+          .operation-btn {
+            width: 120px;
             font-size: 14px;
           }
-
         }
       }
     }

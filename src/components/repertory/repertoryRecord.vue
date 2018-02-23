@@ -6,13 +6,13 @@
         <Button class="search-button" icon="ios-search" type="primary" @click="searchGoodS">搜索</Button>
       </tool-bar>
       <div class="goods-show">
-        <div class="item" v-for="goods in goodsData">
+        <div class="record-item" v-for="goods in goodsData">
           <div class="goods-infor">
             <div class="goods-img">
               <img :src="imgUrl" alt="">
             </div>
             <div class="goods-introduction">
-              <h4>三叶草卫衣</h4>
+              <h4>三叶草卫衣(加绒)</h4>
               <div class="ids">商品id:4544</div>
               <div class="number">货号:5456</div>
             </div>
@@ -22,22 +22,22 @@
               <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
               <Tag class="size" color="#06b9a5">M</Tag>
               <span class="total">0</span>
-              <Button type="primary" shape="circle" icon="edit" class="repertory-add-btn"
-                      @click="repertoryAddOpen = true"></Button>
+              <span class="repertory-add-btn html-cursor" @click="repertoryAddOpen = true"><Icon color="#06b9a5"
+                                                                                                 type="edit"></Icon></span>
             </div>
             <div class="detail">
               <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
               <Tag class="size" color="#06b9a5">XL</Tag>
               <span class="total">0</span>
-              <Button type="primary" shape="circle" icon="edit" class="repertory-add-btn"
-                      @click="repertoryAddOpen = true"></Button>
+              <span class="repertory-add-btn html-cursor" @click="repertoryAddOpen = true"><Icon color="#06b9a5"
+                                                                                                 type="edit"></Icon></span>
             </div>
             <div class="detail">
               <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
               <Tag class="size" color="#06b9a5">XXL</Tag>
               <span class="total">0</span>
-              <Button type="primary" shape="circle" icon="edit" class="repertory-add-btn"
-                      @click="repertoryAddOpen = true"></Button>
+              <span class="repertory-add-btn html-cursor" @click="repertoryAddOpen = true"><Icon color="#06b9a5"
+                                                                                                 type="edit"></Icon></span>
             </div>
           </div>
         </div>
@@ -282,9 +282,9 @@
       display: flex;
       flex-wrap: wrap;
       margin-left: -2%;
-      .item {
+      .record-item {
         display: flex;
-        width: 48%;
+        width: 540px;
         padding: 15px;
         height: 150px;
         font-size: 14px;
@@ -293,34 +293,68 @@
           left: 2%;
         }
         background-color: #f8f6f2;
-        .goods-img {
-          img {
-            width: 120px;
-            height: 120px;
+        .repertory-infor {
+          margin-left: 14px;
+          .detail {
+            display: flex;
+            padding: 2px;
+            border-bottom: 1px solid #f8f6f2;
+            .repertory-add-btn {
+              margin-top: 8px;
+              margin-left: 18px;
+            }
+            .size, .total {
+              margin-left: 20px;
+            }
+            .size {
+              width: 70px;
+              text-align: center;
+            }
+
+            .total {
+              margin-top: 1px;
+            }
+            .size, .total {
+              height: 32px;
+              line-height: 32px;
+              padding: 0 8px;
+            }
           }
         }
-        .goods-introduction {
-          margin-left: 14px;
-          h4 {
-            font-size: 16px;
-            margin-top: 25px;
-            font-weight: 600;
+
+        .goods-infor {
+          display: flex;
+          flex: 1;
+          .goods-img {
+            img {
+              width: 120px;
+              height: 120px;
+            }
           }
-          .ids {
-            color: rgba(0, 0, 0, 0.4);
-            font-size: 14px;
-            margin-top: 15px;
-          }
-          .number, .count {
-            color: rgba(0, 0, 0, 0.4);
-            font-size: 14px;
-            margin-top: 15px;
-          }
-          .operation {
-            color: rgba(0, 0, 0, 0.4);
-            margin-top: 5px;
-            .add {
-              margin-left: 14px;
+          .goods-introduction {
+            margin-left: 14px;
+            flex: 1;
+            h4 {
+              font-size: 14px;
+              margin-top: 25px;
+              font-weight: 600;
+            }
+            .ids {
+              color: rgba(0, 0, 0, 0.4);
+              font-size: 12px;
+              margin-top: 15px;
+            }
+            .number {
+              color: rgba(0, 0, 0, 0.4);
+              font-size: 12px;
+              margin-top: 15px;
+            }
+            .operation {
+              color: rgba(0, 0, 0, 0.4);
+              margin-top: 5px;
+              .add {
+                margin-left: 14px;
+              }
             }
           }
         }
@@ -330,59 +364,6 @@
       .footer-page {
         margin-top: 8px;
         text-align: right;
-      }
-    }
-  }
-
-  .repertory-infor {
-    margin-left: 14px;
-    .detail {
-      display: flex;
-      padding: 2px;
-      border-bottom: 1px solid #f8f6f2;
-      .repertory-add-btn {
-        margin-left: 8px;
-      }
-      .size, .total, .truth-total {
-        margin-left: 20px;
-      }
-      .size {
-        width: 70px;
-        text-align: center;
-      }
-
-      .total {
-        margin-top: 1px;
-      }
-      .size, .total {
-        height: 32px;
-        line-height: 32px;
-        padding: 0 15px;
-      }
-      .truth-total {
-        margin-top: 1px;
-      }
-    }
-  }
-
-  .goods-infor {
-    display: flex;
-    .goods-img {
-      img {
-        width: 85px;
-        height: 85px;
-      }
-    }
-    .goods-introduction {
-      margin-left: 32px;
-      h4 {
-        font-size: 16px;
-        font-weight: 600;
-      }
-      .ids, .number {
-        font-size: 14px;
-        margin-top: 8px;
-        color: rgba(0, 0, 0, 0.4);
       }
     }
   }

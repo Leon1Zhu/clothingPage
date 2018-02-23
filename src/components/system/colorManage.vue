@@ -8,7 +8,7 @@
         <Card v-for="colorData in colorDataS" class="card-color">
           <p slot="title" class="title">
             {{colorData.seriesName}}&nbsp;&nbsp;
-            <span @click="addColor(colorData)"><Icon class="ui-cursor" type="ios-plus-outline"
+            <span @click="addColor(colorData)"><Icon class="ui-cursor add-icon" type="ios-plus-outline"
                                                      color="#06c1ae"></Icon></span>
           </p>
           <Tag v-for="color in colorData.colors" type="dot" closable
@@ -22,7 +22,8 @@
         <div>
           <div class="store-item">
             <div class="left-content">
-              <div class="store-item-label">颜色的名称<span class="red-star">*</span></div>
+              <div class="store-item-label">颜色的名称<span class="red-star">*</span><span class="p-explain">(蓝色系)</span>
+              </div>
             </div>
             <div class="right-content">
               <Input v-model="formItem.name" class="input-width" placeholder="颜色的名称"></Input>
@@ -123,6 +124,9 @@
     .color-manage {
       flex: 1;
       margin-top: -8px;
+      .add-icon {
+        font-size: 18px;
+      }
       .title span {
         float: right;
         margin-right: 8px;
@@ -164,5 +168,10 @@
         width: 82%;
       }
     }
+  }
+
+  .p-explain {
+    padding: 5px;
+    color: rgba(0, 0, 0, 0.4);
   }
 </style>

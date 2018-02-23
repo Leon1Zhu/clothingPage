@@ -1,9 +1,6 @@
 <template>
   <div class="system-setting-html">
     <tool-bar>
-      <Button type="primary" icon="ios-search" class="password-setting " @click="passwordOpen = true">登陆密码设置
-      </Button>
-      <Button type="primary" icon="ios-search" class="phone-setting " @click="phoneOpen = true">手机绑定设置</Button>
     </tool-bar>
     <Form :model="formItem" label-position="left" :label-width="100">
       <FormItem label="库存预警数量">
@@ -47,6 +44,11 @@
         <Tag type="dot" closable color="green">200积分抵扣250元</Tag>
         <Tag type="dot" closable color="green">3000积分抵扣350元</Tag>
         <Button type="primary" @click="integrationOpen=true">添加积分规则</Button>
+      </FormItem>
+      <FormItem label="其它操作">
+        <Button type="primary" class="password-setting " @click="passwordOpen = true">登陆密码设置
+        </Button>
+        <Button type="primary" class="phone-setting " @click="phoneOpen = true">手机绑定设置</Button>
       </FormItem>
       <FormItem>
         <Button type="primary">保存</Button>
@@ -160,7 +162,7 @@
 
   .system-setting-html {
     width: 98%;
-    .password-setting, .phone-setting {
+    .phone-setting {
       margin-left: 8px;
     }
   }

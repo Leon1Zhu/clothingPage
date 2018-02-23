@@ -67,7 +67,8 @@
           },
           {
             title: '类型',
-            key: 'type'
+            key: 'type',
+            width: 100
           }
         ],
         data: [

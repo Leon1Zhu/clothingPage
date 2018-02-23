@@ -35,6 +35,8 @@
     <Modal
       v-model="repertoryAddOpen"
       title="清单盘点"
+      ok-text="无误"
+      cancel-text="有误"
       @on-ok="ok"
       @on-cancel="cancel">
       <div class="goods-infor">
@@ -50,28 +52,20 @@
       <div class="repertory-infor">
         <div class="detail">
           <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-          <Tag class="size" color="blue">M</Tag>
+          <Tag class="size" color="#06b9a5">XL</Tag>
           <span class="total">20</span>
         </div>
         <div class="detail">
           <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-          <Tag class="size" color="blue">XL</Tag>
+          <Tag class="size" color="#06b9a5">XL</Tag>
           <span class="total">20</span>
         </div>
         <div class="detail">
           <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
-          <Tag class="size" color="blue">XXL</Tag>
+          <Tag class="size" color="#06b9a5">XL</Tag>
           <span class="total">20</span>
         </div>
       </div>
-      <RadioGroup v-model="phone" class="radiogroup" size="large">
-        <Radio label="2">
-          <span>有误</span>
-        </Radio>
-        <Radio label="1">
-          <span>无误</span>
-        </Radio>
-      </RadioGroup>
     </Modal>
     <store-record :modalStatus="storeRecord" @close-record="storeRecord=false"></store-record>
   </div>

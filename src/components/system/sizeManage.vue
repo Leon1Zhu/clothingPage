@@ -7,7 +7,7 @@
         <!--尺码块-->
         <Card v-for="sizeData in sizeDataS" class="card-size">
           <p slot="title" class="title">
-            {{sizeData.sizetypeName}}&nbsp;<span @click="addSize(sizeData)">&nbsp;<Icon class="ui-cursor"
+            {{sizeData.sizetypeName}}&nbsp;<span @click="addSize(sizeData)">&nbsp;<Icon class="ui-cursor add-icon"
                                                                                         type="ios-plus-outline"
                                                                                         color="#06c1ae"></Icon></span>
           </p>
@@ -21,7 +21,8 @@
         <div class="add-size-drawer">
           <div class="store-item">
             <div class="left-content">
-              <div class="store-item-label">尺码的名称<span class="red-star">*</span></div>
+              <div class="store-item-label">尺码的名称<span class="red-star">*</span><span class="p-explain">(英码)</span>
+              </div>
             </div>
             <div class="right-content">
               <Input v-model="sizeName" class="input-width" placeholder="XXL"></Input>
@@ -108,6 +109,9 @@
     .size-manage {
       margin-top: -8px;
       flex: 1;
+      .add-icon {
+        font-size: 18px;
+      }
       .title span {
         float: right;
         margin-right: 8px;
@@ -169,5 +173,10 @@
     .right-content {
       text-align: right;
     }
+  }
+
+  .p-explain {
+    padding: 5px;
+    color: rgba(0, 0, 0, 0.4);
   }
 </style>
