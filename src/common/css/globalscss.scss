@@ -48,6 +48,19 @@ $drawerPadding:5px!default;
 
 }
 
+//按钮上移动画
+@keyframes  moveUp{
+  form{
+    opacity: 0;
+    transform: translateY(0px);
+  }
+  to{
+    opacity: 1;
+    transform: translateY(-5px);
+  }
+
+}
+
 
 
 

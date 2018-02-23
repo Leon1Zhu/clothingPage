@@ -174,6 +174,10 @@
                 </FormItem>
               </Form>
             </div>
+            <section class="showDetailItem" v-if="showDetail" >
+              <p @click="showDetail = !showDetail">收起</p>
+              <Icon type="chevron-up"></Icon>
+            </section>
           </section>
         </div>
       </div>
@@ -471,7 +475,14 @@
         position: relative;
         top:-3px;
         opacity:0;
-        animation: moveDown 1.4s ease-in infinite ;
+
+      }
+      .ivu-icon.ivu-icon-chevron-down{
+        animation: moveDown 1.5s ease-in infinite ;
+      }
+      .ivu-icon.ivu-icon-chevron-up{
+        top:1px;
+        animation: moveUp 1.5s ease-in infinite ;
       }
     }
     .addSizeBtn{

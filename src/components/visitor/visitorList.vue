@@ -28,8 +28,8 @@
                   key: 'customName'
                 },
                 {
-                  title: '客户卡号',
-                  key: 'customCard',
+                  title: '客户电话',
+                  key: 'customPhone',
                 },
                 {
                   title: '交易总额',

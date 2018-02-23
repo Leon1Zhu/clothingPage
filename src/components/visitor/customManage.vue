@@ -4,13 +4,13 @@
       <Input v-model="searchStaffName" placeholder="请输入客户姓名" style="margin-right: .5%;" ></Input>
       <Button type="primary" icon="ios-search" @click.native="getManageList"  style="margin-right: 5px;">搜索</Button>
       <div class="add-store-btn"><Button type="primary" icon="plus-round" @click.native="customManage('')" style="margin-right: 5px;">添加客户</Button></div>
-      <Button type="primary"  ><i style="margin-right: 4px;position: relative;top: 1px;" class="ivu-icon iconfont  icon-change" ></i><span>变更记录</span></Button>
+      <Button type="primary"  @click.native="historyOpen = true" ><i style="margin-right: 4px;position: relative;top: 1px;" class="ivu-icon iconfont  icon-change" ></i><span>变更记录</span></Button>
     </tool-bar>
 
     <Table stripe border :columns="columns10" :data="data9"></Table>
     <Page :total="total" style="margin-top: 5px;" :page-size="size" @on-change="changePage"></Page>
     <my-drawer :open="open" :btnFont="btnFont" :customInfoProp="customInfoProp" @complateDrawer="complateDrawer" @close-drawer="open=false"></my-drawer>
-
+    <change-drawer :open="historyOpen" @closeDrawer="historyOpen = false"></change-drawer>
 
   </div>
 </template>
@@ -19,6 +19,7 @@
   import myDrawer from'./addCustomDrawer.vue'
   import toolBar from'../../common/vue/toolBar.vue'
   import customManageApi from '../../api/customManage'
+  import customChangeHistory from './customChangeHistory.vue'
   export default{
 
     data(){
@@ -26,6 +27,7 @@
         index:0,
         total:0,
         size:SIZE,
+        historyOpen:false,
         open:false,
         searchStaffName:null,
         btnFont:'新增',
@@ -88,6 +90,7 @@
     },
     components: {
       'my-drawer':myDrawer,
+      'change-drawer':customChangeHistory,
       'tool-bar':toolBar
     },
     created(){

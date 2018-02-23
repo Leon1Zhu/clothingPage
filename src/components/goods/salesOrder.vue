@@ -98,7 +98,7 @@
                 placeholder="请输入搜索商品序号"
                 style="margin-right: 1%;">
               </AutoComplete>-->
-              <Button type="ghost" @click="saveOrder">保存订单</Button>
+              <Button type="ghost" @click="saveOrder">开单打印</Button>
             </div>
           </div>
           <v-table
@@ -295,25 +295,37 @@
       border-radius: 3px;
       height:auto!important;
       td{
-        width:11.4%;
+        width:10%;
       }
 
       .v-table-header-row{
         td:nth-child(2){
-          width: 8%;
+          width:5%;
+        }
+        td:nth-child(3){
+          width:15%;
+        }
+        td:nth-child(4){
+          width:20%;
         }
         td:first-child,td:last-child{
-          width: 6%;
+          width: 4%;
         }
 
       }
       .v-table-btable{
         .v-table-row{
           td:nth-child(2){
-            width: 8%;
+            width: 5%;
+          }
+          td:nth-child(3){
+            width:15%;
+          }
+          td:nth-child(4){
+            width:20%;
           }
           td:first-child,td:last-child{
-            width:6%;
+            width:4%;
           }
         }
       }
