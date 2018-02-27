@@ -58,6 +58,11 @@
             <Input v-model="sizeName" class="input-width" placeholder="正数增加|负数减少"></Input>
           </div>
         </div>
+        <div class="question-icon">
+          <Tooltip class="icon-show" content="正数增加,负数减少" placement="left-start">
+            <Icon type="help-circled" color="#06b9a5"></Icon>
+          </Tooltip>
+        </div>
       </div>
     </my-drawer>
   </div>
@@ -386,6 +391,15 @@
       .input-width {
         width: 82%;
       }
+    }
+  }
+
+  .question-icon {
+    .icon-show {
+      float: right;
+      font-size: 16px;
+      margin-top: 8px;
+      margin-right: 8px;
     }
   }
 
