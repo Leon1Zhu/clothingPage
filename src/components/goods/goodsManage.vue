@@ -33,7 +33,7 @@
           <div class="goods-operator">
             <Button class="change_status" type="primary" shape="circle" icon="edit" @click.native="goodsAddOpen = true;btnFont='修改'"></Button>
             <Button class="change_goodsinfo" type="primary" shape="circle" icon="ios-gear" @click.native="openChangeStatusDrawer(item)"></Button>
-            <Button class="delete_goods " type="primary" shape="circle"icon="trash-a" ></Button>
+            <Button class="delete_goods " type="primary" shape="circle"icon="trash-a" @click.native="deleteProduct(item.productId)"></Button>
             <Button class="goods-qr-code ivu-btn-icon-only" type="primary" shape="circle" ><i class="iconfont  icon-erweima" ></i></Button>
             <Button class="goods-dayin-code ivu-btn-icon-only" type="primary" shape="circle" ><i class="iconfont  icon-dayin" ></i></Button>
           </div>
@@ -102,7 +102,7 @@
         </div>
       </my-drawer>
       <goods-drawer :btnFont="btnFont" :goodsAddOpen="goodsAddOpen"  @closeGoodsDrawer="closeGoodsDrawer"></goods-drawer>
-
+      <deleteModel :open="deleteOpendModelFlag" title="商品删除确认" :deleteInfo="'确认删除商品['+deleteProductItem.productName+']吗？'"></deleteModel>
     </div>
 </template>
 
@@ -112,22 +112,23 @@
   import toolBar from '../../common/vue/toolBar.vue'
   import goodsDrawer from './goodsDrawer.vue'
   import goodApi  from '../../api/goodsManage'
+  import deleteModel from '../../common/vue/deleteModel.vue'
   let changeStatusProduct=null;
     export default{
         data(){
             return {
-
+                deleteOpendModelFlag:false,
                 batchSet:true,
                 changeStatuProductId:null,
                 changeStatuProductImgSrc:null,
                 changeStatuProductName:null,
+                deleteProductItem:{},
                 goodsAddOpen:false,
                 open:false,
                 searchGoodsInfo:null,
                 btnFont:'新增',
-                goodsItem:{
-                    product_code:19172525,
-                },
+                /*goodsItem:{
+                },*/
                 total:0,
                 index:0,
                 pageSize:10,
@@ -139,7 +140,8 @@
             'my-drawer':myDrawer,
             'color-content':colorContent,
             'tool-bar':toolBar,
-            'goods-drawer':goodsDrawer
+            'goods-drawer':goodsDrawer,
+            deleteModel,
         },
         created(){
             this.getAllGoodsList()
@@ -169,7 +171,7 @@
               changeStatusProduct = value;
               this.open = true;
               goodApi.getProductionDetailInfo(this.accountId,value.productId).then(response =>{
-                this.changeStatuProductId = value.productCode;
+                this.changeStatuProductId = value.productId;
                 this.changeStatuProductImgSrc = value.productPic;
                 this.changeStatuProductName = value.productName;
                 this.data1 = response.data.skus;
@@ -197,9 +199,14 @@
               }
               goodApi.batchChangeProductStatus(this.accountId,this.changeStatuProductId,value).then(response=>{
                  this.openChangeStatusDrawer(changeStatusProduct)
+                this.$success(opeartorSuccess,'批量设置['+value+']状态成功。');
               }).catch(response => {
                 this.$error(operatorError,response.data.message)
               })
+          },
+          //删除商品方法
+          deleteProduct(productId){
+            /*goodApi.*/
           },
           closeStatusDrawer(){
               this.open = false;
@@ -274,6 +281,7 @@
           padding-bottom:6px;
         }
         .goods-img{
+          min-height:225px;
           margin:0 auto;
           overflow: hidden;
           width:100%;

@@ -15,6 +15,9 @@ let changeSkuStatusApi =  '/api/17wa-sku/status/{account}/{skuid}';
 //批量设置商品状态
 let batchChangeProductStatusApi = '/api/17wa-sku/status/all/{account}/{productId}';
 
+//删除产品
+let deleteProductApi = '/api/17wa-product';
+
 
 export default{
     getAllProduction(account,index,size){
@@ -38,5 +41,12 @@ export default{
           status:status
         }
         return api.post(batchChangeProductStatusApi.replace('{account}',account).replace('{productId}',productId),null,params);
+    },
+    deleteProduct(account,productId){
+        let params = {
+          account: account,
+          productId:productId
+        }
+        return api.delete(deleteProductApi,params);
     }
 }
