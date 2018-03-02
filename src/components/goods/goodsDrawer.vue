@@ -478,11 +478,11 @@
 
       }
       .ivu-icon.ivu-icon-chevron-down{
-        animation: moveDown 1.5s ease-in infinite ;
+        animation: moveDown 1.3s ease-in infinite ;
       }
       .ivu-icon.ivu-icon-chevron-up{
         top:1px;
-        animation: moveUp 1.5s ease-in infinite ;
+        animation: moveUp 1.3s ease-in infinite ;
       }
     }
     .addSizeBtn{

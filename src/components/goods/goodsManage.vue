@@ -206,6 +206,7 @@
               this.changeStatuProductId = null;
               this.changeStatuProductImgSrc = null;
               this.changeStatuProductName = null;
+              this.batchSet = true;
               changeStatusProduct = null;
           },
           getAllGoodsList(){
