@@ -25,6 +25,7 @@ const app = new Vue({
   components: { App }
 })
 
+
 Vue.prototype.$info = function(title,desc){
   iView.Notice.info(setNoticConfig(title,desc));
 }
