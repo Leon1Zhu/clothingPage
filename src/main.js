@@ -38,6 +38,7 @@ Vue.prototype.$warning = function(title,desc){
 }
 
 
+
 Vue.prototype.$error = function(title,desc){
   iView.Notice.error(setNoticConfig(title,desc));
 }
