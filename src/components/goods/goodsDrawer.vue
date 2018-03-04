@@ -1,14 +1,11 @@
 <template>
   <div class="goodsAddDrawer">
+
     <my-drawer :open="goodsAddOpen" :btnFont="btnFont" title="商品添加" @close-drawer="closeGoodsDrawer"
                @complate-drawer="addGoodsCallback">
       <div class="add-goods">
+        <alienUpload style="padding: 0 1em;margin-top: 5px;" uploadType="all" :BtnColor="systemColor" :progressColor="systemColor" :compressQuality="compressQuality" showProgress :ProgressPercent="ProgressPercent" ref="uploadImg"></alienUpload>
         <div class="ui segment">
-          <div class="ui vertical segment">
-            <div class="add-img">
-              <Icon type="plus-round" class="upload-icon"></Icon>
-            </div>
-          </div>
           <div class="ui vertical segment">
             <Form :model="formItem" :label-width="80" label-position="left">
               <FormItem >
@@ -23,7 +20,7 @@
                 <span slot="label">售价<span class="red-star">*</span></span>
                 <Input v-model="formItem.input" placeholder="售价"></Input>
               </FormItem>
-              <FormItem :label-width="120">
+              <FormItem :label-width="120" style="border-bottom: 0px">
                 <div style="width: 120px;" slot="label" >
                   自定义售价
                   <span class="red-star" style="margin-left: -3px;">*</span>
@@ -36,9 +33,7 @@
             </Form>
           </div>
           <div class="ui vertical segment">
-            <div class="add-img">
-              <Icon type="plus-round" class="upload-icon"></Icon>
-            </div>
+            <alienUpload class="sec_upload" style="margin-top: 10px;" uploadType="all" :BtnColor="systemColor" :progressColor="systemColor" :compressQuality="compressQuality" showProgress :ProgressPercent="ProgressPercent" ref="uploadImg"></alienUpload>
             <span class="explain">上传图片,不要超过1M,否则系统自动压缩,单个商品最少9张图片,点击照片查看大图。</span>
           </div>
           <div class="ui vertical segment">
@@ -186,7 +181,6 @@
 </template>
 <script>
   import myDrawer from '../../common/vue/myDrawer.vue';
-
   export default {
     props: {
       goodsAddOpen: {
@@ -199,7 +193,10 @@
     },
     data() {
       return {
+        compressQuality:.6,
+        ProgressPercent:0,
         showDetail:false,
+        systemColor:SYSTEMCOLOR,
         formItem: {
           input: '',
           select: '',
@@ -263,14 +260,8 @@
     },
     watch:{
       goodsAddOpen(v1,v2){
-          let that = this;
-          (v1 && this.btnFont === '新增') && ( that.showDetail = false)
+        (v1 && this.btnFont === '新增') ?    this.showDetail = false : this.showDetail = true;
 
-
-          (v1 && this.btnFont === '修改') && (that.showDetail = true)
-
-        console.log(v1)
-        console.log( (v1 && this.btnFont === '修改') && ( this.showDetail = true ))
 
       }
     },
@@ -291,6 +282,23 @@
   @import '../../common/css/globalscss';
   $borderColorGoodsDrawer:#f2f1f2;
   .goodsAddDrawer{
+    .sec_upload{
+      margin-top:10px;
+    }
+    .alien-upload{
+      .upload_warp{
+        margin:10px;
+        height:100px;
+        .upload_warp_right{
+          line-height:100px;
+        }
+      }
+      .upload_warp_img_div{
+        height: 80px;
+        width: 97px;
+        margin: 0 15px 10px 0;
+      }
+    }
     .ui.vertical.segment:first-child,.ui.vertical.segment:nth-child(3){
       border-bottom:1px solid $borderColorGoodsDrawer;
     }
@@ -398,21 +406,6 @@
     }
 
     .add-goods {
-      .add-img {
-        margin:.5em 0;
-        width: 76px;
-        height: 76px;
-        border-radius:3px;
-        border: 1px dotted gray;
-        .upload-icon {
-          font-size: 50px;
-          margin: {
-            top: 13px;
-            left: 17px;
-          }
-          color: #c9c9c9;
-        }
-      }
       .detail, .tag {
         margin-top: 8px;
       }
