@@ -12,6 +12,9 @@ import './common/css/resetIview.scss';
 import './common/css/iconFont.scss'
 import './mainFun'
 import './common/css/style.scss'
+import ValienUpload from 'alienupload'
+Vue.use(ValienUpload)
+
 Vue.config.productionTip = false
 Vue.component(drawer.name, drawer)
 Vue.use(iView);
