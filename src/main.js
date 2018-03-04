@@ -12,6 +12,9 @@ import './common/css/resetIview.scss';
 import './common/css/iconFont.scss'
 import './mainFun'
 import './common/css/style.scss'
+import ValienUpload from 'alienupload'
+Vue.use(ValienUpload)
+
 Vue.config.productionTip = false
 Vue.component(drawer.name, drawer)
 Vue.use(iView);
@@ -25,6 +28,8 @@ const app = new Vue({
   components: { App }
 })
 
+
+
 Vue.prototype.$info = function(title,desc){
   iView.Notice.info(setNoticConfig(title,desc));
 }
@@ -36,6 +41,7 @@ Vue.prototype.$success = function(title,desc){
 Vue.prototype.$warning = function(title,desc){
   iView.Notice.warning(setNoticConfig(title,desc));
 }
+
 
 
 Vue.prototype.$error = function(title,desc){

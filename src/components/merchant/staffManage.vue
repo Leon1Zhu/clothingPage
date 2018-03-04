@@ -15,7 +15,7 @@
             <div class="store-item-label">店员名称<span class="red-star">*</span></div>
           </div>
           <div class="right-content">
-            <Input v-model="staffItem.accountName" placeholder="店员名称" ></Input>
+            <Input v-model="staffItem.accountName"  autocomplete="off" placeholder="店员名称" ></Input>
           </div>
         </div>
 
@@ -37,8 +37,9 @@
             <div class="store-item-label">店员类别<span class="red-star">*</span></div>
           </div>
           <div class="right-content">
-            <Select v-model="staffItem.accountType" >
-              <Option  value="店员" >店员</Option>
+            <Select v-model="staffItem.accountType" :disable="disableSelect">
+              <Option v-show="(btnFont === '修改')&& (staffItem.accountType === '管理员')"  value="管理员" >管理员</Option>
+              <Option  v-if="!(staffItem.accountType === '管理员')"  value="店员" >店员</Option>
             </Select>
           </div>
         </div>
@@ -62,7 +63,7 @@
             <div class="store-item-label">设置密码<span class="red-star">*</span></div>
           </div>
           <div class="right-content">
-            <Input  v-model="staffItem.accountPwd" type="password" placeholder="设置密码" ></Input>
+            <Input  v-model="staffItem.accountPwd"  autocomplete="off" type="password" placeholder="设置密码" ></Input>
           </div>
         </div>
       </div>
@@ -97,6 +98,7 @@
   export default{
     data(){
       return {
+        disableSelect:false,
         open:false,
         btnFont:'新增',
         searchStaffName:null,
@@ -161,6 +163,9 @@
                       this.staffItem.accountId = params.row.accountId
                       this.staffItem.accountName = params.row.accountName
                       this.staffItem.accountType = params.row.accountType
+                      if(this.staffItem.accountType === '管理员'){
+                          this.disableSelect = true;
+                      }
                       this.staffItem.accountStatus = params.row.accountStatus
                       this.staffItem.shopId = params.row.shopId
                       this.staffItem.shopName = params.row.shopName
@@ -197,7 +202,7 @@
         data9: [],
         storeSelectData:[],
         modal2:false,
-        modal_loading:false,
+        modal_loading:false
       }
     },
     components: {
@@ -231,7 +236,8 @@
         })
       },
       addNewStaff(){
-        this.btnFont = '新增'
+        this.btnFont = '新增';
+        this.disableSelect = false;
         this.staffItem={
           accountName:null,
             accountPwd:null,
