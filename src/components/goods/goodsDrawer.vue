@@ -4,21 +4,21 @@
     <my-drawer :open="goodsAddOpen" :btnFont="btnFont" title="商品添加" @close-drawer="closeGoodsDrawer"
                @complate-drawer="addGoodsCallback">
       <div class="add-goods">
-        <alienUpload style="padding: 0 1em;margin-top: 5px;" uploadType="all" :BtnColor="systemColor" :progressColor="systemColor" :compressQuality="compressQuality" showProgress :ProgressPercent="ProgressPercent" ref="uploadImg"></alienUpload>
+        <alienUpload @upload-img="uploadImg1" style="padding: 0 1em;margin-top: 5px;" :imageLimit="imageLimit" @count-exceed-limit="countExceedLimit" uploadType="all" :BtnColor="systemColor" :progressColor="systemColor" :compressQuality="compressQuality" showProgress :ProgressPercent="ProgressPercent1" ref="uploadImg"></alienUpload>
         <div class="ui segment">
           <div class="ui vertical segment">
             <Form :model="formItem" :label-width="80" label-position="left">
               <FormItem >
                 <span slot="label">货号<span class="red-star">*</span></span>
-                <Input v-model="formItem.input" placeholder="货号"></Input>
+                <Input v-model="formItem.productCode" placeholder="货号"></Input>
               </FormItem>
               <FormItem >
                 <span slot="label">简称<span class="red-star">*</span></span>
-                <Input v-model="formItem.input" placeholder="简称"></Input>
+                <Input v-model="formItem.productDesc" placeholder="简称"></Input>
               </FormItem>
               <FormItem >
                 <span slot="label">售价<span class="red-star">*</span></span>
-                <Input v-model="formItem.input" placeholder="售价"></Input>
+                <InputNumber  :min="1" v-model="formItem.productPrice1"  style="width:70%;"></InputNumber>
               </FormItem>
               <FormItem :label-width="120" style="border-bottom: 0px">
                 <div style="width: 120px;" slot="label" >
@@ -28,18 +28,19 @@
                     <i class="iconfont  icon-wenhao" style="left: -3px;position: relative;top: 3px;" ></i>
                   </Tooltip>
                 </div>
-                <Input v-model="formItem.input" placeholder="自定义售价" style="width: 82.5%;"></Input>
+                <InputNumber  :min="1" v-model="formItem.productPrice2" placeholder="自定义售价" style="width: 82.5%;"></InputNumber>
+               <!-- <Input v-model="formItem.productPrice2" placeholder="自定义售价" style="width: 82.5%;"></Input>-->
               </FormItem>
             </Form>
           </div>
           <div class="ui vertical segment">
-            <alienUpload class="sec_upload" style="margin-top: 10px;" uploadType="all" :BtnColor="systemColor" :progressColor="systemColor" :compressQuality="compressQuality" showProgress :ProgressPercent="ProgressPercent" ref="uploadImg"></alienUpload>
+            <alienUpload @upload-img="uploadImg2" multipleClass="sec" class="sec_upload" style="margin-top: 10px;" uploadType="all" :BtnColor="systemColor" :progressColor="systemColor" :compressQuality="compressQuality" showProgress :ProgressPercent="ProgressPercent2"></alienUpload>
             <span class="explain">上传图片,不要超过1M,否则系统自动压缩,单个商品最少9张图片,点击照片查看大图。</span>
           </div>
           <div class="ui vertical segment">
-            <Form :model="formItem" :label-width="80" label-position="left">
-              <FormItem >
-                <div style="width: 120px;" slot="label"><Icon type="information-circled" size="20" ></Icon>图片网店可用</div>
+            <Form :model="formItem" :label-width="80"label-position="left">
+              <FormItem class="img-no-padding" >
+                <div style="width: 120px" slot="label"><Icon type="information-circled" size="20" ></Icon>图片网店可用</div>
                 <i-switch v-model="formItem.switch" >
                   <span slot="open"></span>
                   <span slot="close"></span>
@@ -60,9 +61,9 @@
               <FormItem label="尺码" class="property-content">
 
                 <div class="ivu-input-wrapper" style="text-align: left;">
-                  <Tag checkable color="blue">S</Tag>
-                  <Tag checkable color="blue">M</Tag>
-                  <Tag checkable color="blue">XL</Tag>
+                  <Tag  color="blue">S</Tag>
+                  <Tag  color="blue">M</Tag>
+                  <Tag  color="blue">XL</Tag>
                   <Tag type="dot" >
                     <Icon type="plus-round" ></Icon>
                   </Tag>
@@ -70,10 +71,10 @@
 
               </FormItem>
               <FormItem label="分类" class="property-content">
-                <Cascader :data="data"></Cascader>
+                <Cascader :data="data" class="clothTypeSelect" :render-format="format" :value="typeSelectValue"></Cascader>
               </FormItem>
               <FormItem label="初始库存">
-                <Input v-model="formItem.input" placeholder="初始库存"></Input>
+                <InputNumber  :min="1" v-model="formItem.amount"  style="width:70%;"></InputNumber>
               </FormItem>
             </Form>
           </div>
@@ -85,20 +86,20 @@
             <div class="ui vertical segment">
               <Form :model="formItem" :label-width="80" label-position="left">
                 <FormItem label="面料">
-                  <Input v-model="formItem.input" placeholder="面料"></Input>
+                  <Input v-model="formItem.productFabric" placeholder="面料"></Input>
                 </FormItem>
                 <FormItem label="成份">
-                  <Input v-model="formItem.input" placeholder="成份"></Input>
+                  <Input v-model="formItem.productFabricin" placeholder="成份"></Input>
                 </FormItem>
               </Form>
             </div>
             <div class="ui vertical segment" style="margin-top: 10px;">
               尺码表（CM）
               <div class="size-tag">
-                <Tag checkable color="blue">S</Tag>
-                <Tag checkable color="blue">M</Tag>
-                <Tag checkable color="blue">XL</Tag>
-                <Tag checkable color="blue">XXL</Tag>
+                <Tag class="my-tag"  color="blue" @click.native="activeSize($event)">S</Tag>
+                <Tag class="my-tag" color="blue" @click.native="activeSize($event)">M</Tag>
+                <Tag class="my-tag" color="blue" @click.native="activeSize($event)">XL</Tag>
+                <Tag class="my-tag" color="blue" @click.native="activeSize($event)">XXL</Tag>
               </div>
               <Form :model="formItem" class="detail">
                 <FormItem>
@@ -113,46 +114,11 @@
                     </Col>
                   </Row>
                 </FormItem>
-                <FormItem>
-                  <Row>
-                    <Col span="11">
-                    <Input v-model="formItem.input" placeholder="腿围" class="centerInput" disabled> </Input>
-                    </Col>
-                    <Col span="1" style="text-align: center">
-                    </Col>
-                    <Col span="11">
-                    <Input v-model="formItem.input" placeholder="" ></Input>
-                    </Col>
-                  </Row>
-                </FormItem>
-                <FormItem>
-                  <Row>
-                    <Col span="11">
-                    <Input v-model="formItem.input" placeholder="大腿围" class="centerInput" disabled></Input>
-                    </Col>
-                    <Col span="1" style="text-align: center">
-                    </Col>
-                    <Col span="11">
-                    <Input v-model="formItem.input" placeholder=""></Input>
-                    </Col>
-                  </Row>
-                </FormItem>
-                <FormItem>
-                  <Row>
-                    <Col span="11">
-                    <Input v-model="formItem.input" placeholder="小腿围" class="centerInput" disabled></Input>
-                    </Col>
-                    <Col span="1" style="text-align: center">
-                    </Col>
-                    <Col span="11">
-                    <Input v-model="formItem.input" placeholder=""></Input>
-                    </Col>
-                  </Row>
-                </FormItem>
+
                 <FormItem>
                   <Row  class="addSizeBtn">
                     <Col span="22" >
-                      <Button  type="ghost" icon="plus-round"></Button>
+                      <Button  type="ghost" icon="plus-round" @click="chooseSizeInclude"></Button>
                     </Col>
                   </Row>
                 </FormItem>
@@ -177,10 +143,13 @@
         </div>
       </div>
     </my-drawer>
+    <sizeInclude ref="sizeIncludeModel" @on-cancle="onCancle" ></sizeInclude>
   </div>
 </template>
 <script>
   import myDrawer from '../../common/vue/myDrawer.vue';
+  import goodsManageApi from '../../api/goodsManage';
+  import sizeInclude from './goodsSizeInclude.vue'
   export default {
     props: {
       goodsAddOpen: {
@@ -193,79 +162,108 @@
     },
     data() {
       return {
+        checkedFlag:false,
+        typeSelectValue:[],
+        imageLimit:1,
         compressQuality:.6,
-        ProgressPercent:0,
+        ProgressPercent1:0,
+        ProgressPercent2:0,
         showDetail:false,
         systemColor:SYSTEMCOLOR,
         formItem: {
-          input: '',
-          select: '',
-          radio: 'male',
-          checkbox: [],
-          switch: true,
-          time: '',
-          slider: [20, 50],
-          textarea: '',
-          value1: '',
-          value2: [],
+          amount:0,
+          productFabric:null,
+          productDesc:null,
+          productCode:null,
+          productPrice1:1,
+          productPrice2:1,
+          productFabricin:null,
         },
-        data: [{
-          value: 'beijing',
-          label: '北京',
-          children: [
-            {
-              value: 'gugong',
-              label: '故宫'
-            },
-            {
-              value: 'tiantan',
-              label: '天坛'
-            },
-            {
-              value: 'wangfujing',
-              label: '王府井'
-            }
-          ]
-        }, {
-          value: 'jiangsu',
-          label: '江苏',
-          children: [
-            {
-              value: 'nanjing',
-              label: '南京',
-              children: [
-                {
-                  value: 'fuzimiao',
-                  label: '夫子庙',
-                }
-              ]
-            },
-            {
-              value: 'suzhou',
-              label: '苏州',
-              children: [
-                {
-                  value: 'zhuozhengyuan',
-                  label: '拙政园',
-                },
-                {
-                  value: 'shizilin',
-                  label: '狮子林',
-                }
-              ]
-            }
-          ],
-        }]
+        data: [],
+        sizeIncludeArray:[],
+        includeActive:[],
       };
+    },
+    created(){
+        this.getAllTypes()
     },
     watch:{
       goodsAddOpen(v1,v2){
         (v1 && this.btnFont === '新增') ?    this.showDetail = false : this.showDetail = true;
-
-
       }
     },
     methods: {
+      activeSize(e){
+        let dom = null;
+        dom = e.target.className.indexOf('my-tag')  > -1 ?  e.target :e.target.parentElement
+        if(dom.className.indexOf('ivu-tag-checked') === -1){
+            return;
+        }
+        Array.prototype.forEach.call(document.querySelectorAll('.my-tag'),function(item){
+            item.className = 'my-tag  ivu-tag ivu-tag-blue ivu-tag-checked';
+        })
+        dom.className = 'my-tag ivu-tag ivu-tag-blue';
+      },
+      chooseSizeInclude(){
+          if(this.typeSelectValue.length === 0){
+              this.$warning(operatorWarning,'请先选择服装分类再进行该操作！');
+              return;
+          }
+          this.$refs.sizeIncludeModel.showModel(this.typeSelectValue[this.typeSelectValue.length-1],)
+      },
+      onCancle(){
+        this.modalOpenFlag = false;
+      },
+      uploadImg1(value){
+          let len = value.length,
+              that = this,
+              onrProgress = (1/len).toFixed(2)*100;
+          value.map(function(item,index){
+              goodsManageApi.picUplaod(item).then(response=>{
+                  index === len-1 ? that.ProgressPercent1=100 :that.ProgressPercent1 += onrProgress;
+              })
+          })
+      },
+      uploadImg2(value){
+        let len = value.length,
+          that = this,
+          onrProgress = (1/len).toFixed(2)*100;
+        value.map(function(item,index){
+
+          goodsManageApi.picUplaod(item).then(response=>{
+            index === len-1 ? that.ProgressPercent2=100 :that.ProgressPercent2 += onrProgress;
+          })
+        })
+      },
+      format (labels, selectedData) {
+          return labels.join('|')
+      },
+      getAllTypes(){
+        goodsManageApi.getProductsTypes().then(response =>{
+            let result = response.data;
+            this.addTypeLableAndValue(result);
+            this.data = result;
+
+        }).catch(response =>{
+            this.$error(apiError,'服装分类列表获取出错!')
+        })
+      },
+      addTypeLableAndValue(value){
+          let that = this;
+          if(value.length>0){
+            Array.prototype.forEach.call(value,function(item){
+              item.label =  item.value = item.producttypeName;
+              if(item.subTypes.length>0){
+                  item.children = item.subTypes
+                 delete item.subTypes
+                that.addTypeLableAndValue(item.children)
+              }
+            })
+          }
+      },
+      countExceedLimit(){
+          this.$warning(operatorWarning,'上传图片超出['+this.imageLimit+']张的数量限制');
+      },
       addGoodsCallback() {
 
       },
@@ -274,7 +272,8 @@
       }
     },
     components: {
-      myDrawer
+      myDrawer,
+      sizeInclude
     }
   };
 </script>
@@ -282,6 +281,11 @@
   @import '../../common/css/globalscss';
   $borderColorGoodsDrawer:#f2f1f2;
   .goodsAddDrawer{
+    .clothTypeSelect{
+      .ivu-select-dropdown{
+        right:0;
+      }
+    }
     .sec_upload{
       margin-top:10px;
     }
@@ -380,11 +384,6 @@
         background: $menuSelectFontColor;
         color: white;
       }
-    }
-    .ivu-tag:not(.ivu-tag-border):not(.ivu-tag-dot):not(.ivu-tag-checked){
-      background-color: #fff;
-      border:1px solid $menuSelectFontColor;
-      color: $menuSelectFontColor;
     }
     .ivu-tag{
       width:90px;
@@ -491,6 +490,11 @@
           border-color: $menuSelectFontColor!important;
           color: $menuSelectFontColor!important;
         }
+      }
+    }
+    .img-no-padding{
+      .ivu-form-item-label{
+        padding:0px;
       }
     }
   }
