@@ -18,7 +18,11 @@ let batchChangeProductStatusApi = '/api/17wa-sku/status/all/{account}/{productId
 //删除产品
 let deleteProductApi = '/api/17wa-product';
 
+///获取产品分类
+let getProductsTypesApi = '/api/17wa-produt/types';
 
+//图片上传接口
+let picUplaodApi = '/api/17wa-image/upload';
 export default{
     getAllProduction(account,index,size){
       let params = {
@@ -48,5 +52,13 @@ export default{
           productId:productId
         }
         return api.delete(deleteProductApi,params);
+    },
+    getProductsTypes(){
+      return api.get(getProductsTypesApi,null);
+    },
+    picUplaod(file){
+      let formdata = new FormData();
+      formdata.append('file',file.file)
+      return api.post(picUplaodApi,formdata,null)
     }
 }

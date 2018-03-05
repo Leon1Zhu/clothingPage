@@ -19,7 +19,14 @@ axios.interceptors.request.use(
         console.log("发送请求!")
         console.log(config)
       }*/
-      config.url = SERVICEURL+config.url;
+      if(config.url.indexOf('/api/17wa-image/upload') > -1){
+        config.url = PICSERVICEURL+config.url;
+      }
+      else{
+        config.url = SERVICEURL+config.url;
+      }
+
+
       if(process.env.NODE_ENV=="development"){
         console.log("发送请求!")
         console.log(config)
@@ -43,7 +50,7 @@ axios.interceptors.response.use(
   error => {
     if(process.env.NODE_ENV=="development"){
       console.error("请求出错")
-      console.log(JSON.parse(JSON.stringify(error.response)))
+      console.log(error)
     }
   /*  if (error.response) {
       switch (error.response.status) {
