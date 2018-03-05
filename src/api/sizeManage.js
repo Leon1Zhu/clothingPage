@@ -24,8 +24,6 @@ export default {
    * @returns {*}
    */
   addStoreSizeBySysTem: function (account, color) {
-    console.log('接口参数');
-    console.log(color);
     return api.post(addStoreSizeBySysTemUrl.replace('{account}', account), color);
   },
 
@@ -35,7 +33,7 @@ export default {
    * @param colorid
    * @returns {*}
    */
-  deleteStoreSizeBySysTemUrl: function (account, sizeid) {
-    return api.delete(deleteStoreSizeBySysTemUrl.replace('{account}', account).replace('{sizeid}', sizeid), null);
+  deleteStoreSizeBySysTemUrl: function (account, sizeId) {
+    return api.delete(deleteStoreSizeBySysTemUrl.replace('{account}', account).replace('{sizeid}', sizeId), null);
   }
 }
