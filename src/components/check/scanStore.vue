@@ -8,10 +8,19 @@
       <Button class="search-button" type="info" @click.native="storeRecord = true">盘点记录</Button>
     </tool-bar>
     <div class="sku-show">
-      <div class="explain">商品信息展示（下拉选择）</div>
-      <Select @on-change="scanModal=true" class="select-sku" v-model="selectValue" size="large" style="width:300px">
-        <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-      </Select>
+      <Row class="sku-choose">
+        <Col span="12" style="padding-right:10px">
+        <Select v-model="model11">
+          <Option v-for="item in colorSize" :value="item.value" :key="item.value">{{ item.label }}</Option>
+        </Select>
+        </Col>
+        <Col span="12">
+        <Select v-model="model12">
+          <Option v-for="item in sizeSize" :value="item.value" :key="item.value">{{ item.label }}</Option>
+        </Select>
+        </Col>
+      </Row>
+      <Button class="search-button" type="primary" @click="scanModal = true">确定</Button>
     </div>
     <Modal
       v-model="scanModal"
@@ -32,7 +41,8 @@
         <div class="detail">
           <Tag type="dot" class="color" @on-close="handleClose" color="#00EEEE">淡蓝</Tag>
           <Tag class="size" color="#06b9a5">M</Tag>
-          <InputNumber :min="1" v-model="value1" class="truth-total" disabled></InputNumber>
+          <InputNumber :min="1" v-model="value1" class="truth-total"></InputNumber>
+          <span class="total">已扫描数量:555</span>
         </div>
       </div>
     </Modal>
@@ -47,6 +57,36 @@
     props: {},
     data() {
       return {
+        colorSize: [
+          {
+            value: '红色',
+            label: '红色'
+          },
+          {
+            value: '蓝色',
+            label: '蓝色'
+          },
+          {
+            value: '黑色',
+            label: '黑色'
+          }
+        ],
+        sizeSize: [
+          {
+            value: 'XXL',
+            label: 'XXL'
+          },
+          {
+            value: 'XL',
+            label: 'XL'
+          },
+          {
+            value: 'L',
+            label: 'L'
+          }
+        ],
+        model11: '',
+        model12: '',
         scanModal: false,
         selectValue: '',
         cityList: [
@@ -92,15 +132,58 @@
     margin-left: 8px;
   }
 
+  .goods-infor {
+    display: flex;
+    .goods-img {
+      img {
+        width: 85px;
+        height: 85px;
+      }
+    }
+    .goods-introduction {
+      margin-left: 32px;
+      h4 {
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .ids, .number {
+        font-size: 14px;
+        margin-top: 8px;
+        color: rgba(0, 0, 0, 0.4);
+      }
+    }
+  }
+
+  .repertory-infor {
+    .detail {
+      display: flex;
+      padding: 8px;
+      border-bottom: 1px solid #f8f6f2;
+      .size, .total, .truth-total {
+        margin-left: 20px;
+      }
+      .size {
+        width: 70px;
+        text-align: center;
+      }
+
+      .total {
+        margin-top: 1px;
+        font-size: 16px;
+      }
+      .size, .total {
+        height: 32px;
+        line-height: 32px;
+        padding: 0 15px;
+      }
+    }
+  }
+
   .sku-show {
-    margin-left: 350px;
-    margin-top: 100px;
-    width: 300px;
-    .explain {
-      font-size: 20px;
-      color: rgba(0, 0, 0, 0.4);
-      text-align: center;
-      margin-bottom: 16px;
+    width: 1126px;
+    display: flex;
+    .sku-choose {
+      flex: 1;
     }
   }
 
