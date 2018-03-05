@@ -39,10 +39,10 @@
         </Select>
       </FormItem>
       <FormItem label="积分抵扣">
-        <Tag type="dot" closable color="green">500积分抵扣50元</Tag>
-        <Tag type="dot" closable color="green">1000积分抵扣100元</Tag>
-        <Tag type="dot" closable color="green">200积分抵扣250元</Tag>
-        <Tag type="dot" closable color="green">3000积分抵扣350元</Tag>
+        <Tag v-for="(gradeGroup,index) in gradeGroupS" type="dot" closable
+             @on-close="deleteGradeGroup(gradeGroup.id, index)" color="green">
+          {{gradeGroup.gradeValue}}积分抵扣{{gradeGroup.gradeMoney}}元
+        </Tag>
         <Button type="primary" @click="integrationOpen=true">添加积分规则</Button>
       </FormItem>
       <FormItem label="其它操作">
@@ -54,14 +54,15 @@
         <Button type="primary">保存</Button>
       </FormItem>
     </Form>
-    <my-drawer :open="integrationOpen" title="积分规则添加" @close-drawer="integrationOpen=false" @complate-drawer="">
+    <my-drawer :open="integrationOpen" title="积分规则添加" @close-drawer="integrationOpen=false"
+               @complate-drawer="addGradeGroup">
       <div class="integration-add">
         <div class="store-item">
           <div class="left-content">
             <div class="store-item-label">设置积分<span class="red-star">*</span></div>
           </div>
           <div class="right-content">
-            <Input v-model="jfNumber" class="input-width" placeholder="积分"></Input>
+            <Input v-model="grade" class="input-width" placeholder="积分"></Input>
           </div>
         </div>
         <div class="store-item">
@@ -71,7 +72,7 @@
             </Tooltip>
           </div>
           <div class="right-content">
-            <Input v-model="moneyNumber" class="input-width" placeholder="倍率"></Input>
+            <Input v-model="money" class="input-width" placeholder="倍率"></Input>
           </div>
         </div>
       </div>
@@ -127,6 +128,7 @@
 <script>
   import toolBar from '../../common/vue/toolBar.vue';
   import myDrawer from '../../common/vue/myDrawer.vue';
+  import systemApi from '../../api/systemSetting';
 
   export default {
     props: {},
@@ -140,6 +142,9 @@
         oldPassword: '',
         newPassword: '',
         surePasswordL: '',
+        money: '',
+        grade: '',
+        gradeGroupS: [],
         formItem: {
           input: '',
           select: '',
@@ -153,7 +158,39 @@
         }
       };
     },
-    methods: {},
+    created() {
+      this.getGradeGroup();
+    },
+    methods: {
+      getGradeGroup() {
+        systemApi.getGradeGroup(this.$store.getters.getAccountId).then((response) => {
+          this.gradeGroupS = response.data;
+        }).catch((error) => {
+          this.$error(apiError, '获取错误')
+        });
+      },
+      addGradeGroup() {
+        let gradeInt = parseInt(this.grade);
+        let moneyInt = parseInt(this.money);
+        systemApi.addGradeGroup(this.$store.getters.getAccountId, gradeInt, moneyInt).then((response) => {
+          this.integrationOpen = false;
+          this.gradeGroupS.push(response.data);
+          this.grade = '';
+          this.money = '';
+        }).catch((error) => {
+          this.$error(apiError, '获取错误')
+        });
+      },
+      deleteGradeGroup(id, index) {
+        systemApi.deleteGradeGroup(this.$store.getters.getAccountId, id).then((response) => {
+          this.getGradeGroup();
+        }).catch((error) => {
+          this.$error(apiError, '获取错误')
+        });
+
+
+      },
+    },
     components: {toolBar, myDrawer}
   };
 </script>
