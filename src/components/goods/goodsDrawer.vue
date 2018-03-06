@@ -71,7 +71,7 @@
 
               </FormItem>
               <FormItem label="分类" class="property-content">
-                <Cascader :data="data" class="clothTypeSelect" :render-format="format" :value="typeSelectValue"></Cascader>
+                <Cascader :data="data" class="clothTypeSelect" :render-format="format" v-model="typeSelectValue"></Cascader>
               </FormItem>
               <FormItem label="初始库存">
                 <InputNumber  :min="1" v-model="formItem.amount"  style="width:70%;"></InputNumber>
@@ -96,10 +96,10 @@
             <div class="ui vertical segment" style="margin-top: 10px;">
               尺码表（CM）
               <div class="size-tag">
-                <Tag class="my-tag"  color="blue" @click.native="activeSize($event)">S</Tag>
-                <Tag class="my-tag" color="blue" @click.native="activeSize($event)">M</Tag>
-                <Tag class="my-tag" color="blue" @click.native="activeSize($event)">XL</Tag>
-                <Tag class="my-tag" color="blue" @click.native="activeSize($event)">XXL</Tag>
+                <Tag class="my-tag"  color="blue" @click.native="activeSize($event,'S')">S</Tag>
+                <Tag class="my-tag" color="blue" @click.native="activeSize($event,'M')">M</Tag>
+                <Tag class="my-tag" color="blue" @click.native="activeSize($event,'XL')">XL</Tag>
+                <Tag class="my-tag" color="blue" @click.native="activeSize($event,'XXL')">XXL</Tag>
               </div>
               <Form :model="formItem" class="detail">
                 <FormItem>
@@ -116,7 +116,7 @@
                 </FormItem>
 
                 <FormItem>
-                  <Row  class="addSizeBtn">
+                  <Row  class="addSizeBtn"  v-show="showSelectSizeBtn">
                     <Col span="22" >
                       <Button  type="ghost" icon="plus-round" @click="chooseSizeInclude"></Button>
                     </Col>
@@ -143,7 +143,7 @@
         </div>
       </div>
     </my-drawer>
-    <sizeInclude ref="sizeIncludeModel" @on-cancle="onCancle" ></sizeInclude>
+    <sizeInclude @choose-size-tag="chooseSizeTag" ref="sizeIncludeModel" @on-cancle="onCancle" ></sizeInclude>
   </div>
 </template>
 <script>
@@ -162,6 +162,7 @@
     },
     data() {
       return {
+        showSelectSizeBtn:false,
         checkedFlag:false,
         typeSelectValue:[],
         imageLimit:1,
@@ -193,23 +194,37 @@
       }
     },
     methods: {
-      activeSize(e){
-        let dom = null;
-        dom = e.target.className.indexOf('my-tag')  > -1 ?  e.target :e.target.parentElement
-        if(dom.className.indexOf('ivu-tag-checked') === -1){
+      activeSize(e,size){
+        this.showSelectSizeBtn = true;
+        this.$nextTick(function(){
+          let dom = null;
+          dom = e.target.className.indexOf('my-tag')  > -1 ?  e.target :e.target.parentElement
+          if(dom.className.indexOf('ivu-tag-checked') === -1){
             return;
-        }
-        Array.prototype.forEach.call(document.querySelectorAll('.my-tag'),function(item){
+          }
+          Array.prototype.forEach.call(document.querySelectorAll('.my-tag'),function(item){
             item.className = 'my-tag  ivu-tag ivu-tag-blue ivu-tag-checked';
+          })
+          dom.className = 'my-tag ivu-tag ivu-tag-blue';
+
+          this.includeActive = this.sizeIncludeArray.filter(function (item,index,arr) {
+            return item.includeSize === size;
+          })
         })
-        dom.className = 'my-tag ivu-tag ivu-tag-blue';
+
+      },
+      chooseSizeTag(){
+
       },
       chooseSizeInclude(){
           if(this.typeSelectValue.length === 0){
               this.$warning(operatorWarning,'请先选择服装分类再进行该操作！');
               return;
           }
-          this.$refs.sizeIncludeModel.showModel(this.typeSelectValue[this.typeSelectValue.length-1],)
+          let activeSizeArr =  this.includeActive.map(function(item){
+              return item.includeName
+          })
+          this.$refs.sizeIncludeModel.showModel(this.typeSelectValue[this.typeSelectValue.length-1],activeSizeArr.join(','))
       },
       onCancle(){
         this.modalOpenFlag = false;

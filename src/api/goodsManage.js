@@ -23,6 +23,9 @@ let getProductsTypesApi = '/api/17wa-produt/types';
 
 //图片上传接口
 let picUplaodApi = '/api/17wa-image/upload';
+
+//图片尺码标签
+let getSizeIncludesAPI = '/api/17wa-include';
 export default{
     getAllProduction(account,index,size){
       let params = {
@@ -59,6 +62,9 @@ export default{
     picUplaod(file){
       let formdata = new FormData();
       formdata.append('file',file.file)
-      return api.post(picUplaodApi,formdata,null)
+      return api.post(picUplaodApi,formdata,null);
+    },
+  getSizeIncludes(){
+        return api.get(getSizeIncludesAPI,null);
     }
 }
