@@ -31,7 +31,7 @@
           </div>
 
           <div class="goods-operator">
-            <Button class="change_status" type="primary" shape="circle" icon="edit" @click.native="goodsAddOpen = true;btnFont='修改'"></Button>
+            <Button class="change_status" type="primary" shape="circle" icon="edit" @click.native="changeProductInfo(item)"></Button>
             <Button class="change_goodsinfo" type="primary" shape="circle" icon="ios-gear" @click.native="openChangeStatusDrawer(item)"></Button>
             <Button class="delete_goods " type="primary" shape="circle"icon="trash-a" @click.native="deleteProduct(item.productId)"></Button>
             <Button class="goods-qr-code ivu-btn-icon-only" type="primary" shape="circle" ><i class="iconfont  icon-erweima" ></i></Button>
@@ -45,7 +45,7 @@
       <Page :total="100" style="margin-top: 5px;text-align: right"></Page>
 
 
-      <my-drawer :open="open" title="商品状态管理"    @close-drawer="closeStatusDrawer" @complate-drawer="complateDrawer">
+      <my-drawer :open="open" title="商品状态管理"    @close-drawer="closeStatusDrawer" >
         <div class="goods-status-content">
           <div class="goods-code">
             系统货号&nbsp;&nbsp;{{changeStatuProductId}}
@@ -77,9 +77,6 @@
                 </div>
                 </div>
                 <div class="right-content">
-
-
-
                 </div>
               </div>
             </Card>
@@ -101,7 +98,7 @@
           </div>
         </div>
       </my-drawer>
-      <goods-drawer :btnFont="btnFont" :goodsAddOpen="goodsAddOpen"  @closeGoodsDrawer="closeGoodsDrawer"></goods-drawer>
+      <goods-drawer @complate-product="complateDrawer" :productInfo="productChangeInfo"  :btnFont="btnFont" :goodsAddOpen="goodsAddOpen"  @closeGoodsDrawer="closeGoodsDrawer"></goods-drawer>
       <deleteModel :open="deleteOpendModelFlag" title="商品删除确认" :deleteInfo="'确认删除商品['+deleteProductItem.productName+']吗？'"></deleteModel>
     </div>
 </template>
@@ -117,6 +114,7 @@
     export default{
         data(){
             return {
+                productChangeInfo:null,
                 deleteOpendModelFlag:false,
                 batchSet:true,
                 changeStatuProductId:null,
@@ -228,9 +226,14 @@
             })
           },
           addNewGoods(){
+            this.productChangeInfo = null;
               this.goodsAddOpen = true;
               this.btnFont='新增';
-
+          },
+          changeProductInfo(item){
+            this.productChangeInfo = item;
+            this.goodsAddOpen = true;
+            this.btnFont='修改'
           },
           searchGoods(){
 

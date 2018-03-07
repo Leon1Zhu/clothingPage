@@ -35,8 +35,8 @@ import goodsManageApi from '../../api/goodsManage';
         },
         methods: {
           onCancle(){
+              this.sizeIncludeS = [],
               this.$emit('on-cancle');
-              return
           },
           showModel(type,activeArr){
               console.log(type)
@@ -61,9 +61,7 @@ import goodsManageApi from '../../api/goodsManage';
               })
           },
           chooseSizeTag(e,name){
-              console.log(e.target.className)
             let type = e.target.className.indexOf('ivu-tag-checked') > -1 ? 'delete' : 'add'
-            console.log(type)
               this.$emit('choose-size-tag',name,type)
           }
         }
