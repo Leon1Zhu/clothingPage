@@ -2,9 +2,7 @@
   <div class="">
     <Modal
       v-model="sizeOpen"
-      title="尺码选择"
-      @on-ok="ok"
-      @on-cancel="cancel">
+      title="尺码选择">
       <Card v-for="sizeData in sizeDataS" class="card-size">
         <p slot="title" class="title">
           {{sizeData.sizetypeName}}
@@ -15,6 +13,8 @@
           {{size.sizeName}}
         </Tag>
       </Card>
+      <div slot="footer">
+      </div>
     </Modal>
   </div>
 </template>
@@ -41,7 +41,7 @@
       for (let sizeSelect of this.selectSizeArray) {
         for (let sizes of this.sizeDataS) {
           for (let singleSize of sizes) {
-            if (singleSize.sizeId === sizeSelect.sizeId) {
+            if (singleSize.sizeId === sizeSelect) {
               Vue.set(singleSize, 'isActive', 'add');
             }
           }
@@ -63,12 +63,6 @@
           Vue.set(size, 'isActive', 'delete');
         }
         this.$emit('select-size', size);
-      },
-      cancel() {
-        this.sizeOpen = false;
-      },
-      ok() {
-        this.sizeOpen = false;
       }
     },
     components: {}
