@@ -40,6 +40,7 @@
         </div>
       </my-drawer>
     </div>
+    <color-choose :sizeOpen="colorChooseOpen" :selectColorArray="selectArray" @select-size="updateColor"></color-choose>
   </div>
 </template>
 <script>
@@ -52,6 +53,7 @@
     props: {},
     data() {
       return {
+        colorChooseOpen: true,
         colorOpen: false,
         colorDataS: [],
         formItem: {
@@ -107,6 +109,10 @@
             this.$error(apiError, '获取错误')
           });
         }
+      },
+      updateColor(color) {
+        console.log("更新到了");
+        console.log(color);
       }
     },
     components: {

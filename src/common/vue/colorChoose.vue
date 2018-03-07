@@ -9,7 +9,7 @@
         </p>
         <Tag :class="{'active': color.isActive ==='add'}" v-for="color in colorData.colors" type="dot"
              :color="color.colorRgb" @click.native="selectColor(color)">
-          {{color.colorName}}
+             {{color.colorName}}
         </Tag>
       </Card>
       <div slot="footer">

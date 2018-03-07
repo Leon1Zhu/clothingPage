@@ -10,7 +10,7 @@
         <Tag v-for="size in sizeData.sizes" :class="{'active': size.isActive ==='add'}"
              @click.native="selectSize(size)" type="dot" class="size-tag"
              color="#06c1ae">
-          {{size.sizeName}}
+             {{size.sizeName}}
         </Tag>
       </Card>
       <div slot="footer">
