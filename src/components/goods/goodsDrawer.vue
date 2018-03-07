@@ -10,11 +10,11 @@
             <Form :model="formItem" :label-width="80" label-position="left">
               <FormItem >
                 <span slot="label">货号<span class="red-star">*</span></span>
-                <Input v-model="formItem.productCode" placeholder="货号"></Input>
+                <Input v-model="formItem.productCode2" placeholder="货号"></Input>
               </FormItem>
               <FormItem >
                 <span slot="label">简称<span class="red-star">*</span></span>
-                <Input v-model="formItem.productDesc" placeholder="简称"></Input>
+                <Input v-model="formItem.productName" placeholder="简称"></Input>
               </FormItem>
               <FormItem >
                 <span slot="label">售价<span class="red-star">*</span></span>
@@ -41,7 +41,7 @@
             <Form :model="formItem" :label-width="80"label-position="left">
               <FormItem class="img-no-padding" >
                 <div style="width: 120px" slot="label"><Icon type="information-circled" size="20" ></Icon>图片网店可用</div>
-                <i-switch v-model="formItem.switch" >
+                <i-switch v-model="formItem.onlineStoreUse" >
                   <span slot="open"></span>
                   <span slot="close"></span>
                 </i-switch>
@@ -102,15 +102,15 @@
                 <Tag class="my-tag" color="blue" @click.native="activeSize($event,'XXL')">XXL</Tag>
               </div>
               <Form :model="formItem" class="detail">
-                <FormItem>
+                <FormItem v-for="item in sizeIncludeArray" v-show="item.sizeName === activeSizeName ">
                   <Row>
                     <Col span="11">
-                    <Input v-model="formItem.input" placeholder="腰围"  class="centerInput" disabled></Input>
+                    <Input  :placeholder="item.includeName"  class="centerInput" disabled></Input>
                     </Col>
                     <Col span="1" style="text-align: center">
                     </Col>
                     <Col span="11">
-                    <Input v-model="formItem.input" placeholder="" ></Input>
+                    <Input v-model="item.includeValue" placeholder="" ></Input>
                     </Col>
                   </Row>
                 </FormItem>
@@ -131,7 +131,7 @@
             <div class="ui vertical segment">
               <Form :model="formItem" :label-width="80" label-position="left">
                 <FormItem label="备注" style="border-bottom: 0px;border-top: 1px solid #f2f1f1;">
-                  <Input v-model="formItem.input" placeholder="备注"></Input>
+                  <Input v-model="formItem.memo" placeholder="备注"></Input>
                 </FormItem>
               </Form>
             </div>
@@ -142,8 +142,10 @@
           </section>
         </div>
       </div>
+      <Spin size="large" fix v-if="spinShow"></Spin>
     </my-drawer>
     <sizeInclude @choose-size-tag="chooseSizeTag" ref="sizeIncludeModel" @on-cancle="onCancle" ></sizeInclude>
+
   </div>
 </template>
 <script>
@@ -158,10 +160,15 @@
       },
       btnFont: {
           type : String,
+      },
+      productInfo:{
+          type : Object,
+          default :null,
       }
     },
     data() {
       return {
+        spinShow:false,
         showSelectSizeBtn:false,
         checkedFlag:false,
         typeSelectValue:[],
@@ -171,60 +178,95 @@
         ProgressPercent2:0,
         showDetail:false,
         systemColor:SYSTEMCOLOR,
-        formItem: {
-          amount:0,
-          productFabric:null,
-          productDesc:null,
-          productCode:null,
-          productPrice1:1,
-          productPrice2:1,
-          productFabricin:null,
-        },
+        formItem: {},
         data: [],
         sizeIncludeArray:[],
         includeActive:[],
+        activeSizeName:null,
       };
     },
     created(){
-        this.getAllTypes()
+
+        console.log(this.productInfo)
+        this.getAllTypes();
     },
     watch:{
       goodsAddOpen(v1,v2){
-        (v1 && this.btnFont === '新增') ?    this.showDetail = false : this.showDetail = true;
+          if(v1 && this.btnFont === '新增'){
+            this.showDetail = false;
+            this.formItem ={
+                memo:null,
+                onlineStoreUse:false,
+                amount:0,
+                productFabric:null,
+                productName:null,
+                productCode2:null,
+                productPrice1:1,
+                productPrice2:1,
+                productFabricin:null,
+              };
+          } else if(v1 && this.btnFont === '修改'){
+            this.formItem = this.productInfo;
+            this.showDetail = true;
+            this.getIncludeSize()
+          }
+
       }
     },
     methods: {
+      getIncludeSize(){
+
+      },
       activeSize(e,size){
         this.showSelectSizeBtn = true;
+        this.activeSizeName = size;
         this.$nextTick(function(){
           let dom = null;
-          dom = e.target.className.indexOf('my-tag')  > -1 ?  e.target :e.target.parentElement
-          if(dom.className.indexOf('ivu-tag-checked') === -1){
+          dom = e.target;
+          if( dom.className.indexOf('ivu-tag-checked') === -1){
             return;
           }
           Array.prototype.forEach.call(document.querySelectorAll('.my-tag'),function(item){
             item.className = 'my-tag  ivu-tag ivu-tag-blue ivu-tag-checked';
           })
           dom.className = 'my-tag ivu-tag ivu-tag-blue';
-
-          this.includeActive = this.sizeIncludeArray.filter(function (item,index,arr) {
-            return item.includeSize === size;
-          })
         })
-
-      },
-      chooseSizeTag(){
-
       },
       chooseSizeInclude(){
-          if(this.typeSelectValue.length === 0){
-              this.$warning(operatorWarning,'请先选择服装分类再进行该操作！');
-              return;
+          let that = this;
+        if(this.typeSelectValue.length === 0){
+          this.$warning(operatorWarning,'请先选择服装分类再进行该操作！');
+          return;
+        }
+        let activeSizeArr = this.sizeIncludeArray.filter(function (item,index,arr) {
+          return item.sizeName === that.activeSizeName;
+        }).map(function(item){
+          return item.includeName
+        })
+        console.log(activeSizeArr)
+        this.$refs.sizeIncludeModel.showModel(this.typeSelectValue[this.typeSelectValue.length-1],activeSizeArr.join(','))
+      },
+      chooseSizeTag(name,type){
+        type === 'add' ? this.addSizeInclude(name) : this.deleteSizeInclude(name)
+      },
+      addSizeInclude(name){
+          let includeObj = {
+            sizeName : this.activeSizeName,
+            includeName : name,
+            includeValue : null,
           }
-          let activeSizeArr =  this.includeActive.map(function(item){
-              return item.includeName
-          })
-          this.$refs.sizeIncludeModel.showModel(this.typeSelectValue[this.typeSelectValue.length-1],activeSizeArr.join(','))
+          if(this.btnFont === '修改'){
+              includeObj.productId = this.formItem.productId;
+          }
+        this.sizeIncludeArray.push(includeObj);
+      },
+      deleteSizeInclude(name){
+          let that = this;
+        this.sizeIncludeArray.forEach(function(item,index,arr){
+            if(item.sizeName === that.activeSizeName && item.includeName === name){
+              that.sizeIncludeArray.splice(index,1);
+            }
+        })
       },
       onCancle(){
         this.modalOpenFlag = false;
@@ -280,7 +322,24 @@
           this.$warning(operatorWarning,'上传图片超出['+this.imageLimit+']张的数量限制');
       },
       addGoodsCallback() {
+        ISNULL(this.formItem.productPic) ?  this.showNoImageModel() : this.showNoImageModel();
 
+         /* this.$emit('complate-product')*/
+      },
+      showNoImageModel(){
+        this.$Modal.confirm({
+          title: operatorWarning,
+          content: '当前产品未选择展示图片，是否继续提交？',
+          okText: '确认提交',
+          cancelText: '取消',
+          onOk: () => {
+            this.addProducts();
+          },
+        });
+      },
+      addProducts(){
+          console.log(1111)
+       /* this.spinShow = true*/
       },
       closeGoodsDrawer(){
           this.$emit('closeGoodsDrawer')
@@ -318,9 +377,9 @@
         margin: 0 15px 10px 0;
       }
     }
-    .ui.vertical.segment:first-child,.ui.vertical.segment:nth-child(3){
+  /*  .ui.vertical.segment:first-child,.ui.vertical.segment:nth-child(3){
       border-bottom:1px solid $borderColorGoodsDrawer;
-    }
+    }*/
     .centerInput input{
       text-align: center;
     }
