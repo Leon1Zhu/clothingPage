@@ -2,9 +2,7 @@
   <div class="">
     <Modal
       v-model="colorOpen"
-      title="颜色选择"
-      @on-ok="ok"
-      @on-cancel="cancel">
+      title="颜色选择">
       <Card v-for="colorData in colorDataS" class="card-color">
         <p slot="title" class="title">
           {{colorData.seriesName}}&nbsp;&nbsp;
@@ -14,6 +12,8 @@
           {{color.colorName}}
         </Tag>
       </Card>
+      <div slot="footer">
+      </div>
     </Modal>
   </div>
 </template>
@@ -40,7 +40,7 @@
       for (let colorSelect of this.selectColorArray) {
         for (let colors of this.colorDataS) {
           for (let singleColor of colors) {
-            if (singleColor.colorId === colorSelect.colorId) {
+            if (singleColor.colorId === colorSelect) {
               Vue.set(singleColor, 'isActive', 'add');
             }
           }
@@ -62,12 +62,6 @@
           Vue.set(color, 'isActive', 'delete');
         }
         this.$emit('select-color', color);
-      },
-      cancel() {
-        this.colorOpen = false;
-      },
-      ok() {
-        this.colorOpen = false;
       }
     },
     components: {}
