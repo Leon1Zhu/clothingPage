@@ -92,10 +92,7 @@
             <div class="ui vertical segment" style="margin-top: 10px;">
               尺码表（CM）
               <div class="size-tag">
-                <Tag class="my-tag"  color="blue" @click.native="activeSize($event,'S')">S</Tag>
-                <Tag class="my-tag" color="blue" @click.native="activeSize($event,'M')">M</Tag>
-                <Tag class="my-tag" color="blue" @click.native="activeSize($event,'XL')">XL</Tag>
-                <Tag class="my-tag" color="blue" @click.native="activeSize($event,'XXL')">XXL</Tag>
+                <Tag class="my-tag"  color="blue" v-for="item in formItem.sizes" @click.native="activeSize($event,item.sizeName)">{{item.sizeName}}</Tag>
               </div>
               <Form :model="formItem" class="detail">
                 <FormItem v-for="item in sizeIncludeArray" v-show="item.sizeName === activeSizeName ">
@@ -197,30 +194,37 @@
     },
     watch:{
       goodsAddOpen(v1,v2){
-        this.sizeIncludeArray = []
-          if(v1 && this.btnFont === '新增'){
+        if(v1){
+          this.sizeIncludeArray = [];
+          if( this.btnFont === '新增'){
+            setTimeout(()=>{
+              this.$info(opeartorInfo,'图片上传请先点击上传按钮。')
+            },500)
+
             this.showDetail = false;
             this.formItem ={
-                memo:null,
-                amount:0,
-                productFabric:null,
-                productName:null,
-                productCode2:null,
-                productPrice1:1,
-                productPrice2:1,
-                productFabricin:null,
-                productPic:null,
-                productType:null,
-                iswebsite:false,
-                productDesc:null,
-                colors:[],
-                sizes:[],
+              memo:null,
+              amount:0,
+              productFabric:null,
+              productName:null,
+              productCode2:null,
+              productPrice1:1,
+              productPrice2:1,
+              productFabricin:null,
+              productPic:null,
+              productType:null,
+              iswebsite:false,
+              productDesc:null,
+              colors:[],
+              sizes:[],
             };
-          } else if(v1 && this.btnFont === '修改'){
+          } else if( this.btnFont === '修改'){
             this.formItem = this.productInfo;
             this.showDetail = true;
             this.getIncludeSize()
           }
+        }
+
 
       }
     },
@@ -259,6 +263,10 @@
           this.formItem.sizes =  this.formItem.sizes.filter(function(item){
             return item.sizeName !== value.sizeName;
           })
+          this.sizeIncludeArray = this.sizeIncludeArray.filter(function (item,index,arr) {
+            return item.sizeName === value.sizeName;
+          })
+          console.log(this.sizeIncludeArray)
         }
       },
       changeType(v1,v2){

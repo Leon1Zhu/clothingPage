@@ -107,6 +107,10 @@ $borderColorGoodsDrawer:#f2f1f2;
     text-align: center;
     height:32px;
     line-height:32px;
+    .ivu-icon-ios-close-empty{
+      display: none;
+    }
+
   }
   .property-content{
     .ivu-tag:last-child{
