@@ -5,7 +5,7 @@
       title="颜色选择">
       <Card v-for="colorData in colorDataS" class="card-color">
         <p slot="title" class="title">
-          {{colorData.seriesName}}&nbsp;&nbsp;
+          {{colorData.seriesName}}
         </p>
         <Tag :class="{'active': color.isActive ==='add'}" v-for="color in colorData.colors" type="dot"
              :color="color.colorRgb" @click.native="selectColor(color)">
