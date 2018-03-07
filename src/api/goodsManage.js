@@ -29,6 +29,9 @@ let getSizeIncludesAPI = '/api/17wa-include';
 
 //获取尺码标签组
 let getProductIncludeSizeApi = '/api/17wa-include/product/{account}/{productId}';
+
+//新增产品
+let addProductApi ='/api/17wa-product/{account}';
 export default{
     getAllProduction(account,index,size){
       let params = {
@@ -71,6 +74,13 @@ export default{
       return api.get(getSizeIncludesAPI,null);
     },
     getProductIncludeSize(accountId,productId){
-
+        return api.get(getProductIncludeSizeApi.replace('{account}',accountId).replace('{productId}',productId),null);
+    },
+    addProduct(account,product){
+      let params={
+        product:product
+      }
+        return api.post(addProductApi.replace('{account}',account),params,null)
     }
+
 }

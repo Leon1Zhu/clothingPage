@@ -2,7 +2,9 @@
   <div class="">
     <Modal
       v-model="colorOpen"
-      title="颜色选择">
+      title="颜色选择"
+      :mask-closable="maskClosable"
+      @on-cancel="onCancle">
       <Card v-for="colorData in colorDataS" class="card-color">
         <p slot="title" class="title">
           {{colorData.seriesName}}
@@ -23,15 +25,14 @@
 
   export default {
     props: {
-      colorOpen: {
-        default: false
-      },
       selectColorArray: {
         type: Array
       }
     },
     data() {
       return {
+        maskClosable:false,
+        colorOpen:false,
         colorDataS: []
       };
     },
@@ -48,6 +49,12 @@
       }
     },
     methods: {
+      showModel(){
+          this.colorOpen = true;
+      },
+      onCancle(){
+          this.$emit('on-cancle');
+      },
       getSysTemColor() {
         colorApi.getSysTemColor(this.$store.getters.getAccountId).then((response) => {
           this.colorDataS = response.data;

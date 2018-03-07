@@ -238,6 +238,7 @@
           searchGoods(){
 
           },
+          //商品新增完成
           complateDrawer(){
               this.open = false;
           },

@@ -108,3 +108,4 @@ global.ISNULL = function(val){
   else return false;
 }
 
+

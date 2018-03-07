@@ -41,7 +41,7 @@
             <Form :model="formItem" :label-width="80"label-position="left">
               <FormItem class="img-no-padding" >
                 <div style="width: 120px" slot="label"><Icon type="information-circled" size="20" ></Icon>图片网店可用</div>
-                <i-switch v-model="formItem.onlineStoreUse" >
+                <i-switch  v-model="formItem.iswebsite">
                   <span slot="open"></span>
                   <span slot="close"></span>
                 </i-switch>
@@ -49,10 +49,8 @@
 
               <FormItem label="颜色" class="property-content">
                 <div class="ivu-input-wrapper" style="text-align: left;">
-                  <Tag type="dot" closable color="blue">蓝色</Tag>
-                  <Tag type="dot" closable color="green">绿色</Tag>
-                  <Tag type="dot" closable color="red">红色</Tag>
-                  <Tag type="dot" >
+                  <Tag type="dot" closable :color="item.colorRgb" v-for="item in formItem.colors">{{item.colorName}}</Tag>
+                  <Tag type="dot" @click.native="chooseColor">
                       <Icon type="plus-round" ></Icon>
                   </Tag>
                 </div>
@@ -61,17 +59,15 @@
               <FormItem label="尺码" class="property-content">
 
                 <div class="ivu-input-wrapper" style="text-align: left;">
-                  <Tag  color="blue">S</Tag>
-                  <Tag  color="blue">M</Tag>
-                  <Tag  color="blue">XL</Tag>
-                  <Tag type="dot" >
+                  <Tag  color="blue" v-for="item in formItem.sizes">{{item.sizeName}}</Tag>
+                  <Tag type="dot" @click.native="chooseSize">
                     <Icon type="plus-round" ></Icon>
                   </Tag>
                 </div>
 
               </FormItem>
               <FormItem label="分类" class="property-content">
-                <Cascader :data="data" class="clothTypeSelect" :render-format="format" v-model="typeSelectValue"></Cascader>
+                <Cascader @on-change="changeType" :data="data" class="clothTypeSelect"  v-model="typeSelectValue"></Cascader>
               </FormItem>
               <FormItem label="初始库存">
                 <InputNumber  :min="1" v-model="formItem.amount"  style="width:70%;"></InputNumber>
@@ -145,13 +141,17 @@
       <Spin size="large" fix v-if="spinShow"></Spin>
     </my-drawer>
     <sizeInclude @choose-size-tag="chooseSizeTag" ref="sizeIncludeModel" @on-cancle="onCancle" ></sizeInclude>
-
+    <colorselect ref="colorSelectModel" :selectColorArray="colorSelectArray" @select-color="selectColor"></colorselect>
+    <sizeselect ref="sizeSelectModel" :selectSizeArray="sizeSelectArray" @select-size="selectSize"></sizeselect>
   </div>
 </template>
 <script>
   import myDrawer from '../../common/vue/myDrawer.vue';
   import goodsManageApi from '../../api/goodsManage';
-  import sizeInclude from './goodsSizeInclude.vue'
+  import sizeInclude from './goodsSizeInclude.vue';
+  import './goodsDrawer.scss';
+  import colorSelect from '../../common/vue/colorChoose.vue';
+  import sizeSelect from '../../common/vue/sizeChoose.vue';
   export default {
     props: {
       goodsAddOpen: {
@@ -181,22 +181,27 @@
         formItem: {},
         data: [],
         sizeIncludeArray:[],
-        includeActive:[],
         activeSizeName:null,
+        sizeSelectArray:[],
+        colorSelectArray:[],
       };
     },
     created(){
-
         console.log(this.productInfo)
         this.getAllTypes();
     },
+    computed:{
+      accountId(){
+        return this.$store.getters.getAccountId;
+      }
+    },
     watch:{
       goodsAddOpen(v1,v2){
+        this.sizeIncludeArray = []
           if(v1 && this.btnFont === '新增'){
             this.showDetail = false;
             this.formItem ={
                 memo:null,
-                onlineStoreUse:false,
                 amount:0,
                 productFabric:null,
                 productName:null,
@@ -204,7 +209,13 @@
                 productPrice1:1,
                 productPrice2:1,
                 productFabricin:null,
-              };
+                productPic:null,
+                productType:null,
+                iswebsite:false,
+                productDesc:null,
+                colors:[],
+                sizes:[],
+            };
           } else if(v1 && this.btnFont === '修改'){
             this.formItem = this.productInfo;
             this.showDetail = true;
@@ -214,8 +225,51 @@
       }
     },
     methods: {
+      //颜色选择
+      chooseColor(){
+          this.$refs.colorSelectModel.showModel()
+      },
+      //尺码选择
+      chooseSize(){
+        this.$refs.sizeSelectModel.showModel()
+      },
+      //颜色选择回调
+      selectColor(value){
+        if(value.isActive === 'add'){
+            this.colorSelectArray.push(value.colorName)
+            this.formItem.colors.push(value)
+        }else{
+          this.colorSelectArray = this.colorSelectArray.filter(function(item){
+              return item !== value.colorName;
+          })
+          this.formItem.colors =  this.formItem.colors.filter(function(item){
+            return item.colorName !== value.colorName;
+          })
+        }
+      },
+      //尺码选择回调
+      selectSize(value){
+        if(value.isActive === 'add'){
+          this.sizeSelectArray.push(value.sizeName)
+          this.formItem.sizes.push(value)
+        }else{
+          this.sizeSelectArray = this.sizeSelectArray.filter(function(item){
+            return item !== value.sizeName;
+          })
+          this.formItem.sizes =  this.formItem.sizes.filter(function(item){
+            return item.sizeName !== value.sizeName;
+          })
+        }
+      },
+      changeType(v1,v2){
+          this.formItem.productType =  v1.join('|')
+      },
       getIncludeSize(){
-
+          goodsManageApi.getProductIncludeSize(this.accountId,this.formItem.productId).then(response =>{
+              this.sizeIncludeArray = response.data;
+          }).catch(response => {
+              this.$error(apiError,'获取商品尺码表信息出错！');
+          })
       },
       activeSize(e,size){
         this.showSelectSizeBtn = true;
@@ -243,7 +297,6 @@
         }).map(function(item){
           return item.includeName
         })
-        console.log(activeSizeArr)
         this.$refs.sizeIncludeModel.showModel(this.typeSelectValue[this.typeSelectValue.length-1],activeSizeArr.join(','))
       },
       chooseSizeTag(name,type){
@@ -254,9 +307,6 @@
             sizeName : this.activeSizeName,
             includeName : name,
             includeValue : null,
-          }
-          if(this.btnFont === '修改'){
-              includeObj.productId = this.formItem.productId;
           }
         this.sizeIncludeArray.push(includeObj);
       },
@@ -278,6 +328,7 @@
           value.map(function(item,index){
               goodsManageApi.picUplaod(item).then(response=>{
                   index === len-1 ? that.ProgressPercent1=100 :that.ProgressPercent1 += onrProgress;
+                  that.formItem.productPic = response.data.message
               })
           })
       },
@@ -286,14 +337,12 @@
           that = this,
           onrProgress = (1/len).toFixed(2)*100;
         value.map(function(item,index){
-
           goodsManageApi.picUplaod(item).then(response=>{
             index === len-1 ? that.ProgressPercent2=100 :that.ProgressPercent2 += onrProgress;
+            ISNULL(that.formItem.productDesc) && (that.formItem.productDesc = []);
+            that.formItem.productDesc.push(response.data.message)
           })
         })
-      },
-      format (labels, selectedData) {
-          return labels.join('|')
       },
       getAllTypes(){
         goodsManageApi.getProductsTypes().then(response =>{
@@ -322,9 +371,7 @@
           this.$warning(operatorWarning,'上传图片超出['+this.imageLimit+']张的数量限制');
       },
       addGoodsCallback() {
-        ISNULL(this.formItem.productPic) ?  this.showNoImageModel() : this.showNoImageModel();
-
-         /* this.$emit('complate-product')*/
+        ISNULL(this.formItem.productPic) ?  this.showNoImageModel() : this.addProducts();
       },
       showNoImageModel(){
         this.$Modal.confirm({
@@ -338,8 +385,17 @@
         });
       },
       addProducts(){
-          console.log(1111)
-       /* this.spinShow = true*/
+        this.spinShow = true;
+        ( this.$isArray(this.formItem.productDesc) ) && (this.formItem.productDesc = this.formItem.productDesc.join(','))
+        let flag = this.btnFont === '新增' ? '新增商品出错!' : '商品信息修改出错!';
+          goodsManageApi.addProduct(this.accountId,this.formItem).then(response => {
+              this.emit('complate-product');
+              this.$success(opeartorSuccess,flag)
+              this.spinShow = false;
+          })/*.catch(response =>{
+              this.$error(operatorError,flag)
+              this.spinShow = false;
+          })*/
       },
       closeGoodsDrawer(){
           this.$emit('closeGoodsDrawer')
@@ -347,229 +403,12 @@
     },
     components: {
       myDrawer,
-      sizeInclude
+      sizeInclude,
+      'colorselect' : colorSelect,
+      'sizeselect' : sizeSelect,
     }
   };
 </script>
 <style lang="scss" rel="stylesheet/scss" type="text/scss">
-  @import '../../common/css/globalscss';
-  $borderColorGoodsDrawer:#f2f1f2;
-  .goodsAddDrawer{
-    .clothTypeSelect{
-      .ivu-select-dropdown{
-        right:0;
-      }
-    }
-    .sec_upload{
-      margin-top:10px;
-    }
-    .alien-upload{
-      .upload_warp{
-        margin:10px;
-        height:100px;
-        .upload_warp_right{
-          line-height:100px;
-        }
-      }
-      .upload_warp_img_div{
-        height: 80px;
-        width: 97px;
-        margin: 0 15px 10px 0;
-      }
-    }
-  /*  .ui.vertical.segment:first-child,.ui.vertical.segment:nth-child(3){
-      border-bottom:1px solid $borderColorGoodsDrawer;
-    }*/
-    .centerInput input{
-      text-align: center;
-    }
-    .ui.segment {
-      background: #fff;
-      padding: 0em 1em;
-      border-radius: .28571429rem;
-      &.vertical {
-        margin: 0;
-        padding-left: 0;
-        padding-right: 0;
-        background: none transparent;
-        border-radius: 0;
-        box-shadow: none;
-        border: none;
-      }
-    }
-    .ivu-tooltip-inner{
-      background-color: #fff;
-      color: rgba(70,76,91,.9);
-    }
-    .icon-wenhao:before{
-      padding: 0px;
-      border-radius: 100%;
-    }
-    .icon-wenhao:before{
-      font-size: 20px;
-      color: $menuSelectFontColor;
-      background: #fff;
-    }
-    .ivu-icon-information-circled:before{
-      padding-right:2px;
-      color: $menuSelectFontColor;
-      position: relative;
-      top:3px;
-    }
-    .ivu-collapse{
-      border-radius:0;
-      border:none;
-      background: #fff;
-    }
-    .ivu-collapse>.ivu-collapse-item{
-      border-top:0px;
-      border-bottom:1px solid $borderColorGoodsDrawer;
-      .ivu-collapse-header{
-        padding-left:0px;
-      }
-    }
-    .ivu-form-item{
-      margin:0;
-      padding:5px 0;
-      border-bottom: 1px solid $borderColorGoodsDrawer;
-    }
-    .ivu-form .ivu-form-item-label{
-      padding:10px 0px 12px 0px;
-    }
-    .ivu-form-item-content {
-      text-align: right;
-      .ivu-input-wrapper{
-        width:70%;
-      }
-    }
-    .size-chunk,.color-chunk{
-      padding-bottom:5px;
-    }
-    .ivu-collapse-content>.ivu-collapse-content-box{
-      padding-top:8px;
-      padding-bottom:8px;
-    }
 
-    .ivu-tag.ivu-tag-blue{
-      background-color: #fff;
-      border:1px solid $menuSelectFontColor;
-      color: $menuSelectFontColor;
-      &.ivu-tag-checked{
-        background: $menuSelectFontColor;
-        color: white;
-      }
-    }
-    .ivu-tag{
-      width:90px;
-      text-align: center;
-      height:32px;
-      line-height:32px;
-    }
-    .property-content{
-      .ivu-tag:last-child{
-        .ivu-tag-dot-inner{
-          display: none;
-        }
-        .ivu-icon.ivu-icon-plus-round{
-          font-size: 23px;
-          line-height: 32px;
-          color: #c9c9c9;
-        }
-      }
-    }
-
-    .add-goods {
-      .detail, .tag {
-        margin-top: 8px;
-      }
-      .detail .ivu-input-wrapper{
-        width:90%;
-      }
-    }
-
-    .explain {
-      margin:5px 0 ;
-      color: rgba(0, 0, 0, 0.4);
-      font-size: 8px;
-      display: block;
-      line-height: 1.5;
-      padding-bottom: 6px;
-    }
-    .property-content .ivu-tag-dot{
-      padding:0 10px;
-    }
-
-    .ui.vertical.segment .size-tag{
-      margin-top:10px;
-      margin-left:5%;
-      .ivu-tag{
-        background: $menuSelectFontColor;
-        .ivu-tag-text{
-          color: #fff;
-        }
-      }
-      .ivu-tag-checked{
-        border-color: $menuSelectFontColor;
-        background: white;
-        .ivu-tag-color-white{
-          color: $menuSelectFontColor!important;
-        }
-      }
-      .ivu-tag:not(:first-child):not(:nth-child(4n)){
-        margin-left:10px;
-      }
-    }
-
-    .showDetailItem{
-      position: relative;
-      background: #f7f7f9;
-      margin: 0px -19px;
-      height: 50px;
-      line-height: 30px;
-      text-align: center;
-      color: #20b8a5;
-      p{
-        padding:10px 0  10px;
-        display: inline-block;
-
-      }
-      p:hover{
-        cursor: pointer;
-      }
-      i{
-        color: rgba(32,184,165,.6);
-        position: relative;
-        top:-3px;
-        opacity:0;
-
-      }
-      .ivu-icon.ivu-icon-chevron-down{
-        animation: moveDown 1.3s ease-in infinite ;
-      }
-      .ivu-icon.ivu-icon-chevron-up{
-        top:1px;
-        animation: moveUp 1.3s ease-in infinite ;
-      }
-    }
-    .addSizeBtn{
-      margin-left: 4.5%;
-      .ivu-col{
-        left:0;
-        .ivu-btn{
-          width:100%;
-          border-color: #dddee1!important;
-          color: #cdcdcd!important;
-        }
-        .ivu-btn:hover{
-          border-color: $menuSelectFontColor!important;
-          color: $menuSelectFontColor!important;
-        }
-      }
-    }
-    .img-no-padding{
-      .ivu-form-item-label{
-        padding:0px;
-      }
-    }
-  }
 </style>

@@ -1,0 +1,217 @@
+@import '../../common/css/globalscss';
+$borderColorGoodsDrawer:#f2f1f2;
+.goodsAddDrawer{
+  .clothTypeSelect{
+    .ivu-select-dropdown{
+      right:0;
+    }
+  }
+  .sec_upload{
+    margin-top:10px;
+  }
+  .alien-upload{
+    .upload_warp{
+      margin:10px;
+      height:100px;
+      .upload_warp_right{
+        line-height:100px;
+      }
+    }
+    .upload_warp_img_div{
+      height: 80px;
+      width: 97px;
+      margin: 0 15px 10px 0;
+    }
+  }
+  .centerInput input{
+    text-align: center;
+  }
+  .ui.segment {
+    background: #fff;
+    padding: 0em 1em;
+    border-radius: .28571429rem;
+    &.vertical {
+      margin: 0;
+      padding-left: 0;
+      padding-right: 0;
+      background: none transparent;
+      border-radius: 0;
+      box-shadow: none;
+      border: none;
+    }
+  }
+  .ivu-tooltip-inner{
+    background-color: #fff;
+    color: rgba(70,76,91,.9);
+  }
+  .icon-wenhao:before{
+    padding: 0px;
+    border-radius: 100%;
+  }
+  .icon-wenhao:before{
+    font-size: 20px;
+    color: $menuSelectFontColor;
+    background: #fff;
+  }
+  .ivu-icon-information-circled:before{
+    padding-right:2px;
+    color: $menuSelectFontColor;
+    position: relative;
+    top:3px;
+  }
+  .ivu-collapse{
+    border-radius:0;
+    border:none;
+    background: #fff;
+  }
+  .ivu-collapse>.ivu-collapse-item{
+    border-top:0px;
+    border-bottom:1px solid $borderColorGoodsDrawer;
+    .ivu-collapse-header{
+      padding-left:0px;
+    }
+  }
+  .ivu-form-item{
+    margin:0;
+    padding:5px 0;
+    border-bottom: 1px solid $borderColorGoodsDrawer;
+  }
+  .ivu-form .ivu-form-item-label{
+    padding:10px 0px 12px 0px;
+  }
+  .ivu-form-item-content {
+    text-align: right;
+    .ivu-input-wrapper{
+      width:70%;
+    }
+  }
+  .size-chunk,.color-chunk{
+    padding-bottom:5px;
+  }
+  .ivu-collapse-content>.ivu-collapse-content-box{
+    padding-top:8px;
+    padding-bottom:8px;
+  }
+
+  .ivu-tag.ivu-tag-blue{
+    background-color: #fff;
+    border:1px solid $menuSelectFontColor;
+    color: $menuSelectFontColor;
+    &.ivu-tag-checked{
+      background: $menuSelectFontColor;
+      color: white;
+    }
+  }
+  .ivu-tag{
+    width:90px;
+    text-align: center;
+    height:32px;
+    line-height:32px;
+  }
+  .property-content{
+    .ivu-tag:last-child{
+      .ivu-tag-dot-inner{
+        display: none;
+      }
+      .ivu-icon.ivu-icon-plus-round{
+        font-size: 23px;
+        line-height: 32px;
+        color: #c9c9c9;
+      }
+    }
+  }
+
+  .add-goods {
+    .detail, .tag {
+      margin-top: 8px;
+    }
+    .detail .ivu-input-wrapper{
+      width:90%;
+    }
+  }
+
+  .explain {
+    margin:5px 0 ;
+    color: rgba(0, 0, 0, 0.4);
+    font-size: 8px;
+    display: block;
+    line-height: 1.5;
+    padding-bottom: 6px;
+  }
+  .property-content .ivu-tag-dot{
+    padding:0 10px;
+  }
+
+  .ui.vertical.segment .size-tag{
+    margin-top:10px;
+    margin-left:5%;
+    .ivu-tag{
+      background: $menuSelectFontColor;
+      .ivu-tag-text{
+        color: #fff;
+      }
+    }
+    .ivu-tag-checked{
+      border-color: $menuSelectFontColor;
+      background: white;
+      .ivu-tag-color-white{
+        color: $menuSelectFontColor!important;
+      }
+    }
+    .ivu-tag:not(:first-child):not(:nth-child(4n)){
+      margin-left:10px;
+    }
+  }
+
+  .showDetailItem{
+    position: relative;
+    background: #f7f7f9;
+    margin: 0px -19px;
+    height: 50px;
+    line-height: 30px;
+    text-align: center;
+    color: #20b8a5;
+    p{
+      padding:10px 0  10px;
+      display: inline-block;
+
+    }
+    p:hover{
+      cursor: pointer;
+    }
+    i{
+      color: rgba(32,184,165,.6);
+      position: relative;
+      top:-3px;
+      opacity:0;
+
+    }
+    .ivu-icon.ivu-icon-chevron-down{
+      animation: moveDown 1.3s ease-in infinite ;
+    }
+    .ivu-icon.ivu-icon-chevron-up{
+      top:1px;
+      animation: moveUp 1.3s ease-in infinite ;
+    }
+  }
+  .addSizeBtn{
+    margin-left: 4.5%;
+    .ivu-col{
+      left:0!important;
+      .ivu-btn{
+        width:100%;
+        border-color: #dddee1!important;
+        color: #cdcdcd!important;
+      }
+      .ivu-btn:hover{
+        border-color: $menuSelectFontColor!important;
+        color: $menuSelectFontColor!important;
+      }
+    }
+  }
+  .img-no-padding{
+    .ivu-form-item-label{
+      padding:0px;
+    }
+  }
+}

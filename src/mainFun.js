@@ -3,7 +3,7 @@
  */
 import Vue from 'vue'
 
-Vue.prototype.ISNULL= function(value){
+Vue.prototype.ISNULL= function(val){
   if(val===null || val === undefined || val ==="" || val.length===0 )return true;
   else return false;
 }
@@ -28,6 +28,10 @@ Vue.prototype.$DeleteKeepAlive = function(that){
       }
     }
   },1000)
+}
+
+Vue.prototype.$isArray = function(value){
+  return value.constructor === Array
 }
 
 

@@ -2,6 +2,7 @@
   <div class="">
     <Modal
       v-model="sizeOpen"
+      :mask-closable="maskClosable"
       title="尺码选择">
       <Card v-for="sizeData in sizeDataS" class="card-size">
         <p slot="title" class="title">
@@ -24,15 +25,14 @@
 
   export default {
     props: {
-      sizeOpen: {
-        default: false
-      },
       selectSizeArray: {
         type: Array
       }
     },
     data() {
       return {
+        maskClosable:false,
+        sizeOpen:false,
         sizeDataS: []
       };
     },
@@ -49,6 +49,9 @@
       }
     },
     methods: {
+      showModel(){
+          this.sizeOpen = true;
+      },
       getSysTemSize() {
         sizeApi.getSysTemSize(this.$store.getters.getAccountId).then((response) => {
           this.sizeDataS = response.data;
