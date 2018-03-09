@@ -40,15 +40,6 @@
       showModel() {
         this.colorOpen = true;
         this.getSysTemColor();
-        for (let colorSelect of this.selectColorArray) {
-          for (let colors of this.colorDataS) {
-            for (let singleColor of colors) {
-              if (singleColor.colorId === colorSelect) {
-                Vue.set(singleColor, 'isActive', 'add');
-              }
-            }
-          }
-        }
       },
       onCancle() {
         this.$emit('on-cancle');
@@ -56,6 +47,15 @@
       getSysTemColor() {
         colorApi.getSysTemColor(this.$store.getters.getAccountId).then((response) => {
           this.colorDataS = response.data;
+          for (let colorSelect of this.selectColorArray) {
+            for (let colors of this.colorDataS) {
+              for (let singleColor of colors.colors) {
+                if (singleColor.colorName === colorSelect) {
+                  Vue.set(singleColor, 'isActive', 'add');
+                }
+              }
+            }
+          }
         }).catch((error) => {
           this.$error(apiError, '获取错误')
         });

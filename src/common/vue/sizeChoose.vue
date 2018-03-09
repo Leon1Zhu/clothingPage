@@ -40,19 +40,19 @@
       showModel() {
         this.sizeOpen = true;
         this.getSysTemSize();
-        for (let sizeSelect of this.selectSizeArray) {
-          for (let sizes of this.sizeDataS) {
-            for (let singleSize of sizes) {
-              if (singleSize.sizeId === sizeSelect) {
-                Vue.set(singleSize, 'isActive', 'add');
-              }
-            }
-          }
-        }
       },
       getSysTemSize() {
         sizeApi.getSysTemSize(this.$store.getters.getAccountId).then((response) => {
           this.sizeDataS = response.data;
+          for (let sizeSelect of this.selectSizeArray) {
+            for (let sizes of this.sizeDataS) {
+              for (let singleSize of sizes.sizes) {
+                if (singleSize.sizeName === sizeSelect) {
+                  Vue.set(singleSize, 'isActive', 'add');
+                }
+              }
+            }
+          }
         }).catch((error) => {
           this.$error(apiError, '获取错误')
         });
