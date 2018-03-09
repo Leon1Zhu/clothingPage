@@ -11,7 +11,7 @@
         </p>
         <Tag :class="{'active': color.isActive ==='add'}" v-for="color in colorData.colors" type="dot"
              :color="color.colorRgb" @click.native="selectColor(color)">
-             {{color.colorName}}
+          {{color.colorName}}
         </Tag>
       </Card>
       <div slot="footer">
@@ -31,29 +31,27 @@
     },
     data() {
       return {
-        maskClosable:false,
-        colorOpen:false,
+        maskClosable: false,
+        colorOpen: false,
         colorDataS: []
       };
     },
-    created() {
-      this.getSysTemColor();
-      for (let colorSelect of this.selectColorArray) {
-        for (let colors of this.colorDataS) {
-          for (let singleColor of colors) {
-            if (singleColor.colorId === colorSelect) {
-              Vue.set(singleColor, 'isActive', 'add');
+    methods: {
+      showModel() {
+        this.colorOpen = true;
+        this.getSysTemColor();
+        for (let colorSelect of this.selectColorArray) {
+          for (let colors of this.colorDataS) {
+            for (let singleColor of colors) {
+              if (singleColor.colorId === colorSelect) {
+                Vue.set(singleColor, 'isActive', 'add');
+              }
             }
           }
         }
-      }
-    },
-    methods: {
-      showModel(){
-          this.colorOpen = true;
       },
-      onCancle(){
-          this.$emit('on-cancle');
+      onCancle() {
+        this.$emit('on-cancle');
       },
       getSysTemColor() {
         colorApi.getSysTemColor(this.$store.getters.getAccountId).then((response) => {

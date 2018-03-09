@@ -11,7 +11,7 @@
         <Tag v-for="size in sizeData.sizes" :class="{'active': size.isActive ==='add'}"
              @click.native="selectSize(size)" type="dot" class="size-tag"
              color="#06c1ae">
-             {{size.sizeName}}
+          {{size.sizeName}}
         </Tag>
       </Card>
       <div slot="footer">
@@ -31,26 +31,24 @@
     },
     data() {
       return {
-        maskClosable:false,
-        sizeOpen:false,
+        maskClosable: false,
+        sizeOpen: false,
         sizeDataS: []
       };
     },
-    created() {
-      this.getSysTemSize();
-      for (let sizeSelect of this.selectSizeArray) {
-        for (let sizes of this.sizeDataS) {
-          for (let singleSize of sizes) {
-            if (singleSize.sizeId === sizeSelect) {
-              Vue.set(singleSize, 'isActive', 'add');
+    methods: {
+      showModel() {
+        this.sizeOpen = true;
+        this.getSysTemSize();
+        for (let sizeSelect of this.selectSizeArray) {
+          for (let sizes of this.sizeDataS) {
+            for (let singleSize of sizes) {
+              if (singleSize.sizeId === sizeSelect) {
+                Vue.set(singleSize, 'isActive', 'add');
+              }
             }
           }
         }
-      }
-    },
-    methods: {
-      showModel(){
-          this.sizeOpen = true;
       },
       getSysTemSize() {
         sizeApi.getSysTemSize(this.$store.getters.getAccountId).then((response) => {
