@@ -4,7 +4,7 @@
     <my-drawer :open="goodsAddOpen" :btnFont="btnFont" title="商品添加" @close-drawer="closeGoodsDrawer"
                @complate-drawer="addGoodsCallback">
       <div class="add-goods">
-        <alienUpload @upload-img="uploadImg1" style="padding: 0 1em;margin-top: 5px;" :imageLimit="imageLimit" @count-exceed-limit="countExceedLimit" uploadType="all" :BtnColor="systemColor" :progressColor="systemColor" :compressQuality="compressQuality" showProgress :ProgressPercent="ProgressPercent1" ref="uploadImg"></alienUpload>
+        <alienUpload @upload-img="uploadImg1" style="padding: 0 1em;margin-top: 5px;" :imageLimit="imageLimit" @count-exceed-limit="countExceedLimit" uploadType="all" :BtnColor="systemColor" :progressColor="systemColor" :compressQuality="compressQuality" showProgress :ProgressPercent="ProgressPercent1" ref="uploadImg" :showImageList="showImageList1" @delete-show-img="deleteShowImg1"></alienUpload>
         <div class="ui segment">
           <div class="ui vertical segment">
             <Form :model="formItem" :label-width="80" label-position="left">
@@ -29,12 +29,11 @@
                   </Tooltip>
                 </div>
                 <InputNumber  :min="1" v-model="formItem.productPrice2" placeholder="自定义售价" style="width: 82.5%;"></InputNumber>
-               <!-- <Input v-model="formItem.productPrice2" placeholder="自定义售价" style="width: 82.5%;"></Input>-->
               </FormItem>
             </Form>
           </div>
           <div class="ui vertical segment">
-            <alienUpload @upload-img="uploadImg2" multipleClass="sec" class="sec_upload" style="margin-top: 10px;" uploadType="all" :BtnColor="systemColor" :progressColor="systemColor" :compressQuality="compressQuality" showProgress :ProgressPercent="ProgressPercent2"></alienUpload>
+            <alienUpload ref="uploadImg2" :imageMinLimit="imageMinLimit" @upload-img="uploadImg2" multipleClass="sec" class="sec_upload" style="margin-top: 10px;" uploadType="all" :BtnColor="systemColor" :progressColor="systemColor" :compressQuality="compressQuality" showProgress :ProgressPercent="ProgressPercent2" :showImageList="showImageList2" @delete-show-img="deleteShowImg2"  @count-exceed-limit="countExceedLimit"></alienUpload>
             <span class="explain">上传图片,不要超过1M,否则系统自动压缩,单个商品最少9张图片,点击照片查看大图。</span>
           </div>
           <div class="ui vertical segment">
@@ -170,6 +169,7 @@
         checkedFlag:false,
         typeSelectValue:[],
         imageLimit:1,
+        imageMinLimit:9,
         compressQuality:.6,
         ProgressPercent1:0,
         ProgressPercent2:0,
@@ -181,10 +181,11 @@
         activeSizeName:null,
         sizeSelectArray:[],
         colorSelectArray:[],
+        showImageList1:[],
+        showImageList2: [],
       };
     },
     created(){
-        console.log(this.productInfo)
         this.getAllTypes();
     },
     computed:{
@@ -195,13 +196,19 @@
     watch:{
       goodsAddOpen(v1,v2){
         if(v1){
+          this.showImageList1 = [];
+          this.showImageList2 = [];
+          this.typeSelectValue = [];
           this.sizeIncludeArray = [];
+          this.$refs.uploadImg.clearUp();
+          this.$refs.uploadImg2.clearUp();
           if( this.btnFont === '新增'){
             setTimeout(()=>{
               this.$info(opeartorInfo,'图片上传请先点击上传按钮。')
             },500)
 
             this.showDetail = false;
+
             this.formItem ={
               memo:null,
               amount:0,
@@ -219,9 +226,9 @@
               sizes:[],
             };
           } else if( this.btnFont === '修改'){
-            this.formItem = this.productInfo;
+            /*this.formItem = this.productInfo;*/
+            this.getDetailProductInfo()
             this.showDetail = true;
-            this.getIncludeSize()
           }
         }
 
@@ -229,6 +236,39 @@
       }
     },
     methods: {
+      //获取商品详情，包含sku数组
+      getDetailProductInfo(){
+         goodsManageApi.getProductionDetailInfo(this.accountId,this.productInfo.productId).then(response => {
+           response.data.product.iswebsite = Boolean(response.data.product.iswebsite);
+           this.formItem = response.data.product;
+           this.formItem.colors = response.data.colors;
+           this.formItem.sizes = response.data.sizes;
+           this.showImageList1 =ISNULL(this.formItem.productPic) ?  [] : this.formItem.productPic.split(',');
+           this.showImageList2 = ISNULL(this.formItem.productDesc) ? [] : this.formItem.productDesc.split(',');
+           this.colorSelectArray = Array.prototype.map.call( this.formItem.colors,function(item){
+             return item.colorName
+           })
+           this.sizeSelectArray = Array.prototype.map.call(this.formItem.sizes,function(item){
+             return item.sizeName
+           })
+           this.typeSelectValue =  this.formItem.productType.split('|')
+           this.getIncludeSize();
+         }).catch(response =>{
+            this.$error(apiError,'获取商品详情出错!');
+         })
+      },
+      //删除之前有的图片
+      deleteShowImg1(item,index){
+        this.showImageList1.splice(index,1);
+        this.formItem.productPic = '';
+      },
+
+      deleteShowImg2(item,index){
+        let original = this.showImageList2.join(',');
+        this.showImageList2.splice(index,1);
+        let now = this.showImageList2.join(',');
+        this.formItem.productDesc = this.formItem.productDesc.replace(original,now)
+      },
       //颜色选择
       chooseColor(){
           this.$refs.colorSelectModel.showModel()
@@ -266,7 +306,6 @@
           this.sizeIncludeArray = this.sizeIncludeArray.filter(function (item,index,arr) {
             return item.sizeName === value.sizeName;
           })
-          console.log(this.sizeIncludeArray)
         }
       },
       changeType(v1,v2){
@@ -347,8 +386,8 @@
         value.map(function(item,index){
           goodsManageApi.picUplaod(item).then(response=>{
             index === len-1 ? that.ProgressPercent2=100 :that.ProgressPercent2 += onrProgress;
-            ISNULL(that.formItem.productDesc) && (that.formItem.productDesc = []);
-            that.formItem.productDesc.push(response.data.message)
+            //如果是修改的话，之前可能会存在图片，所以进行判断
+            that.formItem.productDesc += ISNULL(that.formItem.productDesc) ? response.data.message : ','+response.data.message ;
           })
         })
       },
@@ -375,8 +414,13 @@
             })
           }
       },
-      countExceedLimit(){
-          this.$warning(operatorWarning,'上传图片超出['+this.imageLimit+']张的数量限制');
+      countExceedLimit(info){
+          if(info === 'more'){
+            this.$warning(operatorWarning,'上传图片超出['+this.imageLimit+']张的数量限制');
+          }else if(info === 'less'){
+            this.$warning(operatorWarning,'上传图片少于['+this.imageMinLimit+']张的数量限制');
+          }
+
       },
       addGoodsCallback() {
         ISNULL(this.formItem.productPic) ?  this.showNoImageModel() : this.addProducts();
@@ -394,14 +438,17 @@
       },
       addProducts(){
         this.spinShow = true;
-        ( this.$isArray(this.formItem.productDesc) ) && (this.formItem.productDesc = this.formItem.productDesc.join(','))
-        let flag = this.btnFont === '新增' ? '新增商品出错!' : '商品信息修改出错!';
+        console.log(this.formItem.productDesc);
+       /* if(!ISNULL(this.formItem.productDesc)){
+          ( this.$isArray(this.formItem.productDesc) ) && (this.formItem.productDesc = this.formItem.productDesc.join(','))
+        }*/
+        let flag = this.btnFont === '新增' ? '新增商品成功!' : '商品信息修改成功!';
           goodsManageApi.addProduct(this.accountId,this.formItem).then(response => {
-              this.emit('complate-product');
+              this.$emit('complate-product');
               this.$success(opeartorSuccess,flag)
               this.spinShow = false;
           })/*.catch(response =>{
-              this.$error(operatorError,flag)
+              this.$error(operatorError,flag.replace('成功','失败'))
               this.spinShow = false;
           })*/
       },

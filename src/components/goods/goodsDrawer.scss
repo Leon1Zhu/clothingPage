@@ -162,7 +162,7 @@ $borderColorGoodsDrawer:#f2f1f2;
         color: $menuSelectFontColor!important;
       }
     }
-    .ivu-tag:not(:first-child):not(:nth-child(4n)){
+    .ivu-tag:not(:first-child):not(:nth-child(3n+1)){
       margin-left:10px;
     }
   }

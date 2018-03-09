@@ -18,10 +18,6 @@
     export default{
         name:'deleteModel',
         props:{
-            open:{
-                type:Boolean,
-                default:false
-            },
             title:{
                 type:String,
                 default:'删除确认'
@@ -36,7 +32,9 @@
             }
         },
         data(){
-            return {}
+            return {
+              open:false,
+            }
         },
         components: {},
         created(){
@@ -44,6 +42,12 @@
         mounted(){
         },
         methods: {
+          openModel(){
+              this.open=true;
+          },
+          closeModel(){
+            this.open=false;
+          },
           delInfo(){
               this.$emit('delInfo');
           },

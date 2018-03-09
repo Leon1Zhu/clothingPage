@@ -33,7 +33,7 @@
           <div class="goods-operator">
             <Button class="change_status" type="primary" shape="circle" icon="edit" @click.native="changeProductInfo(item)"></Button>
             <Button class="change_goodsinfo" type="primary" shape="circle" icon="ios-gear" @click.native="openChangeStatusDrawer(item)"></Button>
-            <Button class="delete_goods " type="primary" shape="circle"icon="trash-a" @click.native="deleteProduct(item.productId)"></Button>
+            <Button class="delete_goods " type="primary" shape="circle"icon="trash-a" @click.native="deleteProduct(item)"></Button>
             <Button class="goods-qr-code ivu-btn-icon-only" type="primary" shape="circle" ><i class="iconfont  icon-erweima" ></i></Button>
             <Button class="goods-dayin-code ivu-btn-icon-only" type="primary" shape="circle" ><i class="iconfont  icon-dayin" ></i></Button>
           </div>
@@ -42,7 +42,7 @@
 
       </div>
 
-      <Page :total="100" style="margin-top: 5px;text-align: right"></Page>
+      <Page :total="total" style="margin-top: 5px;text-align: right" @on-change="changePage"></Page>
 
 
       <my-drawer :open="open" title="商品状态管理"    @close-drawer="closeStatusDrawer" >
@@ -99,7 +99,7 @@
         </div>
       </my-drawer>
       <goods-drawer @complate-product="complateDrawer" :productInfo="productChangeInfo"  :btnFont="btnFont" :goodsAddOpen="goodsAddOpen"  @closeGoodsDrawer="closeGoodsDrawer"></goods-drawer>
-      <deleteModel :open="deleteOpendModelFlag" title="商品删除确认" :deleteInfo="'确认删除商品['+deleteProductItem.productName+']吗？'"></deleteModel>
+      <deleteModel :modalLoading="modalLoading" ref="deleteModel" title="商品删除确认" :deleteInfo="'确认删除商品['+deleteProductItem.productName+']吗？'"  @delInfo="delProduct"></deleteModel>
     </div>
 </template>
 
@@ -114,6 +114,7 @@
     export default{
         data(){
             return {
+                modalLoading:false,
                 productChangeInfo:null,
                 deleteOpendModelFlag:false,
                 batchSet:true,
@@ -159,10 +160,27 @@
            }
         },
         methods: {
+          //删除商品
+          delProduct(){
+              this.modalLoading = true;
+              goodApi.deleteProduct(this.accountId,this.deleteProductItem.productId).then(response => {
+                this.modalLoading = false;
+                this.getAllGoodsList();
+                this.$refs.deleteModel.closeModel();
+                this.$success(opeartorSuccess,'商品删除成功');
+              }).catch(response => {
+                this.modalLoading = false;
+                this.$error(operatorError,response.data.message);
+              })
+          },
+          changePage(pageIndex){
+            this.index = pageIndex-1;
+            this.getAllGoodsList()
+          },
           resizeHeight(){
               let dom =document.getElementsByClassName('goods-img')
               Array.prototype.forEach.call(dom,function(item,index){
-                item.style.maxHeight =item.clientWidth+'px';
+                item.style.height =item.clientWidth+'px';
               })
           },
           openChangeStatusDrawer(value){
@@ -203,8 +221,9 @@
               })
           },
           //删除商品方法
-          deleteProduct(productId){
-            /*goodApi.*/
+          deleteProduct(product){
+            this.deleteProductItem = product;
+            this.$refs.deleteModel.openModel();
           },
           closeStatusDrawer(){
               this.open = false;
@@ -240,7 +259,8 @@
           },
           //商品新增完成
           complateDrawer(){
-              this.open = false;
+              this.getAllGoodsList();
+              this.goodsAddOpen = false;
           },
           closeGoodsDrawer(){
               this.goodsAddOpen = false;

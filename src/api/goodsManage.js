@@ -77,10 +77,7 @@ export default{
         return api.get(getProductIncludeSizeApi.replace('{account}',accountId).replace('{productId}',productId),null);
     },
     addProduct(account,product){
-      let params={
-        product:product
-      }
-        return api.post(addProductApi.replace('{account}',account),params,null)
+        return api.post(addProductApi.replace('{account}',account),product,null)
     }
 
 }

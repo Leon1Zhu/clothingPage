@@ -29,18 +29,15 @@ import goodsManageApi from '../../api/goodsManage';
             }
         },
         components: {},
-        created(){
-        },
-        mounted(){
-        },
+      updated: function () {
+        console.log(this.modalOpenFlag)
+      },
         methods: {
           onCancle(){
               this.sizeIncludeS = [],
               this.$emit('on-cancle');
           },
           showModel(type,activeArr){
-              console.log(type)
-            console.log(activeArr)
               this.modalOpenFlag = true;
               this.activeSize = activeArr;
               this.getGoodsType(type)
