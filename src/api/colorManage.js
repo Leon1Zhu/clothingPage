@@ -24,8 +24,6 @@ export default {
    * @returns {*}
    */
   addStoreColorBySysTem: function (account, color) {
-    console.log('接口参数');
-    console.log(color);
     return api.post(addStoreColorBySysTemUrl.replace('{account}', account), color);
   },
 

@@ -17,14 +17,14 @@
             <div class="size">尺码:5456</div>
             <div class="counts">数量:5456</div>
             <div class="operation-btn">
-              <Button type="primary" size="small" @click="seasoningOpen = true">库存调拨</Button>
+              <Button type="primary" size="small" @click="getGoodsShopRecord(goods.productId)">库存调拨</Button>
             </div>
           </div>
         </div>
       </div>
     </div>
     <footer>
-      <Page :total="100" :page-size="10" class="footer-page" @on-change=""></Page>
+      <Page :total=100 :page-size=10 class="footer-page" @on-change=""></Page>
     </footer>
     <my-drawer :open="seasoningOpen" title="门店调货" @close-drawer="seasoningOpen=false"
                @complate-drawer="">
@@ -46,143 +46,79 @@
             </p>
           </div>
           <div class="ui vertical segment">
-            <Input placeholder="请输入数量"></Input>
+            <Input v-model="amount" placeholder="请输入数量"></Input>
           </div>
         </div>
       </div>
     </my-drawer>
     <Modal
       v-model="imageShow"
-      title="图片展示"
-      @on-ok="ok"
-      @on-cancel="cancel">
+      title="图片展示">
       <img :src="imgUrl" alt="">
+      <div slot="footer">
+      </div>
     </Modal>
   </div>
 </template>
 <script>
   import myDrawer from '../../common/vue/myDrawer.vue';
   import toolBar from '../../common/vue/toolBar.vue';
+  import seasoningConApi from '../../api/seasoningCondiments';
 
   export default {
     props: {},
     data() {
       return {
+        account: this.$store.getters.getAccountId,
+        shopId: this.$store.getters.getShopId,
+        amount: '',
+        goodsNumber: '',
         imageShow: false,
         imgUrl: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
         repertory: 0,
         seasoningOpen: false,
         seasoningIn: '1',
         seasoningOut: '2',
-        goodsData: [
-          {
-            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
-            productName: '三叶草卫衣',
-            productId: '11',
-            productCode: '15045624585',
-          }, {
-            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
-            productName: '三叶草卫衣',
-            productId: '11',
-            productCode: '15045624585',
-          }, {
-            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
-            productName: '三叶草卫衣',
-            productId: '11',
-            productCode: '15045624585',
-          }, {
-            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
-            productName: '三叶草卫衣',
-            productId: '11',
-            productCode: '15045624585',
-          }, {
-            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
-            productName: '三叶草卫衣',
-            productId: '11',
-            productCode: '15045624585',
-          }, {
-            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
-            productName: '三叶草卫衣',
-            productId: '11',
-            productCode: '15045624585',
-          }, {
-            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
-            productName: '三叶草卫衣',
-            productId: '11',
-            productCode: '15045624585',
-          }, {
-            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
-            productName: '三叶草卫衣',
-            productId: '11',
-            productCode: '15045624585',
-          }, {
-            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
-            productName: '三叶草卫衣',
-            productId: '11',
-            productCode: '15045624585',
-          }, {
-            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
-            productName: '三叶草卫衣',
-            productId: '11',
-            productCode: '15045624585',
-          }, {
-            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
-            productName: '三叶草卫衣',
-            productId: '11',
-            productCode: '15045624585',
-          }, {
-            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
-            productName: '三叶草卫衣',
-            productId: '11',
-            productCode: '15045624585',
-          }, {
-            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
-            productName: '三叶草卫衣',
-            productId: '11',
-            productCode: '15045624585',
-          }, {
-            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
-            productName: '三叶草卫衣',
-            productId: '11',
-            productCode: '15045624585',
-          }, {
-            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
-            productName: '三叶草卫衣',
-            productId: '11',
-            productCode: '15045624585',
-          }, {
-            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
-            productName: '三叶草卫衣',
-            productId: '11',
-            productCode: '15045624585',
-          }, {
-            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
-            productName: '三叶草卫衣',
-            productId: '11',
-            productCode: '15045624585',
-          }, {
-            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
-            productName: '三叶草卫衣',
-            productId: '11',
-            productCode: '15045624585',
-          }, {
-            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
-            productName: '三叶草卫衣',
-            productId: '11',
-            productCode: '15045624585',
-          }, {
-            productPic: 'https://img.alicdn.com/bao/uploaded/i2/1811379809/TB1qpkvlh3IL1JjSZPfXXcrUVXa_!!0-item_pic.jpg_430x430q90.jpg',
-            productName: '三叶草卫衣',
-            productId: '11',
-            productCode: '15045624585',
-          }
-        ],
+        productShop: [],
+        goodsData: [],
       };
     },
+    created() {
+      this.getAllSku();
+    },
     methods: {
-      ok() {
+      postSeasoning() {
+        let params = {
+          fromShopId: '',
+          toShopId: this.shopId,
+          skuId: '',
+          amount: this.amount
+        };
+        seasoningConApi.postSeasoning(this.account, params).then((rep) => {
+
+        }).catch((rep) => {
+          this.$error(apiError, '发起调货失败！');
+        });
       },
-      cancel() {
+      getGoodsShopRecord(productId) {
+        this.seasoningOpen = true;
+        seasoningConApi.getGoodsShopRecord(this.$store.getters.getAccountId, productId).then((rep) => {
+          console.log(rep);
+        }).catch((error) => {
+          this.$error(apiError, '获取商品详细失败！');
+        });
+      },
+      getAllSku() {
+        let params = {
+          account: this.$store.getters.getAccountId,
+          shopId: this.$store.getters.getShopId,
+          code: ''
+        };
+        seasoningConApi.getAllSku(params).then((rep) => {
+          this.goodsData = rep.data;
+        }).catch((rep) => {
+          this.$error(apiError, '获取调货记录失败！')
+        });
       }
     },
     components: {
