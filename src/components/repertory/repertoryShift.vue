@@ -27,7 +27,7 @@
         <span class="word">盘点:<span class="system-word-color">0</span></span>
         <span class="word">调货:<span class="system-word-color">-10</span></span>
       </div>
-      <Page :total="100" class="footer-page"></Page>
+      <Page :total="goodsCount" :page-size="goodsPage" class="footer-page"></Page>
     </footer>
   </div>
 </template>
@@ -40,6 +40,9 @@
     data() {
       return {
         goodsAddOpen: true,
+        goodsCount: '',
+        goodsPage: '',
+        goodIndex: 0,
         columns: [
           {
             title: '货号',
@@ -71,176 +74,7 @@
             width: 100
           }
         ],
-        data: [
-          {
-            name: '545612 / x1253',
-            time: '2017-12-23 07:49',
-            number: 1152462502,
-            color: '浅蓝色',
-            size: 'XXL',
-            total: '120',
-            type: '入库',
-          },
-          {
-            name: '545612 / x1253',
-            time: '2017-12-23 07:49',
-            number: 1152462502,
-            color: '浅蓝色',
-            size: 'XXL',
-            total: '120',
-            type: '出库',
-          },
-          {
-            name: '545612 / x1253',
-            time: '2017-12-23 07:49',
-            number: 1152462502,
-            color: '浅蓝色',
-            size: 'XXL',
-            total: '120',
-            type: '入库',
-          },
-          {
-            name: '545612 / x1253',
-            time: '2017-12-23 07:49',
-            number: 1152462502,
-            color: '浅蓝色',
-            size: 'XXL',
-            total: '120',
-            type: '出库',
-          },
-          {
-            name: '545612 / x1253',
-            time: '2017-12-23 07:49',
-            number: 1152462502,
-            color: '浅蓝色',
-            size: 'XXL',
-            total: '120',
-            type: '入库',
-          },
-          {
-            name: '545612 / x1253',
-            time: '2017-12-23 07:49',
-            number: 1152462502,
-            color: '浅蓝色',
-            size: 'XXL',
-            total: '120',
-            type: '入库',
-          },
-          {
-            name: '545612 / x1253',
-            time: '2017-12-23 07:49',
-            number: 1152462502,
-            color: '浅蓝色',
-            size: 'XXL',
-            total: '120',
-            type: '销售',
-          },
-          {
-            name: '545612 / x1253',
-            time: '2017-12-23 07:49',
-            number: 1152462502,
-            color: '浅蓝色',
-            size: 'XXL',
-            total: '120',
-            type: '销售',
-          }, {
-            name: '545612 / x1253',
-            time: '2017-12-23 07:49',
-            number: 1152462502,
-            color: '浅蓝色',
-            size: 'XXL',
-            total: '120',
-            type: '销售',
-          }, {
-            name: '545612 / x1253',
-            time: '2017-12-23 07:49',
-            number: 1152462502,
-            color: '浅蓝色',
-            size: 'XXL',
-            total: '120',
-            type: '销售',
-          }, {
-            name: '545612 / x1253',
-            time: '2017-12-23 07:49',
-            number: 1152462502,
-            color: '浅蓝色',
-            size: 'XXL',
-            total: '120',
-            type: '销售',
-          }, {
-            name: '545612 / x1253',
-            time: '2017-12-23 07:49',
-            number: 1152462502,
-            color: '浅蓝色',
-            size: 'XXL',
-            total: '120',
-            type: '销售',
-          }, {
-            name: '545612 / x1253',
-            time: '2017-12-23 07:49',
-            number: 1152462502,
-            color: '浅蓝色',
-            size: 'XXL',
-            total: '120',
-            type: '入库',
-          }, {
-            name: '545612 / x1253',
-            time: '2017-12-23 07:49',
-            number: 1152462502,
-            color: '浅蓝色',
-            size: 'XXL',
-            total: '120',
-            type: '调货',
-          }, {
-            name: '545612 / x1253',
-            time: '2017-12-23 07:49',
-            number: 1152462502,
-            color: '浅蓝色',
-            size: 'XXL',
-            total: '120',
-            type: '调货',
-          }, {
-            name: '545612 / x1253',
-            time: '2017-12-23 07:49',
-            number: 1152462502,
-            color: '浅蓝色',
-            size: 'XXL',
-            total: '120',
-            type: '调货',
-          }, {
-            name: '545612 / x1253',
-            time: '2017-12-23 07:49',
-            number: 1152462502,
-            color: '浅蓝色',
-            size: 'XXL',
-            total: '120',
-            type: '入库',
-          }, {
-            name: '545612 / x1253',
-            time: '2017-12-23 07:49',
-            number: 1152462502,
-            color: '浅蓝色',
-            size: 'XXL',
-            total: '120',
-            type: '调货',
-          }, {
-            name: '545612 / x1253',
-            time: '2017-12-23 07:49',
-            number: 1152462502,
-            color: '浅蓝色',
-            size: 'XXL',
-            total: '120',
-            type: '入库',
-          }, {
-            name: '545612 / x1253',
-            time: '2017-12-23 07:49:09',
-            number: 1152462502,
-            color: '浅蓝色',
-            size: 'XXL',
-            total: '120',
-            type: '调货',
-          },
-        ],
+        data: [],
         repertoryShiftS: [
           {
             name: '入库',
@@ -280,15 +114,20 @@
           status: this.searchData.type,
           startDate: '2016-08-08',
           endDate: '2018-08-08',
-          index: '1',
-          size: '10',
-          /* keyword: ''*/
+          index: this.goodIndex,
+          size: this.goodsPage,
         };
         repertoryShiftApi.listGoodsRepertoryRecord(account, shopId, searchData).then((response) => {
           console.log(response);
-        }).catch(() => {
-          this.$error(apiError, '获取库存记录出错!')
+          /*          this.data = response.details.content;
+                    this.goodsCount = response.details.totalElements;*/
+        }).catch((rep) => {
+          this.$error(apiError, '获取出错!')
         });
+      },
+      pageChange(page) {
+        this.goodIndex = parseInt(page) - 1;
+        this.listGoodsRepertoryRecord();
       }
     },
     components: {
