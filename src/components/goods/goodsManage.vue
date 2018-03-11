@@ -210,7 +210,7 @@
           //批量设置方法
           batchChangeStatus(value){
               if(this.batchSet){
-                  this.$warning(operatorError,'请先勾选确认按钮再重复此操作！');
+                  this.$warning(operatorError,'请先勾选批量操作按钮再重复此操作！');
                   return
               }
               goodApi.batchChangeProductStatus(this.accountId,this.changeStatuProductId,value).then(response=>{

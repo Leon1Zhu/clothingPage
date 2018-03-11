@@ -69,7 +69,7 @@
                 <Cascader @on-change="changeType" :data="data" class="clothTypeSelect"  v-model="typeSelectValue"></Cascader>
               </FormItem>
               <FormItem label="初始库存">
-                <InputNumber  :min="1" v-model="formItem.amount"  style="width:70%;"></InputNumber>
+                <InputNumber  :min="0" v-model="formItem.amount"  style="width:70%;"></InputNumber>
               </FormItem>
             </Form>
           </div>
@@ -102,7 +102,8 @@
                     <Col span="1" style="text-align: center">
                     </Col>
                     <Col span="11">
-                    <Input v-model="item.includeValue" placeholder="" ></Input>
+                    <InputNumber  :min="0" v-model="item.includeValue"></InputNumber>
+                   <!-- <Input v-model="" placeholder="" ></Input>-->
                     </Col>
                   </Row>
                 </FormItem>
@@ -203,6 +204,8 @@
           this.$refs.uploadImg.clearUp();
           this.$refs.uploadImg2.clearUp();
           if( this.btnFont === '新增'){
+            this.colorSelectArray = [];
+            this.sizeSelectArray = [];
             setTimeout(()=>{
               this.$info(opeartorInfo,'图片上传请先点击上传按钮。')
             },500)
@@ -221,7 +224,7 @@
               productPic:null,
               productType:null,
               iswebsite:false,
-              productDesc:null,
+              productDesc:'',
               colors:[],
               sizes:[],
             };
@@ -246,12 +249,12 @@
            this.showImageList1 =ISNULL(this.formItem.productPic) ?  [] : this.formItem.productPic.split(',');
            this.showImageList2 = ISNULL(this.formItem.productDesc) ? [] : this.formItem.productDesc.split(',');
            this.colorSelectArray = Array.prototype.map.call( this.formItem.colors,function(item){
-             return item.colorName
+             return item.colorName;
            })
            this.sizeSelectArray = Array.prototype.map.call(this.formItem.sizes,function(item){
-             return item.sizeName
+             return item.sizeName;
            })
-           this.typeSelectValue =  this.formItem.productType.split('|')
+           this.typeSelectValue =  this.formItem.productType.split('|');
            this.getIncludeSize();
          }).catch(response =>{
             this.$error(apiError,'获取商品详情出错!');
@@ -294,7 +297,6 @@
       //尺码选择回调
       selectSize(value){
         if(value.isActive === 'add'){
-          this.sizeSelectArray.push(value.sizeName)
           this.formItem.sizes.push(value)
         }else{
           this.sizeSelectArray = this.sizeSelectArray.filter(function(item){
@@ -369,6 +371,7 @@
         this.modalOpenFlag = false;
       },
       uploadImg1(value){
+          if(this.ProgressPercent1==100)return;
           let len = value.length,
               that = this,
               onrProgress = (1/len).toFixed(2)*100;
@@ -380,12 +383,14 @@
           })
       },
       uploadImg2(value){
+        if(this.ProgressPercent2==100)return;
         let len = value.length,
           that = this,
-          onrProgress = (1/len).toFixed(2)*100;
+          onrProgress = (1/len).toFixed(2)*100,
+          retainValue = 100 - onrProgress * len;
         value.map(function(item,index){
           goodsManageApi.picUplaod(item).then(response=>{
-            index === len-1 ? that.ProgressPercent2=100 :that.ProgressPercent2 += onrProgress;
+            that.ProgressPercent2 += index === len-1 ? onrProgress+retainValue : onrProgress;
             //如果是修改的话，之前可能会存在图片，所以进行判断
             that.formItem.productDesc += ISNULL(that.formItem.productDesc) ? response.data.message : ','+response.data.message ;
           })
@@ -396,7 +401,6 @@
             let result = response.data;
             this.addTypeLableAndValue(result);
             this.data = result;
-
         }).catch(response =>{
             this.$error(apiError,'服装分类列表获取出错!')
         })
@@ -437,20 +441,26 @@
         });
       },
       addProducts(){
+        if(ISNULL( this.formItem.productCode2) || ISNULL(this.formItem.productName) || ISNULL(this.formItem.colors) || ISNULL(this.formItem.sizes) || ISNULL(this.formItem.productType)){
+          this.$warning(operatorError,'请将[货号、简称、颜色、尺码、分类]信息填写完整')
+          return;
+        }
         this.spinShow = true;
-        console.log(this.formItem.productDesc);
-       /* if(!ISNULL(this.formItem.productDesc)){
-          ( this.$isArray(this.formItem.productDesc) ) && (this.formItem.productDesc = this.formItem.productDesc.join(','))
-        }*/
         let flag = this.btnFont === '新增' ? '新增商品成功!' : '商品信息修改成功!';
           goodsManageApi.addProduct(this.accountId,this.formItem).then(response => {
-              this.$emit('complate-product');
-              this.$success(opeartorSuccess,flag)
-              this.spinShow = false;
-          })/*.catch(response =>{
+              goodsManageApi.addProductIncludeSize(this.accountId,response.data.productId,this.sizeIncludeArray).then(response => {
+                this.$emit('complate-product');
+                this.$success(opeartorSuccess,flag)
+                this.spinShow = false;
+              }).catch(response => {
+                this.$error(operatorError,'商品尺码表详情保存失败')
+                this.spinShow = false;
+              })
+
+          }).catch(response =>{
               this.$error(operatorError,flag.replace('成功','失败'))
               this.spinShow = false;
-          })*/
+          })
       },
       closeGoodsDrawer(){
           this.$emit('closeGoodsDrawer')
