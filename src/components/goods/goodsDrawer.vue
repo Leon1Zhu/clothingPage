@@ -4,7 +4,7 @@
     <my-drawer :open="goodsAddOpen" :btnFont="btnFont" title="商品添加" @close-drawer="closeGoodsDrawer"
                @complate-drawer="addGoodsCallback">
       <div class="add-goods">
-        <alienUpload @upload-img="uploadImg1" style="padding: 0 1em;margin-top: 5px;" :imageLimit="imageLimit" @count-exceed-limit="countExceedLimit" uploadType="all" :BtnColor="systemColor" :progressColor="systemColor" :compressQuality="compressQuality" showProgress :ProgressPercent="ProgressPercent1" ref="uploadImg" :showImageList="showImageList1" @delete-show-img="deleteShowImg1"></alienUpload>
+        <alienUpload @upload-img-success="uploadImg1" :url="imageUploadUrl" style="padding: 0 1em;margin-top: 5px;" :imageLimit="imageLimit" @count-exceed-limit="countExceedLimit" uploadType="all" :BtnColor="systemColor" :progressColor="systemColor" :compressQuality="compressQuality" showProgress  ref="uploadImg" :showImageList="showImageList1" @delete-show-img="deleteShowImg1"></alienUpload>
         <div class="ui segment">
           <div class="ui vertical segment">
             <Form :model="formItem" :label-width="80" label-position="left">
@@ -33,7 +33,7 @@
             </Form>
           </div>
           <div class="ui vertical segment">
-            <alienUpload ref="uploadImg2" :imageMinLimit="imageMinLimit" @upload-img="uploadImg2" multipleClass="sec" class="sec_upload" style="margin-top: 10px;" uploadType="all" :BtnColor="systemColor" :progressColor="systemColor" :compressQuality="compressQuality" showProgress :ProgressPercent="ProgressPercent2" :showImageList="showImageList2" @delete-show-img="deleteShowImg2"  @count-exceed-limit="countExceedLimit"></alienUpload>
+            <alienUpload ref="uploadImg2" :url="imageUploadUrl" :imageMinLimit="imageMinLimit" @upload-img-success="uploadImg2" multipleClass="sec" class="sec_upload" style="margin-top: 10px;" uploadType="all" :BtnColor="systemColor" :progressColor="systemColor" :compressQuality="compressQuality" showProgress  :showImageList="showImageList2" @delete-show-img="deleteShowImg2"  @count-exceed-limit="countExceedLimit"></alienUpload>
             <span class="explain">上传图片,不要超过1M,否则系统自动压缩,单个商品最少9张图片,点击照片查看大图。</span>
           </div>
           <div class="ui vertical segment">
@@ -69,7 +69,7 @@
                 <Cascader @on-change="changeType" :data="data" class="clothTypeSelect"  v-model="typeSelectValue"></Cascader>
               </FormItem>
               <FormItem label="初始库存">
-                <InputNumber  :min="0" v-model="formItem.amount"  style="width:70%;"></InputNumber>
+                <InputNumber  :min="0" v-model="formItem.productInitAmount"  style="width:70%;"></InputNumber>
               </FormItem>
             </Form>
           </div>
@@ -124,7 +124,7 @@
             <div class="ui vertical segment">
               <Form :model="formItem" :label-width="80" label-position="left">
                 <FormItem label="备注" style="border-bottom: 0px;border-top: 1px solid #f2f1f1;">
-                  <Input v-model="formItem.memo" placeholder="备注"></Input>
+                  <Input v-model="formItem.productMemo" placeholder="备注"></Input>
                 </FormItem>
               </Form>
             </div>
@@ -165,6 +165,7 @@
     },
     data() {
       return {
+        imageUploadUrl:PICSERVICEURL+'/api/17wa-image/upload',
         spinShow:false,
         showSelectSizeBtn:false,
         checkedFlag:false,
@@ -213,8 +214,8 @@
             this.showDetail = false;
 
             this.formItem ={
-              memo:null,
-              amount:0,
+              productMemo:null,
+              productInitAmount:0,
               productFabric:null,
               productName:null,
               productCode2:null,
@@ -245,6 +246,7 @@
            response.data.product.iswebsite = Boolean(response.data.product.iswebsite);
            this.formItem = response.data.product;
            this.formItem.colors = response.data.colors;
+           this.formItem.productMemo =  this.formItem.memo
            this.formItem.sizes = response.data.sizes;
            this.showImageList1 =ISNULL(this.formItem.productPic) ?  [] : this.formItem.productPic.split(',');
            this.showImageList2 = ISNULL(this.formItem.productDesc) ? [] : this.formItem.productDesc.split(',');
@@ -370,31 +372,12 @@
       onCancle(){
         this.modalOpenFlag = false;
       },
-      uploadImg1(value){
-          if(this.ProgressPercent1==100)return;
-          let len = value.length,
-              that = this,
-              onrProgress = (1/len).toFixed(2)*100;
-          value.map(function(item,index){
-              goodsManageApi.picUplaod(item).then(response=>{
-                  index === len-1 ? that.ProgressPercent1=100 :that.ProgressPercent1 += onrProgress;
-                  that.formItem.productPic = response.data.message
-              })
-          })
+      uploadImg1(file,response){
+            this.formItem.productPic = response.message
       },
-      uploadImg2(value){
-        if(this.ProgressPercent2==100)return;
-        let len = value.length,
-          that = this,
-          onrProgress = (1/len).toFixed(2)*100,
-          retainValue = 100 - onrProgress * len;
-        value.map(function(item,index){
-          goodsManageApi.picUplaod(item).then(response=>{
-            that.ProgressPercent2 += index === len-1 ? onrProgress+retainValue : onrProgress;
-            //如果是修改的话，之前可能会存在图片，所以进行判断
-            that.formItem.productDesc += ISNULL(that.formItem.productDesc) ? response.data.message : ','+response.data.message ;
-          })
-        })
+
+      uploadImg2(file,response){
+        this.formItem.productDesc += ISNULL(this.formItem.productDesc) ? response.message : ','+response.message ;
       },
       getAllTypes(){
         goodsManageApi.getProductsTypes().then(response =>{

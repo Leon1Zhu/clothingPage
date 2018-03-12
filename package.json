@@ -10,7 +10,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "alienupload": "^0.2.8",
+    "alienupload": "^0.2.9",
     "axios": "^0.16.2",
     "iview": "^2.0.0-rc.17",
     "less": "^2.7.3",
