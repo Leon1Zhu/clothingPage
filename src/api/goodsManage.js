@@ -77,7 +77,7 @@ export default{
       return api.get(getSizeIncludesAPI,null);
     },
     getProductIncludeSize(accountId,productId){
-        return api.get(getProductIncludeSizeApi.replace('{account}',accountId).replace('{productId}',productId),null);
+      return api.get(getProductIncludeSizeApi.replace('{account}',accountId).replace('{productId}',productId),null);
     },
     addProduct(account,product){
         return api.post(addProductApi.replace('{account}',account),product,null)

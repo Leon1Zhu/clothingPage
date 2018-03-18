@@ -5,39 +5,15 @@ import Vue from 'vue'
 import axios from 'axios'
 export default {
    get:function(url,params){
-     return new Promise(function(resolve,reject){
-       axios.get(url,{params:params}).then((response) =>{
-         resolve(response)
-       }).catch((response)=>{
-         reject(response)
-       })
-     })
+       return axios.get(url,{params:params});
    },
   post:function(url,body,params){
-    return new Promise(function(resolve,reject){
-      axios.post(url,body,{params:params}).then((response) =>{
-        resolve(response)
-      }).catch((response)=>{
-        reject(response)
-      })
-    })
+      return axios.post(url,body,{params:params});
   },
   delete:function(url,params){
-    return new Promise(function(resolve,reject){
-      axios.delete(url,{params:params}).then((response) =>{
-        resolve(response)
-      }).catch((response)=>{
-        reject(response)
-      })
-    })
+     return axios.delete(url,{params:params});
   },
   put:function(url,body,params){
-    return new Promise(function(resolve,reject){
-      axios.put(url,body,{params:params}).then((response) =>{
-        resolve(response)
-      }).catch((response)=>{
-        reject(response)
-      })
-    })
+     return axios.put(url,body,{params:params});
   }
   }
