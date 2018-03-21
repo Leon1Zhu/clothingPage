@@ -146,11 +146,16 @@
             this.getAllGoodsList()
         },
         mounted(){
-            let that = this;
+          let that = this;
+          let timer =false;
           window.onresize = function(){
-            setTimeout(function() {
+            clearTimeout(timer);
+            console.log(1111)
+            timer = setTimeout(function() {
+                console.log('函数防抖')
               that.resizeHeight();
-            },200)
+            },300)
+
           }
 
         },

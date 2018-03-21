@@ -267,7 +267,6 @@
         this.showImageList1.splice(index,1);
         this.formItem.productPic = '';
       },
-
       deleteShowImg2(item,index){
         if(this.formItem.productDesc.split(',').length <= this.imageMinLimit){
             this.$warning(operatorError,'图片数量不得少于['+this.imageMinLimit+']张');
