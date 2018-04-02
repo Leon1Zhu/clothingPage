@@ -150,9 +150,7 @@
           let timer =false;
           window.onresize = function(){
             clearTimeout(timer);
-            console.log(1111)
             timer = setTimeout(function() {
-                console.log('函数防抖')
               that.resizeHeight();
             },300)
 
